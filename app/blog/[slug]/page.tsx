@@ -65,8 +65,8 @@ export default async function BlogDetail({ params }: Props) {
     if (!blog) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
-                <h1 className="text-2xl font-bold text-white">Artikel Tidak Ditemukan</h1>
-                <Link href="/blog" className="text-amber-500 hover:underline">
+                <h1 className="text-2xl font-bold text-text-main">Artikel Tidak Ditemukan</h1>
+                <Link href="/blog" className="text-brand-blue hover:underline">
                     Kembali ke Blog
                 </Link>
             </div>
@@ -92,47 +92,48 @@ export default async function BlogDetail({ params }: Props) {
                 {/* Back Button */}
                 <Link
                     href="/blog"
-                    className="inline-flex items-center text-sm font-semibold text-neutral-450 hover:text-amber-500 transition-colors group"
+                    className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
                     Kembali ke Blog
                 </Link>
 
                 {/* Article Header */}
-                <div className="space-y-4">
+                <div className="space-y-4 text-left">
                     {blog.category && (
-                        <span className="px-3 py-1 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <span className="inline-block px-3 py-1 bg-brand-blue/10 text-brand-blue border border-brand-blue/20 rounded-full text-xs font-bold uppercase tracking-wider">
                             {blog.category.name}
                         </span>
                     )}
-                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight">
+                    <h1 className="text-3xl md:text-5xl font-black text-text-main tracking-tight leading-tight">
                         {blog.title}
                     </h1>
                     
-                    <div className="flex flex-wrap items-center gap-6 text-sm text-neutral-500 pt-2 border-b border-neutral-900 pb-6">
+                    <div className="flex flex-wrap items-center gap-6 text-sm text-text-gray pt-2 border-b border-glass-border pb-6">
                         <div className="flex items-center space-x-2">
-                            <User className="w-4 h-4 text-amber-500" />
+                            <User className="w-4 h-4 text-brand-blue" />
                             <span>Oleh Admin</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <Calendar className="w-4 h-4 text-amber-500" />
+                            <Calendar className="w-4 h-4 text-brand-blue" />
                             <span>{formatDate(blog.created_at)}</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Article Image Cover */}
-                <div className="relative aspect-[16/9] bg-neutral-900 border border-neutral-850 rounded-3xl overflow-hidden flex items-center justify-center">
+                <div className="relative aspect-[16/9] bg-glass-bg border border-glass-border rounded-3xl overflow-hidden flex items-center justify-center shadow-lg">
                     {blog.image ? (
                         <Image
                             src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${blog.image}`}
                             alt={blog.title}
                             fill
+                            unoptimized
                             className="object-cover"
                             priority
                         />
                     ) : (
-                        <div className="flex flex-col items-center justify-center space-y-2 text-neutral-700">
+                        <div className="flex flex-col items-center justify-center space-y-2 text-text-muted">
                             <Share2 className="w-12 h-12" />
                             <span className="text-xs font-semibold uppercase tracking-wider">Showcase Image Cover</span>
                         </div>
@@ -141,14 +142,14 @@ export default async function BlogDetail({ params }: Props) {
 
                 {/* Main Content (Rich Text) */}
                 <article 
-                    className="prose prose-invert prose-amber max-w-none text-neutral-300 leading-relaxed space-y-6 text-sm md:text-base"
+                    className="prose prose-blue dark:prose-invert max-w-none text-text-main leading-relaxed space-y-6 text-sm md:text-base text-left"
                     dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
 
                 {/* Social Share Buttons */}
-                <div className="border-t border-b border-neutral-900 py-6 flex items-center justify-between gap-4">
-                    <span className="text-sm font-bold text-white flex items-center space-x-2">
-                        <Share2 className="w-4 h-4 text-amber-500" />
+                <div className="border-t border-b border-glass-border py-6 flex items-center justify-between gap-4">
+                    <span className="text-sm font-bold text-text-main flex items-center space-x-2">
+                        <Share2 className="w-4 h-4 text-brand-blue" />
                         <span>Bagikan Artikel</span>
                     </span>
                     <div className="flex items-center space-x-3">
@@ -156,7 +157,7 @@ export default async function BlogDetail({ params }: Props) {
                             href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 bg-neutral-900 hover:text-amber-500 rounded-lg transition-colors"
+                            className="p-2 bg-glass-bg border border-glass-border text-text-main hover:text-brand-blue hover:border-brand-blue/30 rounded-lg transition-colors"
                         >
                             <Facebook className="w-4 h-4" />
                         </a>
@@ -164,7 +165,7 @@ export default async function BlogDetail({ params }: Props) {
                             href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 bg-neutral-900 hover:text-amber-500 rounded-lg transition-colors"
+                            className="p-2 bg-glass-bg border border-glass-border text-text-main hover:text-brand-blue hover:border-brand-blue/30 rounded-lg transition-colors"
                         >
                             <Twitter className="w-4 h-4" />
                         </a>
@@ -172,7 +173,7 @@ export default async function BlogDetail({ params }: Props) {
                             href={`https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}&title=${shareTitle}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 bg-neutral-900 hover:text-amber-500 rounded-lg transition-colors"
+                            className="p-2 bg-glass-bg border border-glass-border text-text-main hover:text-brand-blue hover:border-brand-blue/30 rounded-lg transition-colors"
                         >
                             <Linkedin className="w-4 h-4" />
                         </a>

@@ -23,8 +23,8 @@ export default async function JobDetail({ params }: Props) {
     if (!job) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
-                <h1 className="text-2xl font-bold text-white">Lowongan Kerja Tidak Ditemukan</h1>
-                <Link href="/career" className="text-amber-500 hover:underline">
+                <h1 className="text-2xl font-bold text-text-main">Lowongan Kerja Tidak Ditemukan</h1>
+                <Link href="/career" className="text-brand-blue hover:underline">
                     Kembali ke Karir
                 </Link>
             </div>
@@ -38,7 +38,7 @@ export default async function JobDetail({ params }: Props) {
                 {/* Back Button */}
                 <Link
                     href="/career"
-                    className="inline-flex items-center text-sm font-semibold text-neutral-450 hover:text-amber-500 transition-colors group"
+                    className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
                     Kembali ke Karir
@@ -47,32 +47,32 @@ export default async function JobDetail({ params }: Props) {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
                     
                     {/* Job Details Card */}
-                    <div className="lg:col-span-2 space-y-8">
+                    <div className="lg:col-span-2 space-y-8 text-left">
                         <div className="space-y-4">
-                            <span className="px-2.5 py-0.5 bg-amber-500/10 text-amber-500 text-xs font-bold rounded uppercase tracking-wider">
+                            <span className="inline-block px-2.5 py-0.5 bg-brand-blue/10 text-brand-blue text-xs font-bold rounded uppercase tracking-wider">
                                 {job.department || 'General'}
                             </span>
-                            <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight">
+                            <h1 className="text-3xl md:text-5xl font-black text-text-main tracking-tight leading-tight">
                                 {job.title}
                             </h1>
                             
-                            <div className="flex flex-wrap items-center gap-6 text-sm text-neutral-500 pt-2">
+                            <div className="flex flex-wrap items-center gap-6 text-sm text-text-gray pt-2">
                                 <div className="flex items-center space-x-1.5">
-                                    <MapPin className="w-4 h-4 text-amber-500" />
+                                    <MapPin className="w-4 h-4 text-brand-blue" />
                                     <span>{job.location}</span>
                                 </div>
                                 <div className="flex items-center space-x-1.5">
-                                    <Clock className="w-4 h-4 text-amber-500" />
+                                    <Clock className="w-4 h-4 text-brand-blue" />
                                     <span>{job.type}</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Job Description */}
-                        <div className="space-y-4 border-t border-neutral-900 pt-8">
-                            <h3 className="text-xl font-bold text-white">Deskripsi Pekerjaan</h3>
+                        <div className="space-y-4 border-t border-glass-border pt-8">
+                            <h3 className="text-xl font-bold text-text-main">Deskripsi Pekerjaan</h3>
                             <div 
-                                className="prose prose-invert prose-sm text-neutral-400 leading-relaxed space-y-3"
+                                className="prose dark:prose-invert prose-sm text-text-gray leading-relaxed space-y-3"
                                 dangerouslySetInnerHTML={{ __html: job.description }}
                             />
                         </div>
@@ -80,9 +80,9 @@ export default async function JobDetail({ params }: Props) {
                         {/* Job Requirements */}
                         {job.requirements && (
                             <div className="space-y-4">
-                                <h3 className="text-xl font-bold text-white">Persyaratan Kualifikasi</h3>
+                                <h3 className="text-xl font-bold text-text-main">Persyaratan Kualifikasi</h3>
                                 <div 
-                                    className="prose prose-invert prose-sm text-neutral-400 leading-relaxed space-y-3"
+                                    className="prose dark:prose-invert prose-sm text-text-gray leading-relaxed space-y-3"
                                     dangerouslySetInnerHTML={{ __html: job.requirements }}
                                 />
                             </div>

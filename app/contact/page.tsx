@@ -1,7 +1,8 @@
 import React from 'react';
 import ContactForm from '../../components/ContactForm';
-import { Mail, Phone, MapPin, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import { api, CompanySetting } from '../../lib/api';
+import SpotlightCard from '../../components/SpotlightCard';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
@@ -25,10 +26,10 @@ export default async function ContactPage() {
                 
                 {/* Header */}
                 <div className="text-center space-y-4 max-w-2xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white">
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main">
                         Hubungi Kami
                     </h1>
-                    <p className="text-lg md:text-xl text-neutral-400 font-medium">
+                    <p className="text-lg md:text-xl text-text-muted font-medium">
                         Diskusikan kebutuhan proyek Anda langsung dengan tim konsultan senior kami.
                     </p>
                 </div>
@@ -37,45 +38,45 @@ export default async function ContactPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                     
                     {/* Left Column: Info */}
-                    <div className="space-y-8 lg:sticky lg:top-32">
+                    <div className="space-y-8 lg:sticky lg:top-32 text-left">
                         <div className="space-y-4">
-                            <h2 className="text-xl font-bold text-white">Hub Info & Kantor</h2>
-                            <p className="text-neutral-400 leading-relaxed">
+                            <h2 className="text-2xl font-bold text-text-main">Hub Info & Kantor</h2>
+                            <p className="text-text-gray leading-relaxed">
                                 Kami siap melayani konsultasi digital dalam bidang pengembangan aplikasi, strategi pertumbuhan brand, setup VPS cloud hosting, dan in-house bootcamps.
                             </p>
                         </div>
 
                         {/* Contact details cards */}
                         <div className="space-y-4 text-sm font-medium">
-                            <div className="flex items-center space-x-4 p-5 bg-neutral-900 border border-neutral-800 rounded-2xl">
-                                <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                            <SpotlightCard className="flex items-center space-x-4 p-5">
+                                <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue">
                                     <Mail className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <div className="text-xs text-neutral-500 font-bold uppercase tracking-wider">Email Official</div>
-                                    <div className="text-white text-base font-semibold">{settings.email}</div>
+                                    <div className="text-xs text-text-muted font-bold uppercase tracking-wider text-left">Email Official</div>
+                                    <div className="text-text-main text-base font-semibold text-left">{settings.email}</div>
                                 </div>
-                            </div>
+                            </SpotlightCard>
 
-                            <div className="flex items-center space-x-4 p-5 bg-neutral-900 border border-neutral-800 rounded-2xl">
-                                <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                            <SpotlightCard className="flex items-center space-x-4 p-5">
+                                <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue">
                                     <Phone className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <div className="text-xs text-neutral-500 font-bold uppercase tracking-wider">Nomor WhatsApp</div>
-                                    <div className="text-white text-base font-semibold">+{settings.whatsapp}</div>
+                                    <div className="text-xs text-text-muted font-bold uppercase tracking-wider text-left">Nomor WhatsApp</div>
+                                    <div className="text-text-main text-base font-semibold text-left">+{settings.whatsapp}</div>
                                 </div>
-                            </div>
+                            </SpotlightCard>
 
-                            <div className="flex items-center space-x-4 p-5 bg-neutral-900 border border-neutral-800 rounded-2xl">
-                                <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                            <SpotlightCard className="flex items-center space-x-4 p-5">
+                                <div className="w-10 h-10 rounded-xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue">
                                     <MapPin className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <div className="text-xs text-neutral-500 font-bold uppercase tracking-wider">Alamat Kantor</div>
-                                    <div className="text-white text-sm leading-relaxed font-semibold">{settings.address}</div>
+                                    <div className="text-xs text-text-muted font-bold uppercase tracking-wider text-left">Alamat Kantor</div>
+                                    <div className="text-text-main text-sm leading-relaxed font-semibold text-left">{settings.address}</div>
                                 </div>
-                            </div>
+                            </SpotlightCard>
                         </div>
                     </div>
 

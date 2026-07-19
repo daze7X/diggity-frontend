@@ -24,6 +24,15 @@ export interface CompanySetting {
     address: string;
     instagram_url?: string;
     linkedin_url?: string;
+    company_pt_name?: string;
+    company_nib?: string;
+    company_kbli?: string;
+    philosophy_build?: string;
+    philosophy_grow?: string;
+    philosophy_scale?: string;
+    philosophy_empower?: string;
+    partner_logos?: string[];
+    history_timeline?: Array<{ year: string; title: string; desc: string }>;
 }
 
 export interface Category {

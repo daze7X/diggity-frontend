@@ -2,63 +2,29 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Portfolio, Category } from '../lib/api';
+import { Portfolio } from '../lib/api';
 import SpotlightCard from './SpotlightCard';
 import { Code, ArrowRight } from 'lucide-react';
 
-interface PortfolioListProps {
+interface HomePortfoliosProps {
     portfolios: Portfolio[];
-    categories: Category[];
 }
 
-export default function PortfolioList({ portfolios, categories }: PortfolioListProps) {
-    const [activeCategory, setActiveCategory] = useState<string>('All');
+export default function HomePortfolios({ portfolios }: HomePortfoliosProps) {
     const [selectedProject, setSelectedProject] = useState<Portfolio | null>(null);
 
-    const filteredPortfolios = activeCategory === 'All'
-        ? portfolios
-        : portfolios.filter((p) => p.category?.name === activeCategory);
-
     return (
-        <div className="space-y-12">
-            {/* Filter Buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-3">
-                <button
-                    onClick={() => setActiveCategory('All')}
-                    className={`px-5 py-2 text-sm font-semibold rounded-full transition-all border backdrop-blur-md cursor-pointer ${
-                        activeCategory === 'All'
-                            ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/15'
-                            : 'bg-glass-bg text-text-gray border-glass-border hover:text-brand-blue hover:border-brand-blue/30'
-                    }`}
-                >
-                    Semua
-                </button>
-                {categories.map((cat) => (
-                    <button
-                        key={cat.id}
-                        onClick={() => setActiveCategory(cat.name)}
-                        className={`px-5 py-2 text-sm font-semibold rounded-full transition-all border backdrop-blur-md cursor-pointer ${
-                            activeCategory === cat.name
-                                ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/15'
-                                : 'bg-glass-bg text-text-gray border-glass-border hover:text-brand-blue hover:border-brand-blue/30'
-                        }`}
-                    >
-                        {cat.name}
-                    </button>
-                ))}
-            </div>
-
-            {/* Portfolios Grid */}
+        <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {filteredPortfolios.length > 0 ? (
-                    filteredPortfolios.map((portfolio, index) => (
+                {portfolios.length > 0 ? (
+                    portfolios.map((portfolio, index) => (
                         <div
                             key={portfolio.id}
                             onClick={() => setSelectedProject(portfolio)}
-                            className="cursor-pointer text-left"
+                            className="cursor-pointer"
                         >
                             <SpotlightCard className="flex flex-col h-full">
-                                <div className="relative aspect-[16/10] bg-neutral-950/10 dark:bg-neutral-950/40 flex items-center justify-center border-b border-glass-border overflow-hidden">
+                                <div className="relative aspect-[16/10] bg-neutral-950 flex items-center justify-center border-b border-glass-border overflow-hidden">
                                     {portfolio.image ? (
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${portfolio.image}`}
@@ -81,19 +47,15 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
                                     )}
                                 </div>
                                 <div className="p-6 space-y-4 flex-grow flex flex-col justify-between">
-                                    <div className="space-y-3">
-                                        <div className="flex justify-between items-center text-xs text-text-muted font-bold uppercase tracking-wider">
-                                            <span>Client: {portfolio.client || 'N/A'}</span>
-                                            <span>Durasi: {portfolio.duration || 'N/A'}</span>
-                                        </div>
-                                        <h3 className="text-lg font-bold text-text-main group-hover:text-brand-blue transition-colors">
+                                    <div className="space-y-2">
+                                        <h4 className="text-lg font-bold text-text-main group-hover:text-brand-blue transition-colors">
                                             {portfolio.title}
-                                        </h3>
+                                        </h4>
                                         <p className="text-sm text-text-gray line-clamp-2 leading-relaxed">
                                             {portfolio.problem}
                                         </p>
                                     </div>
-                                    <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest pt-4 border-t border-glass-border group-hover:translate-x-1 transition-transform">
+                                    <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest pt-2 group-hover:translate-x-1 transition-transform border-t border-glass-border">
                                         Baca Studi Kasus
                                         <ArrowRight className="ml-1 w-3.5 h-3.5" />
                                     </div>
@@ -102,8 +64,8 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
                         </div>
                     ))
                 ) : (
-                    <div className="col-span-full text-center text-text-muted py-20">
-                        Belum ada portofolio di kategori ini.
+                    <div className="col-span-full text-center text-text-muted py-10">
+                        Belum ada data portofolio di database.
                     </div>
                 )}
             </div>
@@ -177,6 +139,6 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 }

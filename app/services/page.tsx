@@ -1,153 +1,102 @@
 import React from 'react';
-import Link from 'next/link';
-import { api, Service } from '../../lib/api';
-import { 
-    Code, 
-    Smartphone, 
-    Palette, 
-    Search, 
-    TrendingUp, 
-    Server, 
-    GraduationCap,
-    ArrowRight,
-    Terminal,
-    Target,
-    Layers,
-    Cpu
-} from 'lucide-react';
+import SpotlightCard from '../../components/SpotlightCard';
 
-const iconMap: Record<string, React.ComponentType<any>> = {
-    code: Code,
-    smartphone: Smartphone,
-    palette: Palette,
-    search: Search,
-    'trending-up': TrendingUp,
-    server: Server,
-    'graduation-cap': GraduationCap,
-};
-
-const categoryIcons: Record<string, React.ComponentType<any>> = {
-    'App Builder Squad': Terminal,
-    'Brand Growth Division': Target,
-    'Cloud Service Hub': Cpu,
-    'Digital Skill Lab': Layers,
-};
-
-export const revalidate = 60; // Cache data for 60 seconds (ISR)
-
-export default async function Services() {
-    let services: Service[] = [];
-    const groupedServices: Record<string, Service[]> = {};
-
-    try {
-        services = await api.getServices();
-        
-        // Group services by category name
-        services.forEach((service) => {
-            const catName = service.category?.name || 'Layanan Lain';
-            if (!groupedServices[catName]) {
-                groupedServices[catName] = [];
-            }
-            groupedServices[catName].push(service);
-        });
-    } catch (error) {
-        console.error('Error fetching services:', error);
-    }
-
-    const divisionsOrder = [
-        'App Builder Squad',
-        'Brand Growth Division',
-        'Cloud Service Hub',
-        'Digital Skill Lab',
-    ];
-
+export default function ServicesPage() {
     return (
-        <div className="relative pt-36 pb-20 md:pt-40 md:pb-28">
-            <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-24">
-                
-                {/* Header Section */}
-                <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white">
-                        Layanan & Divisi
+        <div className="relative pt-36 pb-20 md:pt-48 md:pb-28">
+            <section className="container max-w-7xl mx-auto px-6 md:px-8 text-center space-y-8">
+                <div className="hero space-y-4" style={{ padding: '40px 0 20px' }}>
+                    <span className="inline-flex items-center space-x-2 px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-semibold text-brand-blue">
+                        Layanan Kami
+                    </span>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight max-w-3xl mx-auto">
+                        Layanan Profesional <span className="text-brand-blue">Diggity</span>
                     </h1>
-                    <p className="text-lg md:text-xl text-neutral-400 font-medium">
-                        Keahlian terspesialisasi yang dirancang untuk mempercepat transformasi digital bisnis Anda.
+                    <p className="text-text-gray max-w-xl mx-auto font-medium text-sm md:text-base">
+                        Solusi modular terintegrasi yang disesuaikan untuk skala bisnis Anda.
                     </p>
                 </div>
 
-                {/* Services Groups */}
-                <div className="space-y-20">
-                    {divisionsOrder.map((divName) => {
-                        const divisionServices = groupedServices[divName] || [];
-                        const DivIcon = categoryIcons[divName] || Terminal;
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto pt-10 text-left">
+                    
+                    {/* App Builder Squad */}
+                    <SpotlightCard className="p-8 space-y-6">
+                        <span className="inline-block px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-bold text-brand-blue">
+                            APP BUILDER SQUAD
+                        </span>
+                        <div>
+                            <h3 className="text-xl font-bold text-text-main mb-2">Rekayasa Perangkat Lunak</h3>
+                            <p className="text-sm text-text-gray mb-6 leading-relaxed">
+                                Membangun produk digital berspesifikasi tinggi dengan kode bersih dan arsitektur modern.
+                            </p>
+                        </div>
+                        <ul className="text-sm text-text-gray space-y-3 list-none">
+                            <li>✓ Website Development (Next.js / React)</li>
+                            <li>✓ Mobile Apps (iOS & Android Native/Hybrid)</li>
+                            <li>✓ Custom Software & ERP Systems</li>
+                            <li>✓ UI/UX Design & Figma Prototyping</li>
+                        </ul>
+                    </SpotlightCard>
 
-                        if (divisionServices.length === 0) return null;
+                    {/* Brand Growth Division */}
+                    <SpotlightCard className="p-8 space-y-6">
+                        <span className="inline-block px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-bold text-brand-blue">
+                            BRAND GROWTH DIVISION
+                        </span>
+                        <div>
+                            <h3 className="text-xl font-bold text-text-main mb-2">Optimasi & Pemasaran</h3>
+                            <p className="text-sm text-text-gray mb-6 leading-relaxed">
+                                Mengakselerasi jangkauan brand dan konversi penjualan secara bertarget di platform digital.
+                            </p>
+                        </div>
+                        <ul className="text-sm text-text-gray space-y-3 list-none">
+                            <li>✓ Search Engine Optimization (SEO Organik)</li>
+                            <li>✓ Google Ads & PPC Campaigns</li>
+                            <li>✓ Meta Ads (Facebook & Instagram Ads)</li>
+                            <li>✓ Social Media Management & Branding</li>
+                        </ul>
+                    </SpotlightCard>
 
-                        return (
-                            <section
-                                key={divName}
-                                className="bg-neutral-900/30 border border-neutral-900 rounded-3xl p-8 md:p-12 space-y-8 scroll-mt-24"
-                            >
-                                {/* Division Title */}
-                                <div className="flex items-center space-x-4 border-b border-neutral-850 pb-6">
-                                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
-                                        <DivIcon className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <h2 className="text-2xl font-black text-white">{divName}</h2>
-                                        <p className="text-xs text-neutral-500 font-bold uppercase tracking-wider mt-0.5">Divisi Khusus Diggity</p>
-                                    </div>
-                                </div>
+                    {/* Cloud Service Hub */}
+                    <SpotlightCard className="p-8 space-y-6">
+                        <span className="inline-block px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-bold text-brand-blue">
+                            CLOUD SERVICE HUB
+                        </span>
+                        <div>
+                            <h3 className="text-xl font-bold text-text-main mb-2">Infrastruktur & Cloud</h3>
+                            <p className="text-sm text-text-gray mb-6 leading-relaxed">
+                                Layanan pengelolaan server cloud yang aman, cepat, dan selalu dapat diandalkan 24/7.
+                            </p>
+                        </div>
+                        <ul className="text-sm text-text-gray space-y-3 list-none">
+                            <li>✓ Premium VPS & Cloud Server Hosting</li>
+                            <li>✓ Domain & Secure Business Email Setup</li>
+                            <li>✓ Server Monitoring & Maintenance</li>
+                            <li>✓ Cloudflare Integration & SSL Security</li>
+                        </ul>
+                    </SpotlightCard>
 
-                                {/* Cards Grid */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    {divisionServices.map((service) => {
-                                        const ServiceIcon = iconMap[service.icon || 'code'] || Code;
-                                        return (
-                                            <div
-                                                key={service.id}
-                                                className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl space-y-4 flex flex-col justify-between hover:border-neutral-750 transition-colors"
-                                            >
-                                                <div className="space-y-4">
-                                                    <div className="w-10 h-10 rounded-lg bg-neutral-800 flex items-center justify-center text-amber-500">
-                                                        <ServiceIcon className="w-5 h-5" />
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <h3 className="text-lg font-bold text-white">{service.name}</h3>
-                                                        <p className="text-sm text-neutral-550 leading-relaxed">
-                                                            {service.description}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </section>
-                        );
-                    })}
+                    {/* Digital Skill Lab */}
+                    <SpotlightCard className="p-8 space-y-6">
+                        <span className="inline-block px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-bold text-brand-blue">
+                            DIGITAL SKILL LAB
+                        </span>
+                        <div>
+                            <h3 className="text-xl font-bold text-text-main mb-2">Pelatihan & Edukasi</h3>
+                            <p className="text-sm text-text-gray mb-6 leading-relaxed">
+                                Meningkatkan kompetensi teknis tim internal perusahaan Anda agar siap bersaing.
+                            </p>
+                        </div>
+                        <ul className="text-sm text-text-gray space-y-3 list-none">
+                            <li>✓ Corporate IT Training & Bootcamps</li>
+                            <li>✓ Custom UI/UX & Web Dev Workshops</li>
+                            <li>✓ Digital Marketing Masterclass</li>
+                            <li>✓ IT Team Upskilling & Consultation</li>
+                        </ul>
+                    </SpotlightCard>
+
                 </div>
-
-                {/* CTA Card */}
-                <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-3xl p-8 md:p-12 text-center text-neutral-950 space-y-6 max-w-4xl mx-auto shadow-2xl shadow-amber-500/10">
-                    <h3 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">
-                        Punya Kebutuhan Digital yang Spesifik?
-                    </h3>
-                    <p className="text-base md:text-lg font-medium text-neutral-900 max-w-2xl mx-auto">
-                        Konsultasikan proyek Anda dengan arsitek IT dan tim marketing senior kami hari ini. Dapatkan estimasi anggaran dan roadmap pengerjaan gratis.
-                    </p>
-                    <div className="pt-4">
-                        <Link
-                            href="/#contact"
-                            className="inline-flex items-center px-8 py-4 bg-neutral-950 text-white font-bold rounded-xl hover:bg-neutral-900 transition-colors group"
-                        >
-                            Hubungi Pakar Kami
-                            <ArrowRight className="ml-2 w-4.5 h-4.5 transition-transform group-hover:translate-x-0.5" />
-                        </Link>
-                    </div>
-                </div>
-
-            </div>
+            </section>
         </div>
     );
 }

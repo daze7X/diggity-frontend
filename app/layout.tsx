@@ -26,10 +26,33 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-neutral-950 text-white`}
+      lang="id"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased transition-colors duration-300`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const currentTheme = localStorage.getItem('theme') || 'light';
+                if (currentTheme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.classList.remove('light');
+                } else {
+                  document.documentElement.classList.add('light');
+                  document.documentElement.classList.remove('dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col text-text-main transition-colors duration-300">
+        {/* Glowing background blobs for premium glassmorphic depth */}
+        <div className="bg-blob-1" />
+        <div className="bg-blob-2" />
+
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />

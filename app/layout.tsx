@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import InteractiveSpotlight from "../components/InteractiveSpotlight";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,6 +53,9 @@ export default function RootLayout({
         {/* Glowing background blobs for premium glassmorphic depth */}
         <div className="bg-blob-1" />
         <div className="bg-blob-2" />
+
+        {/* Global interactive mouse spotlight */}
+        <InteractiveSpotlight />
 
         <Navbar />
         <main className="flex-grow">{children}</main>

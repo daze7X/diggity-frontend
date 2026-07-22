@@ -1,7 +1,6 @@
 import React from 'react';
 import { api, Category, Portfolio } from '../../lib/api';
 import PortfolioList from '../../components/PortfolioList';
-import { Sparkles } from 'lucide-react';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
@@ -30,10 +29,6 @@ export default async function PortfolioPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <span className="inline-flex items-center space-x-2 px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-semibold text-brand-blue">
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>TRANSFORMASI DIGITAL</span>
-                    </span>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
                         Portfolio Kami
                     </h1>

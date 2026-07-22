@@ -51,56 +51,61 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
             {/* Portfolios Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {filteredPortfolios.length > 0 ? (
-                    filteredPortfolios.map((portfolio, index) => (
-                        <div
-                            key={portfolio.id}
-                            onClick={() => setSelectedProject(portfolio)}
-                            className="cursor-pointer text-left"
-                        >
-                            <SpotlightCard className="flex flex-col h-full">
-                                <div className="relative aspect-[16/10] bg-neutral-950/10 dark:bg-neutral-950/40 flex items-center justify-center border-b border-glass-border overflow-hidden">
-                                    {portfolio.image ? (
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${portfolio.image}`}
-                                            alt={portfolio.title}
-                                            fill
-                                            unoptimized
-                                            priority={index === 0}
-                                            className="object-cover group-hover:scale-[1.05] transition-transform duration-500"
-                                        />
-                                    ) : (
-                                        <div className="flex flex-col items-center justify-center space-y-2 text-text-muted">
-                                            <Code className="w-10 h-10" />
-                                            <span className="text-xs font-semibold uppercase tracking-wider">Project Showcase</span>
-                                        </div>
-                                    )}
-                                    {portfolio.category && (
-                                        <span className="absolute top-4 left-4 px-3 py-1 bg-brand-bg/90 backdrop-blur border border-glass-border rounded-full text-xs font-bold text-brand-blue">
-                                            {portfolio.category.name}
-                                        </span>
-                                    )}
-                                </div>
-                                <div className="p-6 space-y-4 flex-grow flex flex-col justify-between">
-                                    <div className="space-y-3">
-                                        <div className="flex justify-between items-center text-xs text-text-muted font-bold uppercase tracking-wider">
-                                            <span>Client: {portfolio.client || 'N/A'}</span>
-                                            <span>Durasi: {portfolio.duration || 'N/A'}</span>
-                                        </div>
-                                        <h3 className="text-lg font-bold text-text-main group-hover:text-brand-blue transition-colors">
-                                            {portfolio.title}
-                                        </h3>
-                                        <p className="text-sm text-text-gray line-clamp-2 leading-relaxed">
-                                            {portfolio.problem}
-                                        </p>
+                    filteredPortfolios.map((portfolio, index) => {
+                        const isWide = index % 3 === 0;
+                        return (
+                            <div
+                                key={portfolio.id}
+                                onClick={() => setSelectedProject(portfolio)}
+                                className={`cursor-pointer text-left group ${
+                                    isWide ? 'md:col-span-2' : 'md:col-span-1'
+                                }`}
+                            >
+                                <SpotlightCard className="flex flex-col h-full border border-glass-border transition-all duration-300 hover:scale-[1.01] hover:border-brand-blue/30">
+                                    <div className="relative aspect-[16/10] bg-neutral-950/10 dark:bg-neutral-950/40 flex items-center justify-center border-b border-glass-border overflow-hidden">
+                                        {portfolio.image ? (
+                                            <Image
+                                                src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${portfolio.image}`}
+                                                alt={portfolio.title}
+                                                fill
+                                                unoptimized
+                                                priority={index === 0}
+                                                className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                                            />
+                                        ) : (
+                                            <div className="flex flex-col items-center justify-center space-y-2 text-text-muted">
+                                                <Code className="w-10 h-10" />
+                                                <span className="text-xs font-semibold uppercase tracking-wider">Project Showcase</span>
+                                            </div>
+                                        )}
+                                        {portfolio.category && (
+                                            <span className="absolute top-4 left-4 px-2.5 py-1 bg-brand-bg/95 backdrop-blur border border-glass-border rounded-md text-[10px] font-bold uppercase tracking-wider text-brand-blue">
+                                                {portfolio.category.name}
+                                            </span>
+                                        )}
                                     </div>
-                                    <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest pt-4 border-t border-glass-border group-hover:translate-x-1 transition-transform">
-                                        Baca Studi Kasus
-                                        <ArrowRight className="ml-1 w-3.5 h-3.5" />
+                                    <div className="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between items-center text-xs text-text-muted font-bold uppercase tracking-wider">
+                                                <span>Client: {portfolio.client || 'N/A'}</span>
+                                                <span>Durasi: {portfolio.duration || 'N/A'}</span>
+                                            </div>
+                                            <h3 className="text-lg font-bold text-text-main group-hover:text-brand-blue transition-colors">
+                                                {portfolio.title}
+                                            </h3>
+                                            <p className="text-sm text-text-gray line-clamp-2 leading-relaxed">
+                                                {portfolio.problem}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest pt-4 border-t border-glass-border group-hover:translate-x-1 transition-transform">
+                                            Baca Studi Kasus
+                                            <ArrowRight className="ml-1 w-3.5 h-3.5" />
+                                        </div>
                                     </div>
-                                </div>
-                            </SpotlightCard>
-                        </div>
-                    ))
+                                </SpotlightCard>
+                            </div>
+                        );
+                    })
                 ) : (
                     <div className="col-span-full text-center text-text-muted py-20">
                         Belum ada portofolio di kategori ini.
@@ -128,7 +133,7 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
                         
                         <div className="space-y-6 text-left">
                             <div>
-                                <span className="inline-block px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-bold text-brand-blue mb-2">
+                                <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block mb-2">
                                     Studi Kasus
                                 </span>
                                 <h3 className="text-2xl font-black text-text-main leading-tight">

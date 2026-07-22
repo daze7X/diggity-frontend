@@ -6,8 +6,7 @@ import {
     Award, 
     Users, 
     Compass,
-    FileText,
-    Sparkles
+    FileText
 } from 'lucide-react';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
@@ -61,10 +60,6 @@ export default async function About() {
                 
                 {/* 1. Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <span className="inline-flex items-center space-x-2 px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-semibold text-brand-blue">
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>KREATOR DIGITASI UTAMA</span>
-                    </span>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
                         Tentang Kami
                     </h1>
@@ -73,53 +68,86 @@ export default async function About() {
                     </p>
                 </div>
 
-                {/* 2. History & Philosophy */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div className="space-y-6 text-left">
-                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                            Sejarah & Filosofi
-                        </span>
-                        <h3 className="text-3xl font-extrabold text-text-main tracking-tight leading-tight">
-                            Build. Grow. Scale. <span className="text-brand-blue">Empower.</span>
-                        </h3>
-                        <p className="text-text-gray leading-relaxed text-sm md:text-base">
-                            Didirikan pada tahun 2018 di Tangerang, Diggity lahir dari visi untuk memberikan solusi digital berkualitas global bagi bisnis lokal. Kami meyakini filosofi pertumbuhan empat pilar kami:
-                        </p>
-                        <ul className="space-y-4">
-                            <li className="flex items-start space-x-3">
-                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center font-bold text-xs text-brand-blue">1</span>
-                                <p className="text-sm text-text-gray"><strong>Build:</strong> {buildDesc}</p>
-                            </li>
-                            <li className="flex items-start space-x-3">
-                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center font-bold text-xs text-brand-blue">2</span>
-                                <p className="text-sm text-text-gray"><strong>Grow:</strong> {growDesc}</p>
-                            </li>
-                            <li className="flex items-start space-x-3">
-                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center font-bold text-xs text-brand-blue">3</span>
-                                <p className="text-sm text-text-gray"><strong>Scale:</strong> {scaleDesc}</p>
-                            </li>
-                            <li className="flex items-start space-x-3">
-                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center font-bold text-xs text-brand-blue">4</span>
-                                <p className="text-sm text-text-gray"><strong>Empower:</strong> {empowerDesc}</p>
-                            </li>
-                        </ul>
+                {/* 2. History & Philosophy (Bento Grid Layout) */}
+                <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        {/* Card 1: Sejarah & Filosofi (Spans 3 columns) */}
+                        <SpotlightCard className="p-8 md:col-span-3 flex flex-col justify-between text-left space-y-6">
+                            <div className="space-y-4">
+                                <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
+                                    Sejarah & Filosofi
+                                </span>
+                                <h3 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight leading-tight">
+                                    Pilar Utama Rekayasa Digital Kami
+                                </h3>
+                                <p className="text-text-gray leading-relaxed text-sm md:text-base">
+                                    Didirikan pada tahun 2018 di Tangerang, Diggity lahir dari visi untuk memberikan solusi digital berkualitas global bagi bisnis lokal. Kami meyakini filosofi pertumbuhan terstruktur untuk membantu bisnis membangun fondasi teknis, mendominasi pasar, menskalakan kapasitas, dan melatih kemandirian internal.
+                                </p>
+                            </div>
+                            <div className="text-xs font-semibold text-text-muted">
+                                Tangerang, Indonesia • Est. 2018
+                            </div>
+                        </SpotlightCard>
+
+                        {/* Card 2: Legalitas (Spans 1 column) */}
+                        <SpotlightCard className="p-8 md:col-span-1 flex flex-col justify-between text-left space-y-4">
+                            <div className="space-y-2">
+                                <div className="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                    <FileText className="w-5 h-5" />
+                                </div>
+                                <h4 className="text-lg font-bold text-text-main">Legalitas</h4>
+                                <p className="text-xs text-text-gray leading-relaxed">
+                                    Operasional resmi di bawah badan hukum yang sah dan patuh hukum.
+                                </p>
+                            </div>
+                            <div className="border-t border-glass-border pt-4 space-y-2 text-[10px]">
+                                <div>
+                                    <span className="text-text-muted block">Nama Perusahaan:</span>
+                                    <span className="text-text-main font-bold">{ptName}</span>
+                                </div>
+                                <div>
+                                    <span className="text-text-muted block">NIB:</span>
+                                    <span className="text-text-main font-bold">{nib}</span>
+                                </div>
+                                <div>
+                                    <span className="text-text-muted block">Klasifikasi:</span>
+                                    <span className="text-text-main font-bold truncate block">{kbli}</span>
+                                </div>
+                            </div>
+                        </SpotlightCard>
+
+                        {/* Card 3: BUILD */}
+                        <SpotlightCard className="p-6 text-left flex flex-col justify-between min-h-[160px] md:col-span-1">
+                            <div className="space-y-2">
+                                <div className="text-lg font-bold text-brand-blue">01 / BUILD</div>
+                                <p className="text-xs text-text-gray leading-relaxed">{buildDesc}</p>
+                            </div>
+                        </SpotlightCard>
+
+                        {/* Card 4: GROW */}
+                        <SpotlightCard className="p-6 text-left flex flex-col justify-between min-h-[160px] md:col-span-1">
+                            <div className="space-y-2">
+                                <div className="text-lg font-bold text-brand-blue">02 / GROW</div>
+                                <p className="text-xs text-text-gray leading-relaxed">{growDesc}</p>
+                            </div>
+                        </SpotlightCard>
+
+                        {/* Card 5: SCALE */}
+                        <SpotlightCard className="p-6 text-left flex flex-col justify-between min-h-[160px] md:col-span-1">
+                            <div className="space-y-2">
+                                <div className="text-lg font-bold text-brand-blue">03 / SCALE</div>
+                                <p className="text-xs text-text-gray leading-relaxed">{scaleDesc}</p>
+                            </div>
+                        </SpotlightCard>
+
+                        {/* Card 6: EMPOWER */}
+                        <SpotlightCard className="p-6 text-left flex flex-col justify-between min-h-[160px] md:col-span-1">
+                            <div className="space-y-2">
+                                <div className="text-lg font-bold text-brand-blue">04 / EMPOWER</div>
+                                <p className="text-xs text-text-gray leading-relaxed">{empowerDesc}</p>
+                            </div>
+                        </SpotlightCard>
                     </div>
-                    
-                    {/* Visual Card (Spotlight Card) */}
-                    <SpotlightCard className="p-8 space-y-6 text-left">
-                        <div className="flex items-center space-x-3 text-brand-blue">
-                            <FileText className="w-8 h-8" />
-                            <h4 className="text-lg font-bold text-text-main">Legalitas Perusahaan</h4>
-                        </div>
-                        <p className="text-sm text-text-gray leading-relaxed">
-                            Diggity beroperasi secara resmi di bawah badan hukum yang sah. Kami berkomitmen menjalin kemitraan profesional yang patuh hukum, transparan, dan dapat dipertanggungjawabkan sepenuhnya.
-                        </p>
-                        <div className="border-t border-glass-border pt-4 space-y-2 text-xs">
-                            <div className="flex justify-between"><span className="text-text-muted">Nama Perusahaan:</span> <span className="text-text-main font-semibold">{ptName}</span></div>
-                            <div className="flex justify-between"><span className="text-text-muted">NIB:</span> <span className="text-text-main font-semibold">{nib}</span></div>
-                            <div className="flex justify-between"><span className="text-text-muted">Klasifikasi:</span> <span className="text-text-main font-semibold">{kbli}</span></div>
-                        </div>
-                    </SpotlightCard>
                 </div>
 
                 {/* 3. Company Values */}

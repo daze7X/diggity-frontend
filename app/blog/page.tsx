@@ -1,7 +1,6 @@
 import React from 'react';
 import { api, Category, Blog } from '../../lib/api';
 import BlogList from '../../components/BlogList';
-import { Sparkles } from 'lucide-react';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
@@ -30,10 +29,6 @@ export default async function BlogPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <span className="inline-flex items-center space-x-2 px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-semibold text-brand-blue">
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>ARTIKEL & BLOG</span>
-                    </span>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
                         Wawasan & Edukasi
                     </h1>

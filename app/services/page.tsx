@@ -43,186 +43,194 @@ export default function ServicesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     
                     {/* Card 1: App Builder Squad (Spans 2 columns) */}
-                    <SpotlightCard className="p-8 md:col-span-2 flex flex-col justify-between min-h-[300px] text-left relative overflow-hidden border border-glass-border">
-                        <div className="space-y-4 z-10">
-                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
-                                APP BUILDER SQUAD
-                            </span>
-                            <h3 className="text-2xl font-bold text-text-main">Rekayasa Perangkat Lunak</h3>
-                            <p className="text-sm text-text-gray leading-relaxed max-w-md">
-                                Membangun produk digital berspesifikasi tinggi dengan arsitektur kode sumber bersih, cepat, terukur, dan aman.
-                            </p>
-                            <ul className="text-xs text-text-gray grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 list-none font-medium">
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                                    <span>Website & Web Apps (Next.js / React)</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                                    <span>Mobile Apps (iOS & Android Native)</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                                    <span>Custom Software & ERP Systems</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                                    <span>UI/UX Figma Design & Wireframing</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        {/* Interactive Tech Badge stack */}
-                        <div className="pt-6 border-t border-glass-border/60 z-10">
-                            <span className="text-[10px] uppercase font-bold tracking-wider text-text-muted block mb-3">Teknologi Utama</span>
-                            <div className="flex flex-wrap gap-2">
-                                {techStack.map((tech, i) => (
-                                    <span key={i} className="px-2.5 py-1 bg-glass-bg border border-glass-border rounded-md text-[10px] font-mono font-bold text-text-main">
-                                        {tech}
-                                    </span>
-                                ))}
+                    <Link href="/services/website-development" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                        <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left relative overflow-hidden border border-glass-border h-full group-hover:border-brand-blue/30">
+                            <div className="space-y-4 z-10">
+                                <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
+                                    APP BUILDER SQUAD
+                                </span>
+                                <h3 className="text-2xl font-bold text-text-main group-hover:text-brand-blue transition-colors">Rekayasa Perangkat Lunak</h3>
+                                <p className="text-sm text-text-gray leading-relaxed max-w-md">
+                                    Membangun produk digital berspesifikasi tinggi dengan arsitektur kode sumber bersih, cepat, terukur, dan aman.
+                                </p>
+                                <ul className="text-xs text-text-gray grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 list-none font-medium">
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>Website & Web Apps (Next.js / React)</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>Mobile Apps (iOS & Android Native)</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>Custom Software & ERP Systems</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>UI/UX Figma Design & Wireframing</span>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                    </SpotlightCard>
+
+                            {/* Interactive Tech Badge stack */}
+                            <div className="pt-6 border-t border-glass-border/60 z-10">
+                                <span className="text-[10px] uppercase font-bold tracking-wider text-text-muted block mb-3">Teknologi Utama</span>
+                                <div className="flex flex-wrap gap-2">
+                                    {techStack.map((tech, i) => (
+                                        <span key={i} className="px-2.5 py-1 bg-glass-bg border border-glass-border rounded-md text-[10px] font-mono font-bold text-text-main">
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </SpotlightCard>
+                    </Link>
 
                     {/* Card 2: Brand Growth Division */}
-                    <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border">
-                        <div className="space-y-4">
-                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
-                                BRAND GROWTH DIVISION
-                            </span>
-                            <h3 className="text-xl font-bold text-text-main">Optimasi & Pemasaran</h3>
-                            <p className="text-xs text-text-gray leading-relaxed">
-                                Mengakselerasi jangkauan brand secara terarah untuk mendominasi peringkat pencarian organik dan melipatgandakan tingkat konversi penjualan.
-                            </p>
-                            <ul className="text-[11px] text-text-gray space-y-2 list-none font-medium">
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                                    <span>Search Engine Optimization (SEO)</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                                    <span>Google Ads & PPC Campaign</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                                    <span>Social Media Marketing & Strategy</span>
-                                </li>
-                            </ul>
-                        </div>
+                    <Link href="/services/search-engine-optimization" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                        <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
+                            <div className="space-y-4">
+                                <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
+                                    BRAND GROWTH DIVISION
+                                </span>
+                                <h3 className="text-xl font-bold text-text-main group-hover:text-brand-blue transition-colors">Optimasi & Pemasaran</h3>
+                                <p className="text-xs text-text-gray leading-relaxed">
+                                    Mengakselerasi jangkauan brand secara terarah untuk mendominasi peringkat pencarian organik dan melipatgandakan tingkat konversi penjualan.
+                                </p>
+                                <ul className="text-[11px] text-text-gray space-y-2 list-none font-medium">
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span>Search Engine Optimization (SEO)</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span>Google Ads & PPC Campaign</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span>Social Media Marketing & Strategy</span>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        {/* Visual Growth Metric mock */}
-                        <div className="p-4 bg-neutral-950/10 dark:bg-neutral-950/20 border border-glass-border rounded-xl space-y-2 mt-4">
-                            <div className="flex items-center justify-between text-[10px] font-bold text-text-muted">
-                                <span>PERFORMA KLIEN</span>
-                                <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
-                            </div>
-                            <div className="flex justify-between items-end">
-                                <div>
-                                    <div className="text-lg font-black text-text-main">+310%</div>
-                                    <div className="text-[9px] text-text-gray font-semibold">Trafik Organik</div>
+                            {/* Visual Growth Metric mock */}
+                            <div className="p-4 bg-neutral-950/10 dark:bg-neutral-950/20 border border-glass-border rounded-xl space-y-2 mt-4">
+                                <div className="flex items-center justify-between text-[10px] font-bold text-text-muted">
+                                    <span>PERFORMA KLIEN</span>
+                                    <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
                                 </div>
-                                <div className="text-right">
-                                    <div className="text-lg font-black text-emerald-500">4.8%</div>
-                                    <div className="text-[9px] text-text-gray font-semibold">Conversion Rate</div>
+                                <div className="flex justify-between items-end">
+                                    <div>
+                                        <div className="text-lg font-black text-text-main">+310%</div>
+                                        <div className="text-[9px] text-text-gray font-semibold">Trafik Organik</div>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="text-lg font-black text-emerald-500">4.8%</div>
+                                        <div className="text-[9px] text-text-gray font-semibold">Conversion Rate</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </SpotlightCard>
+                        </SpotlightCard>
+                    </Link>
 
                     {/* Card 3: Cloud Service Hub */}
-                    <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border">
-                        <div className="space-y-4">
-                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
-                                CLOUD SERVICE HUB
-                            </span>
-                            <h3 className="text-xl font-bold text-text-main">Infrastruktur & Cloud</h3>
-                            <p className="text-xs text-text-gray leading-relaxed">
-                                Penyediaan arsitektur cloud server tangguh berkecepatan tinggi yang aman dari serangan siber, dipantau penuh 24/7.
-                            </p>
-                            <ul className="text-[11px] text-text-gray space-y-2 list-none font-medium">
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                                    <span>Premium VPS & Dedicated Hosting</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                                    <span>Cloudflare CDN & SSL Integration</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                                    <span>Business Domain & Secure Mail</span>
-                                </li>
-                            </ul>
-                        </div>
+                    <Link href="/services/cloud-server-hosting" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                        <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
+                            <div className="space-y-4">
+                                <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
+                                    CLOUD SERVICE HUB
+                                </span>
+                                <h3 className="text-xl font-bold text-text-main group-hover:text-brand-blue transition-colors">Infrastruktur & Cloud</h3>
+                                <p className="text-xs text-text-gray leading-relaxed">
+                                    Penyediaan arsitektur cloud server tangguh berkecepatan tinggi yang aman dari serangan siber, dipantau penuh 24/7.
+                                </p>
+                                <ul className="text-[11px] text-text-gray space-y-2 list-none font-medium">
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span>Premium VPS & Dedicated Hosting</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span>Cloudflare CDN & SSL Integration</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span>Business Domain & Secure Mail</span>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        {/* Visual Server Status Cluster mock */}
-                        <div className="p-4 bg-neutral-950/10 dark:bg-neutral-950/20 border border-glass-border rounded-xl space-y-2.5 mt-4">
-                            <div className="flex items-center justify-between text-[10px] font-bold text-text-muted">
-                                <span>INFRASTRUCTURE STATUS</span>
-                                <Cloud className="w-3.5 h-3.5 text-brand-blue" />
-                            </div>
-                            <div className="space-y-1.5 text-[9px] font-mono">
-                                <div className="flex justify-between items-center">
-                                    <span className="text-text-gray">sg-primary-node:</span>
-                                    <span className="text-emerald-500 font-bold flex items-center space-x-1">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                        <span>ONLINE</span>
-                                    </span>
+                            {/* Visual Server Status Cluster mock */}
+                            <div className="p-4 bg-neutral-950/10 dark:bg-neutral-950/20 border border-glass-border rounded-xl space-y-2.5 mt-4">
+                                <div className="flex items-center justify-between text-[10px] font-bold text-text-muted">
+                                    <span>INFRASTRUCTURE STATUS</span>
+                                    <Cloud className="w-3.5 h-3.5 text-brand-blue" />
                                 </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-text-gray">hk-backup-node:</span>
-                                    <span className="text-emerald-500 font-bold flex items-center space-x-1">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                                        <span>STANDBY</span>
-                                    </span>
+                                <div className="space-y-1.5 text-[9px] font-mono">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-text-gray">sg-primary-node:</span>
+                                        <span className="text-emerald-500 font-bold flex items-center space-x-1">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                            <span>ONLINE</span>
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-text-gray">hk-backup-node:</span>
+                                        <span className="text-emerald-500 font-bold flex items-center space-x-1">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                            <span>STANDBY</span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </SpotlightCard>
+                        </SpotlightCard>
+                    </Link>
 
                     {/* Card 4: Digital Skill Lab (Spans 2 columns) */}
-                    <SpotlightCard className="p-8 md:col-span-2 flex flex-col justify-between min-h-[300px] text-left border border-glass-border">
-                        <div className="space-y-4">
-                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
-                                DIGITAL SKILL LAB
-                            </span>
-                            <h3 className="text-2xl font-bold text-text-main">Pelatihan & Edukasi Digital</h3>
-                            <p className="text-sm text-text-gray leading-relaxed max-w-md">
-                                Meningkatkan kompetensi teknis tim internal perusahaan Anda agar siap bersaing di tengah pesatnya perkembangan transformasi teknologi digital.
-                            </p>
-                            <ul className="text-xs text-text-gray grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 list-none font-medium">
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                                    <span>Corporate IT Training & Bootcamps</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                                    <span>Figma UI/UX & Design Workshops</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                                    <span>Custom Software Development Workshop</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                                    <span>Digital Marketing Masterclass & Analytics</span>
-                                </li>
-                            </ul>
-                        </div>
+                    <Link href="/services/corporate-training-bootcamp" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                        <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
+                            <div className="space-y-4">
+                                <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
+                                    DIGITAL SKILL LAB
+                                </span>
+                                <h3 className="text-2xl font-bold text-text-main group-hover:text-brand-blue transition-colors">Pelatihan & Edukasi Digital</h3>
+                                <p className="text-sm text-text-gray leading-relaxed max-w-md">
+                                    Meningkatkan kompetensi teknis tim internal perusahaan Anda agar siap bersaing di tengah pesatnya perkembangan transformasi teknologi digital.
+                                </p>
+                                <ul className="text-xs text-text-gray grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 list-none font-medium">
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>Corporate IT Training & Bootcamps</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>Figma UI/UX & Design Workshops</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>Custom Software Development Workshop</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>Digital Marketing Masterclass & Analytics</span>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        {/* Accreditation and Cert mock */}
-                        <div className="pt-6 border-t border-glass-border/60 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-4">
-                            <div>
-                                <span className="text-[10px] uppercase font-bold tracking-wider text-text-muted block mb-1">Kurikulum Standar Industri</span>
-                                <p className="text-[11px] text-text-gray font-medium">Sertifikat kelayakan kompetensi digital resmi pasca-pelatihan.</p>
+                            {/* Accreditation and Cert mock */}
+                            <div className="pt-6 border-t border-glass-border/60 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-4">
+                                <div>
+                                    <span className="text-[10px] uppercase font-bold tracking-wider text-text-muted block mb-1">Kurikulum Standar Industri</span>
+                                    <p className="text-[11px] text-text-gray font-medium">Sertifikat kelayakan kompetensi digital resmi pasca-pelatihan.</p>
+                                </div>
+                                <div className="flex items-center space-x-2 px-3 py-1.5 bg-brand-blue/5 border border-brand-blue/15 rounded-lg text-brand-blue text-[10px] font-bold">
+                                    <GraduationCap className="w-4 h-4" />
+                                    <span>Certified Digital Specialist</span>
+                                </div>
                             </div>
-                            <div className="flex items-center space-x-2 px-3 py-1.5 bg-brand-blue/5 border border-brand-blue/15 rounded-lg text-brand-blue text-[10px] font-bold">
-                                <GraduationCap className="w-4 h-4" />
-                                <span>Certified Digital Specialist</span>
-                            </div>
-                        </div>
-                    </SpotlightCard>
+                        </SpotlightCard>
+                    </Link>
                 </div>
 
                 {/* Call-to-Action (CTA) Section */}

@@ -38,6 +38,7 @@ export interface CompanySetting {
 export interface Category {
     id: number;
     name: string;
+    slug?: string;
 }
 
 export interface Service {
@@ -129,6 +130,7 @@ export const api = {
     getCompanySettings: (): Promise<CompanySetting> => fetchAPI('/company-settings'),
     
     getServices: (): Promise<Service[]> => fetchAPI('/services'),
+    getServiceBySlug: (slug: string): Promise<Service> => fetchAPI(`/services/${slug}`),
     
     getPortfolios: (): Promise<Portfolio[]> => fetchAPI('/portfolios'),
     getPortfolioBySlug: (slug: string): Promise<Portfolio> => fetchAPI(`/portfolios/${slug}`),

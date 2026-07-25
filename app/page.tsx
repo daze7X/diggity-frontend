@@ -236,20 +236,25 @@ export default async function Home() {
                             services.slice(0, 3).map((service: any) => {
                                 const IconComponent = iconMap[service.icon || 'code'] || Code;
                                 return (
-                                    <SpotlightCard
+                                    <Link
                                         key={service.id}
-                                        className="p-8 space-y-6 animate-fade-in"
+                                        href={`/services/${service.slug}`}
+                                        className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]"
                                     >
-                                        <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                            <IconComponent className="w-6 h-6" />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <h4 className="text-lg font-bold text-text-main">{service.name}</h4>
-                                            <p className="text-sm text-text-gray leading-relaxed">
-                                                {service.description}
-                                            </p>
-                                        </div>
-                                    </SpotlightCard>
+                                        <SpotlightCard
+                                            className="p-8 space-y-6 animate-fade-in h-full group-hover:border-brand-blue/30"
+                                        >
+                                            <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                                <IconComponent className="w-6 h-6" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <h4 className="text-lg font-bold text-text-main group-hover:text-brand-blue transition-colors">{service.name}</h4>
+                                                <p className="text-sm text-text-gray leading-relaxed">
+                                                    {service.description}
+                                                </p>
+                                            </div>
+                                        </SpotlightCard>
+                                    </Link>
                                 );
                             })
                         ) : (

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { api, Pricing, Faq } from '../../lib/api';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, X } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 import FaqAccordion from '../../components/FaqAccordion';
 
@@ -118,6 +118,95 @@ export default async function PricingPage() {
                         <Link href="/contact" className="text-brand-blue font-bold hover:underline inline-flex items-center">
                             Konsultasi Kustom <ArrowRight className="ml-1 w-3 h-3" />
                         </Link>
+                    </div>
+                </div>
+
+                {/* Comparison Table Section */}
+                <div className="space-y-12 max-w-5xl mx-auto">
+                    <div className="text-center space-y-4">
+                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Matriks Fitur</span>
+                        <h3 className="text-3xl font-extrabold text-text-main tracking-tight">Perbandingan Detail Paket</h3>
+                    </div>
+
+                    <div className="overflow-x-auto rounded-2xl border border-glass-border bg-glass-bg/40 backdrop-blur-md shadow-2xl">
+                        <table className="w-full text-left border-collapse min-w-[768px]">
+                            <thead>
+                                <tr className="border-b border-glass-border bg-glass-bg/50">
+                                    <th className="p-6 text-sm font-bold text-text-main w-[40%]">Fitur & Kapasitas</th>
+                                    <th className="p-6 text-sm font-bold text-text-main text-center w-[20%]">Starter Pack</th>
+                                    <th className="p-6 text-sm font-bold text-text-main text-center w-[20%]">Business Pro</th>
+                                    <th className="p-6 text-sm font-bold text-text-main text-center w-[20%]">Enterprise Custom</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-glass-border/40 text-sm text-text-gray font-medium">
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Jumlah Halaman / Konten</td>
+                                    <td className="p-6 text-center">1 Landing Page</td>
+                                    <td className="p-6 text-center">Hingga 5 Halaman</td>
+                                    <td className="p-6 text-center text-brand-blue font-bold">Kustom / Unlimited</td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Desain UI/UX Layout</td>
+                                    <td className="p-6 text-center">Kustom (Figma)</td>
+                                    <td className="p-6 text-center">Kustom (Figma)</td>
+                                    <td className="p-6 text-center text-brand-blue font-bold">Kompleks & Animasi Premium</td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Responsif Mobile & Tablet</td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">CMS Admin Panel (Filament)</td>
+                                    <td className="p-6 text-center"><X className="mx-auto w-5 h-5 text-text-muted/40" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Integrasi Blog / Dinamis Berita</td>
+                                    <td className="p-6 text-center"><X className="mx-auto w-5 h-5 text-text-muted/40" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Google Analytics & GTM Setup</td>
+                                    <td className="p-6 text-center"><X className="mx-auto w-5 h-5 text-text-muted/40" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Domain & Hosting (1 Tahun)</td>
+                                    <td className="p-6 text-center">Standar VPS</td>
+                                    <td className="p-6 text-center">Premium VPS</td>
+                                    <td className="p-6 text-center text-brand-blue font-bold">Multi-Cloud / High Availability</td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Aplikasi Mobile (Android/iOS)</td>
+                                    <td className="p-6 text-center"><X className="mx-auto w-5 h-5 text-text-muted/40" /></td>
+                                    <td className="p-6 text-center"><X className="mx-auto w-5 h-5 text-text-muted/40" /></td>
+                                    <td className="p-6 text-center text-emerald-500 font-bold">Tersedia (Flutter/React Native)</td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Integrasi Payment Gateway</td>
+                                    <td className="p-6 text-center"><X className="mx-auto w-5 h-5 text-text-muted/40" /></td>
+                                    <td className="p-6 text-center"><X className="mx-auto w-5 h-5 text-text-muted/40" /></td>
+                                    <td className="p-6 text-center"><Check className="mx-auto w-5 h-5 text-emerald-500" /></td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Sistem Keamanan & Backup Otomatis</td>
+                                    <td className="p-6 text-center">Dasar (SSL)</td>
+                                    <td className="p-6 text-center">Standar + Caching</td>
+                                    <td className="p-6 text-center text-brand-blue font-bold">Lapis Tinggi + Cloud Backup</td>
+                                </tr>
+                                <tr className="hover:bg-glass-bg/10 transition-colors">
+                                    <td className="p-6 text-text-main font-semibold">Garansi & Pemeliharaan</td>
+                                    <td className="p-6 text-center">1 Bulan Bug-Fix</td>
+                                    <td className="p-6 text-center">3 Bulan Pemeliharaan</td>
+                                    <td className="p-6 text-center text-brand-blue font-bold">Dukungan Prioritas 24/7</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 

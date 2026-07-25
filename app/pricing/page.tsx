@@ -93,7 +93,7 @@ export default async function PricingPage() {
 
                                     <div className="pt-8">
                                         <Link
-                                            href="/#contact"
+                                            href={`/#contact?package=${plan.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
                                             className={`block w-full py-4 text-center text-sm font-bold rounded-xl transition-all cursor-pointer ${
                                                 plan.is_popular
                                                     ? 'bg-brand-blue text-white hover:bg-brand-blue-dark shadow-md shadow-brand-blue/20'

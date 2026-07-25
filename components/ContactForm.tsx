@@ -1,16 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { api } from '../lib/api';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
-export default function ContactForm() {
+function ContactFormContent() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         company: '',
-        service: 'App Builder Squad',
+        service: 'App Builder Squad (Web/Mobile Apps)',
         message: '',
     });
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -23,6 +24,33 @@ export default function ContactForm() {
         'Digital Skill Lab (IT Training/Workshops)',
     ];
 
+    const searchParams = useSearchParams();
+    const packageParam = searchParams.get('package');
+
+    useEffect(() => {
+        if (packageParam) {
+            let selectedService = 'App Builder Squad (Web/Mobile Apps)';
+            let prefilledMessage = '';
+
+            if (packageParam === 'starter-pack') {
+                selectedService = 'App Builder Squad (Web/Mobile Apps)';
+                prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Starter Pack" (1 Landing Page). Mohon hubungi saya.';
+            } else if (packageParam === 'business-pro') {
+                selectedService = 'App Builder Squad (Web/Mobile Apps)';
+                prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Business Pro" (Hingga 5 Halaman + CMS). Mohon hubungi saya.';
+            } else if (packageParam === 'enterprise-custom') {
+                selectedService = 'App Builder Squad (Web/Mobile Apps)';
+                prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Enterprise Custom" (Aplikasi Web/ERP/Mobile Kustom). Mohon hubungi saya.';
+            }
+
+            setFormData((prev) => ({
+                ...prev,
+                service: selectedService,
+                message: prefilledMessage,
+            }));
+        }
+    }, [packageParam]);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus('loading');
@@ -34,7 +62,7 @@ export default function ContactForm() {
                 email: '',
                 phone: '',
                 company: '',
-                service: 'App Builder Squad',
+                service: 'App Builder Squad (Web/Mobile Apps)',
                 message: '',
             });
             setMessage('Pesan Anda berhasil terkirim! Tim kami akan segera menghubungi Anda.');
@@ -191,5 +219,13 @@ export default function ContactForm() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function ContactForm() {
+    return (
+        <Suspense fallback={<div className="text-text-muted text-sm text-center py-10">Memuat formulir...</div>}>
+            <ContactFormContent />
+        </Suspense>
     );
 }

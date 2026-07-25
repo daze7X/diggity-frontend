@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
-import { api } from '../../../lib/api';
+import { api, Blog } from '../../../lib/api';
 import { ArrowLeft, Calendar, User, Share2 } from 'lucide-react';
 
 const Facebook = (props: React.SVGProps<SVGSVGElement>) => (
@@ -54,12 +54,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogDetail({ params }: Props) {
     const { slug } = await params;
-    let blog = null;
+    let blog: Blog | null = null;
+    let relatedBlogs: any[] = [];
 
     try {
         blog = await api.getBlogBySlug(slug);
+        if (blog) {
+            const currentBlog = blog; // Non-nullable constant for closure
+            const allBlogs = await api.getBlogs();
+            relatedBlogs = allBlogs
+                .filter((b: any) => b.id !== currentBlog.id && b.category_id === currentBlog.category_id)
+                .slice(0, 3);
+            
+            // Fallback if not enough category-matched blogs
+            if (relatedBlogs.length < 3) {
+                const extraBlogs = allBlogs
+                    .filter((b: any) => b.id !== currentBlog.id && !relatedBlogs.some((rb) => rb.id === b.id))
+                    .slice(0, 3 - relatedBlogs.length);
+                relatedBlogs = [...relatedBlogs, ...extraBlogs];
+            }
+        }
     } catch (error) {
-        console.error('Error fetching blog details:', error);
+        console.error('Error fetching blog details / related posts:', error);
     }
 
     if (!blog) {
@@ -179,6 +195,60 @@ export default async function BlogDetail({ params }: Props) {
                         </a>
                     </div>
                 </div>
+
+                {/* Related Posts Section */}
+                {relatedBlogs.length > 0 && (
+                    <div className="pt-16 border-t border-glass-border space-y-8 text-left">
+                        <div className="space-y-2">
+                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">Rekomendasi</span>
+                            <h3 className="text-2xl font-extrabold text-text-main tracking-tight">Artikel Terkait</h3>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            {relatedBlogs.map((item: any) => (
+                                <Link
+                                    key={item.id}
+                                    href={`/blog/${item.slug}`}
+                                    className="group flex flex-col space-y-3 bg-glass-bg/40 border border-glass-border rounded-2xl p-4 transition-all duration-300 hover:scale-[1.02] hover:border-brand-blue/30 h-full justify-between"
+                                >
+                                    <div className="space-y-3">
+                                        {/* Image Cover */}
+                                        <div className="relative aspect-[16/10] bg-neutral-900 border border-glass-border/40 rounded-xl overflow-hidden flex items-center justify-center">
+                                            {item.image ? (
+                                                <Image
+                                                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${item.image}`}
+                                                    alt={item.title}
+                                                    fill
+                                                    unoptimized
+                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                />
+                                            ) : (
+                                                <Share2 className="w-8 h-8 text-text-muted/40" />
+                                            )}
+                                        </div>
+
+                                        {/* Meta & Title */}
+                                        <div className="space-y-1">
+                                            {item.category && (
+                                                <span className="text-[10px] font-black text-brand-blue uppercase tracking-wider">
+                                                    {item.category.name}
+                                                </span>
+                                            )}
+                                            <h4 className="text-sm font-bold text-text-main group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
+                                                {item.title}
+                                            </h4>
+                                        </div>
+                                    </div>
+
+                                    {/* Date */}
+                                    <span className="text-[10px] text-text-muted font-semibold block pt-2 border-t border-glass-border/30">
+                                        {formatDate(item.created_at)}
+                                    </span>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                )}
 
             </div>
         </div>

@@ -177,6 +177,35 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
                                         </p>
                                     </div>
                                 )}
+
+                                {selectedProject.testimonial && (
+                                    <div className="mt-6 pt-4 border-t border-glass-border space-y-3">
+                                        <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider">Umpan Balik Klien</h4>
+                                        <div className="bg-glass-bg border border-glass-border rounded-xl p-4 relative overflow-hidden">
+                                            <div className="space-y-4">
+                                                {/* Stars */}
+                                                <div className="flex items-center space-x-1">
+                                                    {[...Array(selectedProject.testimonial.rating || 5)].map((_, i) => (
+                                                        <svg
+                                                            key={i}
+                                                            className="w-3 h-3 fill-current text-yellow-500"
+                                                            viewBox="0 0 20 20"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                        </svg>
+                                                    ))}
+                                                </div>
+                                                <p className="text-xs italic text-text-main leading-relaxed">
+                                                    &ldquo;{selectedProject.testimonial.review || selectedProject.testimonial.message}&rdquo;
+                                                </p>
+                                                <div className="text-[10px] text-text-muted font-bold">
+                                                    {selectedProject.testimonial.client_name || selectedProject.testimonial.name} &bull; {selectedProject.testimonial.company}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

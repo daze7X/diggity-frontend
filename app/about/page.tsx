@@ -113,6 +113,15 @@ export default async function About() {
                                     <span className="text-text-muted block">Klasifikasi:</span>
                                     <span className="text-text-main font-bold truncate block">{kbli}</span>
                                 </div>
+                                <div className="pt-2">
+                                    <a
+                                        href="/company-profile-diggity.pdf"
+                                        download="company-profile-diggity.pdf"
+                                        className="inline-flex items-center justify-center w-full px-3 py-2 text-[10px] font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-lg transition-colors shadow-md shadow-brand-blue/10 cursor-pointer"
+                                    >
+                                        Unduh Profil PDF
+                                    </a>
+                                </div>
                             </div>
                         </SpotlightCard>
 

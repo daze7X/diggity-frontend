@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '../../../lib/api';
 import { 
     ArrowLeft, 
@@ -10,7 +11,8 @@ import {
     Compass, 
     Settings, 
     CheckCircle2,
-    Sparkles
+    Sparkles,
+    Star
 } from 'lucide-react';
 import SpotlightCard from '../../../components/SpotlightCard';
 
@@ -151,6 +153,59 @@ export default async function PortfolioDetail({ params }: Props) {
                                 </p>
                             </div>
                         </SpotlightCard>
+                    )}
+
+                    {/* 5. Client Testimonial (FR-005) */}
+                    {portfolio.testimonial && (
+                        <div className="space-y-6 pt-6">
+                            <div className="flex items-center space-x-3 text-yellow-500">
+                                <Sparkles className="w-6 h-6" />
+                                <h2 className="text-xl font-bold text-text-main">Umpan Balik Klien</h2>
+                            </div>
+                            
+                            <SpotlightCard className="p-8 bg-glass-bg/20 border border-glass-border/40 rounded-2xl relative overflow-hidden">
+                                <div className="absolute top-2 right-6 text-brand-blue/10 text-8xl font-serif pointer-events-none select-none">
+                                    “
+                                </div>
+                                <div className="space-y-6 relative z-10">
+                                    {/* Stars */}
+                                    <div className="flex items-center space-x-1">
+                                        {[...Array(portfolio.testimonial.rating || 5)].map((_, i) => (
+                                            <Star key={i} className="w-4 h-4 fill-yellow-500 stroke-yellow-500" />
+                                        ))}
+                                    </div>
+                                    
+                                    <p className="text-sm md:text-base text-text-main italic leading-relaxed">
+                                        &ldquo;{portfolio.testimonial.review || portfolio.testimonial.message}&rdquo;
+                                    </p>
+                                    
+                                    <div className="flex items-center space-x-3">
+                                        {portfolio.testimonial.avatar ? (
+                                            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-glass-border">
+                                                <Image
+                                                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${portfolio.testimonial.avatar}`}
+                                                    alt={portfolio.testimonial.client_name || portfolio.testimonial.name || 'Client Avatar'}
+                                                    fill
+                                                    className="object-cover"
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center font-bold text-brand-blue text-sm border border-glass-border">
+                                                {(portfolio.testimonial.client_name || portfolio.testimonial.name || 'K').substring(0, 1)}
+                                            </div>
+                                        )}
+                                        <div>
+                                            <div className="text-sm font-bold text-text-main">
+                                                {portfolio.testimonial.client_name || portfolio.testimonial.name}
+                                            </div>
+                                            <div className="text-xs text-text-gray font-medium">
+                                                {portfolio.testimonial.company}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </SpotlightCard>
+                        </div>
                     )}
                 </div>
 

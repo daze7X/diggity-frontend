@@ -67,6 +67,7 @@ export interface Portfolio {
     image?: string;
     category?: Category;
     created_at: string;
+    testimonial?: Testimonial;
 }
 
 export interface Blog {
@@ -91,10 +92,12 @@ export interface Team {
 
 export interface Testimonial {
     id: number;
-    name: string;
+    name?: string;
+    client_name?: string;
     company: string;
     avatar?: string;
-    message: string;
+    message?: string;
+    review?: string;
     rating: number;
 }
 

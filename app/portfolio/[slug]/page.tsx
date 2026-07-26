@@ -15,6 +15,7 @@ import {
     Star
 } from 'lucide-react';
 import SpotlightCard from '../../../components/SpotlightCard';
+import PortfolioGallery from '../../../components/PortfolioGallery';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
@@ -98,6 +99,13 @@ export default async function PortfolioDetail({ params }: Props) {
                         </div>
                     </div>
                 </SpotlightCard>
+
+                {/* Project Image Gallery (FR-004) */}
+                <PortfolioGallery 
+                    images={portfolio.gallery} 
+                    coverImage={portfolio.image} 
+                    title={portfolio.title} 
+                />
 
                 {/* Case Study Sections */}
                 <div className="space-y-12 pt-6 text-left">

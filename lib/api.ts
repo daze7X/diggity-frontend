@@ -65,6 +65,7 @@ export interface Portfolio {
     execution?: string;
     result?: string;
     image?: string;
+    gallery?: string[];
     category?: Category;
     created_at: string;
     testimonial?: Testimonial;

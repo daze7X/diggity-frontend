@@ -64,14 +64,12 @@ export default function Navbar() {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                isSearchOpen
-                    ? 'bg-transparent border-transparent py-6 backdrop-blur-none'
-                    : scrolled
+                scrolled
                     ? 'bg-brand-bg/85 backdrop-blur-md border-b border-glass-border py-4'
                     : 'bg-transparent py-6'
             }`}
         >
-            <div className={`max-w-7xl mx-auto px-6 md:px-8 transition-opacity duration-200 ${isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}>
+            <div className="max-w-7xl mx-auto px-6 md:px-8">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">

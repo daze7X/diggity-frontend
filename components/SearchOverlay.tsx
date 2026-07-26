@@ -81,11 +81,11 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             onClick={handleClose}
         >
             <div 
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl max-h-[70vh] flex flex-col overflow-hidden shadow-2xl relative"
+                className="bg-glass-bg border border-glass-border backdrop-blur-xl rounded-2xl w-full max-w-2xl max-h-[70vh] flex flex-col overflow-hidden shadow-2xl relative"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Search Bar Header */}
-                <div className="flex items-center px-4 border-b border-slate-200 dark:border-slate-800 py-4 relative">
+                <div className="flex items-center px-4 border-b border-glass-border py-4 relative">
                     <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 mr-3" />
                     <input
                         ref={inputRef}
@@ -109,7 +109,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
                     <button 
                         onClick={handleClose}
-                        className="p-1.5 border border-slate-200 dark:border-slate-800 rounded-lg bg-slate-50 dark:bg-slate-800 cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center text-slate-500 dark:text-slate-400 text-xs font-bold"
+                        className="p-1.5 border border-glass-border rounded-lg bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center text-slate-500 dark:text-slate-400 text-xs font-bold"
                     >
                         ESC
                     </button>
@@ -156,13 +156,13 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                     <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-2">
                                         Layanan Divisi ({results.services.length})
                                     </h4>
-                                    <div className="space-y-1">
+                                    <div className="flex flex-col">
                                         {results.services.map((service) => (
                                             <Link
                                                 key={service.id}
                                                 href={`/services/${service.slug}`}
                                                 onClick={handleClose}
-                                                className="flex items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-800/40 rounded-xl transition-all group"
+                                                className="flex items-center p-3 border border-slate-200/60 dark:border-slate-800/80 rounded-xl transition-all group bg-white/20 dark:bg-slate-950/20 hover:bg-white/60 dark:hover:bg-slate-900/60 hover:border-brand-blue/50 dark:hover:border-brand-blue/50 mb-2 last:mb-0 shadow-sm"
                                             >
                                                 <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mr-3 flex-shrink-0">
                                                     <Sparkles className="w-4 h-4" />
@@ -187,13 +187,13 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                     <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-2">
                                         Studi Kasus Portofolio ({results.portfolios.length})
                                     </h4>
-                                    <div className="space-y-1">
+                                    <div className="flex flex-col">
                                         {results.portfolios.map((project) => (
                                             <Link
                                                 key={project.id}
                                                 href={`/portfolio/${project.slug}`}
                                                 onClick={handleClose}
-                                                className="flex items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-800/40 rounded-xl transition-all group"
+                                                className="flex items-center p-3 border border-slate-200/60 dark:border-slate-800/80 rounded-xl transition-all group bg-white/20 dark:bg-slate-950/20 hover:bg-white/60 dark:hover:bg-slate-900/60 hover:border-brand-blue/50 dark:hover:border-brand-blue/50 mb-2 last:mb-0 shadow-sm"
                                             >
                                                 <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mr-3 flex-shrink-0">
                                                     <Briefcase className="w-4 h-4" />
@@ -218,13 +218,13 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                     <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-2">
                                         Artikel Blog ({results.blogs.length})
                                     </h4>
-                                    <div className="space-y-1">
+                                    <div className="flex flex-col">
                                         {results.blogs.map((blog) => (
                                             <Link
                                                 key={blog.id}
                                                 href={`/blog/${blog.slug}`}
                                                 onClick={handleClose}
-                                                className="flex items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-800/40 rounded-xl transition-all group"
+                                                className="flex items-center p-3 border border-slate-200/60 dark:border-slate-800/80 rounded-xl transition-all group bg-white/20 dark:bg-slate-950/20 hover:bg-white/60 dark:hover:bg-slate-900/60 hover:border-brand-blue/50 dark:hover:border-brand-blue/50 mb-2 last:mb-0 shadow-sm"
                                             >
                                                 <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mr-3 flex-shrink-0">
                                                     <BookOpen className="w-4 h-4" />

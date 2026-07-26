@@ -77,15 +77,15 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
     return (
         <div 
-            className="fixed inset-0 bg-neutral-950/65 backdrop-blur-md z-[100] flex items-start justify-center pt-20 md:pt-28 px-4"
+            className="fixed inset-0 bg-neutral-950/70 z-[100] flex items-start justify-center pt-20 md:pt-28 px-4"
             onClick={handleClose}
         >
             <div 
-                className="bg-glass-bg border border-glass-border backdrop-blur-xl rounded-2xl w-full max-w-2xl max-h-[70vh] flex flex-col overflow-hidden shadow-2xl relative"
+                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl max-h-[70vh] flex flex-col overflow-hidden shadow-2xl relative"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Search Bar Header */}
-                <div className="flex items-center px-4 border-b border-glass-border py-4 relative">
+                <div className="flex items-center px-4 border-b border-slate-200 dark:border-slate-800 py-4 relative">
                     <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 mr-3" />
                     <input
                         ref={inputRef}
@@ -109,7 +109,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
                     <button 
                         onClick={handleClose}
-                        className="p-1.5 border border-glass-border rounded-lg bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center text-slate-500 dark:text-slate-400 text-xs font-bold"
+                        className="p-1.5 border border-slate-200 dark:border-slate-800 rounded-lg bg-slate-50 dark:bg-slate-800 cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center text-slate-500 dark:text-slate-400 text-xs font-bold"
                     >
                         ESC
                     </button>
@@ -120,9 +120,9 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     {/* Placeholder when search is empty */}
                     {!query && (
                         <div className="text-center py-10 space-y-2">
-                            <Search className="w-10 h-10 text-brand-blue/40 mx-auto animate-pulse" />
+                            <Search className="w-10 h-10 text-brand-blue/60 mx-auto animate-pulse" />
                             <p className="text-sm font-bold text-slate-800 dark:text-white">Pencarian Terpadu Diggity</p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs mx-auto leading-relaxed">
+                            <p className="text-xs font-medium text-slate-600 dark:text-slate-200 max-w-xs mx-auto leading-relaxed">
                                 Temukan informasi mengenai Layanan Divisi, Studi Kasus Portofolio, atau Artikel Blog secara cepat.
                             </p>
                         </div>

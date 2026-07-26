@@ -42,19 +42,28 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             return;
         }
 
+        let active = true;
+
         setLoading(true);
         const delayDebounceFn = setTimeout(async () => {
             try {
                 const res = await api.searchGlobal(query);
-                setResults(res);
+                if (active) {
+                    setResults(res);
+                }
             } catch (err) {
                 console.error('Error fetching global search results:', err);
             } finally {
-                setLoading(false);
+                if (active) {
+                    setLoading(false);
+                }
             }
         }, 300);
 
-        return () => clearTimeout(delayDebounceFn);
+        return () => {
+            active = false;
+            clearTimeout(delayDebounceFn);
+        };
     }, [query]);
 
     const handleClose = () => {

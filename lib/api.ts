@@ -129,8 +129,15 @@ export interface Career {
     created_at: string;
 }
 
+export interface SearchResults {
+    services: Service[];
+    portfolios: Portfolio[];
+    blogs: Blog[];
+}
+
 export const api = {
     getCompanySettings: (): Promise<CompanySetting> => fetchAPI('/company-settings'),
+    searchGlobal: (query: string): Promise<SearchResults> => fetchAPI(`/search?q=${encodeURIComponent(query)}`),
     
     getServices: (): Promise<Service[]> => fetchAPI('/services'),
     getServiceBySlug: (slug: string): Promise<Service> => fetchAPI(`/services/${slug}`),

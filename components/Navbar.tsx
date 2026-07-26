@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Search } from 'lucide-react';
+import SearchOverlay from './SearchOverlay';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
     const pathname = usePathname();
@@ -103,6 +105,15 @@ export default function Navbar() {
                             )}
                         </button>
 
+                        {/* Search Button */}
+                        <button
+                            onClick={() => setIsSearchOpen(true)}
+                            className="p-2 border border-glass-border rounded-lg bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center w-8 h-8 text-text-main"
+                            aria-label="Search"
+                        >
+                            <Search className="w-4 h-4" />
+                        </button>
+
                         <Link
                             href="/contact"
                             className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-lg transition-colors group shadow-md shadow-brand-blue/10"
@@ -124,6 +135,15 @@ export default function Navbar() {
                             ) : (
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
                             )}
+                        </button>
+
+                        {/* Mobile Search Button */}
+                        <button
+                            onClick={() => setIsSearchOpen(true)}
+                            className="p-1.5 border border-glass-border rounded-lg bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center w-8 h-8 text-text-main"
+                            aria-label="Search"
+                        >
+                            <Search className="w-4 h-4" />
                         </button>
 
                         <button
@@ -163,6 +183,9 @@ export default function Navbar() {
                     </div>
                 )}
             </div>
+
+            {/* Global Search Overlay (FR-012) */}
+            <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
         </nav>
     );
 }

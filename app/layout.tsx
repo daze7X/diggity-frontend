@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import InteractiveSpotlight from "../components/InteractiveSpotlight";
 import WhatsAppButton from "../components/WhatsAppButton";
 import { api } from "../lib/api";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -70,11 +71,14 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script
+        <Script
+          id="schema-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
         />
-        <script
+        <Script
+          id="theme-initializer"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {

@@ -64,7 +64,9 @@ export default function Navbar() {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                scrolled
+                isSearchOpen
+                    ? 'bg-transparent border-transparent py-6 backdrop-blur-none'
+                    : scrolled
                     ? 'bg-brand-bg/85 backdrop-blur-md border-b border-glass-border py-4'
                     : 'bg-transparent py-6'
             }`}

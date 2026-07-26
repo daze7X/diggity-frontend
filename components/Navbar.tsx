@@ -69,7 +69,7 @@ export default function Navbar() {
                     : 'bg-transparent py-6'
             }`}
         >
-            <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <div className={`max-w-7xl mx-auto px-6 md:px-8 transition-opacity duration-200 ${isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}>
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">

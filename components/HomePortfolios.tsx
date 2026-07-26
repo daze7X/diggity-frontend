@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Portfolio } from '../lib/api';
 import SpotlightCard from './SpotlightCard';
 import { Code, ArrowRight } from 'lucide-react';
@@ -11,134 +12,60 @@ interface HomePortfoliosProps {
 }
 
 export default function HomePortfolios({ portfolios }: HomePortfoliosProps) {
-    const [selectedProject, setSelectedProject] = useState<Portfolio | null>(null);
-
     return (
-        <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {portfolios.length > 0 ? (
-                    portfolios.map((portfolio, index) => (
-                        <div
-                            key={portfolio.id}
-                            onClick={() => setSelectedProject(portfolio)}
-                            className="cursor-pointer"
-                        >
-                            <SpotlightCard className="flex flex-col h-full">
-                                <div className="relative aspect-[16/10] bg-neutral-950 flex items-center justify-center border-b border-glass-border overflow-hidden">
-                                    {portfolio.image ? (
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${portfolio.image}`}
-                                            alt={portfolio.title}
-                                            fill
-                                            unoptimized
-                                            priority={index === 0}
-                                            className="object-cover group-hover:scale-[1.05] transition-transform duration-500"
-                                        />
-                                    ) : (
-                                        <div className="flex flex-col items-center justify-center space-y-2 text-text-muted">
-                                            <Code className="w-10 h-10" />
-                                            <span className="text-xs font-semibold uppercase tracking-wider">Project Showcase</span>
-                                        </div>
-                                    )}
-                                    {portfolio.category && (
-                                        <span className="absolute top-4 left-4 px-3 py-1 bg-brand-bg/90 backdrop-blur border border-glass-border rounded-full text-xs font-bold text-brand-blue">
-                                            {portfolio.category.name}
-                                        </span>
-                                    )}
-                                </div>
-                                <div className="p-6 space-y-4 flex-grow flex flex-col justify-between">
-                                    <div className="space-y-2">
-                                        <h4 className="text-lg font-bold text-text-main group-hover:text-brand-blue transition-colors">
-                                            {portfolio.title}
-                                        </h4>
-                                        <p className="text-sm text-text-gray line-clamp-2 leading-relaxed">
-                                            {portfolio.problem}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest pt-2 group-hover:translate-x-1 transition-transform border-t border-glass-border">
-                                        Baca Studi Kasus
-                                        <ArrowRight className="ml-1 w-3.5 h-3.5" />
-                                    </div>
-                                </div>
-                            </SpotlightCard>
-                        </div>
-                    ))
-                ) : (
-                    <div className="col-span-full text-center text-text-muted py-10">
-                        Belum ada data portofolio di database.
-                    </div>
-                )}
-            </div>
-
-            {/* Case Study Modal Overlay */}
-            {selectedProject && (
-                <div 
-                    className="fixed inset-0 bg-neutral-950/70 backdrop-blur-md z-[100] flex items-center justify-center p-4"
-                    onClick={() => setSelectedProject(null)}
-                >
-                    <div 
-                        className="bg-brand-bg/90 border border-glass-border rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative text-text-main"
-                        style={{ boxShadow: 'var(--card-inset), var(--card-shadow)' }}
-                        onClick={(e) => e.stopPropagation()}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {portfolios.length > 0 ? (
+                portfolios.map((portfolio, index) => (
+                    <Link
+                        key={portfolio.id}
+                        href={`/portfolio/${portfolio.slug}`}
+                        className="block group text-left"
                     >
-                        <button 
-                            onClick={() => setSelectedProject(null)}
-                            className="absolute right-4 top-4 text-2xl text-text-main hover:text-brand-blue cursor-pointer"
-                        >
-                            &times;
-                        </button>
-                        
-                        <div className="space-y-6 text-left">
-                            <div>
-                                <span className="inline-block px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-bold text-brand-blue mb-2">
-                                    Studi Kasus
-                                </span>
-                                <h3 className="text-2xl font-black text-text-main leading-tight">
-                                    {selectedProject.title}
-                                </h3>
-                                <div className="flex flex-wrap gap-4 text-xs text-text-muted mt-2 border-b border-glass-border pb-3">
-                                    <span><strong>Client:</strong> {selectedProject.client || 'N/A'}</span>
-                                    <span>•</span>
-                                    <span><strong>Durasi:</strong> {selectedProject.duration || 'N/A'}</span>
-                                    {selectedProject.technologies && selectedProject.technologies.length > 0 && (
-                                        <>
-                                            <span>•</span>
-                                            <span><strong>Tech:</strong> {selectedProject.technologies.join(', ')}</span>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
-                            
-                            <div className="space-y-4 text-sm leading-relaxed">
-                                <div>
-                                    <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">1. Problem (Masalah)</h4>
-                                    <p className="text-text-gray">{selectedProject.problem}</p>
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">2. Strategy (Strategi)</h4>
-                                    <p className="text-text-gray">{selectedProject.strategy || selectedProject.solution || 'Merancang ulang arsitektur digital dan optimasi alur transaksi secara menyeluruh.'}</p>
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">3. Execution (Eksekusi)</h4>
-                                    <p className="text-text-gray">{selectedProject.execution || 'Mengimplementasikan teknologi Next.js, meminimalkan javascript bundle, dan integrasi API yang seamless.'}</p>
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">4. Result (Hasil Proyek)</h4>
-                                    <p className="text-text-main font-semibold">{selectedProject.result || 'Performa kecepatan loading meningkat pesat dan konversi penjualan naik signifikan.'}</p>
-                                </div>
-                                
-                                {selectedProject.solution && (
-                                    <div className="p-4 bg-brand-blue/5 border-l-4 border-brand-blue rounded-r-lg mt-4">
-                                        <p className="italic text-text-main font-medium">
-                                            &ldquo;{selectedProject.solution}&rdquo;
-                                        </p>
+                        <SpotlightCard className="flex flex-col h-full border border-glass-border transition-all duration-300 hover:scale-[1.01] hover:border-brand-blue/30">
+                            <div className="relative aspect-[16/10] bg-neutral-950 flex items-center justify-center border-b border-glass-border overflow-hidden">
+                                {portfolio.image ? (
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${portfolio.image}`}
+                                        alt={portfolio.title}
+                                        fill
+                                        unoptimized
+                                        priority={index === 0}
+                                        className="object-cover group-hover:scale-[1.05] transition-transform duration-500"
+                                    />
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center space-y-2 text-text-muted">
+                                        <Code className="w-10 h-10" />
+                                        <span className="text-xs font-semibold uppercase tracking-wider">Project Showcase</span>
                                     </div>
                                 )}
+                                {portfolio.category && (
+                                    <span className="absolute top-4 left-4 px-3 py-1 bg-brand-bg/90 backdrop-blur border border-glass-border rounded-full text-xs font-bold text-brand-blue">
+                                        {portfolio.category.name}
+                                    </span>
+                                )}
                             </div>
-                        </div>
-                    </div>
+                            <div className="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                                <div className="space-y-2">
+                                    <h4 className="text-lg font-bold text-text-main group-hover:text-brand-blue transition-colors">
+                                        {portfolio.title}
+                                    </h4>
+                                    <p className="text-sm text-text-gray line-clamp-2 leading-relaxed">
+                                        {portfolio.problem}
+                                    </p>
+                                </div>
+                                <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest pt-2 group-hover:translate-x-1 transition-transform border-t border-glass-border">
+                                    Baca Studi Kasus
+                                    <ArrowRight className="ml-1 w-3.5 h-3.5" />
+                                </div>
+                            </div>
+                        </SpotlightCard>
+                    </Link>
+                ))
+            ) : (
+                <div className="col-span-full text-center text-text-muted py-10">
+                    Belum ada data portofolio di database.
                 </div>
             )}
-        </>
+        </div>
     );
 }

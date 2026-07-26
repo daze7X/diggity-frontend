@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Portfolio, Category } from '../lib/api';
 import SpotlightCard from './SpotlightCard';
 import { Code, ArrowRight } from 'lucide-react';
@@ -13,7 +14,6 @@ interface PortfolioListProps {
 
 export default function PortfolioList({ portfolios, categories }: PortfolioListProps) {
     const [activeCategory, setActiveCategory] = useState<string>('All');
-    const [selectedProject, setSelectedProject] = useState<Portfolio | null>(null);
 
     const filteredPortfolios = activeCategory === 'All'
         ? portfolios
@@ -54,10 +54,10 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
                     filteredPortfolios.map((portfolio, index) => {
                         const isWide = index % 3 === 0;
                         return (
-                            <div
+                            <Link
                                 key={portfolio.id}
-                                onClick={() => setSelectedProject(portfolio)}
-                                className={`cursor-pointer text-left group ${
+                                href={`/portfolio/${portfolio.slug}`}
+                                className={`block text-left group ${
                                     isWide ? 'md:col-span-2' : 'md:col-span-1'
                                 }`}
                             >
@@ -103,7 +103,7 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
                                         </div>
                                     </div>
                                 </SpotlightCard>
-                            </div>
+                            </Link>
                         );
                     })
                 ) : (
@@ -112,105 +112,6 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
                     </div>
                 )}
             </div>
-
-            {/* Case Study Modal Overlay */}
-            {selectedProject && (
-                <div 
-                    className="fixed inset-0 bg-neutral-950/70 backdrop-blur-md z-[100] flex items-center justify-center p-4"
-                    onClick={() => setSelectedProject(null)}
-                >
-                    <div 
-                        className="bg-brand-bg/90 border border-glass-border rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative text-text-main"
-                        style={{ boxShadow: 'var(--card-inset), var(--card-shadow)' }}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <button 
-                            onClick={() => setSelectedProject(null)}
-                            className="absolute right-4 top-4 text-2xl text-text-main hover:text-brand-blue cursor-pointer"
-                        >
-                            &times;
-                        </button>
-                        
-                        <div className="space-y-6 text-left">
-                            <div>
-                                <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block mb-2">
-                                    Studi Kasus
-                                </span>
-                                <h3 className="text-2xl font-black text-text-main leading-tight">
-                                    {selectedProject.title}
-                                </h3>
-                                <div className="flex flex-wrap gap-4 text-xs text-text-muted mt-2 border-b border-glass-border pb-3">
-                                    <span><strong>Client:</strong> {selectedProject.client || 'N/A'}</span>
-                                    <span>•</span>
-                                    <span><strong>Durasi:</strong> {selectedProject.duration || 'N/A'}</span>
-                                    {selectedProject.technologies && selectedProject.technologies.length > 0 && (
-                                        <>
-                                            <span>•</span>
-                                            <span><strong>Tech:</strong> {selectedProject.technologies.join(', ')}</span>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
-                            
-                            <div className="space-y-4 text-sm leading-relaxed">
-                                <div>
-                                    <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">1. Problem (Masalah)</h4>
-                                    <p className="text-text-gray">{selectedProject.problem}</p>
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">2. Strategy (Strategi)</h4>
-                                    <p className="text-text-gray">{selectedProject.strategy || selectedProject.solution || 'Merancang ulang arsitektur digital dan optimasi alur transaksi secara menyeluruh.'}</p>
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">3. Execution (Eksekusi)</h4>
-                                    <p className="text-text-gray">{selectedProject.execution || 'Mengimplementasikan teknologi Next.js, meminimalkan javascript bundle, dan integrasi API yang seamless.'}</p>
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">4. Result (Hasil Proyek)</h4>
-                                    <p className="text-text-main font-semibold">{selectedProject.result || 'Performa kecepatan loading meningkat pesat dan konversi penjualan naik signifikan.'}</p>
-                                </div>
-                                
-                                {selectedProject.solution && (
-                                    <div className="p-4 bg-brand-blue/5 border-l-4 border-brand-blue rounded-r-lg mt-4">
-                                        <p className="italic text-text-main font-medium">
-                                            &ldquo;{selectedProject.solution}&rdquo;
-                                        </p>
-                                    </div>
-                                )}
-
-                                {selectedProject.testimonial && (
-                                    <div className="mt-6 pt-4 border-t border-glass-border space-y-3">
-                                        <h4 className="text-xs font-bold text-brand-blue uppercase tracking-wider">Umpan Balik Klien</h4>
-                                        <div className="bg-glass-bg border border-glass-border rounded-xl p-4 relative overflow-hidden">
-                                            <div className="space-y-4">
-                                                {/* Stars */}
-                                                <div className="flex items-center space-x-1">
-                                                    {[...Array(selectedProject.testimonial.rating || 5)].map((_, i) => (
-                                                        <svg
-                                                            key={i}
-                                                            className="w-3 h-3 fill-current text-yellow-500"
-                                                            viewBox="0 0 20 20"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                        </svg>
-                                                    ))}
-                                                </div>
-                                                <p className="text-xs italic text-text-main leading-relaxed">
-                                                    &ldquo;{selectedProject.testimonial.review || selectedProject.testimonial.message}&rdquo;
-                                                </p>
-                                                <div className="text-[10px] text-text-muted font-bold">
-                                                    {selectedProject.testimonial.client_name || selectedProject.testimonial.name} &bull; {selectedProject.testimonial.company}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

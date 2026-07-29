@@ -167,9 +167,14 @@ export default function Footer() {
                                 {message}
                             </p>
                         )}
+                        <div className="pt-2 text-left">
+                            <Link href="/unsubscribe" className="text-xs text-slate-500 hover:text-slate-300 transition-colors underline">
+                                Berhenti berlangganan?
+                            </Link>
+                        </div>
                     </div>
                 </div>
-
+ 
                 <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
                     <p>&copy; {new Date().getFullYear()} {settings.name}. All rights reserved.</p>
                     <div className="flex items-center space-x-6">
@@ -178,6 +183,9 @@ export default function Footer() {
                         </Link>
                         <Link href="/terms" className="hover:text-slate-400 text-slate-500">
                             Terms of Service
+                        </Link>
+                        <Link href="/unsubscribe" className="hover:text-slate-400 text-slate-500">
+                            Unsubscribe
                         </Link>
                     </div>
                 </div>

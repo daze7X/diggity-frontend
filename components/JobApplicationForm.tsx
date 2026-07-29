@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { api } from '../lib/api';
+import { executeRecaptcha } from '../lib/recaptcha';
 import { Upload, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface JobApplicationFormProps {
@@ -46,17 +47,22 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
 
         setStatus('loading');
 
-        const submitData = new FormData();
-        submitData.append('career_id', careerId.toString());
-        submitData.append('name', formData.name);
-        submitData.append('email', formData.email);
-        submitData.append('phone', formData.phone);
-        submitData.append('cv', cvFile);
-        if (formData.cover_letter) {
-            submitData.append('cover_letter', formData.cover_letter);
-        }
-
         try {
+            const recaptchaToken = await executeRecaptcha('career');
+
+            const submitData = new FormData();
+            submitData.append('career_id', careerId.toString());
+            submitData.append('name', formData.name);
+            submitData.append('email', formData.email);
+            submitData.append('phone', formData.phone);
+            submitData.append('cv', cvFile);
+            if (formData.cover_letter) {
+                submitData.append('cover_letter', formData.cover_letter);
+            }
+            if (recaptchaToken) {
+                submitData.append('recaptcha_token', recaptchaToken);
+            }
+
             await api.submitJobApplication(submitData);
             setStatus('success');
             setFormData({

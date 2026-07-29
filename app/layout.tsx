@@ -94,6 +94,12 @@ export default async function RootLayout({
             `,
           }}
         />
+        {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+          <Script
+            src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+            strategy="lazyOnload"
+          />
+        )}
       </head>
       <body className="min-h-full flex flex-col text-text-main transition-colors duration-300">
         {/* Glowing background blobs for premium glassmorphic depth */}

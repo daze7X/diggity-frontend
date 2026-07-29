@@ -3,6 +3,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { api } from '../lib/api';
+import { executeRecaptcha } from '../lib/recaptcha';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
 function ContactFormContent() {
@@ -55,7 +56,11 @@ function ContactFormContent() {
         e.preventDefault();
         setStatus('loading');
         try {
-            await api.submitLead(formData);
+            const recaptchaToken = await executeRecaptcha('contact');
+            await api.submitLead({
+                ...formData,
+                recaptcha_token: recaptchaToken
+            });
             setStatus('success');
             setFormData({
                 name: '',

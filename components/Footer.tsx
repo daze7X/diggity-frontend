@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { api, CompanySetting } from '../lib/api';
+import { executeRecaptcha } from '../lib/recaptcha';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
 
 const Instagram = (props: React.SVGProps<SVGSVGElement>) => (
@@ -44,7 +45,8 @@ export default function Footer() {
 
         setStatus('loading');
         try {
-            await api.submitSubscriber(email);
+            const recaptchaToken = await executeRecaptcha('newsletter');
+            await api.submitSubscriber(email, recaptchaToken);
             setStatus('success');
             setEmail('');
             setMessage('Thank you for subscribing to our newsletter!');

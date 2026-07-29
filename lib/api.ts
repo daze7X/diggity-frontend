@@ -167,14 +167,15 @@ export const api = {
         company?: string;
         service?: string;
         message: string;
+        recaptcha_token?: string | null;
     }) => fetchAPI('/leads', {
         method: 'POST',
         body: JSON.stringify(data),
     }),
     
-    submitSubscriber: (email: string) => fetchAPI('/subscribers', {
+    submitSubscriber: (email: string, recaptcha_token?: string | null) => fetchAPI('/subscribers', {
         method: 'POST',
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, recaptcha_token }),
     }),
     
     unsubscribeNewsletter: (email: string) => fetchAPI('/subscribers/unsubscribe', {

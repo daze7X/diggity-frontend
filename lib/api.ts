@@ -177,6 +177,11 @@ export const api = {
         body: JSON.stringify({ email }),
     }),
     
+    unsubscribeNewsletter: (email: string) => fetchAPI('/subscribers/unsubscribe', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+    }),
+    
     submitJobApplication: async (formData: FormData) => {
         // multipart/form-data doesn't use Content-Type application/json
         const res = await fetch(`${API_URL}/job-applications`, {

@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { api, Course } from '../../lib/api';
-import { GraduationCap, BookOpen, Clock, Award, Check, Sparkles } from 'lucide-react';
+import { BookOpen, Clock, Award, Check, Sparkles } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
@@ -35,10 +35,7 @@ export default async function AcademyPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto border-b border-glass-border pb-12">
-                    <span className="px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-bold text-brand-blue uppercase tracking-wider inline-flex items-center gap-1.5">
-                        <GraduationCap className="w-3.5 h-3.5" /> Diggity Academy
-                    </span>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight pt-2">
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
                         Pusat Pembelajaran IT & Desain
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">

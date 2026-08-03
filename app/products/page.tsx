@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { api, Product, Faq } from '../../lib/api';
-import { Check, ArrowRight, Shield, Download, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Check, ArrowRight, Shield, Download, ArrowUpRight } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 import FaqAccordion from '../../components/FaqAccordion';
 
@@ -49,10 +49,7 @@ export default async function ProductsPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <span className="px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-xs font-bold text-brand-blue uppercase tracking-wider inline-flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5" /> Diggity Products V1.1
-                    </span>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight pt-2">
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
                         Produk Digital & SaaS
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium leading-relaxed max-w-2xl mx-auto">

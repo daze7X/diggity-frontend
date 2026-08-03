@@ -62,24 +62,22 @@ export default async function ProductsPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
                         {products.length > 0 ? (
                             products.map((product) => (
-                                <SpotlightCard
+                                <div
                                     key={product.id}
-                                    className={`p-8 relative flex flex-col justify-between h-full border transition-all duration-300 ${
+                                    className={`relative flex flex-col justify-between h-full transition-all duration-300 ${
                                         product.is_popular
-                                            ? 'border-brand-blue/80 dark:border-brand-blue/60 bg-brand-blue/5 shadow-2xl shadow-brand-blue/15 scale-100 md:scale-[1.02] z-10'
-                                            : 'border-glass-border bg-glass-bg'
+                                            ? 'scale-100 md:scale-[1.02] z-10'
+                                            : ''
                                     }`}
                                 >
-                                    {product.is_popular && (
-                                        <span 
-                                            className="absolute top-0 right-8 -translate-y-1/2 w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center shadow-lg border border-brand-blue/20 hover:scale-115 transition-transform cursor-help" 
-                                            title="Rekomendasi Utama"
-                                        >
-                                            <ThumbsUp className="w-4 h-4" />
-                                        </span>
-                                    )}
-
-                                    <div className="space-y-6 text-left">
+                                    <SpotlightCard
+                                        className={`p-8 relative flex flex-col justify-between h-full border transition-all duration-300 ${
+                                            product.is_popular
+                                                ? 'border-brand-blue/80 dark:border-brand-blue/60 bg-brand-blue/5 shadow-2xl shadow-brand-blue/15'
+                                                : 'border-glass-border bg-glass-bg'
+                                        }`}
+                                    >
+                                        <div className="space-y-6 text-left">
                                         <div className="space-y-2">
                                             {product.category && (
                                                 <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest block">
@@ -152,7 +150,16 @@ export default async function ProductsPage() {
                                         )}
                                     </div>
                                 </SpotlightCard>
-                            ))
+                                {product.is_popular && (
+                                    <span 
+                                        className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center shadow-lg shadow-brand-blue/30 border border-white/20 hover:scale-115 transition-transform cursor-help z-30" 
+                                        title="Rekomendasi Utama"
+                                    >
+                                        <ThumbsUp className="w-4 h-4" />
+                                    </span>
+                                )}
+                            </div>
+                        ))
                         ) : (
                             <div className="col-span-full text-center text-text-muted py-10">
                                 Belum ada produk digital di database.

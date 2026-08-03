@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { api, Product, Faq } from '../../lib/api';
-import { Check, ArrowRight, Shield, Download, ArrowUpRight } from 'lucide-react';
+import { Check, ArrowRight, Shield, Download, ArrowUpRight, ThumbsUp } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 import FaqAccordion from '../../components/FaqAccordion';
 
@@ -71,8 +71,11 @@ export default async function ProductsPage() {
                                     }`}
                                 >
                                     {product.is_popular && (
-                                        <span className="absolute top-0 right-8 -translate-y-1/2 px-4 py-1 bg-brand-blue text-white text-xs font-black rounded-full uppercase tracking-wider z-30 shadow-md">
-                                            Rekomendasi
+                                        <span 
+                                            className="absolute top-0 right-8 -translate-y-1/2 w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center shadow-lg border border-brand-blue/20 hover:scale-115 transition-transform cursor-help" 
+                                            title="Rekomendasi Utama"
+                                        >
+                                            <ThumbsUp className="w-4 h-4" />
                                         </span>
                                     )}
 

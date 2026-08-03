@@ -152,7 +152,7 @@ export default async function ProductsPage() {
                                 </SpotlightCard>
                                 {product.is_popular && (
                                     <span 
-                                        className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center shadow-lg shadow-brand-blue/30 border border-white/20 hover:scale-115 transition-transform cursor-help z-30" 
+                                        className="absolute top-0 right-0 -translate-y-1/3 translate-x-1/3 w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center shadow-lg shadow-brand-blue/30 border border-white/20 hover:scale-115 transition-transform cursor-help z-30" 
                                         title="Rekomendasi Utama"
                                     >
                                         <ThumbsUp className="w-4 h-4" />

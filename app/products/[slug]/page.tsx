@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { api, Product } from '../../../lib/api';
 import SpotlightCard from '../../../components/SpotlightCard';
+import ProductPurchaseCTA from '../../../components/ProductPurchaseCTA';
 import { 
     ArrowLeft, 
     Check, 
@@ -201,21 +202,14 @@ export default async function ProductDetail({ params }: Props) {
                                 <div className="border-t border-glass-border/40 my-4" />
 
                                 <div className="space-y-3">
-                                    {product.billing_period === 'one_time' && product.file_path ? (
-                                        <Link
-                                            href={`/contact?checkout=${encodeURIComponent(product.name)}`}
-                                            className="flex items-center justify-center gap-1.5 w-full py-4 text-center text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-md shadow-brand-blue/15 cursor-pointer"
-                                        >
-                                            <Download className="w-4 h-4" /> Beli & Unduh Instan
-                                        </Link>
-                                    ) : (
-                                        <Link
-                                            href={`/contact?service=${encodeURIComponent(product.name)}`}
-                                            className="flex items-center justify-center gap-1.5 w-full py-4 text-center text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-md shadow-brand-blue/15 cursor-pointer"
-                                        >
-                                            Pesan & Minta Demo <ArrowUpRight className="w-4 h-4" />
-                                        </Link>
-                                    )}
+                                    <ProductPurchaseCTA
+                                        productId={product.id}
+                                        productSlug={product.slug}
+                                        price={Number(product.price)}
+                                        name={product.name}
+                                        billingPeriod={product.billing_period}
+                                        filePath={product.file_path || null}
+                                    />
                                 </div>
                             </div>
                         </SpotlightCard>

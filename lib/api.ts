@@ -307,5 +307,12 @@ export const api = {
         }
 
         return res.json();
-    }
+    },
+
+    getUserCourses: (): Promise<any> => fetchAPI('/user/courses'),
+    getUserProducts: (): Promise<any> => fetchAPI('/user/products'),
+    checkout: (data: { purchasable_type: 'product' | 'course'; purchasable_id: number }): Promise<any> => fetchAPI('/checkout', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    })
 };

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import { api, Course } from '../../../lib/api';
 import SpotlightCard from '../../../components/SpotlightCard';
+import EnrollmentCTA from '../../../components/EnrollmentCTA';
 import { 
     ArrowLeft, 
     BookOpen, 
@@ -232,12 +233,12 @@ export default async function CourseDetail({ params }: Props) {
                                 <div className="border-t border-glass-border/40 my-4" />
 
                                 <div>
-                                    <Link
-                                        href={`/contact?course=${encodeURIComponent(course.title)}`}
-                                        className="block w-full py-4 text-center text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-md shadow-brand-blue/15"
-                                    >
-                                        {course.price === 0 ? 'Daftar Kelas Gratis' : 'Daftar & Beli Kelas'}
-                                    </Link>
+                                    <EnrollmentCTA
+                                        courseId={course.id}
+                                        courseSlug={course.slug}
+                                        price={Number(course.price)}
+                                        title={course.title}
+                                    />
                                 </div>
                             </div>
                         </SpotlightCard>

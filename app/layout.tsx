@@ -102,6 +102,11 @@ export default async function RootLayout({
             strategy="lazyOnload"
           />
         )}
+        <Script
+          src="https://app.sandbox.midtrans.com/snap/snap.js"
+          data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || 'SB-Mid-client-yourkey'}
+          strategy="lazyOnload"
+        />
       </head>
       <body className="min-h-full flex flex-col text-text-main transition-colors duration-300">
         {/* Glowing background blobs for premium glassmorphic depth */}

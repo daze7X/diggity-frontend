@@ -15,7 +15,7 @@ import {
     TrendingUp
 } from 'lucide-react';
 
-export default function ServicesPage() {
+export default function SolutionsPage() {
     const techStack = [
         'Next.js', 'React', 'TypeScript', 'TailwindCSS', 
         'Laravel', 'Node.js', 'PostgreSQL', 'Docker'
@@ -43,7 +43,7 @@ export default function ServicesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     
                     {/* Card 1: App Builder Squad (Spans 2 columns) */}
-                    <Link href="/services/website-development" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/website-development" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left relative overflow-hidden border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4 z-10">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
@@ -88,7 +88,7 @@ export default function ServicesPage() {
                     </Link>
 
                     {/* Card 2: Brand Growth Division */}
-                    <Link href="/services/search-engine-optimization" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/search-engine-optimization" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
@@ -135,7 +135,7 @@ export default function ServicesPage() {
                     </Link>
 
                     {/* Card 3: Cloud Service Hub */}
-                    <Link href="/services/cloud-server-hosting" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/cloud-server-hosting" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
@@ -188,7 +188,7 @@ export default function ServicesPage() {
                     </Link>
 
                     {/* Card 4: Digital Skill Lab (Spans 2 columns) */}
-                    <Link href="/services/corporate-training-bootcamp" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/corporate-training-bootcamp" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">

@@ -9,7 +9,7 @@ export default async function BlogPage() {
     let categories: Category[] = [];
 
     try {
-        blogs = await api.getBlogs();
+        blogs = await api.getInsights();
         
         // Extract unique categories from blogs
         const categoriesMap: Record<string, Category> = {};

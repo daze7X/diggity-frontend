@@ -47,11 +47,12 @@ export default function Navbar() {
     const navLinks = [
         { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
-        { name: 'Services', path: '/services' },
+        { name: 'Solutions', path: '/solutions' },
+        { name: 'Products', path: '/products' },
+        { name: 'Academy', path: '/academy' },
         { name: 'Portfolio', path: '/portfolio' },
-        { name: 'Pricing', path: '/pricing' },
-        { name: 'Blog', path: '/blog' },
-        { name: 'Career', path: '/career' },
+        { name: 'Insights', path: '/insights' },
+        { name: 'Job Connect', path: '/job-connect' },
     ];
 
     const isActive = (path: string) => {

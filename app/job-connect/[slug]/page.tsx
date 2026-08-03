@@ -15,7 +15,7 @@ export default async function JobDetail({ params }: Props) {
     let job = null;
 
     try {
-        job = await api.getCareerBySlug(slug);
+        job = await api.getJobConnectBySlug(slug);
     } catch (error) {
         console.error('Error fetching job details:', error);
     }
@@ -24,8 +24,8 @@ export default async function JobDetail({ params }: Props) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
                 <h1 className="text-2xl font-bold text-text-main">Lowongan Kerja Tidak Ditemukan</h1>
-                <Link href="/career" className="text-brand-blue hover:underline">
-                    Kembali ke Karir
+                <Link href="/job-connect" className="text-brand-blue hover:underline">
+                    Kembali ke Job Connect
                 </Link>
             </div>
         );
@@ -37,11 +37,11 @@ export default async function JobDetail({ params }: Props) {
                 
                 {/* Back Button */}
                 <Link
-                    href="/career"
+                    href="/job-connect"
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                    Kembali ke Karir
+                    Kembali ke Job Connect
                 </Link>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">

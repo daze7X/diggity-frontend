@@ -35,10 +35,10 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     try {
-        const blog = await api.getBlogBySlug(slug);
+        const blog = await api.getInsightBySlug(slug);
         return {
-            title: `${blog.meta_title || blog.title} | Diggity Blog`,
-            description: blog.meta_description || 'Baca selengkapnya artikel edukasi di Diggity Blog.',
+            title: `${blog.meta_title || blog.title} | Diggity Insights`,
+            description: blog.meta_description || 'Baca selengkapnya artikel edukasi di Diggity Insights.',
             openGraph: {
                 title: blog.title,
                 description: blog.meta_description,
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     } catch {
         return {
-            title: 'Artikel Blog | Diggity Blog',
+            title: 'Artikel Wawasan | Diggity Insights',
         };
     }
 }
@@ -58,10 +58,10 @@ export default async function BlogDetail({ params }: Props) {
     let relatedBlogs: any[] = [];
 
     try {
-        blog = await api.getBlogBySlug(slug);
+        blog = await api.getInsightBySlug(slug);
         if (blog) {
             const currentBlog = blog; // Non-nullable constant for closure
-            const allBlogs = await api.getBlogs();
+            const allBlogs = await api.getInsights();
             relatedBlogs = allBlogs
                 .filter((b: any) => b.id !== currentBlog.id && b.category_id === currentBlog.category_id)
                 .slice(0, 3);
@@ -82,8 +82,8 @@ export default async function BlogDetail({ params }: Props) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
                 <h1 className="text-2xl font-bold text-text-main">Artikel Tidak Ditemukan</h1>
-                <Link href="/blog" className="text-brand-blue hover:underline">
-                    Kembali ke Blog
+                <Link href="/insights" className="text-brand-blue hover:underline">
+                    Kembali ke Insights
                 </Link>
             </div>
         );
@@ -107,11 +107,11 @@ export default async function BlogDetail({ params }: Props) {
                 
                 {/* Back Button */}
                 <Link
-                    href="/blog"
+                    href="/insights"
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                    Kembali ke Blog
+                    Kembali ke Insights
                 </Link>
 
                 {/* Article Header */}
@@ -208,7 +208,7 @@ export default async function BlogDetail({ params }: Props) {
                             {relatedBlogs.map((item: any) => (
                                 <Link
                                     key={item.id}
-                                    href={`/blog/${item.slug}`}
+                                    href={`/insights/${item.slug}`}
                                     className="group flex flex-col space-y-3 bg-glass-bg/40 border border-glass-border rounded-2xl p-4 transition-all duration-300 hover:scale-[1.02] hover:border-brand-blue/30 h-full justify-between"
                                 >
                                     <div className="space-y-3">

@@ -103,7 +103,7 @@ export default async function ServiceDetail({ params }: Props) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
                 <h1 className="text-2xl font-bold text-text-main">Layanan Tidak Ditemukan</h1>
-                <Link href="/services" className="text-brand-blue hover:underline">
+                <Link href="/solutions" className="text-brand-blue hover:underline">
                     Kembali ke Layanan
                 </Link>
             </div>
@@ -135,7 +135,7 @@ export default async function ServiceDetail({ params }: Props) {
             <div className="max-w-4xl mx-auto px-6 md:px-8 space-y-12">
                 {/* Back Button */}
                 <Link
-                    href="/services"
+                    href="/solutions"
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />

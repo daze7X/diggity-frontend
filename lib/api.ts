@@ -117,6 +117,65 @@ export interface Pricing {
     is_popular: boolean;
 }
 
+export interface Product {
+    id: number;
+    category_id: number;
+    name: string;
+    slug: string;
+    sku?: string;
+    price: number;
+    billing_period: string;
+    description?: string;
+    features?: string[];
+    gallery?: string[];
+    license_info?: string;
+    version?: string;
+    file_path?: string;
+    is_active: boolean;
+    is_popular: boolean;
+    category?: Category;
+}
+
+export interface Lesson {
+    id: number;
+    module_id: number;
+    title: string;
+    slug: string;
+    content_type: string;
+    content?: string;
+    video_url?: string;
+    duration_minutes: number;
+    sort_order: number;
+}
+
+export interface Module {
+    id: number;
+    course_id: number;
+    title: string;
+    description?: string;
+    sort_order: number;
+    lessons?: Lesson[];
+}
+
+export interface Course {
+    id: number;
+    category_id: number;
+    title: string;
+    slug: string;
+    description?: string;
+    syllabus?: string;
+    instructor_name?: string;
+    instructor_title?: string;
+    price: number;
+    is_active: boolean;
+    is_featured: boolean;
+    image?: string;
+    meta_title?: string;
+    meta_description?: string;
+    category?: Category;
+    modules?: Module[];
+}
+
 export interface Career {
     id: number;
     title: string;
@@ -159,6 +218,34 @@ export const api = {
     
     getCareers: (): Promise<Career[]> => fetchAPI('/careers'),
     getCareerBySlug: (slug: string): Promise<Career> => fetchAPI(`/careers/${slug}`),
+    
+    getSolutions: (): Promise<Service[]> => fetchAPI('/solutions'),
+    getSolutionBySlug: (slug: string): Promise<Service> => fetchAPI(`/solutions/${slug}`),
+    
+    getProducts: (): Promise<Product[]> => fetchAPI('/products'),
+    getProductBySlug: (slug: string): Promise<Product> => fetchAPI(`/products/${slug}`),
+    
+    getCourses: (): Promise<Course[]> => fetchAPI('/academy'),
+    getCourseBySlug: (slug: string): Promise<Course> => fetchAPI(`/academy/${slug}`),
+    
+    getInsights: (): Promise<Blog[]> => fetchAPI('/insights'),
+    getInsightBySlug: (slug: string): Promise<Blog> => fetchAPI(`/insights/${slug}`),
+    
+    getJobConnect: (): Promise<Career[]> => fetchAPI('/job-connect'),
+    getJobConnectBySlug: (slug: string): Promise<Career> => fetchAPI(`/job-connect/${slug}`),
+    
+    submitTalentProfile: (data: {
+        name: string;
+        email: string;
+        phone?: string;
+        type: 'individual' | 'dedicated_team';
+        skills?: string[];
+        portfolio_links?: string[];
+        description?: string;
+    }) => fetchAPI('/talent-profiles', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    }),
     
     submitLead: (data: {
         name: string;

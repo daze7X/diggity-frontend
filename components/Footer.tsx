@@ -117,20 +117,23 @@ export default function Footer() {
                             <Link href="/about" className="hover:text-brand-blue transition-colors text-slate-400">
                                 About Us
                             </Link>
-                            <Link href="/services" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Our Services
+                            <Link href="/solutions" className="hover:text-brand-blue transition-colors text-slate-400">
+                                Our Solutions
+                            </Link>
+                            <Link href="/products" className="hover:text-brand-blue transition-colors text-slate-400">
+                                Ready Products
+                            </Link>
+                            <Link href="/academy" className="hover:text-brand-blue transition-colors text-slate-400">
+                                Diggity Academy
                             </Link>
                             <Link href="/portfolio" className="hover:text-brand-blue transition-colors text-slate-400">
                                 Our Portfolio
                             </Link>
-                            <Link href="/pricing" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Pricing Plan
+                            <Link href="/insights" className="hover:text-brand-blue transition-colors text-slate-400">
+                                Insights & News
                             </Link>
-                            <Link href="/blog" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Blog Articles
-                            </Link>
-                            <Link href="/career" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Join Our Team
+                            <Link href="/job-connect" className="hover:text-brand-blue transition-colors text-slate-400">
+                                Job Connect
                             </Link>
                         </div>
                     </div>

@@ -87,7 +87,7 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
                     <div className="lg:col-span-2 space-y-8">
                         {/* Cover Story (Featured Article) */}
                         {featuredBlog ? (
-                            <Link href={`/blog/${featuredBlog.slug}`} className="group block">
+                            <Link href={`/insights/${featuredBlog.slug}`} className="group block">
                                 <SpotlightCard className="overflow-hidden border border-glass-border hover:border-brand-blue/30 transition-all duration-300 hover:scale-[1.01]">
                                     <div className="relative aspect-[16/9] w-full bg-neutral-950/10 dark:bg-neutral-950/40 flex items-center justify-center border-b border-glass-border overflow-hidden">
                                         {featuredBlog.image ? (
@@ -136,7 +136,7 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
                         {/* Secondary Grid (2-Columns for other articles) */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             {secondaryBlogs.map((blog) => (
-                                <Link key={blog.id} href={`/blog/${blog.slug}`} className="group block">
+                                <Link key={blog.id} href={`/insights/${blog.slug}`} className="group block">
                                     <SpotlightCard className="h-full flex flex-col justify-between border border-glass-border hover:border-brand-blue/30 transition-all duration-300 hover:scale-[1.01]">
                                         <div>
                                             <div className="relative aspect-[16/10] w-full bg-neutral-950/10 dark:bg-neutral-950/40 flex items-center justify-center border-b border-glass-border overflow-hidden">
@@ -194,7 +194,7 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
 
                         <div className="space-y-6">
                             {trendingBlogs.map((blog, idx) => (
-                                <Link key={blog.id} href={`/blog/${blog.slug}`} className="group block">
+                                <Link key={blog.id} href={`/insights/${blog.slug}`} className="group block">
                                     <div className="flex items-start space-x-4 py-3 border-b border-glass-border/40 hover:border-brand-blue/30 transition-colors">
                                         <span className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-blue-500 opacity-60 group-hover:opacity-100 transition-opacity select-none font-mono shrink-0">
                                             {String(idx + 1).padStart(2, '0')}

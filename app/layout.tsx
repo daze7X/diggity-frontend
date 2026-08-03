@@ -23,6 +23,8 @@ export const metadata: Metadata = {
   description: "Diggity adalah agensi digital terintegrasi yang menghadirkan solusi teknologi software engineering, growth marketing, cloud hosting, dan pelatihan keahlian digital untuk meningkatkan performa bisnis Anda.",
 };
 
+import { AuthProvider } from "../context/AuthContext";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -109,10 +111,12 @@ export default async function RootLayout({
         {/* Global interactive mouse spotlight */}
         <InteractiveSpotlight />
 
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        <AuthProvider>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <WhatsAppButton />
+        </AuthProvider>
       </body>
     </html>
   );

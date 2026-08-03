@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowUpRight, Search } from 'lucide-react';
 import SearchOverlay from './SearchOverlay';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
+    const { user, loading } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -115,13 +117,23 @@ export default function Navbar() {
                             <Search className="w-4 h-4" />
                         </button>
 
-                        <Link
-                            href="/contact"
-                            className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-lg transition-colors group shadow-md shadow-brand-blue/10"
-                        >
-                            Contact Us
-                            <ArrowUpRight className="ml-1.5 w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        </Link>
+                        {!loading && user ? (
+                            <Link
+                                href="/dashboard"
+                                className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-lg transition-colors group shadow-md shadow-brand-blue/10"
+                            >
+                                Dashboard
+                                <ArrowUpRight className="ml-1.5 w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </Link>
+                        ) : (
+                            <Link
+                                href="/login"
+                                className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-lg transition-colors group shadow-md shadow-brand-blue/10"
+                            >
+                                Sign In
+                                <ArrowUpRight className="ml-1.5 w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </Link>
+                        )}
                     </div>
 
                     {/* Mobile Menu Button & Toggler */}
@@ -172,14 +184,25 @@ export default function Navbar() {
                                     {link.name}
                                 </Link>
                             ))}
-                            <Link
-                                href="/contact"
-                                onClick={() => setIsOpen(false)}
-                                className="inline-flex items-center justify-center w-full px-4 py-3 text-base font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors"
-                            >
-                                Contact Us
-                                <ArrowUpRight className="ml-1.5 w-5 h-5" />
-                            </Link>
+                            {!loading && user ? (
+                                <Link
+                                    href="/dashboard"
+                                    onClick={() => setIsOpen(false)}
+                                    className="inline-flex items-center justify-center w-full px-4 py-3 text-base font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors"
+                                >
+                                    Dashboard
+                                    <ArrowUpRight className="ml-1.5 w-5 h-5" />
+                                </Link>
+                            ) : (
+                                <Link
+                                    href="/login"
+                                    onClick={() => setIsOpen(false)}
+                                    className="inline-flex items-center justify-center w-full px-4 py-3 text-base font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors"
+                                >
+                                    Sign In
+                                    <ArrowUpRight className="ml-1.5 w-5 h-5" />
+                                </Link>
+                            )}
                         </div>
                     </div>
                 )}

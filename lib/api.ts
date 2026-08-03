@@ -1,12 +1,33 @@
+import { getCookie } from './auth';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
+    const token = getCookie('token');
+    const authHeader: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+
+    const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        ...authHeader,
+    };
+
+    if (options.headers) {
+        if (options.headers instanceof Headers) {
+            options.headers.forEach((value, key) => {
+                headers[key] = value;
+            });
+        } else if (Array.isArray(options.headers)) {
+            options.headers.forEach(([key, value]) => {
+                headers[key] = value;
+            });
+        } else {
+            Object.assign(headers, options.headers);
+        }
+    }
+
     const res = await fetch(`${API_URL}${endpoint}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            ...options.headers,
-        },
+        headers,
         ...options,
     });
 

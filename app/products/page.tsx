@@ -16,7 +16,7 @@ export default async function ProductsPage() {
             api.getProducts(),
             api.getFaqs(),
         ]);
-        products = productsRes;
+        products = productsRes.sort((a, b) => Number(a.price) - Number(b.price));
         faqs = faqsRes;
     } catch (error) {
         console.error('Error fetching products/faq data:', error);
@@ -86,12 +86,19 @@ export default async function ProductsPage() {
                                             <h3 className="text-xl font-bold text-text-main hover:text-brand-blue transition-colors">
                                                 <Link href={`/products/${product.slug}`}>{product.name}</Link>
                                             </h3>
-                                            <p className="text-xs text-text-gray line-clamp-3 leading-relaxed">
+                                            <p className="text-xs text-text-gray line-clamp-3 leading-relaxed min-h-[54px]">
                                                 {product.description}
                                             </p>
-                                            <div className="flex items-baseline space-x-1 pt-3">
-                                                <span className="text-2xl font-black text-brand-blue">
-                                                    {formatPrice(product.price, product.billing_period)}
+                                            <div className="flex items-baseline gap-1 pt-3 flex-wrap">
+                                                <span className="text-2xl font-black text-brand-blue whitespace-nowrap">
+                                                    {new Intl.NumberFormat('id-ID', {
+                                                        style: 'currency',
+                                                        currency: 'IDR',
+                                                        minimumFractionDigits: 0,
+                                                    }).format(product.price)}
+                                                </span>
+                                                <span className="text-xs text-text-muted font-bold lowercase whitespace-nowrap">
+                                                    / {product.billing_period === 'one_time' ? 'sekali bayar' : product.billing_period === 'monthly' ? 'bulan' : 'tahun'}
                                                 </span>
                                             </div>
                                             {product.sku && (

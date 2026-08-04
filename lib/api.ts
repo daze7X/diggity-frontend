@@ -295,6 +295,20 @@ export const api = {
     
     verifyCertificate: (hash: string) => fetchAPI(`/certificates/verify/${hash}`),
     
+    getTickets: () => fetchAPI('/user/tickets'),
+    
+    createTicket: (data: { subject: string; category: string; message: string }) => fetchAPI('/user/tickets', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    }),
+    
+    getTicketDetails: (id: string | number) => fetchAPI(`/user/tickets/${id}`),
+    
+    replyTicket: (id: string | number, message: string) => fetchAPI(`/user/tickets/${id}/reply`, {
+        method: 'POST',
+        body: JSON.stringify({ message }),
+    }),
+    
     submitJobApplication: async (formData: FormData) => {
         // multipart/form-data doesn't use Content-Type application/json
         const res = await fetch(`${API_URL}/job-applications`, {

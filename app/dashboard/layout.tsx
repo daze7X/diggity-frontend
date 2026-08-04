@@ -12,7 +12,8 @@ import {
     ShoppingCart, 
     LogOut, 
     Loader2,
-    Lock
+    Lock,
+    LifeBuoy
 } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 
@@ -44,6 +45,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { name: 'Lisensi & Unduhan', path: '/dashboard/products', icon: Lock },
         { name: 'Kelas Saya', path: '/dashboard/academy', icon: BookOpen },
         { name: 'Riwayat Pesanan', path: '/dashboard/orders', icon: ShoppingCart },
+        { name: 'Tiket Bantuan', path: '/dashboard/support', icon: LifeBuoy },
     ];
 
     const handleLogout = async () => {

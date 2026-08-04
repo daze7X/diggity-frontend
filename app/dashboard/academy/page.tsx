@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, GraduationCap, PlayCircle, Sparkles, CheckCircle } from 'lucide-react';
+import { BookOpen, GraduationCap, PlayCircle, Sparkles, CheckCircle, Award } from 'lucide-react';
 import SpotlightCard from '../../../components/SpotlightCard';
 
 interface Enrollment {
@@ -128,14 +128,24 @@ export default function UserAcademy() {
                                     </div>
 
                                     {/* Right Side: Learn action button */}
-                                    <div className="shrink-0 w-full md:w-auto text-right">
+                                    <div className="shrink-0 w-full md:w-auto flex flex-col gap-2 items-stretch">
                                         {course?.slug ? (
-                                            <Link
-                                                href={`/academy/${course.slug}`}
-                                                className="flex items-center justify-center gap-1.5 px-6 py-3 bg-brand-blue text-white hover:bg-brand-blue-dark rounded-xl text-xs md:text-sm font-bold transition-all shadow-md shadow-brand-blue/15 w-full md:w-auto cursor-pointer"
-                                            >
-                                                <PlayCircle className="w-4 h-4" /> Masuk Kelas Belajar
-                                            </Link>
+                                            <>
+                                                <Link
+                                                    href={`/academy/${course.slug}/learn`}
+                                                    className="flex items-center justify-center gap-1.5 px-6 py-3 bg-brand-blue text-white hover:bg-brand-blue-dark rounded-xl text-xs md:text-sm font-bold transition-all shadow-md shadow-brand-blue/15 w-full md:w-auto cursor-pointer"
+                                                >
+                                                    <PlayCircle className="w-4 h-4" /> Masuk Kelas Belajar
+                                                </Link>
+                                                {enr.status === 'completed' && (
+                                                    <Link
+                                                        href={`/dashboard/academy/${course.slug}/certificate`}
+                                                        className="flex items-center justify-center gap-1.5 px-6 py-2.5 bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 hover:bg-amber-500/15 rounded-xl text-xs font-bold transition-all w-full md:w-auto"
+                                                    >
+                                                        <Award className="w-4 h-4" /> Lihat Sertifikat 🏆
+                                                    </Link>
+                                                )}
+                                            </>
                                         ) : (
                                             <button
                                                 disabled

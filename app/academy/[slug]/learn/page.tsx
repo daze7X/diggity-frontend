@@ -221,6 +221,30 @@ export default function LMSPlayer({ params }: Props) {
                     </div>
                 </div>
 
+                {/* Certificate Completion Banner */}
+                {progressPercent === 100 && (
+                    <div className="p-6 md:p-8 bg-gradient-to-r from-amber-500/10 via-yellow-500/5 to-amber-500/10 border border-amber-500/30 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-6 shadow-xl shadow-amber-500/5 animate-fade-in relative overflow-hidden text-left mb-6">
+                        <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-amber-500/40 pointer-events-none" />
+                        <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-amber-500/40 pointer-events-none" />
+                        
+                        <div className="flex items-center gap-4 text-left">
+                            <div className="w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20 shrink-0">
+                                <Award className="w-6 h-6" />
+                            </div>
+                            <div className="space-y-1">
+                                <h3 className="text-base md:text-lg font-black text-text-main">Selamat atas Kelulusan Anda! 🏆</h3>
+                                <p className="text-xs text-text-muted leading-relaxed">Anda telah menyelesaikan seluruh materi pelajaran kelas ini dengan progres sempurna. Sertifikat resmi Anda telah diterbitkan.</p>
+                            </div>
+                        </div>
+                        <Link
+                            href={`/dashboard/academy/${course.slug}/certificate`}
+                            className="shrink-0 w-full md:w-auto flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-amber-600 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-amber-500/20"
+                        >
+                            <Award className="w-4 h-4" /> Lihat & Unduh Sertifikat
+                        </Link>
+                    </div>
+                )}
+
                 {/* Main Classroom Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                     

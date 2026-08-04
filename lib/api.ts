@@ -291,6 +291,10 @@ export const api = {
         body: JSON.stringify({ email }),
     }),
     
+    getUserCertificates: () => fetchAPI('/user/certificates'),
+    
+    verifyCertificate: (hash: string) => fetchAPI(`/certificates/verify/${hash}`),
+    
     submitJobApplication: async (formData: FormData) => {
         // multipart/form-data doesn't use Content-Type application/json
         const res = await fetch(`${API_URL}/job-applications`, {

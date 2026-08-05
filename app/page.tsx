@@ -28,7 +28,22 @@ const iconMap: Record<string, React.ComponentType<any>> = {
     'graduation-cap': GraduationCap,
 };
 
+import { generatePageMetadata } from '../lib/seo';
+
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
+
+export async function generateMetadata() {
+    try {
+        const res = await api.getStaticPageSeo('home');
+        return generatePageMetadata(res?.seo, {
+            title: 'Diggity - Corporate IT Solutions & Learning',
+            description: 'Kami membangun arsitektur digital terintegrasi, mengoptimalkan peringkat pencarian, dan merekayasa konversi penjualan secara sistematis.',
+            path: '/'
+        });
+    } catch {
+        return generatePageMetadata(null, { path: '/' });
+    }
+}
 
 export default async function Home() {
     let services: Service[] = [];

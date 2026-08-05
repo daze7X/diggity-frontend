@@ -9,7 +9,22 @@ import {
     FileText
 } from 'lucide-react';
 
+import { generatePageMetadata } from '../../lib/seo';
+
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
+
+export async function generateMetadata() {
+    try {
+        const res = await api.getStaticPageSeo('about');
+        return generatePageMetadata(res?.seo, {
+            title: 'Tentang Kami - Diggity',
+            description: 'Pelajari visi, misi, dan nilai-nilai inti Diggity dalam mendorong kemajuan teknologi industri.',
+            path: '/about'
+        });
+    } catch {
+        return generatePageMetadata(null, { path: '/about' });
+    }
+}
 
 export default async function About() {
     let teams: Team[] = [];

@@ -38,6 +38,19 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
     return res.json();
 }
 
+export interface SeoMeta {
+    id: number;
+    seoable_type: string;
+    seoable_id: number;
+    meta_title?: string;
+    meta_description?: string;
+    meta_keywords?: string;
+    canonical_url?: string;
+    json_ld_schema?: any;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface CompanySetting {
     name: string;
     email: string;
@@ -70,6 +83,7 @@ export interface Service {
     icon?: string;
     description?: string;
     category?: Category;
+    seo_meta?: SeoMeta;
 }
 
 export interface Portfolio {
@@ -90,6 +104,7 @@ export interface Portfolio {
     category?: Category;
     created_at: string;
     testimonial?: Testimonial;
+    seo_meta?: SeoMeta;
 }
 
 export interface Blog {
@@ -103,6 +118,7 @@ export interface Blog {
     meta_description?: string;
     category?: Category;
     created_at: string;
+    seo_meta?: SeoMeta;
 }
 
 export interface Team {
@@ -155,6 +171,7 @@ export interface Product {
     is_active: boolean;
     is_popular: boolean;
     category?: Category;
+    seo_meta?: SeoMeta;
 }
 
 export interface Lesson {
@@ -195,6 +212,7 @@ export interface Course {
     meta_description?: string;
     category?: Category;
     modules?: Module[];
+    seo_meta?: SeoMeta;
 }
 
 export interface Career {
@@ -208,6 +226,7 @@ export interface Career {
     requirements?: string;
     is_active: boolean;
     created_at: string;
+    seo_meta?: SeoMeta;
 }
 
 export interface SearchResults {
@@ -308,6 +327,12 @@ export const api = {
         method: 'POST',
         body: JSON.stringify({ message }),
     }),
+    
+    getSitemapUrls: () => fetchAPI('/seo/sitemap'),
+    
+    getRedirects: () => fetchAPI('/seo/redirects'),
+    
+    getStaticPageSeo: (slug: string) => fetchAPI(`/seo/page/${slug}`),
     
     submitJobApplication: async (formData: FormData) => {
         // multipart/form-data doesn't use Content-Type application/json

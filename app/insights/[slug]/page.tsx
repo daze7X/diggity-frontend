@@ -36,12 +36,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     try {
         const blog = await api.getInsightBySlug(slug);
+        const metaTitle = blog.seo_meta?.meta_title || blog.meta_title || blog.title;
+        const metaDesc = blog.seo_meta?.meta_description || blog.meta_description || 'Baca selengkapnya artikel edukasi di Diggity Insights.';
+        const canonical = blog.seo_meta?.canonical_url || '';
+
         return {
-            title: `${blog.meta_title || blog.title} | Diggity Insights`,
-            description: blog.meta_description || 'Baca selengkapnya artikel edukasi di Diggity Insights.',
+            title: `${metaTitle} | Diggity Insights`,
+            description: metaDesc,
+            alternates: {
+                canonical: canonical || undefined,
+            },
             openGraph: {
-                title: blog.title,
-                description: blog.meta_description,
+                title: metaTitle,
+                description: metaDesc,
                 type: 'article',
             }
         };
@@ -103,6 +110,16 @@ export default async function BlogDetail({ params }: Props) {
 
     return (
         <div className="relative pt-36 pb-20 md:pt-40 md:pb-28">
+            {blog.seo_meta?.json_ld_schema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ 
+                        __html: typeof blog.seo_meta.json_ld_schema === 'string'
+                            ? blog.seo_meta.json_ld_schema 
+                            : JSON.stringify(blog.seo_meta.json_ld_schema) 
+                    }}
+                />
+            )}
             <div className="max-w-3xl mx-auto px-6 md:px-8 space-y-8">
                 
                 {/* Back Button */}

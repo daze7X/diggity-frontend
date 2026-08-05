@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 };
 
 import { AuthProvider } from "../context/AuthContext";
+import { LanguageProvider } from "../context/LanguageContext";
 
 export default async function RootLayout({
   children,
@@ -117,10 +118,12 @@ export default async function RootLayout({
         <InteractiveSpotlight />
 
         <AuthProvider>
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-          <WhatsAppButton />
+          <LanguageProvider>
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+            <WhatsAppButton />
+          </LanguageProvider>
         </AuthProvider>
       </body>
     </html>

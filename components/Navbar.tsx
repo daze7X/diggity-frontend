@@ -6,9 +6,11 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowUpRight, Search } from 'lucide-react';
 import SearchOverlay from './SearchOverlay';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
     const { user, loading } = useAuth();
+    const { language, setLanguage, t } = useLanguage();
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -47,14 +49,14 @@ export default function Navbar() {
     };
 
     const navLinks = [
-        { name: 'Home', path: '/' },
-        { name: 'About', path: '/about' },
-        { name: 'Solutions', path: '/solutions' },
-        { name: 'Products', path: '/products' },
-        { name: 'Academy', path: '/academy' },
-        { name: 'Portfolio', path: '/portfolio' },
-        { name: 'Insights', path: '/insights' },
-        { name: 'Job Connect', path: '/job-connect' },
+        { name: t('nav.home'), path: '/' },
+        { name: t('nav.about'), path: '/about' },
+        { name: t('nav.solutions'), path: '/solutions' },
+        { name: t('nav.products'), path: '/products' },
+        { name: t('nav.academy'), path: '/academy' },
+        { name: t('nav.portfolio'), path: '/portfolio' },
+        { name: t('nav.insights'), path: '/insights' },
+        { name: t('nav.jobConnect'), path: '/job-connect' },
     ];
 
     const isActive = (path: string) => {
@@ -108,6 +110,15 @@ export default function Navbar() {
                             )}
                         </button>
 
+                        {/* Language Toggle Button */}
+                        <button
+                            onClick={() => setLanguage(language === 'id' ? 'en' : 'id')}
+                            className="p-1 border border-glass-border rounded-lg bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center h-8 px-2 text-[10px] font-black text-text-main"
+                            aria-label="Toggle Language"
+                        >
+                            {language === 'id' ? 'ID' : 'EN'}
+                        </button>
+
                         {/* Search Button */}
                         <button
                             onClick={() => setIsSearchOpen(true)}
@@ -148,6 +159,15 @@ export default function Navbar() {
                             ) : (
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
                             )}
+                        </button>
+
+                        {/* Mobile Language Toggle */}
+                        <button
+                            onClick={() => setLanguage(language === 'id' ? 'en' : 'id')}
+                            className="p-1 border border-glass-border rounded-lg bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center h-8 px-2 text-[10px] font-black text-text-main"
+                            aria-label="Toggle Language"
+                        >
+                            {language === 'id' ? 'ID' : 'EN'}
                         </button>
 
                         {/* Mobile Search Button */}

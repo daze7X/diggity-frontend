@@ -2,13 +2,30 @@ import { getCookie } from './auth';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
+async function getLocale(): Promise<string> {
+    if (typeof window === 'undefined') {
+        try {
+            // Membaca cookie secara dinamis pada sisi server Next.js (asinkron di Next.js 15)
+            const { cookies } = require('next/headers');
+            const cookieStore = await cookies();
+            return cookieStore.get('NEXT_LOCALE')?.value || 'id';
+        } catch {
+            return 'id';
+        }
+    }
+    const match = document.cookie.match(new RegExp('(^| )NEXT_LOCALE=([^;]+)'));
+    return match ? match[2] : 'id';
+}
+
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
     const token = getCookie('token');
     const authHeader: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+    const locale = await getLocale();
 
     const headers: Record<string, string> = {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        'Accept-Language': locale,
         ...authHeader,
     };
 

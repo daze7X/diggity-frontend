@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { api, CompanySetting } from '../lib/api';
 import { executeRecaptcha } from '../lib/recaptcha';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Instagram = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -23,6 +24,7 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Footer() {
+    const { t } = useLanguage();
     const [settings, setSettings] = useState<CompanySetting>({
         name: 'Diggity Agency',
         email: 'hello@diggity.com',
@@ -68,20 +70,20 @@ export default function Footer() {
                             </span>
                         </Link>
                         <p className="max-w-md text-sm leading-relaxed text-slate-400">
-                            Diggity adalah agensi digital full-service yang berfokus membangun produk, menumbuhkan brand, dan menskalakan infrastruktur teknologi bisnis Anda.
+                            {t('footer.desc')}
                         </p>
                         <div className="space-y-3 text-sm">
                             <div className="flex items-center space-x-3 text-slate-300">
                                 <Mail className="w-4 h-4 text-brand-blue" />
-                                <span>{settings.email}</span>
+                                <span>{t('footer.email')}: {settings.email}</span>
                             </div>
                             <div className="flex items-center space-x-3 text-slate-300">
                                 <Phone className="w-4 h-4 text-brand-blue" />
-                                <span>+{settings.whatsapp}</span>
+                                <span>{t('footer.whatsapp')}: +{settings.whatsapp}</span>
                             </div>
                             <div className="flex items-center space-x-3 text-slate-300">
                                 <MapPin className="w-4 h-4 text-brand-blue" />
-                                <span>{settings.address}</span>
+                                <span>{t('footer.office')}: {settings.address}</span>
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
@@ -115,25 +117,25 @@ export default function Footer() {
                         </h4>
                         <div className="flex flex-col space-y-3 text-sm">
                             <Link href="/about" className="hover:text-brand-blue transition-colors text-slate-400">
-                                About Us
+                                {t('nav.about')}
                             </Link>
                             <Link href="/solutions" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Our Solutions
+                                {t('nav.solutions')}
                             </Link>
                             <Link href="/products" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Ready Products
+                                {t('nav.products')}
                             </Link>
                             <Link href="/academy" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Diggity Academy
+                                {t('nav.academy')}
                             </Link>
                             <Link href="/portfolio" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Our Portfolio
+                                {t('nav.portfolio')}
                             </Link>
                             <Link href="/insights" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Insights & News
+                                {t('nav.insights')}
                             </Link>
                             <Link href="/job-connect" className="hover:text-brand-blue transition-colors text-slate-400">
-                                Job Connect
+                                {t('nav.jobConnect')}
                             </Link>
                         </div>
                     </div>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { api, Category, Portfolio } from '../../lib/api';
 import PortfolioList from '../../components/PortfolioList';
+import { getLocaleServer } from '../../lib/locale-server';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
 export default async function PortfolioPage() {
+    const locale = await getLocaleServer();
     let portfolios: Portfolio[] = [];
     let categories: Category[] = [];
 
@@ -30,10 +32,12 @@ export default async function PortfolioPage() {
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
-                        Portfolio Kami
+                        {locale === 'en' ? 'Our Portfolio' : 'Portfolio Kami'}
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
-                        Kumpulan karya terbaik dan studi kasus sukses dari transformasi digital klien kami.
+                        {locale === 'en' 
+                            ? 'A collection of our finest work and successful case studies of digital transformation.' 
+                            : 'Kumpulan karya terbaik dan studi kasus sukses dari transformasi digital klien kami.'}
                     </p>
                 </div>
 

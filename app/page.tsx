@@ -29,6 +29,7 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 };
 
 import { generatePageMetadata } from '../lib/seo';
+import { getLocaleServer } from '../lib/locale-server';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
@@ -46,6 +47,7 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
+    const locale = await getLocaleServer();
     let services: Service[] = [];
     let portfolios: Portfolio[] = [];
     let testimonials: Testimonial[] = [];
@@ -67,11 +69,16 @@ export default async function Home() {
         console.error('Error fetching home page data:', error);
     }
 
-    const stats = [
+    const stats = locale === 'en' ? [
         { value: '150+', label: 'Happy Clients' },
         { value: '300+', label: 'Projects Completed' },
         { value: '99%', label: 'Success KPI Rate' },
         { value: '8+', label: 'Years Experience' },
+    ] : [
+        { value: '150+', label: 'Klien Puas' },
+        { value: '300+', label: 'Proyek Selesai' },
+        { value: '99%', label: 'Tingkat Sukses KPI' },
+        { value: '8+', label: 'Tahun Pengalaman' },
     ];
 
     // Fallback professional avatars if database lacks avatars
@@ -99,7 +106,9 @@ export default async function Home() {
                     </h1>
 
                     <p className="text-lg md:text-xl text-text-gray max-w-2xl mx-auto font-medium">
-                        Kami membangun arsitektur digital terintegrasi, mengoptimalkan peringkat pencarian, dan merekayasa konversi penjualan secara sistematis.
+                        {locale === 'en' 
+                            ? 'We build integrated digital architectures, optimize search rankings, and systematically engineer sales conversions.'
+                            : 'Kami membangun arsitektur digital terintegrasi, mengoptimalkan peringkat pencarian, dan merekayasa konversi penjualan secara sistematis.'}
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -107,13 +116,13 @@ export default async function Home() {
                             href="#contact"
                             className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors shadow-lg shadow-brand-blue/15"
                         >
-                            Contact Us
+                            {locale === 'en' ? 'Contact Us' : 'Hubungi Kami'}
                         </Link>
                         <Link
                             href="/portfolio"
                             className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-text-main bg-glass-bg border border-glass-border rounded-xl hover:border-brand-blue/40 transition-colors"
                         >
-                            Lihat Karya
+                            {locale === 'en' ? 'View Our Work' : 'Lihat Karya'}
                             <ArrowRight className="ml-2 w-4.5 h-4.5" />
                         </Link>
                     </div>

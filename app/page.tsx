@@ -262,7 +262,7 @@ export default async function Home() {
                                 return (
                                     <Link
                                         key={service.id}
-                                        href={`/services/${service.slug}`}
+                                        href={`/solutions/${service.slug}`}
                                         className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]"
                                     >
                                         <SpotlightCard

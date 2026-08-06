@@ -172,7 +172,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                             {results.services.map((service) => (
                                                 <Link
                                                     key={service.id}
-                                                    href={`/services/${service.slug}`}
+                                                    href={`/solutions/${service.slug}`}
                                                     onClick={handleClose}
                                                     className="flex items-center p-3 border border-slate-200/60 dark:border-slate-800/80 rounded-xl transition-all group bg-white dark:bg-slate-950/20 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:border-brand-blue/50 dark:hover:border-brand-blue/50 mb-2 last:mb-0 shadow-sm"
                                                 >

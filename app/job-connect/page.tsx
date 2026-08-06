@@ -4,11 +4,13 @@ import { api, Career } from '../../lib/api';
 import { Briefcase, MapPin, Clock, ArrowRight, UserPlus } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 import TalentRegistrationForm from '../../components/TalentRegistrationForm';
+import { getLocaleServer } from '../../lib/locale-server';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
 export default async function JobConnectPage() {
     let careers: Career[] = [];
+    const locale = await getLocaleServer();
 
     try {
         careers = await api.getJobConnect();
@@ -30,10 +32,14 @@ export default async function JobConnectPage() {
                         Job Connect
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
-                        Temukan karir impian Anda atau bergabunglah dalam kemitraan jaringan talenta global Diggity.
+                        {locale === 'en' 
+                            ? 'Find your dream career or join Diggity\'s global talent network partnership.' 
+                            : 'Temukan karir impian Anda atau bergabunglah dalam kemitraan jaringan talenta global Diggity.'}
                     </p>
                     <p className="text-sm text-text-muted max-w-2xl mx-auto leading-relaxed">
-                        Kami menjembatani talenta IT digital profesional terbaik dengan proyek-proyek berskala global. Jelajahi lowongan aktif kami atau daftarkan profil portofolio Anda langsung ke database pencarian talenta kami.
+                        {locale === 'en'
+                            ? 'We bridge the best professional digital IT talents with global-scale projects. Explore our active openings or register your portfolio profile directly into our talent search database.'
+                            : 'Kami menjembatani talenta IT digital profesional terbaik dengan proyek-proyek berskala global. Jelajahi lowongan aktif kami atau daftarkan profil portofolio Anda langsung ke database pencarian talenta kami.'}
                     </p>
                 </div>
 
@@ -44,9 +50,14 @@ export default async function JobConnectPage() {
                     <div className="lg:col-span-3 space-y-6">
                         <div className="text-left">
                             <h2 className="text-xl font-extrabold text-text-main tracking-tight flex items-center gap-2">
-                                <Briefcase className="w-5 h-5 text-brand-blue" /> Posisi Terbuka / Lowongan Aktif
+                                <Briefcase className="w-5 h-5 text-brand-blue" /> 
+                                {locale === 'en' ? 'Open Positions / Active Vacancies' : 'Posisi Terbuka / Lowongan Aktif'}
                             </h2>
-                            <p className="text-xs text-text-muted">Lamar langsung posisi tetap atau kontrak yang saat ini tersedia.</p>
+                            <p className="text-xs text-text-muted">
+                                {locale === 'en' 
+                                    ? 'Apply directly to permanent or contract positions currently available.' 
+                                    : 'Lamar langsung posisi tetap atau kontrak yang saat ini tersedia.'}
+                            </p>
                         </div>
 
                         <div className="space-y-4">
@@ -83,7 +94,7 @@ export default async function JobConnectPage() {
                                             </div>
 
                                             <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest self-start sm:self-center shrink-0 border-b border-transparent group-hover:translate-x-1 transition-transform">
-                                                Lihat Lowongan
+                                                {locale === 'en' ? 'View Details' : 'Lihat Lowongan'}
                                                 <ArrowRight className="ml-1.5 w-4 h-4" />
                                             </div>
                                         </SpotlightCard>
@@ -92,7 +103,11 @@ export default async function JobConnectPage() {
                             ) : (
                                 <div className="text-center text-text-muted py-20 bg-glass-bg border border-glass-border rounded-2xl">
                                     <Briefcase className="w-12 h-12 mx-auto text-brand-blue/30 mb-3" />
-                                    <p className="text-sm">Saat ini belum ada lowongan kerja aktif. Silakan daftarkan profil Anda di formulir jaringan talenta kami!</p>
+                                    <p className="text-sm">
+                                        {locale === 'en'
+                                            ? 'Currently there are no active job openings. Please register your profile in our talent network form!'
+                                            : 'Saat ini belum ada lowongan kerja aktif. Silakan daftarkan profil Anda di formulir jaringan talenta kami!'}
+                                    </p>
                                 </div>
                             )}
                         </div>
@@ -102,9 +117,14 @@ export default async function JobConnectPage() {
                     <div className="lg:col-span-2 space-y-6">
                         <div className="text-left">
                             <h2 className="text-xl font-extrabold text-text-main tracking-tight flex items-center gap-2">
-                                <UserPlus className="w-5 h-5 text-brand-blue" /> Registrasi Jaringan Talenta
+                                <UserPlus className="w-5 h-5 text-brand-blue" /> 
+                                {locale === 'en' ? 'Talent Network Registration' : 'Registrasi Jaringan Talenta'}
                             </h2>
-                            <p className="text-xs text-text-muted">Bergabunglah ke dalam database vendor dan profesional IT kami.</p>
+                            <p className="text-xs text-text-muted">
+                                {locale === 'en'
+                                    ? 'Join our database of vendors and digital IT professionals.'
+                                    : 'Bergabunglah ke dalam database vendor dan profesional IT kami.'}
+                            </p>
                         </div>
                         <TalentRegistrationForm />
                     </div>

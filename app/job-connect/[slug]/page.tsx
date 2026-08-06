@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { api } from '../../../lib/api';
 import JobApplicationForm from '../../../components/JobApplicationForm';
 import { ArrowLeft, MapPin, Clock } from 'lucide-react';
+import { getLocaleServer } from '../../../lib/locale-server';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
@@ -12,6 +13,7 @@ interface Props {
 
 export default async function JobDetail({ params }: Props) {
     const { slug } = await params;
+    const locale = await getLocaleServer();
     let job = null;
 
     try {
@@ -23,9 +25,11 @@ export default async function JobDetail({ params }: Props) {
     if (!job) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
-                <h1 className="text-2xl font-bold text-text-main">Lowongan Kerja Tidak Ditemukan</h1>
+                <h1 className="text-2xl font-bold text-text-main">
+                    {locale === 'en' ? 'Job Opening Not Found' : 'Lowongan Kerja Tidak Ditemukan'}
+                </h1>
                 <Link href="/job-connect" className="text-brand-blue hover:underline">
-                    Kembali ke Job Connect
+                    {locale === 'en' ? 'Back to Careers' : 'Kembali ke Job Connect'}
                 </Link>
             </div>
         );
@@ -41,7 +45,7 @@ export default async function JobDetail({ params }: Props) {
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                    Kembali ke Job Connect
+                    {locale === 'en' ? 'Back to Careers' : 'Kembali ke Job Connect'}
                 </Link>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
@@ -70,7 +74,9 @@ export default async function JobDetail({ params }: Props) {
 
                         {/* Job Description */}
                         <div className="space-y-4 border-t border-glass-border pt-8">
-                            <h3 className="text-xl font-bold text-text-main">Deskripsi Pekerjaan</h3>
+                            <h3 className="text-xl font-bold text-text-main">
+                                {locale === 'en' ? 'Job Description' : 'Deskripsi Pekerjaan'}
+                            </h3>
                             <div 
                                 className="prose dark:prose-invert prose-sm text-text-gray leading-relaxed space-y-3"
                                 dangerouslySetInnerHTML={{ __html: job.description }}
@@ -80,7 +86,9 @@ export default async function JobDetail({ params }: Props) {
                         {/* Job Requirements */}
                         {job.requirements && (
                             <div className="space-y-4">
-                                <h3 className="text-xl font-bold text-text-main">Persyaratan Kualifikasi</h3>
+                                <h3 className="text-xl font-bold text-text-main">
+                                    {locale === 'en' ? 'Qualifications & Requirements' : 'Persyaratan Kualifikasi'}
+                                </h3>
                                 <div 
                                     className="prose dark:prose-invert prose-sm text-text-gray leading-relaxed space-y-3"
                                     dangerouslySetInnerHTML={{ __html: job.requirements }}

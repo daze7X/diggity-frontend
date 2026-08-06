@@ -4,12 +4,14 @@ import React, { useState, useRef } from 'react';
 import { api } from '../lib/api';
 import { executeRecaptcha } from '../lib/recaptcha';
 import { Upload, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface JobApplicationFormProps {
     careerId: number;
 }
 
 export default function JobApplicationForm({ careerId }: JobApplicationFormProps) {
+    const { language, t } = useLanguage();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -25,12 +27,12 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             if (file.type !== 'application/pdf') {
-                alert('Hanya diperbolehkan mengunggah berkas format PDF!');
+                alert(language === 'en' ? 'Only PDF file format is allowed!' : 'Hanya diperbolehkan mengunggah berkas format PDF!');
                 setCvFile(null);
                 return;
             }
             if (file.size > 10 * 1024 * 1024) { // 10MB limit
-                alert('Ukuran berkas CV maksimal adalah 10MB!');
+                alert(language === 'en' ? 'CV file size limit is 10MB!' : 'Ukuran berkas CV maksimal adalah 10MB!');
                 setCvFile(null);
                 return;
             }
@@ -41,7 +43,7 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!cvFile) {
-            alert('Silakan pilih berkas CV Anda terlebih dahulu!');
+            alert(language === 'en' ? 'Please select your CV file first!' : 'Silakan pilih berkas CV Anda terlebih dahulu!');
             return;
         }
 
@@ -72,10 +74,10 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
                 cover_letter: '',
             });
             setCvFile(null);
-            setMessage('Lamaran Anda berhasil dikirim! Tim HRD kami akan meninjau kualifikasi Anda.');
+            setMessage(t('career.form.success_msg'));
         } catch (err: any) {
             setStatus('error');
-            setMessage(err.message || 'Gagal mengirim lamaran. Silakan coba kembali.');
+            setMessage(err.message || t('career.form.error_msg'));
         }
     };
 
@@ -85,18 +87,18 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
             <div className="topographic-bg pointer-events-none" />
             
             <div className="relative z-20 text-left">
-                <h3 className="text-xl font-bold text-text-main mb-6">Lamar Posisi Ini</h3>
+                <h3 className="text-xl font-bold text-text-main mb-6">{t('career.apply_title')}</h3>
 
                 {status === 'success' ? (
                     <div className="flex flex-col items-center justify-center text-center py-8 space-y-4">
                         <CheckCircle2 className="w-14 h-14 text-emerald-500" />
-                        <h4 className="text-lg font-bold text-text-main">Lamaran Terkirim!</h4>
+                        <h4 className="text-lg font-bold text-text-main">{t('career.form.success_title')}</h4>
                         <p className="text-sm text-text-gray max-w-sm">{message}</p>
                         <button
                             onClick={() => setStatus('idle')}
                             className="mt-4 px-6 py-2.5 text-sm font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-lg transition-colors cursor-pointer"
                         >
-                            Kirim Ulang
+                            {t('career.form.resubmit')}
                         </button>
                     </div>
                 ) : (
@@ -104,14 +106,14 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
                         {/* Name */}
                         <div className="space-y-1.5">
                             <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                Nama Lengkap <span className="text-brand-blue">*</span>
+                                {t('career.form.name')} <span className="text-brand-blue">*</span>
                             </label>
                             <input
                                 type="text"
                                 required
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                placeholder="Nama Lengkap Anda"
+                                placeholder={t('career.form.name_placeholder')}
                                 className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-lg focus:border-brand-blue focus:outline-none text-sm text-text-main placeholder-text-muted"
                             />
                         </div>
@@ -119,7 +121,7 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
                         {/* Email */}
                         <div className="space-y-1.5">
                             <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                Email <span className="text-brand-blue">*</span>
+                                {t('career.form.email')} <span className="text-brand-blue">*</span>
                             </label>
                             <input
                                 type="email"
@@ -134,14 +136,14 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
                         {/* Phone */}
                         <div className="space-y-1.5">
                             <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                No. WhatsApp <span className="text-brand-blue">*</span>
+                                {t('career.form.phone')} <span className="text-brand-blue">*</span>
                             </label>
                             <input
                                 type="text"
                                 required
                                 value={formData.phone}
                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                placeholder="Contoh: 08123456789"
+                                placeholder={t('career.form.phone_placeholder')}
                                 className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-lg focus:border-brand-blue focus:outline-none text-sm text-text-main placeholder-text-muted"
                             />
                         </div>
@@ -149,7 +151,7 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
                         {/* CV Upload */}
                         <div className="space-y-2">
                             <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                Unggah CV (Format PDF, Maks 10MB) <span className="text-brand-blue">*</span>
+                                {t('career.form.cv')} <span className="text-brand-blue">*</span>
                             </label>
                             <div 
                                 onClick={() => fileInputRef.current?.click()}
@@ -166,7 +168,7 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
                                 {cvFile ? (
                                     <p className="text-sm font-bold text-brand-blue">{cvFile.name}</p>
                                 ) : (
-                                    <p className="text-sm text-text-muted">Pilih berkas PDF atau seret ke sini</p>
+                                    <p className="text-sm text-text-muted">{t('career.form.cv_placeholder')}</p>
                                 )}
                             </div>
                         </div>
@@ -174,13 +176,13 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
                         {/* Cover Letter */}
                         <div className="space-y-1.5">
                             <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                Surat Pengantar / Catatan (Opsional)
+                                {t('career.form.cover_letter')}
                             </label>
                             <textarea
                                 rows={3}
                                 value={formData.cover_letter}
                                 onChange={(e) => setFormData({ ...formData, cover_letter: e.target.value })}
-                                placeholder="Tulis alasan mengapa Anda cocok..."
+                                placeholder={t('career.form.cover_letter_placeholder')}
                                 className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-lg focus:border-brand-blue focus:outline-none text-sm text-text-main placeholder-text-muted"
                             ></textarea>
                         </div>
@@ -197,7 +199,7 @@ export default function JobApplicationForm({ careerId }: JobApplicationFormProps
                             disabled={status === 'loading'}
                             className="flex items-center justify-center w-full px-6 py-3.5 text-base font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all cursor-pointer disabled:bg-brand-blue/30 disabled:text-text-muted shadow-md shadow-brand-blue/15"
                         >
-                            {status === 'loading' ? 'Mengirim...' : 'Kirim Lamaran Pekerjaan'}
+                            {status === 'loading' ? t('career.form.submitting') : t('career.form.submit')}
                         </button>
                     </form>
                 )}

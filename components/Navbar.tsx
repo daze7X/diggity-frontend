@@ -84,7 +84,7 @@ export default function Navbar() {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-3 lg:space-x-4 xl:space-x-8">
+                    <div className="hidden lg:flex items-center space-x-3 xl:space-x-6">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}
@@ -148,7 +148,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Mobile Menu Button & Toggler */}
-                    <div className="md:hidden flex items-center space-x-4">
+                    <div className="lg:hidden flex items-center space-x-4">
                         <button
                             onClick={toggleTheme}
                             className="p-1.5 border border-glass-border rounded-lg bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center w-8 h-8 text-text-main"
@@ -190,7 +190,7 @@ export default function Navbar() {
 
                 {/* Mobile Navigation Drawer */}
                 {isOpen && (
-                    <div className="md:hidden mt-4 bg-brand-bg/95 border border-glass-border rounded-2xl p-6 absolute top-full left-6 right-6 shadow-2xl backdrop-blur-xl transition-all duration-300">
+                    <div className="lg:hidden mt-4 bg-brand-bg/95 border border-glass-border rounded-2xl p-6 absolute top-full left-6 right-6 shadow-2xl backdrop-blur-xl transition-all duration-300">
                         <div className="flex flex-col space-y-4">
                             {navLinks.map((link) => (
                                 <Link

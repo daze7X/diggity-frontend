@@ -7,6 +7,7 @@ import InteractiveSpotlight from "../components/InteractiveSpotlight";
 import WhatsAppButton from "../components/WhatsAppButton";
 import { api } from "../lib/api";
 import Script from "next/script";
+import AnalyticsTracker from "../components/AnalyticsTracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -104,12 +105,25 @@ export default async function RootLayout({
           />
         )}
         <Script
-          src="https://app.sandbox.midtrans.com/snap/snap.js"
+          src={process.env.NEXT_PUBLIC_MIDTRANS_PRODUCTION === 'true'
+            ? "https://app.midtrans.com/snap/snap.js"
+            : "https://app.sandbox.midtrans.com/snap/snap.js"}
           data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || 'SB-Mid-client-yourkey'}
           strategy="lazyOnload"
         />
+        <AnalyticsTracker />
       </head>
       <body className="min-h-full flex flex-col text-text-main transition-colors duration-300">
+        {process.env.NEXT_PUBLIC_GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        )}
         {/* Glowing background blobs for premium glassmorphic depth */}
         <div className="bg-blob-1" />
         <div className="bg-blob-2" />

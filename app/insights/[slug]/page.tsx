@@ -161,7 +161,6 @@ export default async function BlogDetail({ params }: Props) {
                             src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${blog.image}`}
                             alt={blog.title}
                             fill
-                            unoptimized
                             className="object-cover"
                             priority
                         />
@@ -236,7 +235,6 @@ export default async function BlogDetail({ params }: Props) {
                                                     src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${item.image}`}
                                                     alt={item.title}
                                                     fill
-                                                    unoptimized
                                                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                                                 />
                                             ) : (

@@ -95,7 +95,6 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
                                                 src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${featuredBlog.image}`}
                                                 alt={featuredBlog.title}
                                                 fill
-                                                unoptimized
                                                 priority
                                                 className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
                                             />
@@ -145,7 +144,6 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
                                                         src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${blog.image}`}
                                                         alt={blog.title}
                                                         fill
-                                                        unoptimized
                                                         className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                                                     />
                                                 ) : (

@@ -67,7 +67,6 @@ export default function PortfolioGallery({ images, coverImage, title }: Portfoli
                             src={`${storageUrl}/${img}`}
                             alt={`${title} - Slide ${idx + 1}`}
                             fill
-                            unoptimized
                             priority={idx === 0}
                             className="object-cover"
                         />
@@ -169,7 +168,6 @@ export default function PortfolioGallery({ images, coverImage, title }: Portfoli
                             src={`${storageUrl}/${slideImages[activeIndex]}`}
                             alt={`${title} - Lightbox Image`}
                             fill
-                            unoptimized
                             className="object-contain"
                         />
                     </div>

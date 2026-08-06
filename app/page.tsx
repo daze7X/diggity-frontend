@@ -323,7 +323,6 @@ export default async function Home() {
                                             src={url}
                                             alt="Team Avatar"
                                             fill
-                                            unoptimized
                                             className="object-cover"
                                         />
                                     </div>

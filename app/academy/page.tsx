@@ -65,7 +65,6 @@ export default async function AcademyPage() {
                                                     src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${course.image}`}
                                                     alt={course.title}
                                                     fill
-                                                    unoptimized
                                                     className="object-cover"
                                                 />
                                             ) : (

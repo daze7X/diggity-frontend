@@ -28,7 +28,6 @@ export default function HomePortfolios({ portfolios }: HomePortfoliosProps) {
                                         src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${portfolio.image}`}
                                         alt={portfolio.title}
                                         fill
-                                        unoptimized
                                         priority={index === 0}
                                         className="object-cover group-hover:scale-[1.05] transition-transform duration-500"
                                     />

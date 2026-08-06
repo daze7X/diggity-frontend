@@ -105,6 +105,27 @@ const dictionaries = {
         
         'portfolio.title': 'Our Portfolio',
         'portfolio.desc': 'A showcase of our finest work and successful digital transformations for our clients.',
+        
+        'career.back': 'Back to Careers',
+        'career.not_found': 'Job Opening Not Found',
+        'career.desc_title': 'Job Description',
+        'career.req_title': 'Qualifications & Requirements',
+        'career.apply_title': 'Apply for this Position',
+        'career.form.name': 'Full Name',
+        'career.form.name_placeholder': 'Your Full Name',
+        'career.form.email': 'Email Address',
+        'career.form.phone': 'WhatsApp Number',
+        'career.form.phone_placeholder': 'e.g. 08123456789',
+        'career.form.cv': 'Upload CV (PDF format, max 10MB)',
+        'career.form.cv_placeholder': 'Select PDF file or drag here',
+        'career.form.cover_letter': 'Cover Letter / Notes (Optional)',
+        'career.form.cover_letter_placeholder': 'Explain why you are a good fit...',
+        'career.form.submit': 'Submit Application',
+        'career.form.submitting': 'Submitting...',
+        'career.form.success_title': 'Application Submitted!',
+        'career.form.success_msg': 'Your application has been submitted successfully! Our HR team will review your qualifications.',
+        'career.form.error_msg': 'Failed to submit application. Please try again.',
+        'career.form.resubmit': 'Submit Again',
     }
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { api, Team } from '../../lib/api';
 import SpotlightCard from '../../components/SpotlightCard';
 import { 
@@ -270,8 +271,17 @@ export default async function About() {
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-5xl mx-auto">
                             {teams.map((member: any) => (
                                 <SpotlightCard key={member.id} className="p-6 text-center space-y-4">
-                                    <div className="w-24 h-24 rounded-full bg-brand-blue/10 border-2 border-brand-blue/20 flex items-center justify-center font-bold text-brand-blue text-3xl mx-auto">
-                                        {member.name[0]}
+                                    <div className="w-24 h-24 rounded-full bg-brand-blue/10 border-2 border-brand-blue/20 flex items-center justify-center font-bold text-brand-blue text-3xl mx-auto overflow-hidden relative">
+                                        {member.photo ? (
+                                            <Image
+                                                src={member.photo.startsWith('http') ? member.photo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${member.photo}`}
+                                                alt={member.name}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        ) : (
+                                            member.name[0]
+                                        )}
                                     </div>
                                     <div className="space-y-1">
                                         <h4 className="text-lg font-bold text-text-main">{member.name}</h4>

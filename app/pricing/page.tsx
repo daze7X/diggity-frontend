@@ -155,10 +155,10 @@ export default function PricingPage() {
                             return (
                                 <SpotlightCard
                                     key={plan.id}
-                                    className={`relative p-8 flex flex-col justify-between rounded-3xl border h-full transition-all duration-300 ${
+                                    className={`relative flex flex-col justify-between rounded-3xl border h-full transition-all duration-300 ${
                                         plan.is_popular
-                                            ? 'border-brand-blue bg-glass-bg shadow-xl shadow-brand-blue/5 scale-[1.02] md:scale-[1.03] z-10'
-                                            : 'border-glass-border bg-glass-bg/60'
+                                            ? 'border-brand-blue bg-glass-bg shadow-xl shadow-brand-blue/5 scale-[1.02] md:scale-[1.03] z-10 pt-14 pb-8 px-8'
+                                            : 'border-glass-border bg-glass-bg/60 p-8'
                                     }`}
                                 >
                                     {/* Popular Badge */}

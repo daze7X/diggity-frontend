@@ -8,6 +8,7 @@ import WhatsAppButton from "../components/WhatsAppButton";
 import { api } from "../lib/api";
 import Script from "next/script";
 import AnalyticsTracker from "../components/AnalyticsTracker";
+import NextTopLoader from "nextjs-toploader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -114,6 +115,7 @@ export default async function RootLayout({
         <AnalyticsTracker />
       </head>
       <body className="min-h-full flex flex-col text-text-main transition-colors duration-300">
+        <NextTopLoader color="#3b82f6" showSpinner={false} height={3} shadow="0 0 10px #3b82f6,0 0 5px #3b82f6" />
         {process.env.NEXT_PUBLIC_GTM_ID && (
           <noscript>
             <iframe

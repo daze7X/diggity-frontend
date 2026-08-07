@@ -282,11 +282,11 @@ export default async function Home() {
                 </div>
 
                 {/* Gradient fade-out overlay to smooth transition into the next section */}
-                <div className="absolute bottom-0 left-0 right-0 h-72 bg-gradient-to-t from-brand-bg via-brand-bg/95 to-transparent pointer-events-none z-10" />
+                <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-brand-bg via-brand-bg/85 to-transparent pointer-events-none z-10" />
             </section>
 
             {/* 2. Services Section */}
-            <section id="services" className="py-20 bg-glass-bg border-t border-b border-glass-border/20">
+            <section id="services" className="py-20 bg-glass-bg border-t border-b border-glass-border">
                 <div className="max-w-7xl mx-auto px-6 md:px-8">
                     <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                         <div className="space-y-4">

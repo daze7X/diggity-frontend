@@ -235,16 +235,17 @@ export default async function Home() {
                     </div>
 
                     {/* Client Logos Marquee */}
-                    <div className="pt-16 max-w-5xl mx-auto overflow-hidden relative">
-                        {/* Soft fade gradients on edges for premium glass look */}
-                        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-brand-bg to-transparent z-10 pointer-events-none" />
-                        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-brand-bg to-transparent z-10 pointer-events-none" />
-
-                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-text-muted mb-8">
+                    <div className="pt-16 max-w-5xl mx-auto">
+                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-text-muted mb-6">
                             {locale === 'en' ? 'Trusted by Forward-Thinking Brands' : 'Dipercaya oleh Brand Terkemuka'}
                         </p>
 
-                        <div className="py-6 border-t border-b border-glass-border/40 overflow-hidden flex">
+                        {/* Premium Rounded Glass Capsule */}
+                        <div className="relative py-6 px-8 bg-glass-bg/10 dark:bg-glass-bg/5 backdrop-blur-sm border border-glass-border/30 rounded-3xl overflow-hidden flex">
+                            {/* Soft fade gradients on edges inside the rounded capsule */}
+                            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-brand-bg/95 to-transparent z-10 pointer-events-none rounded-l-3xl" />
+                            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-brand-bg/95 to-transparent z-10 pointer-events-none rounded-r-3xl" />
+
                             <div className="animate-marquee flex items-center space-x-16 shrink-0 pr-16">
                                 {settings && settings.partner_logos && settings.partner_logos.length > 0 ? (
                                     // Render 2x for seamless scrolling loop
@@ -279,6 +280,9 @@ export default async function Home() {
 
 
                 </div>
+
+                {/* Gradient fade-out overlay to smooth transition into the next section */}
+                <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-brand-bg via-brand-bg/85 to-transparent pointer-events-none z-10" />
             </section>
 
             {/* 2. Services Section */}

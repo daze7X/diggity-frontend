@@ -13,14 +13,38 @@ export default function AnalyticsTracker() {
     const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
 
     useEffect(() => {
-        // Track page view in GA4 on route change
+        // 1. Track page view on self-hosted Laravel analytics
+        const trackSelfHosted = async () => {
+            try {
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+                await fetch(`${apiUrl}/analytics/pageview`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        path: pathname,
+                        url: window.location.href,
+                        referrer: document.referrer || null,
+                        userAgent: navigator.userAgent || null,
+                    }),
+                });
+            } catch (err) {
+                console.error('[Analytics Tracker] Failed to report pageview:', err);
+            }
+        };
+        
+        trackSelfHosted();
+
+        // 2. Track page view in GA4 on route change
         if (GA_ID && (window as any).gtag) {
             (window as any).gtag('config', GA_ID, {
                 page_path: pathname,
             });
         }
 
-        // Track page view in Meta Pixel on route change
+        // 3. Track page view in Meta Pixel on route change
         if (PIXEL_ID && (window as any).fbq) {
             (window as any).fbq('track', 'PageView');
         }

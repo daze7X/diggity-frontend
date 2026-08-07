@@ -92,6 +92,26 @@ export default async function Home() {
         <div className="relative">
             {/* 1. Hero Section */}
             <section className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+                {/* Dynamic Background SVGs from Haikei */}
+                <div className="absolute inset-0 pointer-events-none -z-10 select-none overflow-hidden">
+                    {/* Light Mode Background */}
+                    <Image
+                        src="/images/hero-bg-light.svg"
+                        alt="Hero Background Light"
+                        fill
+                        priority
+                        className="block dark:hidden object-cover object-center opacity-45"
+                    />
+                    {/* Dark Mode Background */}
+                    <Image
+                        src="/images/hero-bg-dark.svg"
+                        alt="Hero Background Dark"
+                        fill
+                        priority
+                        className="hidden dark:block object-cover object-center opacity-25"
+                    />
+                </div>
+
                 {/* Center Radial Glow Spotlight */}
                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-blue/8 dark:bg-brand-blue/5 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" style={{ animationDuration: '6s' }} />
 

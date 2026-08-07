@@ -155,25 +155,25 @@ export default function PricingPage() {
                             return (
                                 <SpotlightCard
                                     key={plan.id}
-                                    className={`relative flex flex-col justify-between rounded-3xl border h-full transition-all duration-300 ${
+                                    className={`relative p-8 flex flex-col justify-between rounded-3xl border h-full transition-all duration-300 ${
                                         plan.is_popular
-                                            ? 'border-brand-blue bg-glass-bg shadow-xl shadow-brand-blue/5 scale-[1.02] md:scale-[1.03] z-10 pt-14 pb-8 px-8'
-                                            : 'border-glass-border bg-glass-bg/60 p-8'
+                                            ? 'border-brand-blue bg-glass-bg shadow-xl shadow-brand-blue/5 scale-[1.02] md:scale-[1.03] z-10'
+                                            : 'border-glass-border bg-glass-bg/60'
                                     }`}
                                 >
-                                    {/* Popular Badge */}
-                                    {plan.is_popular && (
-                                        <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 px-4 py-1.5 bg-brand-blue text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-brand-blue/25">
-                                            {t('pricing.popular')}
-                                        </div>
-                                    )}
-
                                     {/* Plan Title and Price */}
                                     <div className="space-y-6">
                                         <div className="space-y-2 text-left">
-                                            <h3 className="text-xl font-black text-text-main">{plan.name}</h3>
+                                            <div className="flex items-center justify-between gap-4">
+                                                <h3 className="text-xl font-black text-text-main">{plan.name}</h3>
+                                                {plan.is_popular && (
+                                                    <span className="px-3 py-1 bg-brand-blue/15 border border-brand-blue/25 text-brand-blue text-[10px] font-bold uppercase tracking-wider rounded-full shrink-0">
+                                                        {t('pricing.popular')}
+                                                    </span>
+                                                )}
+                                            </div>
                                             {plan.description && (
-                                                <p className="text-xs text-text-gray leading-relaxed font-medium">
+                                                <p className="text-xs text-text-gray leading-relaxed font-medium pt-1">
                                                     {plan.description}
                                                 </p>
                                             )}

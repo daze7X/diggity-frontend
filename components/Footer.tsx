@@ -183,7 +183,7 @@ export default function Footer() {
                 </div>
  
                 <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-                    <p>&copy; {new Date().getFullYear()} {settings.name}. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} diggity.id. All rights reserved.</p>
                     <div className="flex items-center space-x-6">
                         <Link href="/privacy" className="hover:text-slate-400 text-slate-500">
                             Privacy Policy

@@ -53,6 +53,7 @@ export default function Navbar() {
         { name: t('nav.about'), path: '/about' },
         { name: t('nav.solutions'), path: '/solutions' },
         { name: t('nav.products'), path: '/products' },
+        { name: t('nav.pricing'), path: '/pricing' },
         { name: t('nav.academy'), path: '/academy' },
         { name: t('nav.portfolio'), path: '/portfolio' },
         { name: t('nav.insights'), path: '/insights' },

@@ -167,6 +167,7 @@ export interface Pricing {
     name: string;
     price: number;
     period: string;
+    description?: string;
     features: string[];
     is_popular: boolean;
 }

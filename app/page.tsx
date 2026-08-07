@@ -215,22 +215,45 @@ export default async function Home() {
                     </div>
 
                     {/* Client Logos Marquee */}
-                    <div className="pt-16 max-w-5xl mx-auto">
-                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-text-muted mb-6">Trusted by Forward-Thinking Brands</p>
-                        <div className="flex justify-between items-center gap-8 flex-wrap opacity-45 dark:opacity-30 filter grayscale py-5 border-t border-b border-glass-border">
-                            {settings && settings.partner_logos && settings.partner_logos.length > 0 ? (
-                                settings.partner_logos.map((partner: string, idx: number) => (
-                                    <span key={idx} className="font-extrabold text-lg text-text-main tracking-wider">{partner.toUpperCase()}</span>
-                                ))
-                            ) : (
-                                <>
-                                    <span className="font-extrabold text-lg text-text-main tracking-wider">GOOGLE</span>
-                                    <span className="font-extrabold text-lg text-text-main tracking-wider">STRIPE</span>
-                                    <span className="font-extrabold text-lg text-text-main tracking-wider">MICROSOFT</span>
-                                    <span className="font-extrabold text-lg text-text-main tracking-wider">META</span>
-                                    <span className="font-extrabold text-lg text-text-main tracking-wider">AMAZON</span>
-                                </>
-                            )}
+                    <div className="pt-16 max-w-5xl mx-auto overflow-hidden relative">
+                        {/* Soft fade gradients on edges for premium glass look */}
+                        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-brand-bg to-transparent z-10 pointer-events-none" />
+                        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-brand-bg to-transparent z-10 pointer-events-none" />
+
+                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-text-muted mb-8">
+                            {locale === 'en' ? 'Trusted by Forward-Thinking Brands' : 'Dipercaya oleh Brand Terkemuka'}
+                        </p>
+
+                        <div className="py-6 border-t border-b border-glass-border/40 overflow-hidden flex">
+                            <div className="animate-marquee flex items-center space-x-16 shrink-0 pr-16">
+                                {settings && settings.partner_logos && settings.partner_logos.length > 0 ? (
+                                    // Render 2x for seamless scrolling loop
+                                    [...settings.partner_logos, ...settings.partner_logos].map((logo: string, idx: number) => {
+                                        const isFilePath = logo.includes('/') || logo.includes('.') || logo.startsWith('http');
+                                        return (
+                                            <div key={idx} className="flex items-center justify-center h-10 w-32 relative shrink-0 grayscale opacity-60 dark:opacity-40 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                                                {isFilePath ? (
+                                                    <Image
+                                                        src={logo.startsWith('http') ? logo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${logo}`}
+                                                        alt="Partner Logo"
+                                                        fill
+                                                        className="object-contain"
+                                                    />
+                                                ) : (
+                                                    <span className="font-black text-lg text-text-main tracking-widest">{logo.toUpperCase()}</span>
+                                                )}
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    // Fallback defaults duplicated for seamless loop
+                                    ['GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON'].map((logo, idx) => (
+                                        <div key={idx} className="flex items-center justify-center h-10 w-32 shrink-0 grayscale opacity-50 dark:opacity-30">
+                                            <span className="font-black text-xl text-text-main tracking-widest">{logo}</span>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
                         </div>
                     </div>
 

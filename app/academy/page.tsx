@@ -35,9 +35,6 @@ export default async function AcademyPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto border-b border-glass-border pb-12">
-                    <span className="px-3 py-1 bg-brand-blue/10 border border-brand-blue/15 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg inline-block">
-                        Framework: EMPOWER
-                    </span>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight pt-2">
                         Academy
                     </h1>

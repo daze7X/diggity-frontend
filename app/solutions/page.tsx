@@ -54,11 +54,14 @@ export default async function SolutionsPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto pb-6">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
-                        Layanan Profesional <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue via-blue-600 to-blue-500 dark:from-brand-blue dark:via-blue-400 dark:to-blue-300">Diggity</span>
+                    <span className="px-3 py-1 bg-brand-blue/10 border border-brand-blue/15 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg inline-block">
+                        Framework: BUILD - GROW
+                    </span>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight pt-2">
+                        Solutions
                     </h1>
-                    <p className="text-text-gray max-w-xl mx-auto font-medium text-sm md:text-base leading-relaxed">
-                        Solusi modular berkinerja tinggi yang disesuaikan secara khusus untuk akselerasi pertumbuhan dan skala bisnis Anda.
+                    <p className="text-text-gray max-w-2xl mx-auto font-medium text-sm md:text-base leading-relaxed">
+                        Membantu perusahaan membangun, mengembangkan, dan mentransformasi bisnis melalui teknologi, kreativitas, marketing, dan consulting.
                     </p>
                 </div>
 

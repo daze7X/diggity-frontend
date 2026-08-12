@@ -35,11 +35,14 @@ export default async function AcademyPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto border-b border-glass-border pb-12">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
-                        Pusat Pembelajaran IT & Desain
+                    <span className="px-3 py-1 bg-brand-blue/10 border border-brand-blue/15 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg inline-block">
+                        Framework: EMPOWER
+                    </span>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight pt-2">
+                        Academy
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
-                        Tingkatkan keterampilan teknis tim Anda dengan kelas berbasis modul berstandar industri.
+                        Mengembangkan kompetensi individu dan organisasi melalui pendidikan, pelatihan, sertifikasi, dan learning ecosystem.
                     </p>
                 </div>
 

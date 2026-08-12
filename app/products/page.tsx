@@ -49,11 +49,14 @@ export default async function ProductsPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
-                        Produk Digital & SaaS
+                    <span className="px-3 py-1 bg-brand-blue/10 border border-brand-blue/15 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg inline-block">
+                        Framework: SCALE
+                    </span>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight pt-2">
+                        Products
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium leading-relaxed max-w-2xl mx-auto">
-                        Aplikasi enterprise siap pakai, kecerdasan buatan (AI), dan aset digital marketplace premium untuk mengakselerasi sistem bisnis Anda.
+                        Menyediakan produk digital siap pakai untuk meningkatkan efisiensi, produktivitas, otomasi, dan skalabilitas bisnis.
                     </p>
                 </div>
 

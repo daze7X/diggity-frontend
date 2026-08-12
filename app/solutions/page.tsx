@@ -313,20 +313,13 @@ export default async function SolutionsPage() {
                                                 : 'border-glass-border bg-glass-bg/60'
                                         }`}
                                     >
-                                        {/* Popular Badge */}
-                                        {plan.is_popular && (
-                                            <div className="absolute top-0 right-12 translate-x-0 -translate-y-1/2 px-4 py-1 bg-brand-blue text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">
-                                                {locale === 'en' ? 'Popular' : 'Rekomendasi'}
-                                            </div>
-                                        )}
-
                                         <div className="space-y-6">
                                             <div className="text-left space-y-2">
                                                 <div className="flex items-center justify-between gap-4">
                                                     <h3 className="text-lg font-black text-text-main">{plan.name}</h3>
                                                     {plan.is_popular && (
                                                         <span className="px-2.5 py-0.5 bg-brand-blue/15 border border-brand-blue/25 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-full shrink-0">
-                                                            {locale === 'en' ? 'Popular' : 'Populer'}
+                                                            {locale === 'en' ? 'Popular' : 'Rekomendasi'}
                                                         </span>
                                                     )}
                                                 </div>

@@ -325,15 +325,13 @@ export default async function SolutionsPage() {
                                                 )}
                                             </div>
 
-                                            <div className="flex items-baseline text-left">
-                                                <span className="text-2xl md:text-3xl font-black tracking-tight text-text-main">
-                                                    {isNumeric ? `Mulai ${formattedPrice}` : formattedPrice}
+                                            <div className="flex flex-col text-left space-y-0.5">
+                                                <span className="text-xl md:text-2xl font-black tracking-tight text-text-main">
+                                                    Price on Request (PoR)
                                                 </span>
-                                                {isNumeric && (
-                                                    <span className="text-[10px] font-semibold text-text-gray ml-1">
-                                                        /{plan.period === 'month' ? (locale === 'en' ? 'month' : 'bulan') : plan.period === 'year' ? (locale === 'en' ? 'year' : 'tahun') : (locale === 'en' ? 'project' : 'proyek')}
-                                                    </span>
-                                                )}
+                                                <span className="text-[10px] font-bold text-brand-blue uppercase tracking-wider">
+                                                    {locale === 'en' ? 'Custom Quote' : 'Penawaran Kustom'}
+                                                </span>
                                             </div>
 
                                             {/* Features List */}

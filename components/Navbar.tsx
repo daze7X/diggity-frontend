@@ -294,21 +294,21 @@ export default function Navbar() {
                                 Layanan &amp; Solusi (BUILD-GROW)
                             </span>
                             <div className="space-y-3.5">
-                                <Link href="/solutions" className="group block space-y-0.5">
+                                <Link href="/solutions/technology-solutions" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Code className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Technology Solutions
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium leading-normal">Pengembangan web app, mobile native, &amp; ERP.</p>
                                 </Link>
-                                <Link href="/solutions" className="group block space-y-0.5">
+                                <Link href="/solutions/ai-emerging-technology" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Cpu className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         AI &amp; Emerging Technology
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium leading-normal">Asisten AI, chatbots pintar, &amp; integrasi data.</p>
                                 </Link>
-                                <Link href="/solutions" className="group block space-y-0.5">
+                                <Link href="/solutions/cloud-cyber-security" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Cloud &amp; Cyber Security
@@ -324,21 +324,21 @@ export default function Navbar() {
                                 Strategi &amp; Desain
                             </span>
                             <div className="space-y-3.5">
-                                <Link href="/solutions" className="group block space-y-0.5">
+                                <Link href="/solutions/creative-brand-experience" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Creative &amp; Brand Experience
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium leading-normal">UI/UX Figma wireframing, branding, &amp; video.</p>
                                 </Link>
-                                <Link href="/solutions/search-engine-optimization" className="group block space-y-0.5">
+                                <Link href="/solutions/growth-marketing" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <TrendingUp className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Growth Marketing &amp; SEO
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium leading-normal">Dominasi SEO lokal &amp; iklan Google/Meta Ads.</p>
                                 </Link>
-                                <Link href="/solutions" className="group block space-y-0.5">
+                                <Link href="/solutions/consulting" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <HelpCircle className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         IT Consulting &amp; Strategy
@@ -513,16 +513,25 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'product_solution' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/solutions" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/solutions/technology-solutions" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Technology Solutions
                                     </Link>
-                                    <Link href="/solutions" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/solutions/ai-emerging-technology" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         AI &amp; Emerging Tech
                                     </Link>
-                                    <Link href="/solutions/search-engine-optimization" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/solutions/creative-brand-experience" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Creative &amp; Brand Experience
+                                    </Link>
+                                    <Link href="/solutions/growth-marketing" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Growth Marketing &amp; SEO
                                     </Link>
-                                    <Link href="/products" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/solutions/cloud-cyber-security" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Cloud &amp; Cyber Security
+                                    </Link>
+                                    <Link href="/solutions/consulting" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        IT Consulting
+                                    </Link>
+                                    <Link href="/products" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1 border-t border-glass-border/30 pt-2 mt-2">
                                         SaaS &amp; Aset Digital
                                     </Link>
                                     <Link href="/job-connect?tab=b2b" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">

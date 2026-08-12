@@ -6,54 +6,72 @@ import SpotlightCard from '../../../components/SpotlightCard';
 import { 
     ArrowLeft, 
     Code, 
-    Smartphone, 
+    Cpu, 
     Palette, 
-    Search, 
     TrendingUp, 
     Server, 
-    GraduationCap, 
+    HelpCircle, 
+    ShieldCheck,
     CheckCircle2
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<any>> = {
     code: Code,
-    smartphone: Smartphone,
+    cpu: Cpu,
     palette: Palette,
-    search: Search,
     'trending-up': TrendingUp,
     server: Server,
-    'graduation-cap': GraduationCap,
+    'help-circle': HelpCircle,
+    'shield-check': ShieldCheck,
 };
 
-// Sub-services lists mapped from SRS
+// Sub-services lists mapped from Business Pillars Diggity Spec
 const subServicesMap: Record<string, string[]> = {
-    'app-builder-squad': [
+    'technology-solutions': [
         'Website Development (Next.js, React, Laravel)',
         'Mobile Apps Development (iOS & Android Native)',
         'Custom Software & ERP Systems Development',
-        'UI/UX Design, Figma Prototyping & Wireframing'
+        'Custom E-Commerce & Retail Platform Engineering',
+        'Government Digital Services & Portal Solutions',
+        'API Design & Core Systems Integration'
     ],
-    'brand-growth-division': [
+    'ai-emerging-technology': [
+        'Artificial Intelligence & Agent Development',
+        'Smart AI Chatbots & Customer Assistants',
+        'Machine Learning Models & Integration',
+        'Business Intelligence & Big Data Analytics',
+        'IoT (Internet of Things) Hardware/Software Solutions',
+        'Robotic Process Automation (RPA)'
+    ],
+    'creative-brand-experience': [
+        'Brand Strategy, Naming & Consulting',
+        'Corporate Branding & Visual Identity System',
+        'UI/UX Design, Figma Wireframing & Prototyping',
+        'Professional Photography & High-End Videography',
+        'Motion Graphics & 2D/3D Animation Assets',
+        'Creative Advertising Campaigns & Collaterals'
+    ],
+    'growth-marketing': [
         'Search Engine Optimization (SEO) & Audits',
-        'Google Ads, Search Engine Marketing (SEM)',
-        'Meta Ads (Facebook & Instagram Ads Management)',
+        'Google Ads & Search Engine Marketing (SEM)',
+        'Meta Ads (Facebook, Instagram & Audience Network)',
+        'TikTok & Social Media Influencer Sourcing',
         'Social Media Management & Organic Growth Strategy',
-        'Content Marketing, Copywriting & Funneling',
-        'Corporate Branding, Visual Identity & Logo Design'
+        'Marketplace Store Optimization & Ads (Shopee/Tokopedia)'
     ],
-    'cloud-service-hub': [
-        'Premium Cloud Hosting & Node Setup',
-        'VPS (Virtual Private Server) Configuration',
-        'Cloud Server Infrastructure Architecture',
-        'Domain Registration & Advanced DNS Management',
-        'Business Email Business Hosting Setup',
-        'System Maintenance, Patches & Backup Audits'
+    'cloud-cyber-security': [
+        'Premium Cloud Hosting & Server Provisioning',
+        'VPS (Virtual Private Server) Configurations',
+        'DevOps Orchestration & Continuous Delivery (CI/CD)',
+        'Cyber Security Audits & Compliance Assessment',
+        'Penetration Testing & Vulnerability Assessment',
+        'Managed Cloud Infrastructure & SLA Support'
     ],
-    'digital-skill-lab': [
-        'Corporate IT Training & Team Transformation',
-        'Figma UI/UX & Design Workshops',
-        'Coding & Fullstack Software Development Bootcamps',
-        'Digital Marketing Masterclass & Web Analytics'
+    'consulting': [
+        'IT Consulting & Technical Feasibility Studies',
+        'Corporate Digital Transformation Advisory',
+        'Enterprise Software Architecture Design',
+        'System Auditing & Technology Maturity Assessment'
     ]
 };
 
@@ -111,20 +129,8 @@ export default async function ServiceDetail({ params }: Props) {
     }
 
     const IconComponent = iconMap[service.icon || 'code'] || Code;
-    const categorySlug = service.category?.slug || '';
-    const subServices = subServicesMap[categorySlug] || [];
-
-    // Map service slug to contact option for pre-filling
-    let mappedContactService = 'App Builder Squad';
-    if (categorySlug === 'brand-growth-division') {
-        mappedContactService = 'Brand Growth Division (SEO/Google Ads)';
-    } else if (categorySlug === 'cloud-service-hub') {
-        mappedContactService = 'Cloud Service Hub (VPS/Hosting/Maintenance)';
-    } else if (categorySlug === 'digital-skill-lab') {
-        mappedContactService = 'Digital Skill Lab (IT Training/Workshops)';
-    } else {
-        mappedContactService = 'App Builder Squad (Web/Mobile Apps)';
-    }
+    const subServices = subServicesMap[slug] || [];
+    const mappedContactService = service.name;
 
     return (
         <div className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">

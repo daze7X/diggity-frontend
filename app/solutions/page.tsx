@@ -12,10 +12,33 @@ import {
     Cpu, 
     ShieldCheck,
     Cloud,
-    TrendingUp
+    TrendingUp,
+    Check,
+    HelpCircle
 } from 'lucide-react';
+import { api, Pricing } from '../../lib/api';
+import { getLocaleServer } from '../../lib/locale-server';
 
-export default function SolutionsPage() {
+export const revalidate = 60; // Cache page for 60 seconds (ISR)
+
+export default async function SolutionsPage() {
+    const locale = await getLocaleServer();
+    let pricings: Pricing[] = [];
+    let settings = null;
+
+    try {
+        const [pricingData, companySettings] = await Promise.all([
+            api.getPricings(),
+            api.getCompanySettings().catch(() => null)
+        ]);
+        pricings = pricingData;
+        settings = companySettings;
+    } catch (err) {
+        console.error('Failed to load data for solutions page:', err);
+    }
+
+    const phone = settings?.whatsapp || "6285157303035";
+
     const techStack = [
         'Next.js', 'React', 'TypeScript', 'TailwindCSS', 
         'Laravel', 'Node.js', 'PostgreSQL', 'Docker'
@@ -42,7 +65,7 @@ export default function SolutionsPage() {
                 {/* Dynamic Bento Grid Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     
-                    {/* Card 1: App Builder Squad (Spans 2 columns) */}
+                    {/* Card 1: App Builder Squad */}
                     <Link href="/solutions/website-development" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left relative overflow-hidden border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4 z-10">
@@ -74,7 +97,7 @@ export default function SolutionsPage() {
                             </div>
 
                             {/* Interactive Tech Badge stack */}
-                            <div className="pt-6 border-t border-glass-border/60 z-10">
+                            <div className="pt-6 border-t border-glass-border/60 z-10 mt-4">
                                 <span className="text-[10px] uppercase font-bold tracking-wider text-text-muted block mb-3">Teknologi Utama</span>
                                 <div className="flex flex-wrap gap-2">
                                     {techStack.map((tech, i) => (
@@ -100,15 +123,15 @@ export default function SolutionsPage() {
                                 </p>
                                 <ul className="text-[11px] text-text-gray space-y-2 list-none font-medium">
                                     <li className="flex items-center space-x-2">
-                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
                                         <span>Search Engine Optimization (SEO)</span>
                                     </li>
                                     <li className="flex items-center space-x-2">
-                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                                        <span>Google Ads & PPC Campaign</span>
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                                        <span>Google Ads & PPC Campaigns</span>
                                     </li>
                                     <li className="flex items-center space-x-2">
-                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
                                         <span>Social Media Marketing & Strategy</span>
                                     </li>
                                 </ul>
@@ -135,7 +158,7 @@ export default function SolutionsPage() {
                     </Link>
 
                     {/* Card 3: Cloud Service Hub */}
-                    <Link href="/solutions/cloud-server-hosting" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/website-development" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
@@ -147,15 +170,15 @@ export default function SolutionsPage() {
                                 </p>
                                 <ul className="text-[11px] text-text-gray space-y-2 list-none font-medium">
                                     <li className="flex items-center space-x-2">
-                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
                                         <span>Premium VPS & Dedicated Hosting</span>
                                     </li>
                                     <li className="flex items-center space-x-2">
-                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
                                         <span>Cloudflare CDN & SSL Integration</span>
                                     </li>
                                     <li className="flex items-center space-x-2">
-                                        <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
                                         <span>Business Domain & Secure Mail</span>
                                     </li>
                                 </ul>
@@ -187,8 +210,8 @@ export default function SolutionsPage() {
                         </SpotlightCard>
                     </Link>
 
-                    {/* Card 4: Digital Skill Lab (Spans 2 columns) */}
-                    <Link href="/solutions/corporate-training-bootcamp" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    {/* Card 4: Digital Skill Lab */}
+                    <Link href="/solutions/website-development" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
@@ -232,6 +255,132 @@ export default function SolutionsPage() {
                         </SpotlightCard>
                     </Link>
                 </div>
+
+                {/* Pricing / Service Plans Section (Relocated B2B Packages) */}
+                {pricings.length > 0 && (
+                    <div className="max-w-5xl mx-auto pt-16 pb-8 space-y-10 border-t border-glass-border/40">
+                        <div className="text-center space-y-4 max-w-3xl mx-auto">
+                            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-text-main">
+                                {locale === 'en' ? 'Partnership & Service Plans' : 'Skema Harga & Paket Kemitraan'}
+                            </h2>
+                            <p className="text-sm text-text-gray font-medium leading-relaxed">
+                                {locale === 'en'
+                                    ? 'Transparent baseline investments tailored for customized B2B solutions and long-term tech maintenance.'
+                                    : 'Estimasi investasi teknologi transparan yang dirancang khusus untuk pengerjaan kustomisasi modul dan pemeliharaan jangka panjang.'}
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                            {pricings.map((plan) => {
+                                const isNumeric = !isNaN(Number(plan.price));
+                                const formattedPrice = isNumeric 
+                                    ? new Intl.NumberFormat('id-ID', {
+                                        style: 'currency',
+                                        currency: 'IDR',
+                                        minimumFractionDigits: 0,
+                                        maximumFractionDigits: 0
+                                      }).format(Number(plan.price))
+                                    : plan.price;
+
+                                const whatsappMsg = (locale === 'en' 
+                                    ? "Hello Diggity, I am interested in the [PLAN_NAME] plan for service solutions."
+                                    : "Halo Diggity, saya tertarik dengan paket layanan [PLAN_NAME]. Bisa tolong jelaskan detail lebih lanjut?"
+                                ).replace('[PLAN_NAME]', plan.name);
+
+                                const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(whatsappMsg)}`;
+
+                                return (
+                                    <SpotlightCard
+                                        key={plan.id}
+                                        className={`relative p-8 flex flex-col justify-between rounded-3xl border h-full transition-all duration-300 ${
+                                            plan.is_popular
+                                                ? 'border-brand-blue bg-glass-bg shadow-xl shadow-brand-blue/5 scale-[1.02] md:scale-[1.03] z-10'
+                                                : 'border-glass-border bg-glass-bg/60'
+                                        }`}
+                                    >
+                                        {/* Popular Badge */}
+                                        {plan.is_popular && (
+                                            <div className="absolute top-0 right-12 translate-x-0 -translate-y-1/2 px-4 py-1 bg-brand-blue text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                                                {locale === 'en' ? 'Popular' : 'Rekomendasi'}
+                                            </div>
+                                        )}
+
+                                        <div className="space-y-6">
+                                            <div className="text-left space-y-2">
+                                                <div className="flex items-center justify-between gap-4">
+                                                    <h3 className="text-lg font-black text-text-main">{plan.name}</h3>
+                                                    {plan.is_popular && (
+                                                        <span className="px-2.5 py-0.5 bg-brand-blue/15 border border-brand-blue/25 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-full shrink-0">
+                                                            {locale === 'en' ? 'Popular' : 'Populer'}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                {plan.description && (
+                                                    <p className="text-[11px] text-text-gray font-medium leading-relaxed">
+                                                        {plan.description}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            <div className="flex items-baseline text-left">
+                                                <span className="text-2xl md:text-3xl font-black tracking-tight text-text-main">
+                                                    {isNumeric ? `Mulai ${formattedPrice}` : formattedPrice}
+                                                </span>
+                                                {isNumeric && (
+                                                    <span className="text-[10px] font-semibold text-text-gray ml-1">
+                                                        /{plan.period === 'month' ? (locale === 'en' ? 'month' : 'bulan') : plan.period === 'year' ? (locale === 'en' ? 'year' : 'tahun') : (locale === 'en' ? 'project' : 'proyek')}
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            {/* Features List */}
+                                            <div className="border-t border-glass-border/60 pt-6 space-y-4 text-left">
+                                                <span className="text-[10px] uppercase font-bold tracking-wider text-text-muted block">
+                                                    {locale === 'en' ? 'Included Scope' : 'Cakupan Layanan'}
+                                                </span>
+                                                {Array.isArray(plan.features) && plan.features.length > 0 ? (
+                                                    <ul className="space-y-3 list-none m-0 p-0">
+                                                        {plan.features.map((feature: any, idx: number) => {
+                                                            const featureText = typeof feature === 'object' && feature !== null ? (feature as any).feature : String(feature);
+                                                            return (
+                                                                <li key={idx} className="flex items-start space-x-2 text-xs text-text-gray">
+                                                                    <div className="p-0.5 bg-brand-blue/10 border border-brand-blue/20 rounded-md shrink-0 text-brand-blue mt-0.5">
+                                                                        <Check className="w-3 h-3" />
+                                                                    </div>
+                                                                    <span className="font-medium">{featureText}</span>
+                                                                </li>
+                                                            );
+                                                        })}
+                                                    </ul>
+                                                ) : (
+                                                    <div className="flex items-center space-x-2 text-text-gray text-[11px] py-2 bg-glass-bg border border-glass-border/40 rounded-xl px-4">
+                                                        <HelpCircle className="w-4 h-4 text-brand-blue shrink-0" />
+                                                        <span>Hubungi tim teknis kami untuk proposal estimasi.</span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-8">
+                                            <a
+                                                href={whatsappUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`w-full inline-flex items-center justify-center py-3 px-6 rounded-xl text-xs font-bold transition-all ${
+                                                    plan.is_popular
+                                                        ? 'bg-brand-blue hover:bg-brand-blue-dark text-white shadow-lg shadow-brand-blue/25'
+                                                        : 'bg-glass-bg hover:bg-glass-bg-hover text-text-main border border-glass-border/80'
+                                                }`}
+                                            >
+                                                {locale === 'en' ? 'Request Proposal' : 'Minta Penawaran'}
+                                            </a>
+                                        </div>
+                                    </SpotlightCard>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
 
                 {/* Call-to-Action (CTA) Section */}
                 <div className="max-w-5xl mx-auto pt-12">

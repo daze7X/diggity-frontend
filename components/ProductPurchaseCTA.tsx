@@ -103,13 +103,18 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
     const isDigitalDownload = billingPeriod === 'one_time' && filePath;
 
     if (!isDigitalDownload) {
+        const whatsappMsg = `Halo Diggity, saya tertarik dengan produk ${name}. Apakah saya bisa meminta demo layanan atau berkonsultasi mengenai produk ini? Terima kasih!`;
+        const whatsappUrl = `https://wa.me/6285157303035?text=${encodeURIComponent(whatsappMsg)}`;
+
         return (
-            <Link
-                href={`/contact?service=${encodeURIComponent(name)}`}
+            <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-1.5 w-full py-4 text-center text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-md shadow-brand-blue/15 cursor-pointer"
             >
-                Pesan & Minta Demo <ArrowUpRight className="w-4 h-4" />
-            </Link>
+                Minta Demo Layanan <ArrowUpRight className="w-4 h-4" />
+            </a>
         );
     }
 

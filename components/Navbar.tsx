@@ -17,7 +17,10 @@ import {
     GraduationCap, 
     Server, 
     HelpCircle,
-    BookOpen
+    BookOpen,
+    Users,
+    UserCheck,
+    Briefcase
 } from 'lucide-react';
 import SearchOverlay from './SearchOverlay';
 import { useAuth } from '../context/AuthContext';
@@ -30,8 +33,8 @@ export default function Navbar() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
-    const [activeDropdown, setActiveDropdown] = useState<'solutions' | 'products' | 'academy' | null>(null);
-    const [mobileExpanded, setMobileExpanded] = useState<'solutions' | 'products' | 'academy' | null>(null);
+    const [activeDropdown, setActiveDropdown] = useState<'product_solution' | 'academy' | null>(null);
+    const [mobileExpanded, setMobileExpanded] = useState<'product_solution' | 'academy' | null>(null);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -47,8 +50,19 @@ export default function Navbar() {
             }
         };
 
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (!target.closest('nav')) {
+                setActiveDropdown(null);
+            }
+        };
+
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            document.removeEventListener('click', handleClickOutside);
+        };
     }, []);
 
     // Close dropdown on route change
@@ -78,6 +92,10 @@ export default function Navbar() {
         return pathname.startsWith(path);
     };
 
+    const handleDropdownToggle = (type: 'product_solution' | 'academy') => {
+        setActiveDropdown(activeDropdown === type ? null : type);
+    };
+
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -85,7 +103,6 @@ export default function Navbar() {
                     ? 'bg-brand-bg/85 backdrop-blur-md border-b border-glass-border py-4'
                     : 'bg-transparent py-6'
             }`}
-            onMouseLeave={() => setActiveDropdown(null)}
         >
             <div className="max-w-7xl mx-auto px-6 md:px-8 relative">
                 <div className="flex items-center justify-between">
@@ -106,52 +123,26 @@ export default function Navbar() {
                         >
                             {t('nav.home')}
                         </Link>
-                        
-                        <Link
-                            href="/about"
-                            className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg ${
-                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.about')}
-                        </Link>
 
-                        {/* Solutions Dropdown Menu */}
-                        <div 
-                            className="relative"
-                            onMouseEnter={() => setActiveDropdown('solutions')}
-                        >
+                        {/* Combined Product & Solution Dropdown Menu (On Click) */}
+                        <div className="relative">
                             <button
+                                onClick={() => handleDropdownToggle('product_solution')}
                                 className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
-                                    isActive('/solutions') ? 'text-brand-blue' : 'text-text-gray'
+                                    isActive('/solutions') || isActive('/products') || isActive('/job-connect') 
+                                        ? 'text-brand-blue' 
+                                        : 'text-text-gray'
                                 }`}
                             >
-                                <span>{t('nav.solutions')}</span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
+                                <span>{t('nav.product_solution')}</span>
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'product_solution' ? 'rotate-180' : ''}`} />
                             </button>
                         </div>
 
-                        {/* Products Dropdown Menu */}
-                        <div 
-                            className="relative"
-                            onMouseEnter={() => setActiveDropdown('products')}
-                        >
+                        {/* Academy Dropdown Menu (On Click) */}
+                        <div className="relative">
                             <button
-                                className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
-                                    isActive('/products') ? 'text-brand-blue' : 'text-text-gray'
-                                }`}
-                            >
-                                <span>{t('nav.products')}</span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
-                            </button>
-                        </div>
-
-                        {/* Academy Dropdown Menu */}
-                        <div 
-                            className="relative"
-                            onMouseEnter={() => setActiveDropdown('academy')}
-                        >
-                            <button
+                                onClick={() => handleDropdownToggle('academy')}
                                 className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
                                     isActive('/academy') ? 'text-brand-blue' : 'text-text-gray'
                                 }`}
@@ -178,14 +169,14 @@ export default function Navbar() {
                         >
                             {t('nav.insights')}
                         </Link>
-
+                        
                         <Link
-                            href="/job-connect"
+                            href="/about"
                             className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg ${
-                                isActive('/job-connect') ? 'text-brand-blue' : 'text-text-gray'
+                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
                             }`}
                         >
-                            {t('nav.jobConnect')}
+                            {t('nav.about')}
                         </Link>
                     </div>
 
@@ -289,179 +280,140 @@ export default function Navbar() {
                 </div>
 
                 {/* ========================================================
-                    DESKTOP MEGA DROP-DOWN PANELS
+                    DESKTOP MEGA DROP-DOWN PANELS (ON CLICK)
                     ======================================================== */}
                 
-                {/* 1. Solutions Mega-Menu Panel */}
-                {activeDropdown === 'solutions' && (
+                {/* 1. Combined Product & Solution Mega-Menu Panel */}
+                {activeDropdown === 'product_solution' && (
                     <div 
-                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
-                        onMouseEnter={() => setActiveDropdown('solutions')}
-                        onMouseLeave={() => setActiveDropdown(null)}
+                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-4 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
                     >
-                        {/* Col 1: Jasa Rekayasa (BUILD) */}
+                        {/* Col 1: Layanan Rekayasa & Optimasi (Solutions) */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Rekayasa Digital (BUILD)
+                                Layanan &amp; Solusi (BUILD-GROW)
                             </span>
-                            <div className="space-y-3">
-                                <Link href="/solutions/website-development" className="group block space-y-1">
+                            <div className="space-y-3.5">
+                                <Link href="/solutions" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Code className="w-3.5 h-3.5 shrink-0" />
+                                        <Code className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Technology Solutions
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Pengembangan website, aplikasi mobile, dan sistem ERP terintegrasi.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Pengembangan web app, mobile native, &amp; ERP.</p>
                                 </Link>
-                                <Link href="/solutions/website-development" className="group block space-y-1">
+                                <Link href="/solutions" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Cpu className="w-3.5 h-3.5 shrink-0" />
+                                        <Cpu className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         AI &amp; Emerging Technology
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Integrasi asisten kecerdasan buatan, chatbot AI, dan data analitik.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Asisten AI, chatbots pintar, &amp; integrasi data.</p>
                                 </Link>
-                                <Link href="/solutions/website-development" className="group block space-y-1">
+                                <Link href="/solutions" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Server className="w-3.5 h-3.5 shrink-0" />
+                                        <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Cloud &amp; Cyber Security
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Setup hosting, migrasi cloud database, audit keamanan cyber &amp; DevOps.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Setup cloud infrastructure, DevOps, &amp; security.</p>
                                 </Link>
                             </div>
                         </div>
 
-                        {/* Col 2: Strategi Pertumbuhan (GROW) */}
+                        {/* Col 2: Kategori Layanan Lanjutan */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Skala Bisnis (GROW)
+                                Strategi &amp; Desain
                             </span>
-                            <div className="space-y-3">
-                                <Link href="/solutions/website-development" className="group block space-y-1">
+                            <div className="space-y-3.5">
+                                <Link href="/solutions" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Layers className="w-3.5 h-3.5 shrink-0" />
+                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Creative &amp; Brand Experience
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Perancangan UI/UX Figma, identitas brand, desain grafis &amp; video.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">UI/UX Figma wireframing, branding, &amp; video.</p>
                                 </Link>
-                                <Link href="/solutions/search-engine-optimization" className="group block space-y-1">
+                                <Link href="/solutions/search-engine-optimization" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <TrendingUp className="w-3.5 h-3.5 shrink-0" />
+                                        <TrendingUp className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Growth Marketing &amp; SEO
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Optimasi SEO organik, iklan PPC Google/Meta Ads, dan konversi target.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Dominasi SEO lokal &amp; iklan Google/Meta Ads.</p>
                                 </Link>
-                                <Link href="/solutions/website-development" className="group block space-y-1">
+                                <Link href="/solutions" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <HelpCircle className="w-3.5 h-3.5 shrink-0" />
-                                        IT Consulting &amp; Advisory
+                                        <HelpCircle className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        IT Consulting &amp; Strategy
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Konsultasi strategi transformasi digital &amp; penasihat arsitektur IT.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Advisory transformasi teknologi digital.</p>
                                 </Link>
                             </div>
                         </div>
 
-                        {/* Col 3: Promosi B2B Panel */}
-                        <div className="p-6 bg-glass-bg border border-glass-border/60 rounded-2xl flex flex-col justify-between space-y-4">
-                            <div className="space-y-1.5">
-                                <span className="px-2.5 py-0.5 bg-brand-blue/5 border border-brand-blue/15 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-md inline-block">
-                                    B2B Solutions
-                                </span>
-                                <h4 className="text-sm font-extrabold text-text-main">Butuh Penawaran Jasa Kustom?</h4>
-                                <p className="text-[11px] text-text-gray leading-relaxed font-medium">
-                                    Dapatkan analisis arsitektur teknis dan proposal perencanaan kustom dari arsitek solusi senior kami gratis.
-                                </p>
-                            </div>
-                            <Link 
-                                href="/solutions"
-                                className="inline-flex items-center justify-center py-2 px-4 bg-brand-blue text-white rounded-xl text-xs font-bold hover:bg-brand-blue-dark transition-colors self-start group"
-                            >
-                                Lihat Paket Jasa
-                                <ArrowUpRight className="ml-1 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                            </Link>
-                        </div>
-                    </div>
-                )}
-
-                {/* 2. Products Mega-Menu Panel */}
-                {activeDropdown === 'products' && (
-                    <div 
-                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
-                        onMouseEnter={() => setActiveDropdown('products')}
-                        onMouseLeave={() => setActiveDropdown(null)}
-                    >
-                        {/* Col 1: Software & SaaS (SCALE) */}
+                        {/* Col 3: Produk SaaS & Aset Digital (SCALE) */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Aplikasi Bisnis &amp; SaaS (SCALE)
+                                Produk &amp; Aset Digital (SCALE)
                             </span>
-                            <div className="space-y-3">
-                                <Link href="/products/diggity-erp" className="group block space-y-1">
+                            <div className="space-y-3.5">
+                                <Link href="/products/diggity-erp" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Server className="w-3.5 h-3.5 shrink-0" />
+                                        <Server className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Diggity ERP &amp; CRM
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Sistem manajemen inventory, keuangan, HR, payroll, dan pergudangan.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">SaaS akuntansi, inventory, payroll B2B.</p>
                                 </Link>
-                                <Link href="/products/diggity-ai-agent" className="group block space-y-1">
+                                <Link href="/products/diggity-ai-agent" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Cpu className="w-3.5 h-3.5 shrink-0" />
+                                        <Cpu className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Diggity AI Agent
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Otomatisasi percakapan chat CS, asisten cerdas lead-generation B2B.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Otomatisasi asisten chat &amp; customer lead.</p>
                                 </Link>
-                            </div>
-                        </div>
-
-                        {/* Col 2: Digital Marketplace Assets */}
-                        <div className="space-y-4">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Aset Digital &amp; Templates
-                            </span>
-                            <div className="space-y-3">
-                                <Link href="/products/sleek-dashboard-ui-kit" className="group block space-y-1">
+                                <Link href="/products/sleek-dashboard-ui-kit" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Layers className="w-3.5 h-3.5 shrink-0" />
+                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Sleek Dashboard UI Kit
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Ratusan komponen UI siap pakai dengan Figma file dan React integrasi.</p>
-                                </Link>
-                                <Link href="/products" className="group block space-y-1">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Code className="w-3.5 h-3.5 shrink-0" />
-                                        Web &amp; Mobile Templates
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Template website Next.js, React, tailwind, dan aset developer lengkap.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Aset digital UI Kit, templates &amp; assets.</p>
                                 </Link>
                             </div>
                         </div>
 
-                        {/* Col 3: Promosi B2B Panel */}
-                        <div className="p-6 bg-glass-bg border border-glass-border/60 rounded-2xl flex flex-col justify-between space-y-4">
-                            <div className="space-y-1.5">
-                                <span className="px-2.5 py-0.5 bg-brand-blue/5 border border-brand-blue/15 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-md inline-block">
-                                    Product Demo
-                                </span>
-                                <h4 className="text-sm font-extrabold text-text-main">Minta Uji Coba Demo SaaS?</h4>
-                                <p className="text-[11px] text-text-gray leading-relaxed font-medium">
-                                    Lihat bagaimana aplikasi Diggity ERP dan AI Agent kami mengotomatisasi bisnis kawan melalui live demo gratis.
-                                </p>
+                        {/* Col 4: Tech Talent Solutions (Job Connect B2B/B2C) */}
+                        <div className="space-y-4">
+                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                                Penyediaan Talenta IT
+                            </span>
+                            <div className="space-y-3.5">
+                                <Link href="/job-connect?tab=b2b" className="group block space-y-0.5">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
+                                        <Users className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Dedicated IT Team
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Sewa full-squad tim IT profesional terkelola.</p>
+                                </Link>
+                                <Link href="/job-connect?tab=b2b" className="group block space-y-0.5">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
+                                        <UserCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        IT Talent Outsourcing
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Sewa talenta ahli kontrak bulanan.</p>
+                                </Link>
+                                <Link href="/job-connect?tab=careers" className="group block space-y-0.5">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
+                                        <Briefcase className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Job Connect / Karir
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Lihat daftar lowongan aktif untuk pelamar.</p>
+                                </Link>
                             </div>
-                            <Link 
-                                href="/products"
-                                className="inline-flex items-center justify-center py-2 px-4 bg-brand-blue text-white rounded-xl text-xs font-bold hover:bg-brand-blue-dark transition-colors self-start group"
-                            >
-                                Jelajahi Produk
-                                <ArrowUpRight className="ml-1 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                            </Link>
                         </div>
                     </div>
                 )}
 
-                {/* 3. Academy Mega-Menu Panel */}
+                {/* 2. Academy Mega-Menu Panel */}
                 {activeDropdown === 'academy' && (
                     <div 
                         className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
-                        onMouseEnter={() => setActiveDropdown('academy')}
-                        onMouseLeave={() => setActiveDropdown(null)}
                     >
                         {/* Col 1: Program Belajar (EMPOWER) */}
                         <div className="space-y-4">
@@ -471,14 +423,14 @@ export default function Navbar() {
                             <div className="space-y-3">
                                 <Link href="/academy" className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <GraduationCap className="w-3.5 h-3.5 shrink-0" />
+                                        <GraduationCap className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Coding Bootcamps
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium">Pelatihan pemrograman intensif bersertifikat standar industri.</p>
                                 </Link>
                                 <Link href="/academy" className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Layers className="w-3.5 h-3.5 shrink-0" />
+                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Corporate IT Training
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium">Program pelatihan teknologi &amp; upskilling in-house untuk perusahaan.</p>
@@ -494,14 +446,14 @@ export default function Navbar() {
                             <div className="space-y-3">
                                 <Link href="/academy" className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <BookOpen className="w-3.5 h-3.5 shrink-0" />
+                                        <BookOpen className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Self-Paced E-Courses
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium">Akses belajar mandiri materi koding lengkap beserta kuis kompetensi.</p>
                                 </Link>
                                 <Link href="/academy" className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Layers className="w-3.5 h-3.5 shrink-0" />
+                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Digital E-Books
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium">Unduh buku panduan pemrograman gratis dan tips rekayasa perangkat lunak.</p>
@@ -547,69 +499,37 @@ export default function Navbar() {
                         >
                             {t('nav.home')}
                         </Link>
-                        
-                        <Link
-                            href="/about"
-                            onClick={() => setIsOpen(false)}
-                            className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
-                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.about')}
-                        </Link>
 
-                        {/* Mobile Solutions Accordion */}
+                        {/* Mobile Product & Solution Accordion */}
                         <div className="border-b border-glass-border/40 py-1.5">
                             <button
-                                onClick={() => setMobileExpanded(mobileExpanded === 'solutions' ? null : 'solutions')}
+                                onClick={() => setMobileExpanded(mobileExpanded === 'product_solution' ? null : 'product_solution')}
                                 className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
                             >
-                                <span className={isActive('/solutions') ? 'text-brand-blue' : ''}>{t('nav.solutions')}</span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'solutions' ? 'rotate-180' : ''}`} />
+                                <span className={isActive('/solutions') || isActive('/products') || isActive('/job-connect') ? 'text-brand-blue' : ''}>
+                                    {t('nav.product_solution')}
+                                </span>
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'product_solution' ? 'rotate-180' : ''}`} />
                             </button>
-                            {mobileExpanded === 'solutions' && (
+                            {mobileExpanded === 'product_solution' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/solutions/website-development" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/solutions" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Technology Solutions
                                     </Link>
-                                    <Link href="/solutions/website-development" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/solutions" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         AI &amp; Emerging Tech
-                                    </Link>
-                                    <Link href="/solutions/website-development" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Cloud &amp; Cyber Security
                                     </Link>
                                     <Link href="/solutions/search-engine-optimization" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Growth Marketing &amp; SEO
                                     </Link>
-                                    <Link href="/solutions" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1">
-                                        Lihat Semua Layanan &rarr;
+                                    <Link href="/products" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        SaaS &amp; Aset Digital
                                     </Link>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Mobile Products Accordion */}
-                        <div className="border-b border-glass-border/40 py-1.5">
-                            <button
-                                onClick={() => setMobileExpanded(mobileExpanded === 'products' ? null : 'products')}
-                                className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
-                            >
-                                <span className={isActive('/products') ? 'text-brand-blue' : ''}>{t('nav.products')}</span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'products' ? 'rotate-180' : ''}`} />
-                            </button>
-                            {mobileExpanded === 'products' && (
-                                <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/products/diggity-erp" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Diggity ERP &amp; CRM
+                                    <Link href="/job-connect?tab=b2b" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Sewa Tim IT (Dedicated)
                                     </Link>
-                                    <Link href="/products/diggity-ai-agent" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Diggity AI Agent
-                                    </Link>
-                                    <Link href="/products/sleek-dashboard-ui-kit" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Sleek Dashboard UI Kit
-                                    </Link>
-                                    <Link href="/products" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1">
-                                        Lihat Semua Produk &rarr;
+                                    <Link href="/job-connect?tab=careers" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1">
+                                        Cari Kerja &amp; Lowongan IT &rarr;
                                     </Link>
                                 </div>
                             )}
@@ -660,13 +580,13 @@ export default function Navbar() {
                         </Link>
 
                         <Link
-                            href="/job-connect"
+                            href="/about"
                             onClick={() => setIsOpen(false)}
                             className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
-                                isActive('/job-connect') ? 'text-brand-blue' : 'text-text-gray'
+                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
                             }`}
                         >
-                            {t('nav.jobConnect')}
+                            {t('nav.about')}
                         </Link>
 
                         {/* Mobile Right/Bottom CTAs */}

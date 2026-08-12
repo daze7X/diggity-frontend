@@ -467,6 +467,12 @@ export default async function ServiceDetail({ params }: Props) {
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                             {plans.map((plan, idx) => {
+                                const scaleText = idx === 0 
+                                    ? 'Skala Proyek Kecil / Startup' 
+                                    : idx === 1 
+                                    ? 'Skala Bisnis Berkembang' 
+                                    : 'Skala Korporat & Enterprise';
+
                                 const whatsappMsg = `Halo Diggity, saya tertarik dengan paket [PLAN_NAME] untuk layanan [SERVICE_NAME]. Bisa tolong jelaskan detail lebih lanjut?`
                                     .replace('[PLAN_NAME]', plan.name)
                                     .replace('[SERVICE_NAME]', service.name);
@@ -496,12 +502,12 @@ export default async function ServiceDetail({ params }: Props) {
                                                 </p>
                                             </div>
 
-                                            <div className="flex flex-col space-y-0.5">
+                                            <div className="flex flex-col space-y-1">
                                                 <span className="text-base font-black tracking-tight text-text-main">
-                                                    {plan.price}
+                                                    Penawaran Kustom
                                                 </span>
-                                                <span className="text-[9px] font-bold text-text-muted uppercase">
-                                                    Per {plan.period}
+                                                <span className="text-[9px] font-bold text-brand-blue uppercase tracking-wider">
+                                                    {scaleText}
                                                 </span>
                                             </div>
 

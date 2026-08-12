@@ -75,6 +75,270 @@ const subServicesMap: Record<string, string[]> = {
     ]
 };
 
+interface CustomPlan {
+    name: string;
+    price: string;
+    period: string;
+    description: string;
+    features: string[];
+    isPopular?: boolean;
+}
+
+const servicePlansMap: Record<string, CustomPlan[]> = {
+    'technology-solutions': [
+        {
+            name: 'Basic Web & Portal',
+            price: 'Mulai Rp 5.000.000',
+            period: 'proyek',
+            description: 'Ideal untuk pendaratan produk awal, web profil perusahaan (company profile) berkinerja tinggi, dan optimasi SEO.',
+            features: [
+                'Responsive Design (Desktop & Mobile)',
+                'Hingga 5 Halaman Konten Utama',
+                'Integrasi WhatsApp & Sosial Media CTA',
+                'Analitik Google & Search Console Setup',
+                'Panduan Penggunaan Admin Panel'
+            ]
+        },
+        {
+            name: 'Custom Web & Mobile App',
+            price: 'Mulai Rp 15.000.000',
+            period: 'proyek',
+            description: 'Ideal untuk bisnis yang membutuhkan portal interaktif khusus, aplikasi e-commerce ritel, atau aplikasi Android & iOS.',
+            features: [
+                'Desain UI/UX Kustom Eksklusif (Figma)',
+                'Aplikasi Mobile Native (iOS & Android)',
+                'CMS Manajemen Konten Dinamis',
+                'Integrasi Payment Gateway & Kurir Ekspedisi',
+                'Keamanan Enkripsi SSL & Sertifikat Keamanan'
+            ],
+            isPopular: true
+        },
+        {
+            name: 'Enterprise Custom & ERP',
+            price: 'Mulai Rp 45.000.000',
+            period: 'proyek',
+            description: 'Didesain khusus untuk integrasi skala besar, manajemen rantai pasok (ERP), pergudangan, keuangan, dan kustomisasi kompleks.',
+            features: [
+                'Arsitektur Multi-Role Access Control (RBAC)',
+                'Integrasi Sistem ERP & CRM Dinamis',
+                'Sinkronisasi Sistem Warisan & API Pihak Ketiga',
+                'Uji Beban Performa & Keamanan Siber Ketat',
+                'Dukungan SLA Pemeliharaan 24/7'
+            ]
+        }
+    ],
+    'ai-emerging-technology': [
+        {
+            name: 'AI Assistant Chatbot',
+            price: 'Mulai Rp 7.500.000',
+            period: 'proyek',
+            description: 'Integrasi asisten virtual kecerdasan buatan terlatih untuk melayani tanya jawab pelanggan otomatis selama 24 jam.',
+            features: [
+                'Integrasi Model OpenAI GPT / Gemini LLM',
+                'Custom Knowledge Base (Buku Panduan Bisnis)',
+                'Kanal Chat (WhatsApp, Telegram, atau Web)',
+                'Sistem Eskalasi ke Admin Manusia',
+                'Laporan Riwayat Percakapan Chatbot'
+            ]
+        },
+        {
+            name: 'AI Automation Agent',
+            price: 'Mulai Rp 20.000.000',
+            period: 'proyek',
+            description: 'Otomatisasi proses bisnis internal perusahaan (RPA) menggunakan kecerdasan buatan untuk menghemat waktu kerja operasional.',
+            features: [
+                'Otomatisasi Alur Input Data & Dokumen',
+                'Pengenalan Karakter Gambar (AI OCR Engine)',
+                'Autopilot Sistem Operasional Harian',
+                'Notifikasi Alert & Sinkronisasi DB',
+                'Dashboard Efisiensi Kinerja Alur Kerja'
+            ],
+            isPopular: true
+        },
+        {
+            name: 'Enterprise AI & BI Models',
+            price: 'Mulai Rp 60.000.000',
+            period: 'proyek',
+            description: 'Pengembangan model mesin pembelajaran kustom, data engineering berskala besar, dan visualisasi analisis bisnis interaktif.',
+            features: [
+                'Pelatihan Model Machine Learning Kustom',
+                'Data Pipeline & Pembersihan Big Data',
+                'Prediksi Tren Penjualan & Perilaku Klien',
+                'Dashboard Business Intelligence Real-Time',
+                'Advisory Keamanan Data & Proteksi Privasi'
+            ]
+        }
+    ],
+    'creative-brand-experience': [
+        {
+            name: 'Brand Identity Essentials',
+            price: 'Mulai Rp 3.500.000',
+            period: 'proyek',
+            description: 'Penyusunan pondasi identitas visual brand yang solid untuk menarik minat pembeli pertama secara konsisten.',
+            features: [
+                'Desain Logo Utama & Alternatif',
+                'Sistem Palet Warna & Tipografi Resmi',
+                'Brand Guidelines Book (Panduan Visual)',
+                'Desain Kartu Nama & Kop Surat Perusahaan',
+                'Aset Media Sosial Awal (Banner & Avatar)'
+            ]
+        },
+        {
+            name: 'UI/UX Design Pro',
+            price: 'Mulai Rp 10.000.000',
+            period: 'proyek',
+            description: 'Perancangan desain antarmuka aplikasi web dan mobile yang estetik, intuitif, berorientasi konversi, dan ramah pengguna.',
+            features: [
+                'Uji Coba Pengalaman Pengguna (UX Research)',
+                'Desain Kawat Kasar (Wireframing & Sitemap)',
+                'Desain Visual Beresolusi Tinggi (UI Mockup)',
+                'Prototipe Interaktif Siap Uji Pengguna',
+                'Sistem Desain Komponen Figma Terorganisir'
+            ],
+            isPopular: true
+        },
+        {
+            name: 'Full Creative Campaigns',
+            price: 'Mulai Rp 25.000.000',
+            period: 'proyek',
+            description: 'Produksi aset multimedia kreatif tingkat lanjut untuk mendominasi kesadaran publik di berbagai kanal media sosial.',
+            features: [
+                'Sesi Foto Produk & Profil Korporasi Profesional',
+                'Produksi Video Iklan & Company Profile',
+                'Aset Motion Graphics & Animasi 2D/3D',
+                'Desain Konten Kampanye Iklan Berbayar',
+                'Penyusunan Strategi Arah Kreatif (Creative Direction)'
+            ]
+        }
+    ],
+    'growth-marketing': [
+        {
+            name: 'SEO Dominance Essentials',
+            price: 'Mulai Rp 4.000.000',
+            period: 'bulan',
+            description: 'Optimasi mesin pencari organik untuk meningkatkan peringkat website kawan secara dominan di hasil pencarian Google.',
+            features: [
+                'Riset Kata Kunci & Pemetaan Topik',
+                'Audit Teknis SEO & Kecepatan Website',
+                'Optimasi Konten On-Page & Copywriting',
+                'Laporan Bulanan Peringkat & Lalu Lintas Web',
+                'Optimasi Google My Business & SEO Lokal'
+            ]
+        },
+        {
+            name: 'Digital Ads & PPC Campaign',
+            price: 'Mulai Rp 7.000.000',
+            period: 'bulan',
+            description: 'Kampanye iklan berbayar dengan target audiens presisi tinggi untuk menghasilkan leads instan dan penjualan secara cepat.',
+            features: [
+                'Setup Google Search & Display Ads',
+                'Manajemen Facebook & Instagram Meta Ads',
+                'Optimasi Iklan Video Pendek TikTok Ads',
+                'Perancangan Landing Page Khusus Konversi',
+                'Retargeting & Uji Coba Variasi Iklan (A/B Testing)'
+            ],
+            isPopular: true
+        },
+        {
+            name: 'Total Organic Growth',
+            price: 'Mulai Rp 12.000.000',
+            period: 'bulan',
+            description: 'Manajemen digital marketing komprehensif untuk mendongkrak reputasi brand secara organik dan sistematis.',
+            features: [
+                'Penyusunan Kalender Konten Media Sosial',
+                'Desain Grafis Konten Feed & Reels Kreatif',
+                'Outreach Influencer & Content Creator Sourcing',
+                'Setup Live Commerce & Penjualan Siaran Langsung',
+                'Optimasi Toko Marketplace (Shopee/Tokopedia)'
+            ]
+        }
+    ],
+    'cloud-cyber-security': [
+        {
+            name: 'Cloud Setup & VPS Hosting',
+            price: 'Mulai Rp 3.000.000',
+            period: 'proyek',
+            description: 'Penyusunan arsitektur server cloud yang andal, aman, berbiaya efisien, dan siap menghadapi lonjakan pengunjung.',
+            features: [
+                'Instalasi Server VPS (AWS, GCP, DigitalOcean)',
+                'Migrasi Database Tanpa Downtime Operasional',
+                'Setup Nama Domain & DNS Lanjutan',
+                'Setup Email Bisnis Resmi Kapasitas Besar',
+                'Konfigurasi Firewall & SSL Pengaman Enkripsi'
+            ]
+        },
+        {
+            name: 'DevOps & Infrastructure Automation',
+            price: 'Mulai Rp 12.000.000',
+            period: 'proyek',
+            description: 'Otomatisasi deployment kode program untuk mempercepat rilis fitur baru developer secara aman tanpa kendala infrastruktur.',
+            features: [
+                'Setup Pipeline Otomatisasi (CI/CD)',
+                'Orkestrasi Container Docker / Kubernetes',
+                'Auto-Scaling Server Sesuai Beban Trafik',
+                'Sistem Pemantauan Performa Server Real-Time',
+                'Sistem Backup Cadangan Server Otomatis'
+            ],
+            isPopular: true
+        },
+        {
+            name: 'Cyber Security Audit & Pentest',
+            price: 'Mulai Rp 25.000.000',
+            period: 'proyek',
+            description: 'Audit pertahanan sistem informasi dan simulasi penyerangan (pentest) untuk menutup kerentanan keamanan siber.',
+            features: [
+                'Simulasi Penetrasi Keamanan Aplikasi (Pentest)',
+                'Pemindaian Celah Kerentanan Sistem (Vulnerability Scan)',
+                'Audit Kepatuhan Standardisasi Keamanan Informasi',
+                'Laporan Rekomendasi Penambalan Kode Program',
+                'Setup Sistem Deteksi Gangguan (IDS/IPS)'
+            ]
+        }
+    ],
+    'consulting': [
+        {
+            name: 'Tech Feasibility Study',
+            price: 'Mulai Rp 5.000.000',
+            period: 'proyek',
+            description: 'Studi kelayakan teknis dan analisis kebutuhan arsitektur sebelum perusahaan memulai investasi perangkat lunak baru.',
+            features: [
+                'Analisis Kebutuhan Sistem & Kelayakan Kode',
+                'Rekomendasi Pilihan Teknologi Stack Terbaik',
+                'Estimasi Kebutuhan Waktu & Biaya Dev',
+                'Analisis Risiko Teknis & Celah Kegagalan',
+                'Dokumen Blueprint Spesifikasi Kebutuhan Sistem'
+            ]
+        },
+        {
+            name: 'Digital Transformation Advisory',
+            price: 'Mulai Rp 15.000.000',
+            period: 'proyek',
+            description: 'Layanan penasihat transformasi digital untuk modernisasi alur kerja perusahaan konvensional ke ranah digital.',
+            features: [
+                'Audit Kesiapan Teknologi Internal Perusahaan',
+                'Penyusunan Peta Jalan Transformasi Sistem',
+                'Rekomendasi Software & Integrasi Cloud',
+                'Analisis Efisiensi Biaya Operasional Teknologi',
+                'Sesi Pelatihan Adaptasi Perubahan Karyawan'
+            ],
+            isPopular: true
+        },
+        {
+            name: 'Enterprise Tech Architecture Advisory',
+            price: 'Mulai Rp 35.000.000',
+            period: 'proyek',
+            description: 'Penasihat arsitektur teknologi berkelanjutan berskala enterprise untuk mendukung keberlanjutan bisnis jangka panjang.',
+            features: [
+                'Desain Arsitektur Sistem Terdistribusi',
+                'Tata Kelola Risiko & Perlindungan Data Korporat',
+                'Advisory Pihak Ketiga & Integrasi API Vendor',
+                'Pengawasan Rilis Deploy Sistem Berskala Besar',
+                'Advisory CTO Independen untuk Board Management'
+            ]
+        }
+    ]
+};
+
 export const revalidate = 60; // ISR cache data for 60 seconds
 
 interface Props {
@@ -131,6 +395,7 @@ export default async function ServiceDetail({ params }: Props) {
     const IconComponent = iconMap[service.icon || 'code'] || Code;
     const subServices = subServicesMap[slug] || [];
     const mappedContactService = service.name;
+    const plans = servicePlansMap[slug] || [];
 
     return (
         <div className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
@@ -190,6 +455,89 @@ export default async function ServiceDetail({ params }: Props) {
                                     </span>
                                 </SpotlightCard>
                             ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Estimasi Investasi & Paket Layanan (B2B Plans Specific to Service) */}
+                {plans.length > 0 && (
+                    <div className="space-y-6 text-left pt-6">
+                        <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">
+                            Estimasi Investasi &amp; Paket Layanan
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+                            {plans.map((plan, idx) => {
+                                const whatsappMsg = `Halo Diggity, saya tertarik dengan paket [PLAN_NAME] untuk layanan [SERVICE_NAME]. Bisa tolong jelaskan detail lebih lanjut?`
+                                    .replace('[PLAN_NAME]', plan.name)
+                                    .replace('[SERVICE_NAME]', service.name);
+                                const whatsappUrl = `https://wa.me/6285157303035?text=${encodeURIComponent(whatsappMsg)}`;
+
+                                return (
+                                    <SpotlightCard
+                                        key={idx}
+                                        className={`relative p-6 flex flex-col justify-between rounded-2xl border h-full transition-all duration-300 ${
+                                            plan.isPopular
+                                                ? 'border-brand-blue bg-glass-bg shadow-lg shadow-brand-blue/5 scale-[1.01] z-10'
+                                                : 'border-glass-border bg-glass-bg/60'
+                                        }`}
+                                    >
+                                        <div className="space-y-4">
+                                            <div className="space-y-1.5">
+                                                <div className="flex items-center justify-between gap-3">
+                                                    <h4 className="text-sm font-extrabold text-text-main leading-tight">{plan.name}</h4>
+                                                    {plan.isPopular && (
+                                                        <span className="px-2 py-0.5 bg-brand-blue/15 border border-brand-blue/25 text-brand-blue text-[8px] font-bold uppercase tracking-wider rounded-md shrink-0">
+                                                            Rekomendasi
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="text-[10px] text-text-gray font-medium leading-relaxed">
+                                                    {plan.description}
+                                                </p>
+                                            </div>
+
+                                            <div className="flex flex-col space-y-0.5">
+                                                <span className="text-base font-black tracking-tight text-text-main">
+                                                    {plan.price}
+                                                </span>
+                                                <span className="text-[9px] font-bold text-text-muted uppercase">
+                                                    Per {plan.period}
+                                                </span>
+                                            </div>
+
+                                            {/* Features list */}
+                                            <div className="border-t border-glass-border/40 pt-4 space-y-2.5">
+                                                <span className="text-[9px] uppercase font-bold tracking-wider text-text-muted block">
+                                                    Cakupan Kerja
+                                                </span>
+                                                <ul className="space-y-2 list-none m-0 p-0">
+                                                    {plan.features.map((feature, fIdx) => (
+                                                        <li key={fIdx} className="flex items-start space-x-1.5 text-[11px] text-text-gray">
+                                                            <CheckCircle2 className="w-3.5 h-3.5 text-brand-blue shrink-0 mt-0.5" />
+                                                            <span className="font-medium leading-snug">{feature}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-6">
+                                            <a
+                                                href={whatsappUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`w-full inline-flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+                                                    plan.isPopular
+                                                        ? 'bg-brand-blue hover:bg-brand-blue-dark text-white'
+                                                        : 'bg-glass-bg hover:bg-glass-bg-hover text-text-main border border-glass-border/80'
+                                                }`}
+                                            >
+                                                Minta Penawaran
+                                            </a>
+                                        </div>
+                                    </SpotlightCard>
+                                );
+                            })}
                         </div>
                     </div>
                 )}

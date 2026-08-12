@@ -19,6 +19,21 @@ import {
 import { api, Pricing } from '../../lib/api';
 import { getLocaleServer } from '../../lib/locale-server';
 
+const planInfoMap: Record<string, { main: { id: string; en: string }; sub: { id: string; en: string } }> = {
+    'Starter Pack': {
+        main: { id: 'UMKM & Startup', en: 'SMEs & Startups' },
+        sub: { id: 'Untuk proyek skala kecil / validasi ide', en: 'For small scale projects & MVP validation' }
+    },
+    'Business Pro': {
+        main: { id: 'Bisnis Berkembang', en: 'Growing Business' },
+        sub: { id: 'Untuk skala menengah & pertumbuhan berkelanjutan', en: 'For medium scale & sustainable growth' }
+    },
+    'Enterprise Custom': {
+        main: { id: 'Korporat & Enterprise', en: 'Corporates & Enterprise' },
+        sub: { id: 'Untuk sistem kustom dengan kompleksitas tinggi', en: 'For custom systems with high complexity' }
+    }
+};
+
 export const revalidate = 60; // Cache page for 60 seconds (ISR)
 
 export default async function SolutionsPage() {
@@ -275,15 +290,12 @@ export default async function SolutionsPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
                             {pricings.map((plan) => {
-                                const isNumeric = !isNaN(Number(plan.price));
-                                const formattedPrice = isNumeric 
-                                    ? new Intl.NumberFormat('id-ID', {
-                                        style: 'currency',
-                                        currency: 'IDR',
-                                        minimumFractionDigits: 0,
-                                        maximumFractionDigits: 0
-                                      }).format(Number(plan.price))
-                                    : plan.price;
+                                const info = planInfoMap[plan.name] || {
+                                    main: { id: 'Price on Request', en: 'Price on Request' },
+                                    sub: { id: 'Penawaran Kustom', en: 'Custom Quote' }
+                                };
+                                const mainText = locale === 'en' ? info.main.en : info.main.id;
+                                const subText = locale === 'en' ? info.sub.en : info.sub.id;
 
                                 const whatsappMsg = (locale === 'en' 
                                     ? "Hello Diggity, I am interested in the [PLAN_NAME] plan for service solutions."
@@ -325,12 +337,12 @@ export default async function SolutionsPage() {
                                                 )}
                                             </div>
 
-                                            <div className="flex flex-col text-left space-y-0.5">
+                                            <div className="flex flex-col text-left space-y-1">
                                                 <span className="text-xl md:text-2xl font-black tracking-tight text-text-main">
-                                                    Price on Request (PoR)
+                                                    {mainText}
                                                 </span>
                                                 <span className="text-[10px] font-bold text-brand-blue uppercase tracking-wider">
-                                                    {locale === 'en' ? 'Custom Quote' : 'Penawaran Kustom'}
+                                                    {subText}
                                                 </span>
                                             </div>
 

@@ -153,14 +153,20 @@ export default async function ProductDetail({ params }: Props) {
                             <div className="space-y-6 text-left">
                                 <h3 className="text-lg font-bold text-text-main">Preview & Screenshots</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {product.gallery.map((img, i) => (
-                                        <div key={i} className="relative aspect-video rounded-xl border border-glass-border overflow-hidden bg-glass-bg flex items-center justify-center">
-                                            <div className="text-xs text-text-muted font-bold flex flex-col items-center gap-2">
-                                                <Sparkles className="w-6 h-6 text-brand-blue" />
-                                                <span>Mockup {product.name} {i + 1}</span>
+                                    {product.gallery.map((img, i) => {
+                                        const storageUrl = process.env.NEXT_PUBLIC_STORAGE_URL || 'https://yspcisyxfmxguqybhxam.supabase.co/storage/v1/object/public/diggity';
+                                        const imageUrl = img.startsWith('http') ? img : `${storageUrl}/${img}`;
+                                        return (
+                                            <div key={i} className="relative aspect-video rounded-xl border border-glass-border overflow-hidden bg-glass-bg flex items-center justify-center group">
+                                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                <img 
+                                                    src={imageUrl} 
+                                                    alt={`${product.name} Preview ${i + 1}`} 
+                                                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                                                />
                                             </div>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}

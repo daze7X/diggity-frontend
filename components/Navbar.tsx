@@ -25,6 +25,7 @@ import {
 import SearchOverlay from './SearchOverlay';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
+import { api, Blog } from '../lib/api';
 
 export default function Navbar() {
     const { user, loading } = useAuth();
@@ -33,9 +34,21 @@ export default function Navbar() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
-    const [activeDropdown, setActiveDropdown] = useState<'product_solution' | 'academy' | null>(null);
-    const [mobileExpanded, setMobileExpanded] = useState<'product_solution' | 'academy' | null>(null);
+    const [activeDropdown, setActiveDropdown] = useState<'product_solution' | 'academy' | 'insights' | null>(null);
+    const [mobileExpanded, setMobileExpanded] = useState<'product_solution' | 'academy' | 'insights' | null>(null);
+    const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
     const pathname = usePathname();
+
+    useEffect(() => {
+        // Fetch featured blogs for the dropdown panel
+        api.getInsights()
+            .then((data) => {
+                setFeaturedBlogs(data.slice(0, 4));
+            })
+            .catch((err) => {
+                console.error('Failed to load insights in navbar:', err);
+            });
+    }, []);
 
     useEffect(() => {
         // Load initial theme from DOM class
@@ -92,7 +105,7 @@ export default function Navbar() {
         return pathname.startsWith(path);
     };
 
-    const handleDropdownToggle = (type: 'product_solution' | 'academy') => {
+    const handleDropdownToggle = (type: 'product_solution' | 'academy' | 'insights') => {
         setActiveDropdown(activeDropdown === type ? null : type);
     };
 
@@ -161,14 +174,18 @@ export default function Navbar() {
                             {t('nav.portfolio')}
                         </Link>
 
-                        <Link
-                            href="/insights"
-                            className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg ${
-                                isActive('/insights') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.insights')}
-                        </Link>
+                        {/* Insights Dropdown Menu (On Click) */}
+                        <div className="relative">
+                            <button
+                                onClick={() => handleDropdownToggle('insights')}
+                                className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
+                                    isActive('/insights') ? 'text-brand-blue' : 'text-text-gray'
+                                }`}
+                            >
+                                <span>{t('nav.insights')}</span>
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'insights' ? 'rotate-180' : ''}`} />
+                            </button>
+                        </div>
                         
                         <Link
                             href="/about"
@@ -482,6 +499,123 @@ export default function Navbar() {
                         </div>
                     </div>
                 )}
+
+                {/* 3. Insights Mega-Menu Panel */}
+                {activeDropdown === 'insights' && (
+                    <div 
+                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+                    >
+                        {/* Col 1: Categories (Left side) */}
+                        <div className="space-y-4 border-r border-glass-border/40 pr-8">
+                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                                {language === 'id' ? 'Kategori Wawasan' : 'Categories'}
+                            </span>
+                            <div className="space-y-4">
+                                <Link href="/insights?category=blog" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
+                                        <BookOpen className="w-4 h-4" />
+                                    </div>
+                                    <div className="space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                            Blog
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
+                                            {language === 'id' 
+                                                ? 'Wawasan terkini seputar teknologi dan implementasinya dalam bisnis' 
+                                                : 'Latest insights about technology and its implementation in business'}
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link href="/insights?category=berita-pengumuman" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
+                                        <TrendingUp className="w-4 h-4" />
+                                    </div>
+                                    <div className="space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                            {language === 'id' ? 'Berita & Pengumuman' : 'News & Announcements'}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
+                                            {language === 'id' 
+                                                ? 'Kabar terkini seputar kemitraan, perilisan produk, dan inovasi Diggity' 
+                                                : 'Latest news regarding partnerships, product releases, and innovations'}
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link href="/insights?category=resource-gratis" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
+                                        <Layers className="w-4 h-4" />
+                                    </div>
+                                    <div className="space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                            {language === 'id' ? 'Resource Gratis' : 'Free Resources'}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
+                                            {language === 'id' 
+                                                ? 'Template, dokumen panduan, dan e-book gratis untuk akselerasi kerja Anda' 
+                                                : 'Free templates, guides, and e-books to accelerate your work'}
+                                        </p>
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Col 2 & 3: Featured Articles (Right side, spans 2 columns) */}
+                        <div className="md:col-span-2 space-y-4">
+                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                                {language === 'id' ? 'Unggulan dari Wawasan Digital' : 'Featured Insights'}
+                            </span>
+                            {featuredBlogs.length > 0 ? (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {featuredBlogs.map((blog) => {
+                                        const storageUrl = process.env.NEXT_PUBLIC_STORAGE_URL || 'https://yspcisyxfmxguqybhxam.supabase.co/storage/v1/object/public/diggity';
+                                        const imageUrl = blog.image 
+                                            ? `${storageUrl}/${blog.image}` 
+                                            : '/placeholder-blog.jpg';
+                                        
+                                        return (
+                                            <Link 
+                                                key={blog.id} 
+                                                href={`/insights/${blog.slug}`}
+                                                className="group flex space-x-3 items-start p-2 rounded-xl hover:bg-glass-bg/60 transition-all border border-transparent hover:border-glass-border/30"
+                                            >
+                                                <div className="relative w-20 h-14 rounded-lg overflow-hidden shrink-0 bg-neutral-900/10">
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img 
+                                                        src={imageUrl} 
+                                                        alt={blog.title} 
+                                                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1 min-w-0">
+                                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
+                                                        {blog.title}
+                                                    </h4>
+                                                    <span className="text-[9px] font-bold text-brand-blue uppercase tracking-wider block">
+                                                        {language === 'id' ? 'Baca lebih lanjut' : 'Read more'}
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+                            ) : (
+                                <div className="py-8 text-center text-xs text-text-gray font-medium">
+                                    {language === 'id' ? 'Tidak ada artikel unggulan saat ini.' : 'No featured articles found.'}
+                                </div>
+                            )}
+
+                            <div className="pt-2 border-t border-glass-border/40 flex justify-start">
+                                <Link 
+                                    href="/insights"
+                                    className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark transition-colors flex items-center gap-1 group"
+                                >
+                                    {language === 'id' ? 'Lihat semua wawasan' : 'View all insights'}
+                                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* ========================================================
@@ -578,15 +712,32 @@ export default function Navbar() {
                             {t('nav.portfolio')}
                         </Link>
 
-                        <Link
-                            href="/insights"
-                            onClick={() => setIsOpen(false)}
-                            className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
-                                isActive('/insights') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.insights')}
-                        </Link>
+                        {/* Mobile Insights Accordion */}
+                        <div className="border-b border-glass-border/40 py-1.5">
+                            <button
+                                onClick={() => setMobileExpanded(mobileExpanded === 'insights' ? null : 'insights')}
+                                className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
+                            >
+                                <span className={isActive('/insights') ? 'text-brand-blue' : ''}>{t('nav.insights')}</span>
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'insights' ? 'rotate-180' : ''}`} />
+                            </button>
+                            {mobileExpanded === 'insights' && (
+                                <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
+                                    <Link href="/insights?category=blog" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Blog
+                                    </Link>
+                                    <Link href="/insights?category=berita-pengumuman" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        {language === 'id' ? 'Berita & Pengumuman' : 'News & Announcements'}
+                                    </Link>
+                                    <Link href="/insights?category=resource-gratis" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        {language === 'id' ? 'Resource Gratis' : 'Free Resources'}
+                                    </Link>
+                                    <Link href="/insights" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1 border-t border-glass-border/30 pt-2 mt-2">
+                                        {language === 'id' ? 'Lihat Semua Artikel \u2192' : 'View All Insights \u2192'}
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
 
                         <Link
                             href="/about"

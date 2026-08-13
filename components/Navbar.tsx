@@ -511,7 +511,7 @@ export default function Navbar() {
                                 {language === 'id' ? 'Kategori Wawasan' : 'Categories'}
                             </span>
                             <div className="space-y-4">
-                                <Link href="/insights?category=blog" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/insights" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
                                         <BookOpen className="w-4 h-4" />
                                     </div>
@@ -526,7 +526,7 @@ export default function Navbar() {
                                         </p>
                                     </div>
                                 </Link>
-                                <Link href="/insights?category=berita-pengumuman" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/news" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
                                         <TrendingUp className="w-4 h-4" />
                                     </div>
@@ -541,7 +541,7 @@ export default function Navbar() {
                                         </p>
                                     </div>
                                 </Link>
-                                <Link href="/insights?category=resource-gratis" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/resources" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
                                         <Layers className="w-4 h-4" />
                                     </div>
@@ -553,6 +553,21 @@ export default function Navbar() {
                                             {language === 'id' 
                                                 ? 'Template, dokumen panduan, dan e-book gratis untuk akselerasi kerja Anda' 
                                                 : 'Free templates, guides, and e-books to accelerate your work'}
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link href="/community" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
+                                        <Users className="w-4 h-4" />
+                                    </div>
+                                    <div className="space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                            {language === 'id' ? 'Komunitas Digital' : 'Digital Community'}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
+                                            {language === 'id' 
+                                                ? 'Tumbuh, berbagi, dan berjejaring bersama ratusan praktisi & talenta IT' 
+                                                : 'Grow, share, and network with hundreds of IT practitioners & talents'}
                                         </p>
                                     </div>
                                 </Link>
@@ -726,17 +741,17 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'insights' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/insights?category=blog" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/insights" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Blog
                                     </Link>
-                                    <Link href="/insights?category=berita-pengumuman" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/news" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         {language === 'id' ? 'Berita & Pengumuman' : 'News & Announcements'}
                                     </Link>
-                                    <Link href="/insights?category=resource-gratis" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/resources" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         {language === 'id' ? 'Resource Gratis' : 'Free Resources'}
                                     </Link>
-                                    <Link href="/insights" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1 border-t border-glass-border/30 pt-2 mt-2">
-                                        {language === 'id' ? 'Lihat Semua Artikel \u2192' : 'View All Insights \u2192'}
+                                    <Link href="/community" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        {language === 'id' ? 'Komunitas Digital' : 'Digital Community'}
                                     </Link>
                                 </div>
                             )}

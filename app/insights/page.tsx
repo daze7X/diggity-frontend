@@ -9,7 +9,12 @@ export default async function BlogPage() {
     let categories: Category[] = [];
 
     try {
-        blogs = await api.getInsights();
+        let rawBlogs = await api.getInsights();
+        
+        // Filter out news articles (category: Berita & Pengumuman)
+        blogs = rawBlogs.filter(
+            (b) => b.category?.slug !== 'berita-pengumuman' && b.category?.name !== 'Berita & Pengumuman'
+        );
         
         // Extract unique categories from blogs
         const categoriesMap: Record<string, Category> = {};

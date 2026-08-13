@@ -401,14 +401,14 @@ export default function Navbar() {
                                 Penyediaan Talenta IT
                             </span>
                             <div className="space-y-3.5">
-                                <Link href="/job-connect?tab=b2b" className="group block space-y-0.5">
+                                <Link href="/job-connect/headhunting" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <UserCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         IT Headhunting
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium leading-normal">Rekrut individu terbaik sesuai kebutuhan tim secara cepat.</p>
                                 </Link>
-                                <Link href="/job-connect?tab=b2b" className="group block space-y-0.5">
+                                <Link href="/job-connect/outsourcing" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Users className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         IT Outsourcing
@@ -668,10 +668,10 @@ export default function Navbar() {
                                     <Link href="/products" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1 border-t border-glass-border/30 pt-2 mt-2">
                                         SaaS &amp; Aset Digital
                                     </Link>
-                                    <Link href="/job-connect?tab=b2b" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/job-connect/headhunting" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         IT Headhunting
                                     </Link>
-                                    <Link href="/job-connect?tab=b2b" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/job-connect/outsourcing" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         IT Outsourcing
                                     </Link>
                                     <Link href="/job-connect?tab=careers" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1">

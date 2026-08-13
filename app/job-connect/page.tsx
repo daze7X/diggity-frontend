@@ -227,16 +227,12 @@ export default async function JobConnectPage({ searchParams }: Props) {
                                 </div>
 
                                 <div className="pt-8">
-                                    <a
-                                        href={`https://wa.me/${phone}?text=${encodeURIComponent(
-                                            "Halo Diggity, perusahaan kami tertarik berkonsultasi mengenai jasa IT Headhunting untuk rekrutmen posisi spesifik. Bisa tolong jadwalkan sesi diskusi?"
-                                        )}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                    <Link
+                                        href="/job-connect/headhunting"
                                         className="w-full inline-flex items-center justify-center py-3 px-5 rounded-xl text-xs font-bold bg-glass-bg border border-glass-border hover:bg-glass-bg-hover text-text-main transition-all text-center"
                                     >
-                                        Hubungi Konsultan Headhunting
-                                    </a>
+                                        Buka Detail Layanan Headhunting &rarr;
+                                    </Link>
                                 </div>
                             </SpotlightCard>
 
@@ -276,16 +272,12 @@ export default async function JobConnectPage({ searchParams }: Props) {
                                 </div>
 
                                 <div className="pt-8">
-                                    <a
-                                        href={`https://wa.me/${phone}?text=${encodeURIComponent(
-                                            "Halo Diggity, perusahaan kami tertarik menggunakan layanan IT Outsourcing (Dedicated Team) untuk membangun tim pengembang siap pakai. Bisa tolong kirimkan proposal teknisnya?"
-                                        )}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                    <Link
+                                        href="/job-connect/outsourcing"
                                         className="w-full inline-flex items-center justify-center py-3 px-5 rounded-xl text-xs font-bold bg-brand-blue hover:bg-brand-blue-dark text-white shadow-lg shadow-brand-blue/20 transition-all text-center"
                                     >
-                                        Minta Proposal Dedicated Team
-                                    </a>
+                                        Buka Detail Layanan Outsourcing &rarr;
+                                    </Link>
                                 </div>
                             </SpotlightCard>
 

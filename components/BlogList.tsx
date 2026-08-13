@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Blog, Category } from '../lib/api';
 import { FileText, Search, ArrowRight } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
@@ -12,9 +13,52 @@ interface BlogListProps {
     categories: Category[];
 }
 
+const slugify = (text: string) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/&/g, '-')             // Replace & with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start
+        .replace(/-+$/, '');            // Trim - from end
+};
+
 export default function BlogList({ blogs, categories }: BlogListProps) {
+    const router = useRouter();
+    const searchParams = useSearchParams();
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState<string>('All');
+
+    // Sync state with URL parameter on mount and when URL query changes
+    useEffect(() => {
+        const categoryParam = searchParams?.get('category');
+        if (categoryParam) {
+            const matchedCategory = categories.find(
+                (cat) => slugify(cat.name) === categoryParam
+            );
+            if (matchedCategory) {
+                setActiveCategory(matchedCategory.name);
+            } else if (categoryParam === 'all') {
+                setActiveCategory('All');
+            }
+        } else {
+            setActiveCategory('All');
+        }
+    }, [searchParams, categories]);
+
+    const handleCategoryChange = (categoryName: string) => {
+        setActiveCategory(categoryName);
+        if (categoryName === 'All') {
+            router.push('/insights');
+        } else {
+            const cat = categories.find((c) => c.name === categoryName);
+            if (cat) {
+                router.push(`/insights?category=${slugify(cat.name)}`);
+            }
+        }
+    };
 
     // Filter by category first, then by search query
     const filteredBlogs = blogs.filter((blog) => {
@@ -55,7 +99,7 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
                 {/* Category Filters */}
                 <div className="col-span-1 lg:col-span-2 flex flex-wrap gap-2.5 justify-start lg:justify-end">
                     <button
-                        onClick={() => setActiveCategory('All')}
+                        onClick={() => handleCategoryChange('All')}
                         className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all border backdrop-blur-md cursor-pointer ${
                             activeCategory === 'All'
                                 ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/15'
@@ -67,7 +111,7 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
                     {categories.map((cat) => (
                         <button
                             key={cat.id}
-                            onClick={() => setActiveCategory(cat.name)}
+                            onClick={() => handleCategoryChange(cat.name)}
                             className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all border backdrop-blur-md cursor-pointer ${
                                 activeCategory === cat.name
                                     ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/15'

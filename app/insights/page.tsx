@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { api, Category, Blog } from '../../lib/api';
 import BlogList from '../../components/BlogList';
 
@@ -38,7 +38,9 @@ export default async function BlogPage() {
                 </div>
 
                 {/* Blog Filter & Grid List */}
-                <BlogList blogs={blogs} categories={categories} />
+                <Suspense fallback={<div className="text-center py-12 text-sm text-text-gray font-semibold">Memuat artikel...</div>}>
+                    <BlogList blogs={blogs} categories={categories} />
+                </Suspense>
 
             </div>
         </div>

@@ -387,14 +387,20 @@ export default function Navbar() {
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
                                 Services &amp; Solutions (BUILD-GROW)
                             </span>
-                            <div className="space-y-3.5">
+                            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                                 {col1Items.map((item, idx) => (
-                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group block space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                            <DynamicIcon name={item.icon} className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                            {item.name}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-normal">{item.description}</p>
+                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
+                                        <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                            <DynamicIcon name={item.icon} className="w-4 h-4" />
+                                        </div>
+                                        <div className="space-y-0.5">
+                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
+                                                {item.name}
+                                            </h4>
+                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed">
+                                                {item.description}
+                                            </p>
+                                        </div>
                                     </Link>
                                 ))}
                             </div>
@@ -405,14 +411,20 @@ export default function Navbar() {
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
                                 Strategy &amp; Design
                             </span>
-                            <div className="space-y-3.5">
+                            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                                 {col2Items.map((item, idx) => (
-                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group block space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                            <DynamicIcon name={item.icon} className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                            {item.name}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-normal">{item.description}</p>
+                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
+                                        <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                            <DynamicIcon name={item.icon} className="w-4 h-4" />
+                                        </div>
+                                        <div className="space-y-0.5">
+                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
+                                                {item.name}
+                                            </h4>
+                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed">
+                                                {item.description}
+                                            </p>
+                                        </div>
                                     </Link>
                                 ))}
                             </div>
@@ -423,14 +435,20 @@ export default function Navbar() {
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
                                 Products &amp; Digital Assets (SCALE)
                             </span>
-                            <div className="space-y-3.5">
+                            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                                 {col3Items.map((item, idx) => (
-                                    <Link key={idx} href={`/products/${item.slug}`} className="group block space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                            <DynamicIcon name={item.icon} className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                            {item.name}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-normal">{item.description}</p>
+                                    <Link key={idx} href={`/products/${item.slug}`} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
+                                        <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                            <DynamicIcon name={item.icon} className="w-4 h-4" />
+                                        </div>
+                                        <div className="space-y-0.5">
+                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
+                                                {item.name}
+                                            </h4>
+                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed">
+                                                {item.description}
+                                            </p>
+                                        </div>
                                     </Link>
                                 ))}
                             </div>
@@ -441,14 +459,20 @@ export default function Navbar() {
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
                                 Tech Talent Solutions
                             </span>
-                            <div className="space-y-3.5">
+                            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                                 {col4Items.map((item, idx) => (
-                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group block space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                            <DynamicIcon name={item.icon} className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                            {item.name}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-normal">{item.description}</p>
+                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
+                                        <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                            <DynamicIcon name={item.icon} className="w-4 h-4" />
+                                        </div>
+                                        <div className="space-y-0.5">
+                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
+                                                {item.name}
+                                            </h4>
+                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed">
+                                                {item.description}
+                                            </p>
+                                        </div>
                                     </Link>
                                 ))}
                             </div>

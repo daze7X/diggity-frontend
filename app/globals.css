@@ -194,3 +194,24 @@ body::before {
     animation: marquee 40s linear infinite;
 }
 
+/* Custom Premium Thin Scrollbar for Navbar Scrollable Columns */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(30, 64, 175, 0.2);
+    border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(30, 64, 175, 0.4);
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+

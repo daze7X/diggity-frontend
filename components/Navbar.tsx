@@ -171,7 +171,7 @@ export default function Navbar() {
                             <button
                                 onClick={() => handleDropdownToggle('insights')}
                                 className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
-                                    isActive('/insights') || isActive('/news') || isActive('/resources') || isActive('/community') || isActive('/portfolio') || isActive('/about')
+                                    isActive('/insights') || isActive('/news') || isActive('/resources') || isActive('/community') || isActive('/portfolio')
                                         ? 'text-brand-blue' 
                                         : 'text-text-gray'
                                 }`}
@@ -180,6 +180,16 @@ export default function Navbar() {
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'insights' ? 'rotate-180' : ''}`} />
                             </button>
                         </div>
+
+                        {/* About Us Link */}
+                        <Link
+                            href="/about"
+                            className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg ${
+                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
+                            }`}
+                        >
+                            {t('nav.about')}
+                        </Link>
                     </div>
 
                     {/* Desktop Right Side CTA & Action Buttons */}
@@ -488,96 +498,46 @@ export default function Navbar() {
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
                                 {language === 'id' ? 'Kategori Wawasan' : 'Categories'}
                             </span>
-                            <div className="space-y-4">
-                                <Link href="/insights" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
-                                        <BookOpen className="w-4 h-4" />
+                            <div className="space-y-1">
+                                <Link href="/insights" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+                                        <BookOpen className="w-3.5 h-3.5" />
                                     </div>
-                                    <div className="space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                            Blog
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
-                                            {language === 'id' 
-                                                ? 'Wawasan terkini seputar teknologi dan implementasinya dalam bisnis' 
-                                                : 'Latest insights about technology and its implementation in business'}
-                                        </p>
-                                    </div>
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                        {language === 'id' ? 'Blog & Edukasi' : 'Blog & Education'}
+                                    </h4>
                                 </Link>
-                                <Link href="/news" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
-                                        <TrendingUp className="w-4 h-4" />
+                                <Link href="/news" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+                                        <TrendingUp className="w-3.5 h-3.5" />
                                     </div>
-                                    <div className="space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                            {language === 'id' ? 'Berita & Pengumuman' : 'News & Announcements'}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
-                                            {language === 'id' 
-                                                ? 'Kabar terkini seputar kemitraan, perilisan produk, dan inovasi Diggity' 
-                                                : 'Latest news regarding partnerships, product releases, and innovations'}
-                                        </p>
-                                    </div>
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                        {language === 'id' ? 'Berita & Pengumuman' : 'News & Announcements'}
+                                    </h4>
                                 </Link>
-                                <Link href="/resources" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
-                                        <Layers className="w-4 h-4" />
+                                <Link href="/resources" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+                                        <Layers className="w-3.5 h-3.5" />
                                     </div>
-                                    <div className="space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                            {language === 'id' ? 'Resource Gratis' : 'Free Resources'}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
-                                            {language === 'id' 
-                                                ? 'Template, dokumen panduan, dan e-book gratis untuk akselerasi kerja Anda' 
-                                                : 'Free templates, guides, and e-books to accelerate your work'}
-                                        </p>
-                                    </div>
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                        {language === 'id' ? 'Resource Gratis' : 'Free Resources'}
+                                    </h4>
                                 </Link>
-                                <Link href="/community" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
-                                        <Users className="w-4 h-4" />
+                                <Link href="/community" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+                                        <Users className="w-3.5 h-3.5" />
                                     </div>
-                                    <div className="space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                            {language === 'id' ? 'Komunitas Digital' : 'Digital Community'}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
-                                            {language === 'id' 
-                                                ? 'Tumbuh, berbagi, dan berjejaring bersama ratusan praktisi & talenta IT' 
-                                                : 'Grow, share, and network with hundreds of IT practitioners & talents'}
-                                        </p>
-                                    </div>
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                        {language === 'id' ? 'Komunitas Digital' : 'Digital Community'}
+                                    </h4>
                                 </Link>
-                                <Link href="/portfolio" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
-                                        <Briefcase className="w-4 h-4" />
+                                <Link href="/portfolio" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+                                        <Briefcase className="w-3.5 h-3.5" />
                                     </div>
-                                    <div className="space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                            {language === 'id' ? 'Studi Kasus & Portofolio' : 'Case Studies & Portfolio'}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
-                                            {language === 'id' 
-                                                ? 'Lihat bukti hasil kerja, proyek perangkat lunak, dan kisah sukses klien kami' 
-                                                : 'View our track record of software projects and client success stories'}
-                                        </p>
-                                    </div>
-                                </Link>
-                                <Link href="/about" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
-                                        <Info className="w-4 h-4" />
-                                    </div>
-                                    <div className="space-y-0.5">
-                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                            {language === 'id' ? 'Tentang Diggity' : 'About Diggity'}
-                                        </h4>
-                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
-                                            {language === 'id' 
-                                                ? 'Kenali visi, misi, sejarah perjalanan, dan tim di balik kesuksesan kami' 
-                                                : 'Get to know our vision, mission, history, and the team behind our success'}
-                                        </p>
-                                    </div>
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                        {language === 'id' ? 'Studi Kasus & Portofolio' : 'Case Studies & Portfolio'}
+                                    </h4>
                                 </Link>
                             </div>
                         </div>
@@ -734,7 +694,7 @@ export default function Navbar() {
                                 onClick={() => setMobileExpanded(mobileExpanded === 'insights' ? null : 'insights')}
                                 className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
                             >
-                                <span className={isActive('/insights') || isActive('/news') || isActive('/resources') || isActive('/community') || isActive('/portfolio') || isActive('/about') ? 'text-brand-blue' : ''}>{t('nav.insights')}</span>
+                                <span className={isActive('/insights') || isActive('/news') || isActive('/resources') || isActive('/community') || isActive('/portfolio') ? 'text-brand-blue' : ''}>{t('nav.insights')}</span>
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'insights' ? 'rotate-180' : ''}`} />
                             </button>
                             {mobileExpanded === 'insights' && (
@@ -754,12 +714,19 @@ export default function Navbar() {
                                     <Link href="/portfolio" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         {language === 'id' ? 'Studi Kasus & Portofolio' : 'Case Studies & Portfolio'}
                                     </Link>
-                                    <Link href="/about" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        {language === 'id' ? 'Tentang Diggity' : 'About Diggity'}
-                                    </Link>
                                 </div>
                             )}
                         </div>
+
+                        <Link
+                            href="/about"
+                            onClick={() => setIsOpen(false)}
+                            className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
+                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
+                            }`}
+                        >
+                            {t('nav.about')}
+                        </Link>
 
                         {/* Mobile Right/Bottom CTAs */}
                         <div className="pt-4 flex flex-col space-y-3">

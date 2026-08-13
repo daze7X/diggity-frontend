@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { 
     Menu, 
     X, 
@@ -20,7 +21,8 @@ import {
     BookOpen,
     Users,
     UserCheck,
-    Briefcase
+    Briefcase,
+    Info
 } from 'lucide-react';
 import SearchOverlay from './SearchOverlay';
 import { useAuth } from '../context/AuthContext';
@@ -120,23 +122,22 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-6 md:px-8 relative">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center space-x-2 shrink-0">
-                        <span className="text-2xl font-black tracking-tight text-text-main">
+                    <Link href="/" className="flex items-center space-x-2.5 shrink-0">
+                        <div className="relative w-8 h-8 overflow-hidden rounded-full border border-glass-border">
+                            <Image 
+                                src="/logo-round.png" 
+                                alt="Diggity Logo" 
+                                fill 
+                                className="object-cover" 
+                            />
+                        </div>
+                        <span className="text-xl font-black tracking-tight text-text-main">
                             DIGGITY<span className="text-brand-blue">.</span>
                         </span>
                     </Link>
 
                     {/* Desktop Navigation Links */}
                     <div className="hidden lg:flex items-center space-x-2 xl:space-x-5">
-                        <Link
-                            href="/"
-                            className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg ${
-                                isActive('/') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.home')}
-                        </Link>
-
                         {/* Combined Product & Solution Dropdown Menu (On Click) */}
                         <div className="relative">
                             <button
@@ -165,36 +166,20 @@ export default function Navbar() {
                             </button>
                         </div>
 
-                        <Link
-                            href="/portfolio"
-                            className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg ${
-                                isActive('/portfolio') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.portfolio')}
-                        </Link>
-
                         {/* Insights Dropdown Menu (On Click) */}
                         <div className="relative">
                             <button
                                 onClick={() => handleDropdownToggle('insights')}
                                 className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
-                                    isActive('/insights') ? 'text-brand-blue' : 'text-text-gray'
+                                    isActive('/insights') || isActive('/news') || isActive('/resources') || isActive('/community') || isActive('/portfolio') || isActive('/about')
+                                        ? 'text-brand-blue' 
+                                        : 'text-text-gray'
                                 }`}
                             >
                                 <span>{t('nav.insights')}</span>
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'insights' ? 'rotate-180' : ''}`} />
                             </button>
                         </div>
-                        
-                        <Link
-                            href="/about"
-                            className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg ${
-                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.about')}
-                        </Link>
                     </div>
 
                     {/* Desktop Right Side CTA & Action Buttons */}
@@ -221,14 +206,7 @@ export default function Navbar() {
                             {language === 'id' ? 'ID' : 'EN'}
                         </button>
 
-                        {/* Search Button */}
-                        <button
-                            onClick={() => setIsSearchOpen(true)}
-                            className="p-2 border border-glass-border rounded-xl bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center w-9 h-9 text-text-main"
-                            aria-label="Search"
-                        >
-                            <Search className="w-4.5 h-4.5" />
-                        </button>
+
 
                         {/* Sign In / Dashboard text link */}
                         {!loading && user ? (
@@ -571,6 +549,36 @@ export default function Navbar() {
                                         </p>
                                     </div>
                                 </Link>
+                                <Link href="/portfolio" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
+                                        <Briefcase className="w-4 h-4" />
+                                    </div>
+                                    <div className="space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                            {language === 'id' ? 'Studi Kasus & Portofolio' : 'Case Studies & Portfolio'}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
+                                            {language === 'id' 
+                                                ? 'Lihat bukti hasil kerja, proyek perangkat lunak, dan kisah sukses klien kami' 
+                                                : 'View our track record of software projects and client success stories'}
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link href="/about" className="group flex items-start space-x-3 p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
+                                        <Info className="w-4 h-4" />
+                                    </div>
+                                    <div className="space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                            {language === 'id' ? 'Tentang Diggity' : 'About Diggity'}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-relaxed">
+                                            {language === 'id' 
+                                                ? 'Kenali visi, misi, sejarah perjalanan, dan tim di balik kesuksesan kami' 
+                                                : 'Get to know our vision, mission, history, and the team behind our success'}
+                                        </p>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
 
@@ -720,23 +728,13 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        <Link
-                            href="/portfolio"
-                            onClick={() => setIsOpen(false)}
-                            className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
-                                isActive('/portfolio') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.portfolio')}
-                        </Link>
-
                         {/* Mobile Insights Accordion */}
                         <div className="border-b border-glass-border/40 py-1.5">
                             <button
                                 onClick={() => setMobileExpanded(mobileExpanded === 'insights' ? null : 'insights')}
                                 className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
                             >
-                                <span className={isActive('/insights') ? 'text-brand-blue' : ''}>{t('nav.insights')}</span>
+                                <span className={isActive('/insights') || isActive('/news') || isActive('/resources') || isActive('/community') || isActive('/portfolio') || isActive('/about') ? 'text-brand-blue' : ''}>{t('nav.insights')}</span>
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'insights' ? 'rotate-180' : ''}`} />
                             </button>
                             {mobileExpanded === 'insights' && (
@@ -753,19 +751,15 @@ export default function Navbar() {
                                     <Link href="/community" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         {language === 'id' ? 'Komunitas Digital' : 'Digital Community'}
                                     </Link>
+                                    <Link href="/portfolio" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        {language === 'id' ? 'Studi Kasus & Portofolio' : 'Case Studies & Portfolio'}
+                                    </Link>
+                                    <Link href="/about" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        {language === 'id' ? 'Tentang Diggity' : 'About Diggity'}
+                                    </Link>
                                 </div>
                             )}
                         </div>
-
-                        <Link
-                            href="/about"
-                            onClick={() => setIsOpen(false)}
-                            className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
-                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
-                            }`}
-                        >
-                            {t('nav.about')}
-                        </Link>
 
                         {/* Mobile Right/Bottom CTAs */}
                         <div className="pt-4 flex flex-col space-y-3">

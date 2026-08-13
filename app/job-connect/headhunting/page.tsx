@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
     UserCheck, 
@@ -20,10 +20,25 @@ import {
 } from 'lucide-react';
 import SpotlightCard from '../../../components/SpotlightCard';
 import B2bInquiryForm from '../../../components/B2bInquiryForm';
+import { api } from '../../../lib/api';
 
 export default function HeadhuntingPage() {
     const [activeProcessTab, setActiveProcessTab] = useState<'profil' | 'sourcing' | 'interview' | 'onboarding'>('profil');
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
+    const [serviceData, setServiceData] = useState<{ name: string; description: string } | null>(null);
+
+    useEffect(() => {
+        api.getServiceBySlug('headhunting')
+            .then(data => {
+                if (data) {
+                    setServiceData({
+                        name: data.name,
+                        description: data.description || ''
+                    });
+                }
+            })
+            .catch(err => console.error('Error fetching service:', err));
+    }, []);
 
     const processTabs = [
         {
@@ -101,10 +116,10 @@ export default function HeadhuntingPage() {
                             <Sparkles className="w-3 h-3" /> IT Headhunting Agency
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-text-main leading-tight">
-                            Rekrut Tim IT Terbaik <span className="text-brand-blue">Tanpa Kerumitan</span> Sourcing.
+                            {serviceData ? serviceData.name : 'Rekrut Tim IT Terbaik Tanpa Kerumitan Sourcing.'}
                         </h1>
                         <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed">
-                            Kami membantu perusahaan menjaring, menyaring, dan merekrut talenta digital teratas—mulai dari Software Engineers hingga CTO—dengan kualifikasi teknis presisi serta budaya kerja yang selaras.
+                            {serviceData ? serviceData.description : 'Kami membantu perusahaan menjaring, menyaring, dan merekrut talenta digital teratas—mulai dari Software Engineers hingga CTO—dengan kualifikasi teknis presisi serta budaya kerja yang selaras.'}
                         </p>
                         <div className="pt-2 flex flex-wrap gap-4">
                             <a 

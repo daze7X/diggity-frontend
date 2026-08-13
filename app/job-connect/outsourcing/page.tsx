@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
     Users, 
@@ -20,10 +20,25 @@ import {
 } from 'lucide-react';
 import SpotlightCard from '../../../components/SpotlightCard';
 import B2bInquiryForm from '../../../components/B2bInquiryForm';
+import { api } from '../../../lib/api';
 
 export default function OutsourcingPage() {
     const [activeProcessTab, setActiveProcessTab] = useState<'analisis' | 'penyusunan' | 'ujicoba' | 'delivery'>('analisis');
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
+    const [serviceData, setServiceData] = useState<{ name: string; description: string } | null>(null);
+
+    useEffect(() => {
+        api.getServiceBySlug('outsourcing')
+            .then(data => {
+                if (data) {
+                    setServiceData({
+                        name: data.name,
+                        description: data.description || ''
+                    });
+                }
+            })
+            .catch(err => console.error('Error fetching service:', err));
+    }, []);
 
     const processTabs = [
         {
@@ -101,10 +116,10 @@ export default function OutsourcingPage() {
                             <Sparkles className="w-3 h-3" /> Managed IT Squads
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-text-main leading-tight">
-                            Sewa Tim IT Outsourcing <span className="text-brand-blue">Siap Deploy</span> dalam 7 Hari.
+                            {serviceData ? serviceData.name : 'Sewa Tim IT Outsourcing Siap Deploy dalam 7 Hari.'}
                         </h1>
                         <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed">
-                            Beban operasional nol, fokus hasil maksimal. Kami menyediakan tim pengembang lengkap (Full Squad) yang dikelola penuh oleh Diggity untuk merancang dan meluncurkan produk digital Anda tanpa kendala rekrutmen.
+                            {serviceData ? serviceData.description : 'Beban operasional nol, fokus hasil maksimal. Kami menyediakan tim pengembang lengkap (Full Squad) yang dikelola penuh oleh Diggity untuk merancang dan meluncurkan produk digital Anda tanpa kendala rekrutmen.'}
                         </p>
                         <div className="pt-2 flex flex-wrap gap-4">
                             <a 

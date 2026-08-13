@@ -240,7 +240,7 @@ export default function Navbar() {
                             href="/contact"
                             className="inline-flex items-center justify-center px-4.5 py-2 text-sm font-extrabold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-md shadow-brand-blue/10 hover:scale-[1.02]"
                         >
-                            {language === 'id' ? 'Hubungi Kami' : 'Contact Us'}
+                            Contact Us
                         </Link>
                     </div>
 
@@ -296,7 +296,7 @@ export default function Navbar() {
                         {/* Col 1: Layanan Rekayasa & Optimasi (Solutions) */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Layanan &amp; Solusi (BUILD-GROW)
+                                Services &amp; Solutions (BUILD-GROW)
                             </span>
                             <div className="space-y-3.5">
                                 <Link href="/solutions/technology-solutions" className="group block space-y-0.5">
@@ -304,21 +304,21 @@ export default function Navbar() {
                                         <Code className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Technology Solutions
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Pengembangan web app, mobile native, &amp; ERP.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Web apps, native mobile apps, and ERP development.</p>
                                 </Link>
                                 <Link href="/solutions/ai-emerging-technology" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Cpu className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         AI &amp; Emerging Technology
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Asisten AI, chatbots pintar, &amp; integrasi data.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">AI assistants, smart chatbots, and data integration.</p>
                                 </Link>
                                 <Link href="/solutions/cloud-cyber-security" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Cloud &amp; Cyber Security
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Setup cloud infrastructure, DevOps, &amp; security.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">DevOps setup, cloud infrastructure, and security.</p>
                                 </Link>
                             </div>
                         </div>
@@ -326,7 +326,7 @@ export default function Navbar() {
                         {/* Col 2: Kategori Layanan Lanjutan */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Strategi &amp; Desain
+                                Strategy &amp; Design
                             </span>
                             <div className="space-y-3.5">
                                 <Link href="/solutions/creative-brand-experience" className="group block space-y-0.5">
@@ -334,21 +334,21 @@ export default function Navbar() {
                                         <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Creative &amp; Brand Experience
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">UI/UX Figma wireframing, branding, &amp; video.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">UI/UX Figma wireframing, branding, and video.</p>
                                 </Link>
                                 <Link href="/solutions/growth-marketing" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <TrendingUp className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Growth Marketing &amp; SEO
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Dominasi SEO lokal &amp; iklan Google/Meta Ads.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Local SEO domination and Google/Meta Ads.</p>
                                 </Link>
                                 <Link href="/solutions/consulting" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <HelpCircle className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         IT Consulting &amp; Strategy
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Advisory transformasi teknologi digital.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Technology transformation advisory.</p>
                                 </Link>
                             </div>
                         </div>
@@ -356,7 +356,7 @@ export default function Navbar() {
                         {/* Col 3: Produk SaaS & Aset Digital (SCALE) */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Produk &amp; Aset Digital (SCALE)
+                                Products &amp; Digital Assets (SCALE)
                             </span>
                             <div className="space-y-3.5">
                                 <Link href="/products/diggity-erp" className="group block space-y-0.5">
@@ -364,21 +364,21 @@ export default function Navbar() {
                                         <Server className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Diggity ERP &amp; CRM
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">SaaS akuntansi, inventory, payroll B2B.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">B2B SaaS accounting, inventory, and payroll.</p>
                                 </Link>
                                 <Link href="/products/diggity-ai-agent" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Cpu className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Diggity AI Agent
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Otomatisasi asisten chat &amp; customer lead.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Automated chat assistants and customer lead capture.</p>
                                 </Link>
                                 <Link href="/products/sleek-dashboard-ui-kit" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Sleek Dashboard UI Kit
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Aset digital UI Kit, templates &amp; assets.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">UI kits, templates, and digital assets.</p>
                                 </Link>
                             </div>
                         </div>
@@ -386,7 +386,7 @@ export default function Navbar() {
                         {/* Col 4: Tech Talent Solutions (Job Connect B2B/B2C) */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Penyediaan Talenta IT
+                                Tech Talent Solutions
                             </span>
                             <div className="space-y-3.5">
                                 <Link href="/job-connect/headhunting" className="group block space-y-0.5">
@@ -394,21 +394,21 @@ export default function Navbar() {
                                         <UserCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         IT Headhunting
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Rekrut individu terbaik sesuai kebutuhan tim secara cepat.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Hire the best tech talent quickly based on your needs.</p>
                                 </Link>
                                 <Link href="/job-connect/outsourcing" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Users className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         IT Outsourcing
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Bangun tim dengan rekrut skala besar dalam 7 hari.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Build a remote developer team in 7 days.</p>
                                 </Link>
                                 <Link href="/job-connect?tab=careers" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Briefcase className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Job Connect
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Menghubungkan talenta digital bersertifikat dengan partner.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Connecting certified digital talents with companies.</p>
                                 </Link>
                             </div>
                         </div>
@@ -423,7 +423,7 @@ export default function Navbar() {
                         {/* Col 1: Program Belajar (EMPOWER) */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Program Utama (EMPOWER)
+                                Main Programs (EMPOWER)
                             </span>
                             <div className="space-y-3">
                                 <Link href="/academy" className="group block space-y-1">
@@ -431,14 +431,14 @@ export default function Navbar() {
                                         <GraduationCap className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Coding Bootcamps
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Pelatihan pemrograman intensif bersertifikat standar industri.</p>
+                                    <p className="text-[10px] text-text-gray font-medium">Intensive coding bootcamps with industry-standard certification.</p>
                                 </Link>
                                 <Link href="/academy" className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Corporate IT Training
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Program pelatihan teknologi &amp; upskilling in-house untuk perusahaan.</p>
+                                    <p className="text-[10px] text-text-gray font-medium">In-house customized tech training and upskilling for companies.</p>
                                 </Link>
                             </div>
                         </div>
@@ -454,14 +454,14 @@ export default function Navbar() {
                                         <BookOpen className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Self-Paced E-Courses
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Akses belajar mandiri materi koding lengkap beserta kuis kompetensi.</p>
+                                    <p className="text-[10px] text-text-gray font-medium">Self-paced coding courses with quizzes and assessments.</p>
                                 </Link>
                                 <Link href="/academy" className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Digital E-Books
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Unduh buku panduan pemrograman gratis dan tips rekayasa perangkat lunak.</p>
+                                    <p className="text-[10px] text-text-gray font-medium">Download free programming guides and software engineering ebooks.</p>
                                 </Link>
                             </div>
                         </div>
@@ -472,16 +472,16 @@ export default function Navbar() {
                                 <span className="px-2.5 py-0.5 bg-brand-blue/5 border border-brand-blue/15 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-md inline-block">
                                     LMS Portal
                                 </span>
-                                <h4 className="text-sm font-extrabold text-text-main">Mulai Sertifikasi Digital?</h4>
+                                <h4 className="text-sm font-extrabold text-text-main">Get Certified?</h4>
                                 <p className="text-[11px] text-text-gray leading-relaxed font-medium">
-                                    Selesaikan modul pembelajaran kawan, dapatkan nilai kuis di atas KKM, dan unduh sertifikat berverifikasi hash secara instan.
+                                    Complete the learning modules, pass the competency quizzes, and download your verified certificate instantly.
                                 </p>
                             </div>
                             <Link 
                                 href="/academy"
                                 className="inline-flex items-center justify-center py-2 px-4 bg-brand-blue text-white rounded-xl text-xs font-bold hover:bg-brand-blue-dark transition-colors self-start group"
                             >
-                                Buka Akademi
+                                Open Academy
                                 <ArrowUpRight className="ml-1 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                             </Link>
                         </div>
@@ -496,7 +496,7 @@ export default function Navbar() {
                         {/* Col 1: Categories (Left side) */}
                         <div className="space-y-4 border-r border-glass-border/40 pr-8">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                {language === 'id' ? 'Kategori Wawasan' : 'Categories'}
+                                Categories
                             </span>
                             <div className="space-y-1">
                                 <Link href="/insights" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
@@ -504,7 +504,7 @@ export default function Navbar() {
                                         <BookOpen className="w-3.5 h-3.5" />
                                     </div>
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                        {language === 'id' ? 'Blog & Edukasi' : 'Blog & Education'}
+                                        Blog &amp; Education
                                     </h4>
                                 </Link>
                                 <Link href="/news" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
@@ -512,7 +512,7 @@ export default function Navbar() {
                                         <TrendingUp className="w-3.5 h-3.5" />
                                     </div>
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                        {language === 'id' ? 'Berita & Pengumuman' : 'News & Announcements'}
+                                        News &amp; Announcements
                                     </h4>
                                 </Link>
                                 <Link href="/resources" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
@@ -520,7 +520,7 @@ export default function Navbar() {
                                         <Layers className="w-3.5 h-3.5" />
                                     </div>
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                        {language === 'id' ? 'Resource Gratis' : 'Free Resources'}
+                                        Free Resources
                                     </h4>
                                 </Link>
                                 <Link href="/community" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
@@ -528,7 +528,7 @@ export default function Navbar() {
                                         <Users className="w-3.5 h-3.5" />
                                     </div>
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                        {language === 'id' ? 'Komunitas Digital' : 'Digital Community'}
+                                        Digital Community
                                     </h4>
                                 </Link>
                                 <Link href="/portfolio" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
@@ -536,7 +536,7 @@ export default function Navbar() {
                                         <Briefcase className="w-3.5 h-3.5" />
                                     </div>
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                        {language === 'id' ? 'Studi Kasus & Portofolio' : 'Case Studies & Portfolio'}
+                                        Case Studies &amp; Portfolio
                                     </h4>
                                 </Link>
                             </div>
@@ -545,7 +545,7 @@ export default function Navbar() {
                         {/* Col 2 & 3: Featured Articles (Right side, spans 2 columns) */}
                         <div className="md:col-span-2 space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                {language === 'id' ? 'Unggulan dari Wawasan Digital' : 'Featured Insights'}
+                                Featured Insights
                             </span>
                             {featuredBlogs.length > 0 ? (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -574,7 +574,7 @@ export default function Navbar() {
                                                         {blog.title}
                                                     </h4>
                                                     <span className="text-[9px] font-bold text-brand-blue uppercase tracking-wider block">
-                                                        {language === 'id' ? 'Baca lebih lanjut' : 'Read more'}
+                                                        Read more
                                                     </span>
                                                 </div>
                                             </Link>
@@ -583,7 +583,7 @@ export default function Navbar() {
                                 </div>
                             ) : (
                                 <div className="py-8 text-center text-xs text-text-gray font-medium">
-                                    {language === 'id' ? 'Tidak ada artikel unggulan saat ini.' : 'No featured articles found.'}
+                                    No featured articles found.
                                 </div>
                             )}
 
@@ -592,7 +592,7 @@ export default function Navbar() {
                                     href="/insights"
                                     className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark transition-colors flex items-center gap-1 group"
                                 >
-                                    {language === 'id' ? 'Lihat semua wawasan' : 'View all insights'}
+                                    View all insights
                                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                                 </Link>
                             </div>
@@ -700,19 +700,19 @@ export default function Navbar() {
                             {mobileExpanded === 'insights' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
                                     <Link href="/insights" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Blog
+                                        Blog &amp; Education
                                     </Link>
                                     <Link href="/news" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        {language === 'id' ? 'Berita & Pengumuman' : 'News & Announcements'}
+                                        News &amp; Announcements
                                     </Link>
                                     <Link href="/resources" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        {language === 'id' ? 'Resource Gratis' : 'Free Resources'}
+                                        Free Resources
                                     </Link>
                                     <Link href="/community" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        {language === 'id' ? 'Komunitas Digital' : 'Digital Community'}
+                                        Digital Community
                                     </Link>
                                     <Link href="/portfolio" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        {language === 'id' ? 'Studi Kasus & Portofolio' : 'Case Studies & Portfolio'}
+                                        Case Studies &amp; Portfolio
                                     </Link>
                                 </div>
                             )}
@@ -755,7 +755,7 @@ export default function Navbar() {
                                 onClick={() => setIsOpen(false)}
                                 className="inline-flex items-center justify-center w-full px-4 py-3 text-base font-bold text-brand-blue bg-glass-bg border border-glass-border hover:bg-glass-bg-hover rounded-xl transition-colors"
                             >
-                                {language === 'id' ? 'Hubungi Kami' : 'Contact Us'}
+                                Contact Us
                             </Link>
                         </div>
                     </div>

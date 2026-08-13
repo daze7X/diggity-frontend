@@ -403,24 +403,24 @@ export default function Navbar() {
                             <div className="space-y-3.5">
                                 <Link href="/job-connect?tab=b2b" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Users className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Dedicated IT Team
+                                        <UserCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        IT Headhunting
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Sewa full-squad tim IT profesional terkelola.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Rekrut individu terbaik sesuai kebutuhan tim secara cepat.</p>
                                 </Link>
                                 <Link href="/job-connect?tab=b2b" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <UserCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        IT Talent Outsourcing
+                                        <Users className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        IT Outsourcing
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Sewa talenta ahli kontrak bulanan.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Bangun tim dengan rekrut skala besar dalam 7 hari.</p>
                                 </Link>
                                 <Link href="/job-connect?tab=careers" className="group block space-y-0.5">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Briefcase className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Job Connect / Karir
+                                        Job Connect
                                     </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Lihat daftar lowongan aktif untuk pelamar.</p>
+                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Menghubungkan talenta digital bersertifikat dengan partner.</p>
                                 </Link>
                             </div>
                         </div>
@@ -669,10 +669,13 @@ export default function Navbar() {
                                         SaaS &amp; Aset Digital
                                     </Link>
                                     <Link href="/job-connect?tab=b2b" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Sewa Tim IT (Dedicated)
+                                        IT Headhunting
+                                    </Link>
+                                    <Link href="/job-connect?tab=b2b" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        IT Outsourcing
                                     </Link>
                                     <Link href="/job-connect?tab=careers" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1">
-                                        Cari Kerja &amp; Lowongan IT &rarr;
+                                        Job Connect &rarr;
                                     </Link>
                                 </div>
                             )}

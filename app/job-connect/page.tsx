@@ -173,34 +173,83 @@ export default async function JobConnectPage({ searchParams }: Props) {
                     TAB 2: B2B HIRE TEAM & OUTSOURCING (B2B)
                     ======================================================== */}
                 {activeTab === 'b2b' && (
-                    <div className="space-y-12 animate-in fade-in duration-300 max-w-6xl mx-auto">
+                    <div className="space-y-12 animate-in fade-in duration-300 max-w-7xl mx-auto">
                         
                         {/* Section Header */}
                         <div className="text-left space-y-3">
                             <h2 className="text-2xl md:text-3xl font-black text-text-main flex items-center gap-2">
                                 <Users className="w-7 h-7 text-brand-blue" />
-                                {locale === 'en' ? 'Corporate Sourcing & Dedicated IT Teams' : 'Penyediaan Tim Pengembang & Talenta IT B2B'}
+                                {locale === 'en' ? 'Tech Talent Solutions for Businesses' : 'Solusi Talenta IT Terpadu untuk Bisnis'}
                             </h2>
                             <p className="text-sm text-text-gray font-medium leading-relaxed max-w-3xl">
                                 {locale === 'en'
-                                    ? 'Hire dedicated tech squads fully managed by Diggity, or source remote specialized individual talents on a contract basis.'
-                                    : 'Sewa tim pengembang IT khusus yang dikelola penuh oleh Diggity, atau rekrut talenta spesialis remote bulanan/kontrak untuk memperkuat tim internal Anda.'}
+                                    ? 'Acquire elite digital talents on-demand. Build contract squads, recruit full-time specialists, or tap into our pre-vetted digital talent community.'
+                                    : 'Dapatkan talenta digital terbaik sesuai kebutuhan bisnis Anda. Sewa tim pengembang kontrak, rekrut spesialis tetap, atau akses komunitas talenta digital terverifikasi kami.'}
                             </p>
                         </div>
 
-                        {/* Main Grid: Dedicated Team vs Individual Sourcing */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                        {/* Main Grid: Three-column Tech Talent Solutions */}
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
                             
-                            {/* Card 1: Dedicated Team */}
-                            <SpotlightCard className="p-8 md:p-10 flex flex-col justify-between rounded-3xl border border-brand-blue/30 bg-brand-blue/5 shadow-xl shadow-brand-blue/5 text-left h-full">
+                            {/* Card 1: IT Headhunting */}
+                            <SpotlightCard className="p-8 flex flex-col justify-between rounded-3xl border border-glass-border bg-glass-bg/60 text-left h-full">
+                                <div className="space-y-6">
+                                    <div className="space-y-2">
+                                        <span className="px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg inline-block">
+                                            BUILD & HIRE
+                                        </span>
+                                        <h3 className="text-xl font-black text-text-main pt-1">IT Headhunting</h3>
+                                        <p className="text-xs text-text-gray font-medium leading-relaxed">
+                                            Rekrut individu/spesialis digital terbaik secara cepat dan tertarget untuk bergabung sebagai karyawan internal tim perusahaan Anda.
+                                        </p>
+                                    </div>
+
+                                    {/* Features Scope */}
+                                    <div className="border-t border-glass-border/60 pt-6 space-y-4">
+                                        <span className="text-[10px] uppercase font-bold tracking-wider text-text-muted block">
+                                            Cakupan Rekrutmen:
+                                        </span>
+                                        <ul className="space-y-3 list-none m-0 p-0 text-xs text-text-gray font-medium">
+                                            <li className="flex items-start space-x-2">
+                                                <UserCheck className="w-4.5 h-4.5 text-brand-blue shrink-0" />
+                                                <span>Pencarian Spesifik: Rekrut CTO, Tech Lead, Senior Developer, atau Product Manager dengan kualifikasi presisi.</span>
+                                            </li>
+                                            <li className="flex items-start space-x-2">
+                                                <UserCheck className="w-4.5 h-4.5 text-brand-blue shrink-0" />
+                                                <span>Skrining Teknis Penuh: Seluruh proses seleksi awal & tes kemampuan koding dikelola penuh oleh tim pakar Diggity.</span>
+                                            </li>
+                                            <li className="flex items-start space-x-2">
+                                                <UserCheck className="w-4.5 h-4.5 text-brand-blue shrink-0" />
+                                                <span>Garansi Penggantian: Jaminan garansi penggantian talent gratis hingga 90 hari apabila tidak memenuhi kecocokan budaya kerja.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div className="pt-8">
+                                    <a
+                                        href={`https://wa.me/${phone}?text=${encodeURIComponent(
+                                            "Halo Diggity, perusahaan kami tertarik berkonsultasi mengenai jasa IT Headhunting untuk rekrutmen posisi spesifik. Bisa tolong jadwalkan sesi diskusi?"
+                                        )}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full inline-flex items-center justify-center py-3 px-5 rounded-xl text-xs font-bold bg-glass-bg border border-glass-border hover:bg-glass-bg-hover text-text-main transition-all text-center"
+                                    >
+                                        Hubungi Konsultan Headhunting
+                                    </a>
+                                </div>
+                            </SpotlightCard>
+
+                            {/* Card 2: IT Outsourcing */}
+                            <SpotlightCard className="p-8 flex flex-col justify-between rounded-3xl border border-brand-blue/30 bg-brand-blue/5 shadow-xl shadow-brand-blue/5 text-left h-full">
                                 <div className="space-y-6">
                                     <div className="space-y-2">
                                         <span className="px-3 py-1 bg-brand-blue/15 border border-brand-blue/25 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg inline-block">
-                                            Framework: BUILD - GROW
+                                            DEDICATED SQUAD
                                         </span>
-                                        <h3 className="text-2xl font-black text-text-main pt-1">Dedicated IT Team</h3>
+                                        <h3 className="text-xl font-black text-text-main pt-1">IT Outsourcing</h3>
                                         <p className="text-xs text-text-gray font-medium leading-relaxed">
-                                            Sewa tim pengembang lengkap (Full Squad) siap pakai yang dipimpin oleh Project Manager berpengalaman untuk membangun, merancang, dan mengotomatisasi sistem bisnis Anda dari hulu ke hilir.
+                                            Bangun dan sewa tim pengembang lengkap (Full-Squad) siap pakai dalam 7 hari untuk mempercepat proyek teknologi Anda tanpa beban overhead rekrutmen.
                                         </p>
                                     </div>
 
@@ -212,15 +261,15 @@ export default async function JobConnectPage({ searchParams }: Props) {
                                         <ul className="space-y-3 list-none m-0 p-0 text-xs text-text-gray font-medium">
                                             <li className="flex items-start space-x-2">
                                                 <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0" />
-                                                <span>Susunan Tim Lengkap: UI/UX Designer, Frontend, Backend, QA, dan Project Manager.</span>
+                                                <span>Susunan Tim Lengkap: Terdiri atas UI/UX Designer, Frontend, Backend, QA Engineer, dan Project Manager.</span>
                                             </li>
                                             <li className="flex items-start space-x-2">
                                                 <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0" />
-                                                <span>Manajemen Penuh: Absensi, KPI, penggajian, dan deliverables dikelola penuh oleh Diggity.</span>
+                                                <span>Manajemen Operasional Penuh: Absensi, KPI kerja, payroll, tunjangan, dan deliverables dikendalikan penuh oleh Diggity.</span>
                                             </li>
                                             <li className="flex items-start space-x-2">
                                                 <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0" />
-                                                <span>Laporan Mingguan: Sesi demo progress berkala, rapat sinkronisasi rutin, dan jaminan bug-fix.</span>
+                                                <span>Jaminan Kualitas Kode: Garansi bebas bug saat rilis produksi dengan laporan demo perkembangan rutin mingguan.</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -229,47 +278,47 @@ export default async function JobConnectPage({ searchParams }: Props) {
                                 <div className="pt-8">
                                     <a
                                         href={`https://wa.me/${phone}?text=${encodeURIComponent(
-                                            "Halo Diggity, perusahaan kami tertarik untuk menyewa Dedicated IT Team (Full-Squad). Bisa tolong berikan proposal teknis dan jadwalkan sesi diskusi?"
+                                            "Halo Diggity, perusahaan kami tertarik menggunakan layanan IT Outsourcing (Dedicated Team) untuk membangun tim pengembang siap pakai. Bisa tolong kirimkan proposal teknisnya?"
                                         )}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl text-xs font-bold bg-brand-blue hover:bg-brand-blue-dark text-white shadow-lg shadow-brand-blue/20 transition-all text-center"
+                                        className="w-full inline-flex items-center justify-center py-3 px-5 rounded-xl text-xs font-bold bg-brand-blue hover:bg-brand-blue-dark text-white shadow-lg shadow-brand-blue/20 transition-all text-center"
                                     >
                                         Minta Proposal Dedicated Team
                                     </a>
                                 </div>
                             </SpotlightCard>
 
-                            {/* Card 2: Individual Sourcing */}
-                            <SpotlightCard className="p-8 md:p-10 flex flex-col justify-between rounded-3xl border border-glass-border bg-glass-bg/60 text-left h-full">
+                            {/* Card 3: Job Connect */}
+                            <SpotlightCard className="p-8 flex flex-col justify-between rounded-3xl border border-glass-border bg-glass-bg/60 text-left h-full">
                                 <div className="space-y-6">
                                     <div className="space-y-2">
                                         <span className="px-3 py-1 bg-glass-bg border border-glass-border text-text-muted text-[10px] font-black uppercase tracking-wider rounded-lg inline-block">
-                                            Framework: SCALE
+                                            TALENT NETWORK
                                         </span>
-                                        <h3 className="text-2xl font-black text-text-main pt-1">Individual IT Talent Sourcing</h3>
+                                        <h3 className="text-xl font-black text-text-main pt-1">Job Connect / Sourcing</h3>
                                         <p className="text-xs text-text-gray font-medium leading-relaxed">
-                                            Posisikan talenta spesialis digital terbaik dari jaringan global Diggity secara instan ke dalam tim internal perusahaan Anda secara kontrak bulanan untuk mempercepat pengembangan fitur.
+                                            Akses cepat ke database jaringan talenta digital bersertifikat Diggity untuk diproyeksikan langsung ke kebutuhan kontrak jangka menengah/panjang.
                                         </p>
                                     </div>
 
                                     {/* Features Scope */}
                                     <div className="border-t border-glass-border/60 pt-6 space-y-4">
                                         <span className="text-[10px] uppercase font-bold tracking-wider text-text-muted block">
-                                            Kategori Talenta Siap Kontrak:
+                                            Kategori Talenta Siap Kerja:
                                         </span>
                                         <ul className="space-y-3 list-none m-0 p-0 text-xs text-text-gray font-medium">
                                             <li className="flex items-start space-x-2">
-                                                <UserCheck className="w-4.5 h-4.5 text-brand-blue shrink-0" />
-                                                <span>Software Engineers (Next.js, React, Node.js, Laravel, Mobile Dev, Golang).</span>
+                                                <Briefcase className="w-4.5 h-4.5 text-brand-blue shrink-0" />
+                                                <span>Software Engineers: Pengembang web & mobile (Next.js, React, Node.js, Laravel, Golang, Native Dev).</span>
                                             </li>
                                             <li className="flex items-start space-x-2">
-                                                <UserCheck className="w-4.5 h-4.5 text-brand-blue shrink-0" />
-                                                <span>Data Specialist &amp; AI Engineers (Machine Learning, BI Analysts, DevOps).</span>
+                                                <Briefcase className="w-4.5 h-4.5 text-brand-blue shrink-0" />
+                                                <span>Data & AI Specialist: Ahli data science, machine learning engineers, DevOps automation, & data analysts.</span>
                                             </li>
                                             <li className="flex items-start space-x-2">
-                                                <UserCheck className="w-4.5 h-4.5 text-brand-blue shrink-0" />
-                                                <span>Desainer &amp; Pemasar (UI/UX Designers, SEO Specialist, Growth Marketers).</span>
+                                                <Briefcase className="w-4.5 h-4.5 text-brand-blue shrink-0" />
+                                                <span>Flexible Sourcing: Sewa talenta kontrak bulanan dengan fleksibilitas tinggi tanpa kontrak terikat permanen.</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -278,13 +327,13 @@ export default async function JobConnectPage({ searchParams }: Props) {
                                 <div className="pt-8">
                                     <a
                                         href={`https://wa.me/${phone}?text=${encodeURIComponent(
-                                            "Halo Diggity, perusahaan kami sedang mencari talenta digital kontrak (Individual IT Talent). Bisa tolong berikan informasi katalog talenta digital yang tersedia?"
+                                            "Halo Diggity, kami tertarik untuk menyewa talenta kontrak fleksibel dari layanan Job Connect/Sourcing B2B. Bagaimana prosedur kerja samanya?"
                                         )}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl text-xs font-bold bg-glass-bg border border-glass-border hover:bg-glass-bg-hover text-text-main transition-all text-center"
+                                        className="w-full inline-flex items-center justify-center py-3 px-5 rounded-xl text-xs font-bold bg-glass-bg border border-glass-border hover:bg-glass-bg-hover text-text-main transition-all text-center"
                                     >
-                                        Konsultasi Kebutuhan Talenta B2B
+                                        Eksplorasi Jaringan Talenta B2B
                                     </a>
                                 </div>
                             </SpotlightCard>

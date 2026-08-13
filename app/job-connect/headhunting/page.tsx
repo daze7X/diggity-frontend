@@ -23,51 +23,36 @@ import B2bInquiryForm from '../../../components/B2bInquiryForm';
 import { api } from '../../../lib/api';
 
 export default function HeadhuntingPage() {
-    const [activeProcessTab, setActiveProcessTab] = useState<'profil' | 'sourcing' | 'interview' | 'onboarding'>('profil');
+    const [activeProcessTab, setActiveProcessTab] = useState<number>(0);
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
-    const [serviceData, setServiceData] = useState<{ name: string; description: string } | null>(null);
 
-    useEffect(() => {
-        api.getServiceBySlug('headhunting')
-            .then(data => {
-                if (data) {
-                    setServiceData({
-                        name: data.name,
-                        description: data.description || ''
-                    });
-                }
-            })
-            .catch(err => console.error('Error fetching service:', err));
-    }, []);
-
-    const processTabs = [
+    const [title, setTitle] = useState('Rekrut Tim IT Terbaik Tanpa Kerumitan Sourcing.');
+    const [description, setDescription] = useState('Kami membantu perusahaan menjaring, menyaring, dan merekrut talenta digital teratas—mulai dari Software Engineers hingga CTO—dengan kualifikasi teknis presisi serta budaya kerja yang selaras.');
+    
+    const [processTabs, setProcessTabs] = useState<Array<{ title: string; subtitle: string; content: string }>>([
         {
-            id: 'profil' as const,
             title: '1. Analisis Profil',
             subtitle: 'Pemetaan Kebutuhan Teknis',
             content: 'Kami duduk bersama dengan tim Anda untuk merumuskan deskripsi pekerjaan secara detail, menentukan kualifikasi teknis (tech stack) yang dibutuhkan, serta menyelaraskan kriteria soft skill dan kepribadian (cultural fit) agar kandidat dapat langsung menyatu dengan tim internal Anda.'
         },
         {
-            id: 'sourcing' as const,
             title: '2. Sourcing & Screening',
             subtitle: 'Pencarian & Penjaringan Kandidat',
             content: 'Tim perekrut ahli kami menyaring kandidat potensial dari basis data internal bersertifikat Diggity dan jaringan global kami. Kami melakukan pre-screening teknis, review portfolio koding, dan wawancara awal sebelum merekomendasikan mereka.'
         },
         {
-            id: 'interview' as const,
             title: '3. Wawancara Klien',
             subtitle: 'Presentasi & Seleksi Final',
             content: 'Kami menyajikan CV beserta hasil penilaian teknis (technical test) dari 2-3 kandidat terbaik untuk Anda wawancarai langsung. Kami membantu menjadwalkan wawancara dan menjadi penengah proses feedback demi kesepakatan terbaik.'
         },
         {
-            id: 'onboarding' as const,
             title: '4. Onboarding & Garansi',
             subtitle: 'Penempatan & Jaminan Kinerja',
             content: 'Setelah penawaran diterima, kami mendampingi masa transisi kandidat hingga resmi onboarding di perusahaan Anda. Untuk menjamin kenyamanan Anda, kami memberikan garansi penggantian kandidat gratis hingga 90 hari jika terjadi ketidakcocokan.'
         }
-    ];
+    ]);
 
-    const faqs = [
+    const [faqs, setFaqs] = useState<Array<{ q: string; a: string }>>([
         {
             q: 'Berapa biaya jasa IT Headhunting di Diggity?',
             a: 'Biaya headhunting didasarkan pada persentase remunerasi tahunan kandidat yang disetujui (Annual Package), atau melalui skema harga flat terjangkau yang disesuaikan dengan tingkat kesulitan posisi. Kami mengadopsi model "Success Fee", yang berarti Anda hanya membayar setelah kandidat resmi menandatangani kontrak kerja.'
@@ -84,7 +69,20 @@ export default function HeadhuntingPage() {
             q: 'Apakah seluruh kandidat sudah melalui tes kompetensi?',
             a: 'Tentu kawan. Seluruh kandidat yang kami teruskan ke klien telah melalui tes penyaringan awal secara internal yang mencakup penilaian algoritma, live coding review, pemecahan masalah (case study), serta asesmen komunikasi profesional.'
         }
-    ];
+    ]);
+
+    useEffect(() => {
+        api.getTalentService('headhunting')
+            .then(data => {
+                if (data) {
+                    if (data.title) setTitle(data.title);
+                    if (data.description) setDescription(data.description);
+                    if (data.process_tabs && data.process_tabs.length > 0) setProcessTabs(data.process_tabs);
+                    if (data.faqs && data.faqs.length > 0) setFaqs(data.faqs);
+                }
+            })
+            .catch(err => console.error('Error fetching talent service:', err));
+    }, []);
 
     const toggleFaq = (index: number) => {
         setActiveFaq(activeFaq === index ? null : index);
@@ -116,10 +114,10 @@ export default function HeadhuntingPage() {
                             <Sparkles className="w-3 h-3" /> IT Headhunting Agency
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-text-main leading-tight">
-                            {serviceData ? serviceData.name : 'Rekrut Tim IT Terbaik Tanpa Kerumitan Sourcing.'}
+                            {title}
                         </h1>
                         <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed">
-                            {serviceData ? serviceData.description : 'Kami membantu perusahaan menjaring, menyaring, dan merekrut talenta digital teratas—mulai dari Software Engineers hingga CTO—dengan kualifikasi teknis presisi serta budaya kerja yang selaras.'}
+                            {description}
                         </p>
                         <div className="pt-2 flex flex-wrap gap-4">
                             <a 
@@ -232,20 +230,20 @@ export default function HeadhuntingPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                         {/* Process Buttons */}
                         <div className="lg:col-span-1 flex flex-col gap-2.5">
-                            {processTabs.map((tab) => (
+                            {processTabs.map((tab, idx) => (
                                 <button
-                                    key={tab.id}
-                                    onClick={() => setActiveProcessTab(tab.id)}
+                                    key={idx}
+                                    onClick={() => setActiveProcessTab(idx)}
                                     className={`w-full p-4 rounded-xl border text-left transition-all backdrop-blur-md cursor-pointer flex flex-col space-y-1 ${
-                                        activeProcessTab === tab.id
+                                        activeProcessTab === idx
                                             ? 'bg-brand-blue/5 border-brand-blue shadow-lg shadow-brand-blue/5'
                                             : 'bg-glass-bg border-glass-border hover:border-brand-blue/30'
                                     }`}
                                 >
-                                    <span className={`text-[10px] font-bold uppercase tracking-wider ${activeProcessTab === tab.id ? 'text-brand-blue' : 'text-text-muted'}`}>
+                                    <span className={`text-[10px] font-bold uppercase tracking-wider ${activeProcessTab === idx ? 'text-brand-blue' : 'text-text-muted'}`}>
                                         {tab.title}
                                     </span>
-                                    <span className={`text-xs font-extrabold ${activeProcessTab === tab.id ? 'text-text-main' : 'text-text-gray'}`}>
+                                    <span className={`text-xs font-extrabold ${activeProcessTab === idx ? 'text-text-main' : 'text-text-gray'}`}>
                                         {tab.subtitle}
                                     </span>
                                 </button>
@@ -257,10 +255,10 @@ export default function HeadhuntingPage() {
                             <SpotlightCard className="p-8 md:p-10 border border-glass-border bg-glass-bg/40 rounded-2xl h-full flex flex-col justify-between min-h-[220px]">
                                 <div className="space-y-4">
                                     <span className="inline-block px-2.5 py-0.5 bg-brand-blue/5 border border-brand-blue/15 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-md">
-                                        {processTabs.find(t => t.id === activeProcessTab)?.subtitle}
+                                        {processTabs[activeProcessTab]?.subtitle}
                                     </span>
                                     <p className="text-xs md:text-sm text-text-gray font-medium leading-relaxed">
-                                        {processTabs.find(t => t.id === activeProcessTab)?.content}
+                                        {processTabs[activeProcessTab]?.content}
                                     </p>
                                 </div>
                                 <div className="pt-6 border-t border-glass-border/40 flex justify-end">

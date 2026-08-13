@@ -23,51 +23,36 @@ import B2bInquiryForm from '../../../components/B2bInquiryForm';
 import { api } from '../../../lib/api';
 
 export default function OutsourcingPage() {
-    const [activeProcessTab, setActiveProcessTab] = useState<'analisis' | 'penyusunan' | 'ujicoba' | 'delivery'>('analisis');
+    const [activeProcessTab, setActiveProcessTab] = useState<number>(0);
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
-    const [serviceData, setServiceData] = useState<{ name: string; description: string } | null>(null);
 
-    useEffect(() => {
-        api.getServiceBySlug('outsourcing')
-            .then(data => {
-                if (data) {
-                    setServiceData({
-                        name: data.name,
-                        description: data.description || ''
-                    });
-                }
-            })
-            .catch(err => console.error('Error fetching service:', err));
-    }, []);
-
-    const processTabs = [
+    const [title, setTitle] = useState('Sewa Tim IT Outsourcing Siap Deploy dalam 7 Hari.');
+    const [description, setDescription] = useState('Beban operasional nol, fokus hasil maksimal. Kami menyediakan tim pengembang lengkap (Full Squad) yang dikelola penuh oleh Diggity untuk merancang dan meluncurkan produk digital Anda tanpa kendala rekrutmen.');
+    
+    const [processTabs, setProcessTabs] = useState<Array<{ title: string; subtitle: string; content: string }>>([
         {
-            id: 'analisis' as const,
             title: '1. Analisis Kebutuhan',
             subtitle: 'Pemetaan Scope & Arsitektur',
             content: 'Tim Solutions Architect kami bekerja sama dengan Anda untuk merinci ruang lingkup proyek, mendesain cetak biru arsitektur sistem, memetakan diagram alur data, serta menentukan keahlian teknis (tech stack) spesifik yang dibutuhkan oleh squad pengembang.'
         },
         {
-            id: 'penyusunan' as const,
             title: '2. Penyusunan Squad',
             subtitle: 'Pemilihan & Alokasi Talenta',
             content: 'Kami menyusun susunan tim lengkap (Full Squad) yang terdiri atas UI/UX Designer, Frontend Engineer, Backend Engineer, QA Specialist, dan Project Manager berpengalaman. Anggota tim dipilih langsung dari talent pool terkurasi kami dalam waktu maksimal 7 hari.'
         },
         {
-            id: 'ujicoba' as const,
             title: '3. Masa Uji Coba',
             subtitle: 'Sinergi Awal 1 Minggu',
             content: 'Setelah squad terbentuk, kami memulai masa uji coba adaptasi selama 1 minggu. Kami mensinkronisasikan pola komunikasi, setup repositori kode, dan memulai sprint pertama. Sesi ini membuktikan kesiapan kolaborasi tim sebelum komitmen kontrak jangka panjang berjalan.'
         },
         {
-            id: 'delivery' as const,
             title: '4. Managed Delivery',
             subtitle: 'Eksekusi & Kontrol Kualitas',
             content: 'Project Manager kami akan memimpin stand-up meeting harian, mengelola backlog sprint, dan memastikan pengerjaan tepat waktu. Seluruh deliverables dikontrol kualitasnya secara internal oleh Tech Lead sebelum dipresentasikan ke Anda pada demo mingguan.'
         }
-    ];
+    ]);
 
-    const faqs = [
+    const [faqs, setFaqs] = useState<Array<{ q: string; a: string }>>([
         {
             q: 'Apa perbedaan IT Outsourcing di Diggity dibanding agensi biasa?',
             a: 'Kami mengadopsi model "Managed Service". Kami tidak hanya sekadar menempatkan tenaga kerja di kantor kawan lalu membiarkan Anda mengelolanya sendiri. Kami menyertakan Dedicated Project Manager untuk mengontrol KPI harian, memantau absensi, melakukan code review berkala, serta menjamin kualitas output pekerjaan sehingga Anda terbebas dari beban manajemen operasional.'
@@ -84,7 +69,20 @@ export default function OutsourcingPage() {
             q: 'Bagaimana jika ada anggota tim yang kinerjanya kurang memuaskan?',
             a: 'Diggity memberikan jaminan replacement (penggantian talenta) secara cepat. Jika ada anggota squad yang performanya kurang memuaskan, silakan ajukan keluhan ke Account Manager kami. Kami menjamin penggantian talenta dalam waktu maksimal 7 hari tanpa mengganggu jalannya garis waktu proyek Anda.'
         }
-    ];
+    ]);
+
+    useEffect(() => {
+        api.getTalentService('outsourcing')
+            .then(data => {
+                if (data) {
+                    if (data.title) setTitle(data.title);
+                    if (data.description) setDescription(data.description);
+                    if (data.process_tabs && data.process_tabs.length > 0) setProcessTabs(data.process_tabs);
+                    if (data.faqs && data.faqs.length > 0) setFaqs(data.faqs);
+                }
+            })
+            .catch(err => console.error('Error fetching talent service:', err));
+    }, []);
 
     const toggleFaq = (index: number) => {
         setActiveFaq(activeFaq === index ? null : index);
@@ -116,10 +114,10 @@ export default function OutsourcingPage() {
                             <Sparkles className="w-3 h-3" /> Managed IT Squads
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-text-main leading-tight">
-                            {serviceData ? serviceData.name : 'Sewa Tim IT Outsourcing Siap Deploy dalam 7 Hari.'}
+                            {title}
                         </h1>
                         <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed">
-                            {serviceData ? serviceData.description : 'Beban operasional nol, fokus hasil maksimal. Kami menyediakan tim pengembang lengkap (Full Squad) yang dikelola penuh oleh Diggity untuk merancang dan meluncurkan produk digital Anda tanpa kendala rekrutmen.'}
+                            {description}
                         </p>
                         <div className="pt-2 flex flex-wrap gap-4">
                             <a 
@@ -221,20 +219,20 @@ export default function OutsourcingPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                         {/* Process Buttons */}
                         <div className="lg:col-span-1 flex flex-col gap-2.5">
-                            {processTabs.map((tab) => (
+                            {processTabs.map((tab, idx) => (
                                 <button
-                                    key={tab.id}
-                                    onClick={() => setActiveProcessTab(tab.id)}
+                                    key={idx}
+                                    onClick={() => setActiveProcessTab(idx)}
                                     className={`w-full p-4 rounded-xl border text-left transition-all backdrop-blur-md cursor-pointer flex flex-col space-y-1 ${
-                                        activeProcessTab === tab.id
+                                        activeProcessTab === idx
                                             ? 'bg-brand-blue/5 border-brand-blue shadow-lg shadow-brand-blue/5'
                                             : 'bg-glass-bg border-glass-border hover:border-brand-blue/30'
                                     }`}
                                 >
-                                    <span className={`text-[10px] font-bold uppercase tracking-wider ${activeProcessTab === tab.id ? 'text-brand-blue' : 'text-text-muted'}`}>
+                                    <span className={`text-[10px] font-bold uppercase tracking-wider ${activeProcessTab === idx ? 'text-brand-blue' : 'text-text-muted'}`}>
                                         {tab.title}
                                     </span>
-                                    <span className={`text-xs font-extrabold ${activeProcessTab === tab.id ? 'text-text-main' : 'text-text-gray'}`}>
+                                    <span className={`text-xs font-extrabold ${activeProcessTab === idx ? 'text-text-main' : 'text-text-gray'}`}>
                                         {tab.subtitle}
                                     </span>
                                 </button>
@@ -246,10 +244,10 @@ export default function OutsourcingPage() {
                             <SpotlightCard className="p-8 md:p-10 border border-glass-border bg-glass-bg/40 rounded-2xl h-full flex flex-col justify-between min-h-[220px]">
                                 <div className="space-y-4">
                                     <span className="inline-block px-2.5 py-0.5 bg-brand-blue/5 border border-brand-blue/15 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-md">
-                                        {processTabs.find(t => t.id === activeProcessTab)?.subtitle}
+                                        {processTabs[activeProcessTab]?.subtitle}
                                     </span>
                                     <p className="text-xs md:text-sm text-text-gray font-medium leading-relaxed">
-                                        {processTabs.find(t => t.id === activeProcessTab)?.content}
+                                        {processTabs[activeProcessTab]?.content}
                                     </p>
                                 </div>
                                 <div className="pt-6 border-t border-glass-border/40 flex justify-end">

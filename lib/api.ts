@@ -259,6 +259,7 @@ export const api = {
     
     getServices: (): Promise<Service[]> => fetchAPI('/services'),
     getServiceBySlug: (slug: string): Promise<Service> => fetchAPI(`/services/${slug}`),
+    getTalentService: (slug: string): Promise<any> => fetchAPI(`/talent-services/${slug}`),
     
     getPortfolios: (): Promise<Portfolio[]> => fetchAPI('/portfolios'),
     getPortfolioBySlug: (slug: string): Promise<Portfolio> => fetchAPI(`/portfolios/${slug}`),

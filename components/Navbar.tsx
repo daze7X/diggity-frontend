@@ -27,7 +27,7 @@ import {
 import SearchOverlay from './SearchOverlay';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { api, Blog } from '../lib/api';
+import { api, Blog, Product, Service } from '../lib/api';
 
 export default function Navbar() {
     const { user, loading } = useAuth();
@@ -39,6 +39,8 @@ export default function Navbar() {
     const [activeDropdown, setActiveDropdown] = useState<'product_solution' | 'academy' | 'insights' | null>(null);
     const [mobileExpanded, setMobileExpanded] = useState<'product_solution' | 'academy' | 'insights' | null>(null);
     const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
+    const [services, setServices] = useState<Service[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -49,6 +51,24 @@ export default function Navbar() {
             })
             .catch((err) => {
                 console.error('Failed to load insights in navbar:', err);
+            });
+
+        // Fetch services
+        api.getServices()
+            .then((data) => {
+                setServices(data || []);
+            })
+            .catch((err) => {
+                console.error('Failed to load services in navbar:', err);
+            });
+
+        // Fetch products
+        api.getProducts()
+            .then((data) => {
+                setProducts(data || []);
+            })
+            .catch((err) => {
+                console.error('Failed to load products in navbar:', err);
             });
     }, []);
 
@@ -110,6 +130,75 @@ export default function Navbar() {
     const handleDropdownToggle = (type: 'product_solution' | 'academy' | 'insights') => {
         setActiveDropdown(activeDropdown === type ? null : type);
     };
+
+    // Helper helper for dynamic icons
+    const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
+        const iconMap: Record<string, any> = {
+            'code': Code,
+            'cpu': Cpu,
+            'shield-check': ShieldCheck,
+            'layers': Layers,
+            'trending-up': TrendingUp,
+            'help-circle': HelpCircle,
+            'server': Server,
+            'user-check': UserCheck,
+            'users': Users,
+            'briefcase': Briefcase,
+        };
+        const IconComponent = iconMap[name.toLowerCase()] || HelpCircle;
+        return <IconComponent className={className} />;
+    };
+
+    const getServiceHref = (slug: string, categorySlug?: string) => {
+        if (categorySlug === 'tech-talent-solutions' || slug === 'job-connect' || slug === 'headhunting' || slug === 'outsourcing') {
+            if (slug === 'job-connect') return '/job-connect?tab=careers';
+            return `/job-connect/${slug}`;
+        }
+        return `/solutions/${slug}`;
+    };
+
+    // Filter services dynamically from database
+    const dbCol1Services = services.filter(s => 
+        (s.category?.slug === 'app-builder-squad' || s.category?.slug === 'cloud-service-hub') && 
+        s.slug !== 'consulting'
+    );
+    const dbCol2Services = services.filter(s => 
+        s.category?.slug === 'brand-growth-division' || 
+        s.slug === 'consulting'
+    );
+    const dbCol4Services = services.filter(s => 
+        s.category?.slug === 'tech-talent-solutions'
+    );
+
+    // Fallbacks
+    const fallbackCol1 = [
+        { name: 'Technology Solutions', slug: 'technology-solutions', icon: 'code', description: 'Web apps, native mobile apps, and ERP development.', categorySlug: 'app-builder-squad' },
+        { name: 'AI & Emerging Technology', slug: 'ai-emerging-technology', icon: 'cpu', description: 'AI assistants, smart chatbots, and data integration.', categorySlug: 'app-builder-squad' },
+        { name: 'Cloud & Cyber Security', slug: 'cloud-cyber-security', icon: 'shield-check', description: 'DevOps setup, cloud infrastructure, and security.', categorySlug: 'cloud-service-hub' }
+    ];
+
+    const fallbackCol2 = [
+        { name: 'Creative & Brand Experience', slug: 'creative-brand-experience', icon: 'layers', description: 'UI/UX Figma wireframing, branding, and video.', categorySlug: 'brand-growth-division' },
+        { name: 'Growth Marketing & SEO', slug: 'growth-marketing', icon: 'trending-up', description: 'Local SEO domination and Google/Meta Ads.', categorySlug: 'brand-growth-division' },
+        { name: 'IT Consulting & Strategy', slug: 'consulting', icon: 'help-circle', description: 'Technology transformation advisory.', categorySlug: 'cloud-service-hub' }
+    ];
+
+    const fallbackCol3 = [
+        { name: 'Diggity ERP & CRM', slug: 'diggity-erp', icon: 'server', description: 'B2B SaaS accounting, inventory, and payroll.', categorySlug: 'product' },
+        { name: 'Diggity AI Agent', slug: 'diggity-ai-agent', icon: 'cpu', description: 'Automated chat assistants and customer lead capture.', categorySlug: 'product' },
+        { name: 'Sleek Dashboard UI Kit', slug: 'sleek-dashboard-ui-kit', icon: 'layers', description: 'UI kits, templates, and digital assets.', categorySlug: 'product' }
+    ];
+
+    const fallbackCol4 = [
+        { name: 'IT Headhunting', slug: 'headhunting', icon: 'user-check', description: 'Hire the best tech talent quickly based on your needs.', categorySlug: 'tech-talent-solutions' },
+        { name: 'IT Outsourcing', slug: 'outsourcing', icon: 'users', description: 'Build a remote developer team in 7 days.', categorySlug: 'tech-talent-solutions' },
+        { name: 'Job Connect', slug: 'job-connect', icon: 'briefcase', description: 'Connecting certified digital talents with companies.', categorySlug: 'tech-talent-solutions' }
+    ];
+
+    const col1Items = dbCol1Services.length > 0 ? dbCol1Services.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'code', description: s.description || '', categorySlug: s.category?.slug })) : fallbackCol1;
+    const col2Items = dbCol2Services.length > 0 ? dbCol2Services.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'help-circle', description: s.description || '', categorySlug: s.category?.slug })) : fallbackCol2;
+    const col3Items = products.length > 0 ? products.slice(0, 3).map(p => ({ name: p.name, slug: p.slug, icon: p.is_popular ? 'server' : 'cpu', description: p.description || '', categorySlug: 'product' })) : fallbackCol3;
+    const col4Items = dbCol4Services.length > 0 ? dbCol4Services.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'user-check', description: s.description || '', categorySlug: s.category?.slug })) : fallbackCol4;
 
     return (
         <nav
@@ -299,27 +388,15 @@ export default function Navbar() {
                                 Services &amp; Solutions (BUILD-GROW)
                             </span>
                             <div className="space-y-3.5">
-                                <Link href="/solutions/technology-solutions" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Code className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Technology Solutions
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Web apps, native mobile apps, and ERP development.</p>
-                                </Link>
-                                <Link href="/solutions/ai-emerging-technology" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Cpu className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        AI &amp; Emerging Technology
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">AI assistants, smart chatbots, and data integration.</p>
-                                </Link>
-                                <Link href="/solutions/cloud-cyber-security" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Cloud &amp; Cyber Security
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">DevOps setup, cloud infrastructure, and security.</p>
-                                </Link>
+                                {col1Items.map((item, idx) => (
+                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group block space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
+                                            <DynamicIcon name={item.icon} className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                            {item.name}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-normal">{item.description}</p>
+                                    </Link>
+                                ))}
                             </div>
                         </div>
 
@@ -329,27 +406,15 @@ export default function Navbar() {
                                 Strategy &amp; Design
                             </span>
                             <div className="space-y-3.5">
-                                <Link href="/solutions/creative-brand-experience" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Creative &amp; Brand Experience
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">UI/UX Figma wireframing, branding, and video.</p>
-                                </Link>
-                                <Link href="/solutions/growth-marketing" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <TrendingUp className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Growth Marketing &amp; SEO
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Local SEO domination and Google/Meta Ads.</p>
-                                </Link>
-                                <Link href="/solutions/consulting" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <HelpCircle className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        IT Consulting &amp; Strategy
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Technology transformation advisory.</p>
-                                </Link>
+                                {col2Items.map((item, idx) => (
+                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group block space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
+                                            <DynamicIcon name={item.icon} className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                            {item.name}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-normal">{item.description}</p>
+                                    </Link>
+                                ))}
                             </div>
                         </div>
 
@@ -359,27 +424,15 @@ export default function Navbar() {
                                 Products &amp; Digital Assets (SCALE)
                             </span>
                             <div className="space-y-3.5">
-                                <Link href="/products/diggity-erp" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Server className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Diggity ERP &amp; CRM
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">B2B SaaS accounting, inventory, and payroll.</p>
-                                </Link>
-                                <Link href="/products/diggity-ai-agent" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Cpu className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Diggity AI Agent
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Automated chat assistants and customer lead capture.</p>
-                                </Link>
-                                <Link href="/products/sleek-dashboard-ui-kit" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Sleek Dashboard UI Kit
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">UI kits, templates, and digital assets.</p>
-                                </Link>
+                                {col3Items.map((item, idx) => (
+                                    <Link key={idx} href={`/products/${item.slug}`} className="group block space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
+                                            <DynamicIcon name={item.icon} className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                            {item.name}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-normal">{item.description}</p>
+                                    </Link>
+                                ))}
                             </div>
                         </div>
 
@@ -389,27 +442,15 @@ export default function Navbar() {
                                 Tech Talent Solutions
                             </span>
                             <div className="space-y-3.5">
-                                <Link href="/job-connect/headhunting" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <UserCheck className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        IT Headhunting
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Hire the best tech talent quickly based on your needs.</p>
-                                </Link>
-                                <Link href="/job-connect/outsourcing" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Users className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        IT Outsourcing
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Build a remote developer team in 7 days.</p>
-                                </Link>
-                                <Link href="/job-connect?tab=careers" className="group block space-y-0.5">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Briefcase className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Job Connect
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium leading-normal">Connecting certified digital talents with companies.</p>
-                                </Link>
+                                {col4Items.map((item, idx) => (
+                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group block space-y-0.5">
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
+                                            <DynamicIcon name={item.icon} className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                            {item.name}
+                                        </h4>
+                                        <p className="text-[10px] text-text-gray font-medium leading-normal">{item.description}</p>
+                                    </Link>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -630,36 +671,41 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'product_solution' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/solutions/technology-solutions" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Technology Solutions
-                                    </Link>
-                                    <Link href="/solutions/ai-emerging-technology" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        AI &amp; Emerging Tech
-                                    </Link>
-                                    <Link href="/solutions/creative-brand-experience" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Creative &amp; Brand Experience
-                                    </Link>
-                                    <Link href="/solutions/growth-marketing" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Growth Marketing &amp; SEO
-                                    </Link>
-                                    <Link href="/solutions/cloud-cyber-security" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Cloud &amp; Cyber Security
-                                    </Link>
-                                    <Link href="/solutions/consulting" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        IT Consulting
-                                    </Link>
-                                    <Link href="/products" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1 border-t border-glass-border/30 pt-2 mt-2">
-                                        SaaS &amp; Aset Digital
-                                    </Link>
-                                    <Link href="/job-connect/headhunting" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        IT Headhunting
-                                    </Link>
-                                    <Link href="/job-connect/outsourcing" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        IT Outsourcing
-                                    </Link>
-                                    <Link href="/job-connect?tab=careers" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1">
-                                        Job Connect &rarr;
-                                    </Link>
+                                    {/* Services & Solutions */}
+                                    {col1Items.map((item, idx) => (
+                                        <Link key={`m1-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                    {col2Items.map((item, idx) => (
+                                        <Link key={`m2-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                    
+                                    {/* Products & Assets */}
+                                    <div className="border-t border-glass-border/20 pt-2 mt-2">
+                                        <span className="block text-[10px] font-bold text-brand-blue uppercase tracking-widest mb-1.5">
+                                            Products
+                                        </span>
+                                        {col3Items.map((item, idx) => (
+                                            <Link key={`m3-${idx}`} href={`/products/${item.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1 pl-2">
+                                                {item.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+
+                                    {/* Tech Talent Solutions */}
+                                    <div className="border-t border-glass-border/20 pt-2 mt-2">
+                                        <span className="block text-[10px] font-bold text-brand-blue uppercase tracking-widest mb-1.5">
+                                            Tech Talent
+                                        </span>
+                                        {col4Items.map((item, idx) => (
+                                            <Link key={`m4-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1 pl-2">
+                                                {item.name}
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>

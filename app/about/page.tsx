@@ -99,8 +99,8 @@ export default async function About() {
                 {/* 2. History & Philosophy (Bento Grid Layout) */}
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                        {/* Card 1: Sejarah & Filosofi (Spans 3 columns) */}
-                        <SpotlightCard className="p-8 md:col-span-3 flex flex-col justify-between text-left space-y-6">
+                        {/* Card 1: Sejarah & Filosofi (Spans all 4 columns) */}
+                        <SpotlightCard className="p-8 md:col-span-4 flex flex-col justify-between text-left space-y-6">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
                                     {locale === 'en' ? 'History & Philosophy' : 'Sejarah & Filosofi'}
@@ -116,50 +116,6 @@ export default async function About() {
                             </div>
                             <div className="text-xs font-semibold text-text-muted">
                                 Tangerang, Indonesia • Est. 2018
-                            </div>
-                        </SpotlightCard>
-
-                        {/* Card 2: Legalitas (Spans 1 column) */}
-                        <SpotlightCard className="p-8 md:col-span-1 flex flex-col justify-between text-left space-y-4">
-                            <div className="space-y-2">
-                                <div className="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
-                                    <FileText className="w-5 h-5" />
-                                </div>
-                                <h4 className="text-lg font-bold text-text-main">
-                                    {locale === 'en' ? 'Legal' : 'Legalitas'}
-                                </h4>
-                                <p className="text-xs text-text-gray leading-relaxed">
-                                    {locale === 'en' 
-                                        ? 'Official operation under valid and law-compliant corporate entity.'
-                                        : 'Operasional resmi di bawah badan hukum yang sah dan patuh hukum.'}
-                                </p>
-                            </div>
-                            <div className="border-t border-glass-border pt-4 space-y-2 text-[10px]">
-                                <div>
-                                    <span className="text-text-muted block">
-                                        {locale === 'en' ? 'Company Name:' : 'Nama Perusahaan:'}
-                                    </span>
-                                    <span className="text-text-main font-bold">{ptName}</span>
-                                </div>
-                                <div>
-                                    <span className="text-text-muted block">NIB:</span>
-                                    <span className="text-text-main font-bold">{nib}</span>
-                                </div>
-                                <div>
-                                    <span className="text-text-muted block">
-                                        {locale === 'en' ? 'Classification:' : 'Klasifikasi:'}
-                                    </span>
-                                    <span className="text-text-main font-bold truncate block">{kbli}</span>
-                                </div>
-                                <div className="pt-2">
-                                    <a
-                                        href="/company-profile-diggity.pdf"
-                                        download="company-profile-diggity.pdf"
-                                        className="inline-flex items-center justify-center w-full px-3 py-2 text-[10px] font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-lg transition-colors shadow-md shadow-brand-blue/10 cursor-pointer"
-                                    >
-                                        {locale === 'en' ? 'Download PDF Profile' : 'Unduh Profil PDF'}
-                                    </a>
-                                </div>
                             </div>
                         </SpotlightCard>
 
@@ -257,41 +213,6 @@ export default async function About() {
                     </div>
                 </div>
 
-                {/* 5. Team Section */}
-                {teams.length > 0 && (
-                    <div className="space-y-16">
-                        <div className="text-center space-y-4 max-w-2xl mx-auto">
-                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                                {locale === 'en' ? 'Team Management' : 'Manajemen Tim'}
-                            </span>
-                            <h3 className="text-3xl font-extrabold text-text-main tracking-tight">
-                                {locale === 'en' ? 'Creative Brains Behind the Scenes' : 'Otak Kreatif di Balik Layar'}
-                            </h3>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                            {teams.map((member: any) => (
-                                <SpotlightCard key={member.id} className="p-6 text-center space-y-4">
-                                    <div className="w-24 h-24 rounded-full bg-brand-blue/10 border-2 border-brand-blue/20 flex items-center justify-center font-bold text-brand-blue text-3xl mx-auto overflow-hidden relative">
-                                        {member.photo ? (
-                                            <Image
-                                                src={member.photo.startsWith('http') ? member.photo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${member.photo}`}
-                                                alt={member.name}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        ) : (
-                                            member.name[0]
-                                        )}
-                                    </div>
-                                    <div className="space-y-1">
-                                        <h4 className="text-lg font-bold text-text-main">{member.name}</h4>
-                                        <p className="text-sm text-brand-blue font-semibold">{member.role || member.position}</p>
-                                    </div>
-                                </SpotlightCard>
-                            ))}
-                        </div>
-                    </div>
-                )}
 
             </div>
         </div>

@@ -36,8 +36,8 @@ export default function Navbar() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
-    const [activeDropdown, setActiveDropdown] = useState<'product_solution' | 'academy' | 'insights' | null>(null);
-    const [mobileExpanded, setMobileExpanded] = useState<'product_solution' | 'academy' | 'insights' | null>(null);
+    const [activeDropdown, setActiveDropdown] = useState<'solutions' | 'products' | 'academy' | 'portfolio' | 'insights' | null>(null);
+    const [mobileExpanded, setMobileExpanded] = useState<'solutions' | 'products' | 'academy' | 'portfolio' | 'insights' | null>(null);
     const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
     const [services, setServices] = useState<Service[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
@@ -127,7 +127,7 @@ export default function Navbar() {
         return pathname.startsWith(path);
     };
 
-    const handleDropdownToggle = (type: 'product_solution' | 'academy' | 'insights') => {
+    const handleDropdownToggle = (type: 'solutions' | 'products' | 'academy' | 'portfolio' | 'insights') => {
         setActiveDropdown(activeDropdown === type ? null : type);
     };
 
@@ -158,47 +158,46 @@ export default function Navbar() {
     };
 
     // Filter services dynamically from database
-    const dbCol1Services = services.filter(s => 
+    const dbSolutionsCol1 = services.filter(s => 
         (s.category?.slug === 'app-builder-squad' || s.category?.slug === 'cloud-service-hub') && 
         s.slug !== 'consulting'
     );
-    const dbCol2Services = services.filter(s => 
+    const dbSolutionsCol2 = services.filter(s => 
         s.category?.slug === 'brand-growth-division' || 
         s.slug === 'consulting'
     );
-    const dbCol4Services = services.filter(s => 
-        s.category?.slug === 'tech-talent-solutions'
+    const dbSolutionsCol3 = services.filter(s => 
+        s.category?.slug === 'tech-talent-solutions' && s.slug !== 'job-connect'
     );
 
     // Fallbacks
-    const fallbackCol1 = [
+    const fallbackSolutionsCol1 = [
         { name: 'Technology Solutions', slug: 'technology-solutions', icon: 'code', description: 'Web apps, native mobile apps, and ERP development.', categorySlug: 'app-builder-squad' },
         { name: 'AI & Emerging Technology', slug: 'ai-emerging-technology', icon: 'cpu', description: 'AI assistants, smart chatbots, and data integration.', categorySlug: 'app-builder-squad' },
         { name: 'Cloud & Cyber Security', slug: 'cloud-cyber-security', icon: 'shield-check', description: 'DevOps setup, cloud infrastructure, and security.', categorySlug: 'cloud-service-hub' }
     ];
 
-    const fallbackCol2 = [
+    const fallbackSolutionsCol2 = [
         { name: 'Creative & Brand Experience', slug: 'creative-brand-experience', icon: 'layers', description: 'UI/UX Figma wireframing, branding, and video.', categorySlug: 'brand-growth-division' },
         { name: 'Growth Marketing & SEO', slug: 'growth-marketing', icon: 'trending-up', description: 'Local SEO domination and Google/Meta Ads.', categorySlug: 'brand-growth-division' },
         { name: 'IT Consulting & Strategy', slug: 'consulting', icon: 'help-circle', description: 'Technology transformation advisory.', categorySlug: 'cloud-service-hub' }
     ];
 
-    const fallbackCol3 = [
+    const fallbackSolutionsCol3 = [
+        { name: 'IT Headhunting', slug: 'headhunting', icon: 'user-check', description: 'Hire the best tech talent quickly based on your needs.', categorySlug: 'tech-talent-solutions' },
+        { name: 'IT Outsourcing', slug: 'outsourcing', icon: 'users', description: 'Build a remote developer team in 7 days.', categorySlug: 'tech-talent-solutions' }
+    ];
+
+    const fallbackProducts = [
         { name: 'Diggity ERP & CRM', slug: 'diggity-erp', icon: 'server', description: 'B2B SaaS accounting, inventory, and payroll.', categorySlug: 'product' },
         { name: 'Diggity AI Agent', slug: 'diggity-ai-agent', icon: 'cpu', description: 'Automated chat assistants and customer lead capture.', categorySlug: 'product' },
         { name: 'Sleek Dashboard UI Kit', slug: 'sleek-dashboard-ui-kit', icon: 'layers', description: 'UI kits, templates, and digital assets.', categorySlug: 'product' }
     ];
 
-    const fallbackCol4 = [
-        { name: 'IT Headhunting', slug: 'headhunting', icon: 'user-check', description: 'Hire the best tech talent quickly based on your needs.', categorySlug: 'tech-talent-solutions' },
-        { name: 'IT Outsourcing', slug: 'outsourcing', icon: 'users', description: 'Build a remote developer team in 7 days.', categorySlug: 'tech-talent-solutions' },
-        { name: 'Job Connect', slug: 'job-connect', icon: 'briefcase', description: 'Connecting certified digital talents with companies.', categorySlug: 'tech-talent-solutions' }
-    ];
-
-    const col1Items = dbCol1Services.length > 0 ? dbCol1Services.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'code', description: s.description || '', categorySlug: s.category?.slug })) : fallbackCol1;
-    const col2Items = dbCol2Services.length > 0 ? dbCol2Services.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'help-circle', description: s.description || '', categorySlug: s.category?.slug })) : fallbackCol2;
-    const col3Items = products.length > 0 ? products.slice(0, 3).map(p => ({ name: p.name, slug: p.slug, icon: p.is_popular ? 'server' : 'cpu', description: p.description || '', categorySlug: 'product' })) : fallbackCol3;
-    const col4Items = dbCol4Services.length > 0 ? dbCol4Services.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'user-check', description: s.description || '', categorySlug: s.category?.slug })) : fallbackCol4;
+    const solutionsCol1Items = dbSolutionsCol1.length > 0 ? dbSolutionsCol1.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'code', description: s.description || '', categorySlug: s.category?.slug })) : fallbackSolutionsCol1;
+    const solutionsCol2Items = dbSolutionsCol2.length > 0 ? dbSolutionsCol2.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'help-circle', description: s.description || '', categorySlug: s.category?.slug })) : fallbackSolutionsCol2;
+    const solutionsCol3Items = dbSolutionsCol3.length > 0 ? dbSolutionsCol3.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'user-check', description: s.description || '', categorySlug: s.category?.slug })) : fallbackSolutionsCol3;
+    const productsItems = products.length > 0 ? products.slice(0, 3).map(p => ({ name: p.name, slug: p.slug, icon: p.is_popular ? 'server' : 'cpu', description: p.description || '', categorySlug: 'product' })) : fallbackProducts;
 
     return (
         <nav
@@ -226,54 +225,92 @@ export default function Navbar() {
                     </Link>
 
                     {/* Desktop Navigation Links */}
-                    <div className="hidden lg:flex items-center space-x-2 xl:space-x-5">
-                        {/* Combined Product & Solution Dropdown Menu (On Click) */}
+                    <div className="hidden lg:flex items-center space-x-1 xl:space-x-3.5">
+                        {/* 1. Solutions Dropdown Menu (On Click) */}
                         <div className="relative">
                             <button
-                                onClick={() => handleDropdownToggle('product_solution')}
-                                className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
-                                    isActive('/solutions') || isActive('/products') || isActive('/job-connect') 
+                                onClick={() => handleDropdownToggle('solutions')}
+                                className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
+                                    isActive('/solutions') || isActive('/job-connect/headhunting') || isActive('/job-connect/outsourcing')
                                         ? 'text-brand-blue' 
                                         : 'text-text-gray'
                                 }`}
                             >
-                                <span>{t('nav.product_solution')}</span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'product_solution' ? 'rotate-180' : ''}`} />
+                                <span>Solutions</span>
+                                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
                             </button>
                         </div>
 
-                        {/* Academy Dropdown Menu (On Click) */}
+                        {/* 2. Products Dropdown Menu (On Click) */}
+                        <div className="relative">
+                            <button
+                                onClick={() => handleDropdownToggle('products')}
+                                className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
+                                    isActive('/products') ? 'text-brand-blue' : 'text-text-gray'
+                                }`}
+                            >
+                                <span>Products</span>
+                                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
+                            </button>
+                        </div>
+
+                        {/* 3. Academy Dropdown Menu (On Click) */}
                         <div className="relative">
                             <button
                                 onClick={() => handleDropdownToggle('academy')}
-                                className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
+                                className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
                                     isActive('/academy') ? 'text-brand-blue' : 'text-text-gray'
                                 }`}
                             >
                                 <span>{t('nav.academy')}</span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'academy' ? 'rotate-180' : ''}`} />
+                                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'academy' ? 'rotate-180' : ''}`} />
                             </button>
                         </div>
 
-                        {/* Insights Dropdown Menu (On Click) */}
+                        {/* 4. Job Connect / Career (Main Menu Link) */}
+                        <Link
+                            href="/job-connect"
+                            className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg ${
+                                isActive('/job-connect') && !pathname.includes('/headhunting') && !pathname.includes('/outsourcing')
+                                    ? 'text-brand-blue' 
+                                    : 'text-text-gray'
+                            }`}
+                        >
+                            Job Connect
+                        </Link>
+
+                        {/* 5. Portfolio Dropdown Menu (On Click) */}
+                        <div className="relative">
+                            <button
+                                onClick={() => handleDropdownToggle('portfolio')}
+                                className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
+                                    isActive('/portfolio') ? 'text-brand-blue' : 'text-text-gray'
+                                }`}
+                            >
+                                <span>{t('nav.portfolio')}</span>
+                                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'portfolio' ? 'rotate-180' : ''}`} />
+                            </button>
+                        </div>
+
+                        {/* 6. Insights Dropdown Menu (On Click) */}
                         <div className="relative">
                             <button
                                 onClick={() => handleDropdownToggle('insights')}
-                                className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg flex items-center space-x-1.5 cursor-pointer ${
-                                    isActive('/insights') || isActive('/news') || isActive('/resources') || isActive('/community') || isActive('/portfolio')
+                                className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
+                                    isActive('/insights') || isActive('/news') || isActive('/community') || isActive('/partnership')
                                         ? 'text-brand-blue' 
                                         : 'text-text-gray'
                                 }`}
                             >
                                 <span>{t('nav.insights')}</span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === 'insights' ? 'rotate-180' : ''}`} />
+                                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'insights' ? 'rotate-180' : ''}`} />
                             </button>
                         </div>
 
-                        {/* About Us Link */}
+                        {/* 7. About Link */}
                         <Link
                             href="/about"
-                            className={`text-sm font-semibold transition-colors hover:text-brand-blue px-3 py-2 rounded-lg ${
+                            className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg ${
                                 isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
                             }`}
                         >
@@ -377,18 +414,18 @@ export default function Navbar() {
                     DESKTOP MEGA DROP-DOWN PANELS (ON CLICK)
                     ======================================================== */}
                 
-                {/* 1. Combined Product & Solution Mega-Menu Panel */}
-                {activeDropdown === 'product_solution' && (
+                {/* 1. Solutions Mega-Menu Panel */}
+                {activeDropdown === 'solutions' && (
                     <div 
-                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-4 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
                     >
                         {/* Col 1: Layanan Rekayasa & Optimasi (Solutions) */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Services &amp; Solutions (BUILD-GROW)
+                                Apps &amp; Cloud Services
                             </span>
                             <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                {col1Items.map((item, idx) => (
+                                {solutionsCol1Items.map((item, idx) => (
                                     <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
                                         <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
                                             <DynamicIcon name={item.icon} className="w-4 h-4" />
@@ -409,10 +446,10 @@ export default function Navbar() {
                         {/* Col 2: Kategori Layanan Lanjutan */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Strategy &amp; Design
+                                Strategy &amp; Growth
                             </span>
                             <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                {col2Items.map((item, idx) => (
+                                {solutionsCol2Items.map((item, idx) => (
                                     <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
                                         <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
                                             <DynamicIcon name={item.icon} className="w-4 h-4" />
@@ -430,37 +467,13 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        {/* Col 3: Produk SaaS & Aset Digital (SCALE) */}
+                        {/* Col 3: IT Talent & Workforce */}
                         <div className="space-y-4">
                             <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Products &amp; Digital Assets (SCALE)
+                                IT Talent &amp; Workforce
                             </span>
                             <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                {col3Items.map((item, idx) => (
-                                    <Link key={idx} href={`/products/${item.slug}`} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
-                                        <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                            <DynamicIcon name={item.icon} className="w-4 h-4" />
-                                        </div>
-                                        <div className="space-y-0.5">
-                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
-                                                {item.name}
-                                            </h4>
-                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed">
-                                                {item.description}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Col 4: Tech Talent Solutions (Job Connect B2B/B2C) */}
-                        <div className="space-y-4">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Tech Talent Solutions
-                            </span>
-                            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                {col4Items.map((item, idx) => (
+                                {solutionsCol3Items.map((item, idx) => (
                                     <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
                                         <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
                                             <DynamicIcon name={item.icon} className="w-4 h-4" />
@@ -480,7 +493,59 @@ export default function Navbar() {
                     </div>
                 )}
 
-                {/* 2. Academy Mega-Menu Panel */}
+                {/* 2. Products Mega-Menu Panel */}
+                {activeDropdown === 'products' && (
+                    <div 
+                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-5xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+                    >
+                        {/* Col 1: Product Categories */}
+                        <div className="space-y-4 border-r border-glass-border/40 pr-6">
+                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                                Product Categories
+                            </span>
+                            <div className="space-y-2">
+                                <div className="p-2 rounded-xl hover:bg-glass-bg transition-colors cursor-pointer">
+                                    <h4 className="text-xs font-bold text-text-main">Business Software</h4>
+                                </div>
+                                <div className="p-2 rounded-xl hover:bg-glass-bg transition-colors cursor-pointer">
+                                    <h4 className="text-xs font-bold text-text-main">AI Products</h4>
+                                </div>
+                                <div className="p-2 rounded-xl hover:bg-glass-bg transition-colors cursor-pointer">
+                                    <h4 className="text-xs font-bold text-text-main">Cloud Products</h4>
+                                </div>
+                                <div className="p-2 rounded-xl hover:bg-glass-bg transition-colors cursor-pointer">
+                                    <h4 className="text-xs font-bold text-text-main">Digital Marketplace</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Col 2 & 3: Featured Products */}
+                        <div className="md:col-span-2 space-y-4">
+                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                                Featured Products
+                            </span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {productsItems.map((item, idx) => (
+                                    <Link key={idx} href={`/products/${item.slug}`} className="group p-4 bg-glass-bg/40 border border-glass-border rounded-xl flex flex-col justify-between hover:bg-glass-bg transition-all h-full min-h-[140px]">
+                                        <div className="space-y-1.5">
+                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors">
+                                                {item.name}
+                                            </h4>
+                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed line-clamp-2">
+                                                {item.description}
+                                            </p>
+                                        </div>
+                                        <span className="text-[10px] font-bold text-brand-blue group-hover:translate-x-0.5 transition-transform flex items-center gap-1 mt-3">
+                                            View Product <ArrowUpRight className="w-3 h-3" />
+                                        </span>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* 3. Academy Mega-Menu Panel */}
                 {activeDropdown === 'academy' && (
                     <div 
                         className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
@@ -553,7 +618,36 @@ export default function Navbar() {
                     </div>
                 )}
 
-                {/* 3. Insights Mega-Menu Panel */}
+                {/* 4. Portfolio Dropdown Panel */}
+                {activeDropdown === 'portfolio' && (
+                    <div 
+                        className="absolute left-1/3 right-auto top-full mt-4 mx-auto max-w-sm bg-brand-bg/95 border border-glass-border rounded-2xl p-6 shadow-2xl backdrop-blur-2xl text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50 space-y-4"
+                    >
+                        <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                            Explore Portfolios
+                        </span>
+                        <div className="space-y-2">
+                            <Link href="/portfolio?type=it" className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                    IT Portfolio
+                                </h4>
+                                <p className="text-[10px] text-text-gray mt-0.5 leading-relaxed">
+                                    Website, Mobile App, Software, ERP, AI, Digital Platform
+                                </p>
+                            </Link>
+                            <Link href="/portfolio?type=marketing" className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                    Marketing &amp; Creative Portfolio
+                                </h4>
+                                <p className="text-[10px] text-text-gray mt-0.5 leading-relaxed">
+                                    Branding, Campaign, Social Media, Creative, Video, Digital Marketing
+                                </p>
+                            </Link>
+                        </div>
+                    </div>
+                )}
+
+                {/* 5. Insights Mega-Menu Panel */}
                 {activeDropdown === 'insights' && (
                     <div 
                         className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
@@ -580,14 +674,6 @@ export default function Navbar() {
                                         News &amp; Announcements
                                     </h4>
                                 </Link>
-                                <Link href="/resources" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
-                                        <Layers className="w-3.5 h-3.5" />
-                                    </div>
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                        Free Resources
-                                    </h4>
-                                </Link>
                                 <Link href="/community" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
                                         <Users className="w-3.5 h-3.5" />
@@ -601,7 +687,15 @@ export default function Navbar() {
                                         <Briefcase className="w-3.5 h-3.5" />
                                     </div>
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                        Case Studies &amp; Portfolio
+                                        Success Stories
+                                    </h4>
+                                </Link>
+                                <Link href="/partnership" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+                                        <Users className="w-3.5 h-3.5" />
+                                    </div>
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
+                                        Partnership / Referral
                                     </h4>
                                 </Link>
                             </div>
@@ -682,54 +776,56 @@ export default function Navbar() {
                             {t('nav.home')}
                         </Link>
 
-                        {/* Mobile Product & Solution Accordion */}
+                        {/* Mobile Solutions Accordion */}
                         <div className="border-b border-glass-border/40 py-1.5">
                             <button
-                                onClick={() => setMobileExpanded(mobileExpanded === 'product_solution' ? null : 'product_solution')}
+                                onClick={() => setMobileExpanded(mobileExpanded === 'solutions' ? null : 'solutions')}
                                 className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
                             >
-                                <span className={isActive('/solutions') || isActive('/products') || isActive('/job-connect') ? 'text-brand-blue' : ''}>
-                                    {t('nav.product_solution')}
+                                <span className={isActive('/solutions') || isActive('/job-connect/headhunting') || isActive('/job-connect/outsourcing') ? 'text-brand-blue' : ''}>
+                                    Solutions
                                 </span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'product_solution' ? 'rotate-180' : ''}`} />
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'solutions' ? 'rotate-180' : ''}`} />
                             </button>
-                            {mobileExpanded === 'product_solution' && (
+                            {mobileExpanded === 'solutions' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    {/* Services & Solutions */}
-                                    {col1Items.map((item, idx) => (
+                                    {solutionsCol1Items.map((item, idx) => (
                                         <Link key={`m1-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                             {item.name}
                                         </Link>
                                     ))}
-                                    {col2Items.map((item, idx) => (
+                                    {solutionsCol2Items.map((item, idx) => (
                                         <Link key={`m2-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                             {item.name}
                                         </Link>
                                     ))}
-                                    
-                                    {/* Products & Assets */}
-                                    <div className="border-t border-glass-border/20 pt-2 mt-2">
-                                        <span className="block text-[10px] font-bold text-brand-blue uppercase tracking-widest mb-1.5">
-                                            Products
-                                        </span>
-                                        {col3Items.map((item, idx) => (
-                                            <Link key={`m3-${idx}`} href={`/products/${item.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1 pl-2">
-                                                {item.name}
-                                            </Link>
-                                        ))}
-                                    </div>
+                                    {solutionsCol3Items.map((item, idx) => (
+                                        <Link key={`m3-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
 
-                                    {/* Tech Talent Solutions */}
-                                    <div className="border-t border-glass-border/20 pt-2 mt-2">
-                                        <span className="block text-[10px] font-bold text-brand-blue uppercase tracking-widest mb-1.5">
-                                            Tech Talent
-                                        </span>
-                                        {col4Items.map((item, idx) => (
-                                            <Link key={`m4-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1 pl-2">
-                                                {item.name}
-                                            </Link>
-                                        ))}
-                                    </div>
+                        {/* Mobile Products Accordion */}
+                        <div className="border-b border-glass-border/40 py-1.5">
+                            <button
+                                onClick={() => setMobileExpanded(mobileExpanded === 'products' ? null : 'products')}
+                                className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
+                            >
+                                <span className={isActive('/products') ? 'text-brand-blue' : ''}>
+                                    Products
+                                </span>
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'products' ? 'rotate-180' : ''}`} />
+                            </button>
+                            {mobileExpanded === 'products' && (
+                                <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
+                                    {productsItems.map((item, idx) => (
+                                        <Link key={`mp-${idx}`} href={`/products/${item.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                            {item.name}
+                                        </Link>
+                                    ))}
                                 </div>
                             )}
                         </div>
@@ -758,13 +854,49 @@ export default function Navbar() {
                             )}
                         </div>
 
+                        {/* Mobile Job Connect Direct Link */}
+                        <Link
+                            href="/job-connect"
+                            onClick={() => setIsOpen(false)}
+                            className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
+                                isActive('/job-connect') && !pathname.includes('/headhunting') && !pathname.includes('/outsourcing')
+                                    ? 'text-brand-blue' 
+                                    : 'text-text-gray'
+                            }`}
+                        >
+                            Job Connect
+                        </Link>
+
+                        {/* Mobile Portfolio Accordion */}
+                        <div className="border-b border-glass-border/40 py-1.5">
+                            <button
+                                onClick={() => setMobileExpanded(mobileExpanded === 'portfolio' ? null : 'portfolio')}
+                                className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
+                            >
+                                <span className={isActive('/portfolio') ? 'text-brand-blue' : ''}>
+                                    Portfolio
+                                </span>
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'portfolio' ? 'rotate-180' : ''}`} />
+                            </button>
+                            {mobileExpanded === 'portfolio' && (
+                                <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
+                                    <Link href="/portfolio?type=it" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        IT Portfolio
+                                    </Link>
+                                    <Link href="/portfolio?type=marketing" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Marketing &amp; Creative Portfolio
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Mobile Insights Accordion */}
                         <div className="border-b border-glass-border/40 py-1.5">
                             <button
                                 onClick={() => setMobileExpanded(mobileExpanded === 'insights' ? null : 'insights')}
                                 className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
                             >
-                                <span className={isActive('/insights') || isActive('/news') || isActive('/resources') || isActive('/community') || isActive('/portfolio') ? 'text-brand-blue' : ''}>{t('nav.insights')}</span>
+                                <span className={isActive('/insights') || isActive('/news') || isActive('/community') || isActive('/partnership') ? 'text-brand-blue' : ''}>{t('nav.insights')}</span>
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'insights' ? 'rotate-180' : ''}`} />
                             </button>
                             {mobileExpanded === 'insights' && (
@@ -775,14 +907,14 @@ export default function Navbar() {
                                     <Link href="/news" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         News &amp; Announcements
                                     </Link>
-                                    <Link href="/resources" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Free Resources
-                                    </Link>
                                     <Link href="/community" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Digital Community
                                     </Link>
                                     <Link href="/portfolio" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Case Studies &amp; Portfolio
+                                        Success Stories
+                                    </Link>
+                                    <Link href="/partnership" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Partnership / Referral
                                     </Link>
                                 </div>
                             )}

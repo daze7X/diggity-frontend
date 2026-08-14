@@ -504,18 +504,18 @@ export default function Navbar() {
                                 Product Categories
                             </span>
                             <div className="space-y-2">
-                                <div className="p-2 rounded-xl hover:bg-glass-bg transition-colors cursor-pointer">
+                                <Link href="/products" onClick={() => handleDropdownToggle(null)} className="block p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <h4 className="text-xs font-bold text-text-main">Business Software</h4>
-                                </div>
-                                <div className="p-2 rounded-xl hover:bg-glass-bg transition-colors cursor-pointer">
+                                </Link>
+                                <Link href="/products" onClick={() => handleDropdownToggle(null)} className="block p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <h4 className="text-xs font-bold text-text-main">AI Products</h4>
-                                </div>
-                                <div className="p-2 rounded-xl hover:bg-glass-bg transition-colors cursor-pointer">
+                                </Link>
+                                <Link href="/products" onClick={() => handleDropdownToggle(null)} className="block p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <h4 className="text-xs font-bold text-text-main">Cloud Products</h4>
-                                </div>
-                                <div className="p-2 rounded-xl hover:bg-glass-bg transition-colors cursor-pointer">
+                                </Link>
+                                <Link href="/products" onClick={() => handleDropdownToggle(null)} className="block p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <h4 className="text-xs font-bold text-text-main">Digital Marketplace</h4>
-                                </div>
+                                </Link>
                             </div>
                         </div>
 

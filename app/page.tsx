@@ -571,7 +571,7 @@ export default async function Home() {
                             <h4 className="text-xl font-bold text-text-main">IT Portfolio</h4>
                             <p className="text-xs text-text-gray">Website • Mobile App • Software • ERP • AI • Digital Platforms</p>
                             <div className="pt-4">
-                                <Link href="/portfolio?type=it" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline">
+                                <Link href="/portfolio/it" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline">
                                     View IT Projects &rarr;
                                 </Link>
                             </div>
@@ -581,7 +581,7 @@ export default async function Home() {
                             <h4 className="text-xl font-bold text-text-main">Marketing &amp; Creative Portfolio</h4>
                             <p className="text-xs text-text-gray">Branding • Campaigns • Social Media • Design • Video • Digital Ads</p>
                             <div className="pt-4">
-                                <Link href="/portfolio?type=marketing" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline">
+                                <Link href="/portfolio/marketing" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline">
                                     View Marketing Projects &rarr;
                                 </Link>
                             </div>

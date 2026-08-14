@@ -627,7 +627,7 @@ export default function Navbar() {
                             Explore Portfolios
                         </span>
                         <div className="space-y-2">
-                            <Link href="/portfolio?type=it" className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                            <Link href="/portfolio/it" className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                 <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
                                     IT Portfolio
                                 </h4>
@@ -635,7 +635,7 @@ export default function Navbar() {
                                     Website, Mobile App, Software, ERP, AI, Digital Platform
                                 </p>
                             </Link>
-                            <Link href="/portfolio?type=marketing" className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                            <Link href="/portfolio/marketing" className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                 <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
                                     Marketing &amp; Creative Portfolio
                                 </h4>
@@ -880,10 +880,10 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'portfolio' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/portfolio?type=it" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/portfolio/it" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         IT Portfolio
                                     </Link>
-                                    <Link href="/portfolio?type=marketing" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/portfolio/marketing" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Marketing &amp; Creative Portfolio
                                     </Link>
                                 </div>

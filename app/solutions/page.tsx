@@ -81,7 +81,7 @@ export default async function SolutionsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     
                     {/* Card 1: App Builder Squad */}
-                    <Link href="/solutions/website-development" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/technology-solutions" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left relative overflow-hidden border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4 z-10">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
@@ -126,7 +126,7 @@ export default async function SolutionsPage() {
                     </Link>
 
                     {/* Card 2: Brand Growth Division */}
-                    <Link href="/solutions/search-engine-optimization" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/growth-marketing" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
@@ -173,7 +173,7 @@ export default async function SolutionsPage() {
                     </Link>
 
                     {/* Card 3: Cloud Service Hub */}
-                    <Link href="/solutions/website-development" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/cloud-cyber-security" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
@@ -226,7 +226,7 @@ export default async function SolutionsPage() {
                     </Link>
 
                     {/* Card 4: Digital Skill Lab */}
-                    <Link href="/solutions/website-development" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
+                    <Link href="/solutions/digital-skill-lab" className="md:col-span-2 group block cursor-pointer transition-all duration-300 hover:scale-[1.01]">
                         <SpotlightCard className="p-8 flex flex-col justify-between min-h-[300px] text-left border border-glass-border h-full group-hover:border-brand-blue/30">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">

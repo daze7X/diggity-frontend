@@ -362,7 +362,7 @@ export default async function Home() {
                                     <h4 className="text-base font-extrabold text-text-main">IT Talent &amp; Workforce Solutions</h4>
                                     <p className="text-xs text-text-gray leading-relaxed">IT Headhunting, Outsourcing, and Tech Talent Recruitment Management.</p>
                                 </div>
-                                <Link href="/solutions/it-headhunting" className="px-5 py-2.5 bg-brand-blue text-white rounded-lg text-xs font-bold hover:bg-brand-blue-dark transition-colors inline-flex items-center gap-1.5 shrink-0 self-start sm:self-center">
+                                <Link href="/job-connect" className="px-5 py-2.5 bg-brand-blue text-white rounded-lg text-xs font-bold hover:bg-brand-blue-dark transition-colors inline-flex items-center gap-1.5 shrink-0 self-start sm:self-center">
                                     Explore Talent Solutions <ArrowUpRight className="w-3.5 h-3.5" />
                                 </Link>
                             </div>

@@ -72,6 +72,12 @@ const subServicesMap: Record<string, string[]> = {
         'Corporate Digital Transformation Advisory',
         'Enterprise Software Architecture Design',
         'System Auditing & Technology Maturity Assessment'
+    ],
+    'digital-skill-lab': [
+        'Corporate IT Training & Bootcamps',
+        'Figma UI/UX & Design Workshops',
+        'Custom Software Development Workshop',
+        'Digital Marketing Masterclass & Analytics'
     ]
 };
 
@@ -334,6 +340,48 @@ const servicePlansMap: Record<string, CustomPlan[]> = {
                 'Advisory Pihak Ketiga & Integrasi API Vendor',
                 'Pengawasan Rilis Deploy Sistem Berskala Besar',
                 'Advisory CTO Independen untuk Board Management'
+            ]
+        }
+    ],
+    'digital-skill-lab': [
+        {
+            name: 'Introductory Session',
+            price: 'Mulai Rp 1.500.000',
+            period: 'proyek',
+            description: 'Sesi pengenalan singkat 1 hari untuk membekali tim Anda dengan pemahaman dasar tool/teknologi spesifik.',
+            features: [
+                'Durasi 3-4 Jam Sesi Intensif',
+                'Sertifikat Keikutsertaan Resmi',
+                'Materi & Modul Pelatihan PDF',
+                'Q&A Langsung dengan Praktisi Ahli',
+                'Maksimal 15 Peserta per Sesi'
+            ]
+        },
+        {
+            name: 'Intensive Bootcamp',
+            price: 'Mulai Rp 10.000.000',
+            period: 'proyek',
+            description: 'Program pelatihan mendalam selama 2 minggu untuk integrasi keahlian pemrograman, desain, atau marketing modern.',
+            features: [
+                'Kurikulum Kustom Sesuai Kebutuhan Bisnis',
+                'Sesi Praktik Kerja Nyata / Hands-on Lab',
+                'Evaluasi Kompetensi Individu Peserta',
+                'Sertifikat Kelulusan Resmi Digital Specialist',
+                'Maksimal 30 Peserta per Kelas'
+            ],
+            isPopular: true
+        },
+        {
+            name: 'Custom Enterprise Syllabus',
+            price: 'Hubungi Kami',
+            period: 'proyek',
+            description: 'Program pelatihan kustom jangka panjang dengan kurikulum berskala besar yang dirancang khusus untuk divisi IT enterprise.',
+            features: [
+                'Penyusunan Silabus Khusus oleh Tech Lead',
+                'Pelatihan Skala Divisi & Uji Kompetensi Lanjut',
+                'Studi Kasus Arsitektur Software Perusahaan',
+                'Pendampingan Pasca-Pelatihan Selama 30 Hari',
+                'Kuota Peserta Tidak Terbatas'
             ]
         }
     ]

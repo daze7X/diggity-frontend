@@ -123,6 +123,16 @@ export default async function About() {
                     <p className="text-lg md:text-xl text-text-gray font-medium">
                         {locale === 'en' ? 'Build. Grow. Scale. Your Business in the Digital Era.' : 'Membangun, Menumbuhkan, dan Menskalakan Bisnis Anda di Era Digital.'}
                     </p>
+                    <div className="pt-4 flex justify-center">
+                        <a 
+                            href="/company-profile-diggity.pdf" 
+                            download
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-blue text-white hover:bg-brand-blue-dark rounded-xl text-xs font-bold transition-all hover:scale-[1.02] shadow-lg shadow-brand-blue/10 cursor-pointer"
+                        >
+                            <FileText className="w-4 h-4" />
+                            {locale === 'en' ? 'Download Company Profile (PDF)' : 'Unduh Company Profile (PDF)'}
+                        </a>
+                    </div>
                 </div>
 
                 {/* 2. History & Philosophy (Bento Grid Layout) */}

@@ -78,6 +78,28 @@ export default async function About() {
     const scaleDesc = settings?.philosophy_scale || (locale === 'en' ? 'Ensuring cloud hosting infrastructure reliability and stable system capacity.' : 'Menjamin keandalan infrastruktur cloud server dan kapasitas sistem yang stabil.');
     const empowerDesc = settings?.philosophy_empower || (locale === 'en' ? 'Empowering your team through digital skills training and transfer.' : 'Memberdayakan tim Anda melalui pelatihan dan transfer keahlian digital.');
 
+    const defaultVision = locale === 'en'
+        ? 'To be the leading digital transformation partner in Southeast Asia, empowering businesses to grow in a structured and sustainable manner through integrated technology, creativity, and education.'
+        : 'Menjadi mitra transformasi digital terdepan di Asia Tenggara yang memberdayakan bisnis untuk bertumbuh secara terstruktur dan berkelanjutan melalui teknologi, kreativitas, dan edukasi terintegrasi.';
+
+    const defaultMission = locale === 'en' ? [
+        { text: 'Quality Software Engineering: Building high-performance, secure, and scalable digital products and infrastructure.' },
+        { text: 'Targeted Business Growth: Helping business partners dominate the digital market systematically through performance- and data-driven marketing.' },
+        { text: 'Sustainable Knowledge Transfer: Training partners\' internal talents to master relevant digital skills that align with industry needs.' }
+    ] : [
+        { text: 'Rekayasa Software Berkualitas: Membangun infrastruktur dan produk digital berkinerja tinggi, aman, dan mudah diskalakan.' },
+        { text: 'Pertumbuhan Bisnis Terarah: Membantu mitra bisnis mendominasi pasar digital secara sistematis melalui pemasaran berbasis performa dan data.' },
+        { text: 'Transfer Pengetahuan Berkelanjutan: Melatih talenta internal mitra bisnis untuk menguasai keterampilan digital yang relevan dengan kebutuhan industri.' }
+    ];
+
+    const vision = locale === 'en'
+        ? (settings?.vision_en || defaultVision)
+        : (settings?.vision_id || defaultVision);
+
+    const missionPoints = locale === 'en'
+        ? (settings?.mission_en || defaultMission)
+        : (settings?.mission_id || defaultMission);
+
     const timelineData = settings && settings.history_timeline && settings.history_timeline.length > 0
         ? settings.history_timeline
         : defaultTimeline;
@@ -148,6 +170,55 @@ export default async function About() {
                             <div className="space-y-2">
                                 <div className="text-lg font-bold text-brand-blue">04 / EMPOWER</div>
                                 <p className="text-xs text-text-gray leading-relaxed">{empowerDesc}</p>
+                            </div>
+                        </SpotlightCard>
+                    </div>
+                </div>
+
+                {/* 2.5 Vision & Mission Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    {/* Vision Card */}
+                    <div className="lg:col-span-5 flex">
+                        <SpotlightCard className="p-8 flex flex-col justify-center text-left bg-gradient-to-br from-brand-blue/5 to-transparent border border-glass-border/60 rounded-2xl w-full">
+                            <div className="space-y-4">
+                                <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
+                                    {locale === 'en' ? 'Vision' : 'Visi'}
+                                </span>
+                                <h3 className="text-2xl md:text-3xl font-black text-text-main tracking-tight leading-tight">
+                                    {locale === 'en' ? 'Our Strategic Horizon' : 'Arah Strategis Kami'}
+                                </h3>
+                                <p className="text-text-main text-base md:text-lg font-medium leading-relaxed italic border-l-2 border-brand-blue pl-4">
+                                    &ldquo;{vision}&rdquo;
+                                </p>
+                            </div>
+                        </SpotlightCard>
+                    </div>
+
+                    {/* Mission Card */}
+                    <div className="lg:col-span-7 flex">
+                        <SpotlightCard className="p-8 flex flex-col justify-between text-left border border-glass-border rounded-2xl w-full">
+                            <div className="space-y-6">
+                                <div className="space-y-1">
+                                    <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
+                                        {locale === 'en' ? 'Mission' : 'Misi'}
+                                    </span>
+                                    <h3 className="text-2xl font-black text-text-main tracking-tight">
+                                        {locale === 'en' ? 'How We Deliver Impact' : 'Bagaimana Kami Mewujudkannya'}
+                                    </h3>
+                                </div>
+
+                                <div className="space-y-4">
+                                    {missionPoints.map((point: any, index: number) => (
+                                        <div key={index} className="flex items-start space-x-4 p-3 rounded-xl hover:bg-glass-bg transition-colors border border-transparent hover:border-glass-border/30">
+                                            <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue font-black text-sm">
+                                                {index + 1}
+                                            </div>
+                                            <p className="text-xs md:text-sm text-text-gray leading-relaxed font-medium pt-1">
+                                                {point.text}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </SpotlightCard>
                     </div>

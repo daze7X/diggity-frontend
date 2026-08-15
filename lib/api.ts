@@ -84,6 +84,10 @@ export interface CompanySetting {
     philosophy_empower?: string;
     partner_logos?: string[];
     history_timeline?: Array<{ year: string; title: string; desc: string }>;
+    vision_id?: string;
+    vision_en?: string;
+    mission_id?: Array<{ text: string }>;
+    mission_en?: Array<{ text: string }>;
 }
 
 export interface Category {

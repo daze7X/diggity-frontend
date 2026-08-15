@@ -39,9 +39,11 @@ export default async function NewsPortalPage() {
             <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-16">
                 
                 {/* Header Section */}
-                <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
-                        Kabar & Pengumuman Resmi
+                <div className="text-center space-y-4 max-w-3xl mx-auto relative">
+                    <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
+                    
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text-main leading-tight">
+                        Kabar & Pengumuman <span className="text-brand-blue">Resmi</span>
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
                         Kumpulan berita kemitraan, perilisan inovasi produk terbaru, serta pencapaian bisnis Diggity.

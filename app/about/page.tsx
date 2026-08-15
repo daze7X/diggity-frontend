@@ -109,9 +109,16 @@ export default async function About() {
             <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-24">
                 
                 {/* 1. Header Section */}
-                <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
-                        {locale === 'en' ? 'About Us' : 'Tentang Kami'}
+                <div className="text-center space-y-4 max-w-3xl mx-auto relative">
+                    {/* Glowing Spotlight behind title */}
+                    <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
+                    
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text-main leading-tight">
+                        {locale === 'en' ? (
+                            <>About <span className="text-brand-blue">Us</span></>
+                        ) : (
+                            <>Tentang <span className="text-brand-blue">Kami</span></>
+                        )}
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
                         {locale === 'en' ? 'Build. Grow. Scale. Your Business in the Digital Era.' : 'Membangun, Menumbuhkan, dan Menskalakan Bisnis Anda di Era Digital.'}

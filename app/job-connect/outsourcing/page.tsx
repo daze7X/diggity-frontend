@@ -110,8 +110,8 @@ export default function OutsourcingPage() {
                 {/* Hero Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-text-main leading-tight">
-                            {title}
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-text-main leading-tight">
+                            Sewa Tim IT Outsourcing Siap Deploy dalam <span className="text-brand-blue">7 Hari</span>
                         </h1>
                         <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed">
                             {description}

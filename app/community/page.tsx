@@ -80,8 +80,8 @@ export default function DigitalCommunityPage() {
                 {/* Hero Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-text-main leading-tight">
-                            Belajar, Berjejaring, &amp; <span className="text-brand-blue">Tumbuh Bersama</span>.
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-text-main leading-tight">
+                            Belajar, Berjejaring, &amp; <span className="text-brand-blue">Tumbuh Bersama</span>
                         </h1>
                         <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed">
                             Wadah kolaborasi inklusif bagi talenta digital, mahasiswa, pengembang profesional, hingga founder bisnis teknologi di Indonesia untuk saling berbagi ilmu dan peluang kerja.

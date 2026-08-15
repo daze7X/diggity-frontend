@@ -34,9 +34,11 @@ export default async function AcademyPage() {
             <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-16">
                 
                 {/* Header Section */}
-                <div className="text-center space-y-4 max-w-3xl mx-auto border-b border-glass-border pb-12">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight pt-2">
-                        Academy
+                <div className="text-center space-y-4 max-w-3xl mx-auto border-b border-glass-border pb-12 relative">
+                    <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
+                    
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text-main leading-tight pt-2">
+                        Diggity <span className="text-brand-blue">Academy</span>
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
                         Mengembangkan kompetensi individu dan organisasi melalui pendidikan, pelatihan, sertifikasi, dan learning ecosystem.

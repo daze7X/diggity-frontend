@@ -101,6 +101,14 @@ export interface Service {
     description?: string;
     category?: Category;
     seo_meta?: SeoMeta;
+    sub_services?: string[];
+    plans?: Array<{
+        name: string;
+        price: string;
+        description?: string;
+        features: string[];
+        isPopular?: boolean;
+    }>;
 }
 
 export interface Portfolio {

@@ -393,9 +393,18 @@ export default async function ServiceDetail({ params }: Props) {
     }
 
     const IconComponent = iconMap[service.icon || 'code'] || Code;
-    const subServices = subServicesMap[slug] || [];
+    
+    // Gunakan sub_services dinamis dari database jika tersedia, jika tidak gunakan fallback statis
+    const subServices = (service.sub_services && service.sub_services.length > 0)
+        ? service.sub_services
+        : (subServicesMap[slug] || []);
+        
     const mappedContactService = service.name;
-    const plans = servicePlansMap[slug] || [];
+    
+    // Gunakan plans dinamis dari database jika tersedia, jika tidak gunakan fallback statis
+    const plans = (service.plans && service.plans.length > 0)
+        ? service.plans
+        : (servicePlansMap[slug] || []);
 
     return (
         <div className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">

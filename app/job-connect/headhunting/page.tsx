@@ -110,9 +110,6 @@ export default function HeadhuntingPage() {
                 {/* Hero Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg">
-                            <Sparkles className="w-3 h-3" /> IT Headhunting Agency
-                        </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-text-main leading-tight">
                             {title}
                         </h1>

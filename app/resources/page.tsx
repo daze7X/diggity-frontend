@@ -157,9 +157,6 @@ export default function FreeResourcesPage() {
 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg">
-                        <Sparkles className="w-3 h-3 animate-pulse" /> Akselerasi Kerja kawan
-                    </span>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
                         Resource Digital <span className="text-brand-blue">Gratis</span> untuk Anda.
                     </h1>

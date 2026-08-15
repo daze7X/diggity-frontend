@@ -781,7 +781,6 @@ export default async function Home() {
                     <SpotlightCard className="relative overflow-hidden" style={{ padding: '60px 40px', borderRadius: '24px' }}>
                         <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/10 to-transparent pointer-events-none" />
                         <div className="relative z-20 max-w-3xl mx-auto text-center space-y-6">
-                            <span className="px-3 py-1 bg-brand-blue/15 border border-brand-blue/20 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-full inline-block">Mulai Sekarang</span>
                             <h2 className="text-3xl md:text-5xl font-black text-text-main leading-tight animate-fade-in">
                                 Ready to Build What&apos;s Next?
                             </h2>

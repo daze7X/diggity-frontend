@@ -40,9 +40,6 @@ export default async function NewsPortalPage() {
                 
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-[10px] font-black uppercase tracking-wider rounded-lg">
-                        <Building className="w-3.5 h-3.5" /> Ruang Berita & Press Release
-                    </span>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
                         Kabar & Pengumuman Resmi
                     </h1>

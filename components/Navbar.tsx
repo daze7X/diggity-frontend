@@ -106,6 +106,18 @@ export default function Navbar() {
         setIsOpen(false);
     }, [pathname]);
 
+    // Keyboard shortcut CMD+K / Ctrl+K hook to toggle search kawan
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                setIsSearchOpen((prev) => !prev);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
     const toggleTheme = () => {
         const nextTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(nextTheme);
@@ -340,6 +352,15 @@ export default function Navbar() {
                             aria-label="Toggle Language"
                         >
                             {language === 'id' ? 'ID' : 'EN'}
+                        </button>
+
+                        {/* Search Button Toggle kawan */}
+                        <button
+                            onClick={() => setIsSearchOpen(true)}
+                            className="p-1.5 border border-glass-border rounded-xl bg-glass-bg cursor-pointer hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center w-9 h-9 text-text-main"
+                            aria-label="Search"
+                        >
+                            <Search className="w-4 h-4" />
                         </button>
 
 

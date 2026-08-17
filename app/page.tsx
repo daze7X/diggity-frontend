@@ -176,25 +176,34 @@ export default async function Home() {
 
                             <div className="animate-marquee flex items-center space-x-16 shrink-0 pr-16">
                                 {settings && settings.partner_logos && settings.partner_logos.length > 0 ? (
-                                    [...settings.partner_logos, ...settings.partner_logos].map((logo: string, idx: number) => {
-                                        const isFilePath = logo.includes('/') || logo.includes('.') || logo.startsWith('http');
-                                        return (
-                                            <div key={idx} className="flex items-center justify-center h-10 w-32 relative shrink-0 grayscale opacity-60 dark:opacity-40 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
-                                                {isFilePath ? (
-                                                    <Image
-                                                        src={logo.startsWith('http') ? logo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${logo}`}
-                                                        alt="Partner Logo"
-                                                        fill
-                                                        className="object-contain"
-                                                    />
-                                                ) : (
-                                                    <span className="font-black text-lg text-text-main tracking-widest">{logo.toUpperCase()}</span>
-                                                )}
-                                            </div>
-                                        );
-                                    })
+                                    (() => {
+                                        const logos = settings.partner_logos;
+                                        // Ulangi logo dinamis agar mengisi penuh lebar layar kawan
+                                        const minItems = 16;
+                                        const repeatCount = Math.ceil(minItems / logos.length);
+                                        const duplicatedLogos = Array(repeatCount).fill(logos).flat();
+                                        const finalLogos = [...duplicatedLogos, ...duplicatedLogos];
+                                        
+                                        return finalLogos.map((logo: string, idx: number) => {
+                                            const isFilePath = logo.includes('/') || logo.includes('.') || logo.startsWith('http');
+                                            return (
+                                                <div key={idx} className="flex items-center justify-center h-10 w-32 relative shrink-0 grayscale opacity-60 dark:opacity-40 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                                                    {isFilePath ? (
+                                                        <Image
+                                                            src={logo.startsWith('http') ? logo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${logo}`}
+                                                            alt="Partner Logo"
+                                                            fill
+                                                            className="object-contain"
+                                                        />
+                                                    ) : (
+                                                        <span className="font-black text-lg text-text-main tracking-widest">{logo.toUpperCase()}</span>
+                                                    )}
+                                                </div>
+                                            );
+                                        });
+                                    })()
                                 ) : (
-                                    ['GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON'].map((logo, idx) => (
+                                    ['GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON'].map((logo, idx) => (
                                         <div key={idx} className="flex items-center justify-center h-10 w-32 shrink-0 grayscale opacity-50 dark:opacity-30">
                                             <span className="font-black text-xl text-text-main tracking-widest">{logo}</span>
                                         </div>

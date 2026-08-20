@@ -7,11 +7,16 @@ import SpotlightCard from '../../components/SpotlightCard';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
-export default async function AcademyPage() {
+interface PageProps {
+    searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function AcademyPage({ searchParams }: PageProps) {
     let courses: Course[] = [];
+    const category = typeof searchParams.category === 'string' ? searchParams.category : undefined;
 
     try {
-        courses = await api.getCourses();
+        courses = await api.getCourses(category);
     } catch (error) {
         console.error('Error fetching courses:', error);
     }

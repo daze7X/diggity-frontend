@@ -577,14 +577,14 @@ export default function Navbar() {
                                 Main Programs (EMPOWER)
                             </span>
                             <div className="space-y-3">
-                                <Link href="/academy" className="group block space-y-1">
+                                <Link href="/academy?category=coding-bootcamps" onClick={() => setActiveDropdown(null)} className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <GraduationCap className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Coding Bootcamps
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium">Intensive coding bootcamps with industry-standard certification.</p>
                                 </Link>
-                                <Link href="/academy" className="group block space-y-1">
+                                <Link href="/academy?category=corporate-it-training" onClick={() => setActiveDropdown(null)} className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Corporate IT Training
@@ -600,14 +600,14 @@ export default function Navbar() {
                                 E-Learning &amp; Resources
                             </span>
                             <div className="space-y-3">
-                                <Link href="/academy" className="group block space-y-1">
+                                <Link href="/academy?category=self-paced-e-courses" onClick={() => setActiveDropdown(null)} className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <BookOpen className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Self-Paced E-Courses
                                     </h4>
                                     <p className="text-[10px] text-text-gray font-medium">Self-paced coding courses with quizzes and assessments.</p>
                                 </Link>
-                                <Link href="/academy" className="group block space-y-1">
+                                <Link href="/academy?category=digital-e-books" onClick={() => setActiveDropdown(null)} className="group block space-y-1">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
                                         <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         Digital E-Books
@@ -873,14 +873,17 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'academy' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/academy" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Bootcamps &amp; Classes
+                                    <Link href="/academy?category=coding-bootcamps" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Coding Bootcamps
                                     </Link>
-                                    <Link href="/academy" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/academy?category=corporate-it-training" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Corporate IT Training
                                     </Link>
-                                    <Link href="/academy" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-1">
-                                        Mulai Belajar Baru &rarr;
+                                    <Link href="/academy?category=self-paced-e-courses" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Self-Paced E-Courses
+                                    </Link>
+                                    <Link href="/academy?category=digital-e-books" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                        Digital E-Books
                                     </Link>
                                 </div>
                             )}

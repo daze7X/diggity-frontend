@@ -26,8 +26,8 @@ html {
     --blob-1-color: rgba(30, 64, 175, 0.06);
     --blob-2-color: rgba(148, 163, 184, 0.12);
     
-    --bg-grid: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-               linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+    --bg-grid: linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+               linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
     --bg-grid-size: 64px 64px;
     --services-bg: rgba(241, 245, 249, 0.6);
     --testi-bg: rgba(241, 245, 249, 0.3);

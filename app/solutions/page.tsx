@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { api, Pricing } from '../../lib/api';
 import { getLocaleServer } from '../../lib/locale-server';
+import ScrollReveal from '../../components/ScrollReveal';
 
 const planInfoMap: Record<string, { main: { id: string; en: string }; sub: { id: string; en: string } }> = {
     'Starter Pack': {
@@ -83,132 +84,140 @@ export default async function SolutionsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     
                     {/* Card 1: App Builder Squad */}
-                    <Link href="/solutions/technology-solutions" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.02]">
-                        <SpotlightCard className="p-10 flex flex-col justify-between min-h-[380px] text-left border border-glass-border h-full group-hover:border-brand-blue/40 shadow-xl shadow-brand-blue/5">
-                            <div className="space-y-6 z-10">
-                                <div className="inline-flex items-center space-x-2 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-                                    <Code className="w-4 h-4 text-brand-blue" />
-                                    <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">APP BUILDER SQUAD</span>
+                    <ScrollReveal animation="fade-up" delay={100}>
+                        <Link href="/solutions/technology-solutions" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.02]">
+                            <SpotlightCard className="p-10 flex flex-col justify-between min-h-[380px] text-left border border-glass-border h-full group-hover:border-brand-blue/40 shadow-xl shadow-brand-blue/5">
+                                <div className="space-y-6 z-10">
+                                    <div className="inline-flex items-center space-x-2 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+                                        <Code className="w-4 h-4 text-brand-blue" />
+                                        <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">APP BUILDER SQUAD</span>
+                                    </div>
+                                    
+                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Rekayasa Perangkat Lunak</h3>
+                                    <p className="text-base text-text-gray leading-relaxed font-medium">
+                                        Membangun produk digital berspesifikasi tinggi dengan arsitektur kode sumber bersih, cepat, terukur, dan aman (Web, Mobile & Enterprise ERP).
+                                    </p>
+                                    
+                                    <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
+                                        <li className="flex items-center space-x-3">
+                                            <Check className="w-4 h-4 text-brand-blue" />
+                                            <span>Website & Mobile Apps (Native)</span>
+                                        </li>
+                                        <li className="flex items-center space-x-3">
+                                            <Check className="w-4 h-4 text-brand-blue" />
+                                            <span>Custom Software & ERP Systems</span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                
-                                <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Rekayasa Perangkat Lunak</h3>
-                                <p className="text-base text-text-gray leading-relaxed font-medium">
-                                    Membangun produk digital berspesifikasi tinggi dengan arsitektur kode sumber bersih, cepat, terukur, dan aman (Web, Mobile & Enterprise ERP).
-                                </p>
-                                
-                                <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
-                                    <li className="flex items-center space-x-3">
-                                        <Check className="w-4 h-4 text-brand-blue" />
-                                        <span>Website & Mobile Apps (Native)</span>
-                                    </li>
-                                    <li className="flex items-center space-x-3">
-                                        <Check className="w-4 h-4 text-brand-blue" />
-                                        <span>Custom Software & ERP Systems</span>
-                                    </li>
-                                </ul>
-                            </div>
 
-                            <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
-                                Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
-                            </div>
-                        </SpotlightCard>
-                    </Link>
+                                <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
+                                    Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
+                                </div>
+                            </SpotlightCard>
+                        </Link>
+                    </ScrollReveal>
 
                     {/* Card 2: Brand Growth Division */}
-                    <Link href="/solutions/growth-marketing" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.02]">
-                        <SpotlightCard className="p-10 flex flex-col justify-between min-h-[380px] text-left border border-glass-border h-full group-hover:border-brand-blue/40 shadow-xl shadow-brand-blue/5">
-                            <div className="space-y-6 z-10">
-                                <div className="inline-flex items-center space-x-2 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-                                    <TrendingUp className="w-4 h-4 text-brand-blue" />
-                                    <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">BRAND GROWTH DIVISION</span>
+                    <ScrollReveal animation="fade-up" delay={200}>
+                        <Link href="/solutions/growth-marketing" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.02]">
+                            <SpotlightCard className="p-10 flex flex-col justify-between min-h-[380px] text-left border border-glass-border h-full group-hover:border-brand-blue/40 shadow-xl shadow-brand-blue/5">
+                                <div className="space-y-6 z-10">
+                                    <div className="inline-flex items-center space-x-2 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+                                        <TrendingUp className="w-4 h-4 text-brand-blue" />
+                                        <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">BRAND GROWTH DIVISION</span>
+                                    </div>
+                                    
+                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Optimasi & Pemasaran</h3>
+                                    <p className="text-base text-text-gray leading-relaxed font-medium">
+                                        Mengakselerasi jangkauan brand secara terarah untuk mendominasi peringkat pencarian organik dan melipatgandakan konversi penjualan.
+                                    </p>
+                                    
+                                    <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
+                                        <li className="flex items-center space-x-3">
+                                            <Check className="w-4 h-4 text-brand-blue" />
+                                            <span>Search Engine Optimization (SEO)</span>
+                                        </li>
+                                        <li className="flex items-center space-x-3">
+                                            <Check className="w-4 h-4 text-brand-blue" />
+                                            <span>Google Ads & Social Media Campaigns</span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                
-                                <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Optimasi & Pemasaran</h3>
-                                <p className="text-base text-text-gray leading-relaxed font-medium">
-                                    Mengakselerasi jangkauan brand secara terarah untuk mendominasi peringkat pencarian organik dan melipatgandakan konversi penjualan.
-                                </p>
-                                
-                                <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
-                                    <li className="flex items-center space-x-3">
-                                        <Check className="w-4 h-4 text-brand-blue" />
-                                        <span>Search Engine Optimization (SEO)</span>
-                                    </li>
-                                    <li className="flex items-center space-x-3">
-                                        <Check className="w-4 h-4 text-brand-blue" />
-                                        <span>Google Ads & Social Media Campaigns</span>
-                                    </li>
-                                </ul>
-                            </div>
 
-                            <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
-                                Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
-                            </div>
-                        </SpotlightCard>
-                    </Link>
+                                <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
+                                    Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
+                                </div>
+                            </SpotlightCard>
+                        </Link>
+                    </ScrollReveal>
 
                     {/* Card 3: Cloud & Security Hub */}
-                    <Link href="/solutions/cloud-cyber-security" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.02]">
-                        <SpotlightCard className="p-10 flex flex-col justify-between min-h-[380px] text-left border border-glass-border h-full group-hover:border-brand-blue/40 shadow-xl shadow-brand-blue/5">
-                            <div className="space-y-6 z-10">
-                                <div className="inline-flex items-center space-x-2 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-                                    <Cloud className="w-4 h-4 text-brand-blue" />
-                                    <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">CLOUD SERVICE HUB</span>
+                    <ScrollReveal animation="fade-up" delay={100}>
+                        <Link href="/solutions/cloud-cyber-security" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.02]">
+                            <SpotlightCard className="p-10 flex flex-col justify-between min-h-[380px] text-left border border-glass-border h-full group-hover:border-brand-blue/40 shadow-xl shadow-brand-blue/5">
+                                <div className="space-y-6 z-10">
+                                    <div className="inline-flex items-center space-x-2 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+                                        <Cloud className="w-4 h-4 text-brand-blue" />
+                                        <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">CLOUD SERVICE HUB</span>
+                                    </div>
+                                    
+                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Infrastruktur & Cloud</h3>
+                                    <p className="text-base text-text-gray leading-relaxed font-medium">
+                                        Penyediaan arsitektur cloud server tangguh, orkestrasi DevOps berkelanjutan, dan audit keamanan berlapis tingkat enterprise.
+                                    </p>
+                                    
+                                    <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
+                                        <li className="flex items-center space-x-3">
+                                            <Check className="w-4 h-4 text-brand-blue" />
+                                            <span>Premium Cloud Hosting & VPS</span>
+                                        </li>
+                                        <li className="flex items-center space-x-3">
+                                            <Check className="w-4 h-4 text-brand-blue" />
+                                            <span>Cyber Security & Penetration Testing</span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                
-                                <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Infrastruktur & Cloud</h3>
-                                <p className="text-base text-text-gray leading-relaxed font-medium">
-                                    Penyediaan arsitektur cloud server tangguh, orkestrasi DevOps berkelanjutan, dan audit keamanan berlapis tingkat enterprise.
-                                </p>
-                                
-                                <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
-                                    <li className="flex items-center space-x-3">
-                                        <Check className="w-4 h-4 text-brand-blue" />
-                                        <span>Premium Cloud Hosting & VPS</span>
-                                    </li>
-                                    <li className="flex items-center space-x-3">
-                                        <Check className="w-4 h-4 text-brand-blue" />
-                                        <span>Cyber Security & Penetration Testing</span>
-                                    </li>
-                                </ul>
-                            </div>
 
-                            <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
-                                Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
-                            </div>
-                        </SpotlightCard>
-                    </Link>
+                                <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
+                                    Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
+                                </div>
+                            </SpotlightCard>
+                        </Link>
+                    </ScrollReveal>
 
                     {/* Card 4: Digital Skill Lab */}
-                    <Link href="/solutions/digital-skill-lab" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.02]">
-                        <SpotlightCard className="p-10 flex flex-col justify-between min-h-[380px] text-left border border-glass-border h-full group-hover:border-brand-blue/40 shadow-xl shadow-brand-blue/5">
-                            <div className="space-y-6 z-10">
-                                <div className="inline-flex items-center space-x-2 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-                                    <GraduationCap className="w-4 h-4 text-brand-blue" />
-                                    <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">DIGITAL SKILL LAB</span>
+                    <ScrollReveal animation="fade-up" delay={200}>
+                        <Link href="/solutions/digital-skill-lab" className="group block cursor-pointer transition-all duration-300 hover:scale-[1.02]">
+                            <SpotlightCard className="p-10 flex flex-col justify-between min-h-[380px] text-left border border-glass-border h-full group-hover:border-brand-blue/40 shadow-xl shadow-brand-blue/5">
+                                <div className="space-y-6 z-10">
+                                    <div className="inline-flex items-center space-x-2 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+                                        <GraduationCap className="w-4 h-4 text-brand-blue" />
+                                        <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">DIGITAL SKILL LAB</span>
+                                    </div>
+                                    
+                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Pelatihan & Edukasi Digital</h3>
+                                    <p className="text-base text-text-gray leading-relaxed font-medium">
+                                        Meningkatkan kompetensi teknis tim internal perusahaan Anda agar siap bersaing di tengah pesatnya perkembangan transformasi digital.
+                                    </p>
+                                    
+                                    <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
+                                        <li className="flex items-center space-x-3">
+                                            <Check className="w-4 h-4 text-brand-blue" />
+                                            <span>Corporate IT Training & Bootcamps</span>
+                                        </li>
+                                        <li className="flex items-center space-x-3">
+                                            <Check className="w-4 h-4 text-brand-blue" />
+                                            <span>Digital Marketing & UI/UX Masterclass</span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                
-                                <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Pelatihan & Edukasi Digital</h3>
-                                <p className="text-base text-text-gray leading-relaxed font-medium">
-                                    Meningkatkan kompetensi teknis tim internal perusahaan Anda agar siap bersaing di tengah pesatnya perkembangan transformasi digital.
-                                </p>
-                                
-                                <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
-                                    <li className="flex items-center space-x-3">
-                                        <Check className="w-4 h-4 text-brand-blue" />
-                                        <span>Corporate IT Training & Bootcamps</span>
-                                    </li>
-                                    <li className="flex items-center space-x-3">
-                                        <Check className="w-4 h-4 text-brand-blue" />
-                                        <span>Digital Marketing & UI/UX Masterclass</span>
-                                    </li>
-                                </ul>
-                            </div>
 
-                            <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
-                                Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
-                            </div>
-                        </SpotlightCard>
-                    </Link>
+                                <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
+                                    Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
+                                </div>
+                            </SpotlightCard>
+                        </Link>
+                    </ScrollReveal>
                 </div>
 
 

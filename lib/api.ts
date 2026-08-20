@@ -298,7 +298,10 @@ export const api = {
     getSolutions: (): Promise<Service[]> => fetchAPI('/solutions'),
     getSolutionBySlug: (slug: string): Promise<Service> => fetchAPI(`/solutions/${slug}`),
     
-    getProducts: (): Promise<Product[]> => fetchAPI('/products'),
+    getProducts: (category?: string): Promise<Product[]> => {
+        const query = category ? `?category=${category}` : '';
+        return fetchAPI(`/products${query}`);
+    },
     getProductBySlug: (slug: string): Promise<Product> => fetchAPI(`/products/${slug}`),
     
     getCourses: (category?: string): Promise<Course[]> => {

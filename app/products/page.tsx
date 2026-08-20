@@ -7,13 +7,20 @@ import FaqAccordion from '../../components/FaqAccordion';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
-export default async function ProductsPage() {
+interface PageProps {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function ProductsPage({ searchParams }: PageProps) {
     let products: Product[] = [];
     let faqs: Faq[] = [];
+    
+    const resolvedParams = await searchParams;
+    const category = typeof resolvedParams.category === 'string' ? resolvedParams.category : undefined;
 
     try {
         const [productsRes, faqsRes] = await Promise.all([
-            api.getProducts(),
+            api.getProducts(category),
             api.getFaqs(),
         ]);
         products = productsRes.sort((a, b) => Number(a.price) - Number(b.price));
@@ -55,6 +62,40 @@ export default async function ProductsPage() {
                     <p className="text-lg md:text-xl text-text-gray font-medium leading-relaxed max-w-2xl mx-auto">
                         Menyediakan produk digital siap pakai untuk meningkatkan efisiensi, produktivitas, otomasi, dan skalabilitas bisnis.
                     </p>
+                </div>
+
+                {/* Category Filters */}
+                <div className="flex flex-wrap justify-center gap-3">
+                    <Link 
+                        href="/products" 
+                        className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${!category ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/20' : 'bg-glass-bg border-glass-border text-text-gray hover:text-text-main hover:bg-glass-bg/80'}`}
+                    >
+                        Semua Produk
+                    </Link>
+                    <Link 
+                        href="/products?category=business-software" 
+                        className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${category === 'business-software' ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/20' : 'bg-glass-bg border-glass-border text-text-gray hover:text-text-main hover:bg-glass-bg/80'}`}
+                    >
+                        Business Software
+                    </Link>
+                    <Link 
+                        href="/products?category=ai-products" 
+                        className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${category === 'ai-products' ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/20' : 'bg-glass-bg border-glass-border text-text-gray hover:text-text-main hover:bg-glass-bg/80'}`}
+                    >
+                        AI Products
+                    </Link>
+                    <Link 
+                        href="/products?category=cloud-products" 
+                        className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${category === 'cloud-products' ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/20' : 'bg-glass-bg border-glass-border text-text-gray hover:text-text-main hover:bg-glass-bg/80'}`}
+                    >
+                        Cloud Products
+                    </Link>
+                    <Link 
+                        href="/products?category=digital-marketplace" 
+                        className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${category === 'digital-marketplace' ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/20' : 'bg-glass-bg border-glass-border text-text-gray hover:text-text-main hover:bg-glass-bg/80'}`}
+                    >
+                        Digital Marketplace
+                    </Link>
                 </div>
 
                 {/* Products Grid */}
@@ -161,8 +202,10 @@ export default async function ProductsPage() {
                             </div>
                         ))
                         ) : (
-                            <div className="col-span-full text-center text-text-muted py-10">
-                                Belum ada produk digital di database.
+                            <div className="col-span-full text-center text-text-muted py-24 bg-glass-bg border border-glass-border rounded-3xl backdrop-blur-sm">
+                                <Download className="w-16 h-16 mx-auto text-brand-blue/30 mb-4" />
+                                <h3 className="text-xl font-bold text-text-main mb-2">Produk Belum Tersedia</h3>
+                                <p className="text-sm">Saat ini belum ada produk yang aktif untuk kategori ini. Silakan cek kategori lainnya.</p>
                             </div>
                         )}
                     </div>

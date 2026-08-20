@@ -5,6 +5,7 @@ import { api } from '../../../lib/api';
 import SpotlightCard from '../../../components/SpotlightCard';
 import { 
     ArrowLeft, 
+    ArrowRight,
     Code, 
     Cpu, 
     Palette, 
@@ -12,7 +13,15 @@ import {
     Server, 
     HelpCircle, 
     ShieldCheck,
-    CheckCircle2
+    CheckCircle2,
+    MessageCircle,
+    ClipboardList,
+    Lightbulb,
+    Rocket,
+    Users,
+    Award,
+    Clock,
+    Headphones
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<any>> = {
@@ -387,7 +396,24 @@ const servicePlansMap: Record<string, CustomPlan[]> = {
     ]
 };
 
+const whyChooseUs = [
+    { icon: Users, title: 'Tim Berpengalaman', desc: 'Didukung oleh praktisi ahli dengan portofolio ratusan proyek sukses di berbagai industri.' },
+    { icon: Award, title: 'Kualitas Terukur', desc: 'Setiap deliverable melalui proses QA ketat sebelum diserahkan ke klien.' },
+    { icon: Clock, title: 'Tepat Waktu', desc: 'Komitmen kami pada timeline proyek yang disepakati sejak awal kickoff.' },
+    { icon: Headphones, title: 'Dukungan Purna Jual', desc: 'Layanan maintenance & support pasca-proyek sesuai kebutuhan bisnis Anda.' },
+    { icon: Lightbulb, title: 'Solusi Inovatif', desc: 'Menggunakan teknologi terkini yang relevan dan terukur untuk pertumbuhan bisnis.' },
+    { icon: MessageCircle, title: 'Komunikasi Transparan', desc: 'Laporan kemajuan berkala dan konsultasi tanpa batas selama proyek berjalan.' },
+];
+
+const workflowSteps = [
+    { step: '01', icon: MessageCircle, title: 'Konsultasi Gratis', desc: 'Diskusi kebutuhan dan tujuan bisnis Anda bersama konsultan kami secara langsung.' },
+    { step: '02', icon: ClipboardList, title: 'Analisis & Proposal', desc: 'Tim kami menyusun scope of work, estimasi biaya, dan timeline yang transparan.' },
+    { step: '03', icon: Lightbulb, title: 'Eksekusi & Produksi', desc: 'Pengerjaan oleh tim spesialis dengan update progres berkala kepada klien.' },
+    { step: '04', icon: Rocket, title: 'Serah Terima & Go Live', desc: 'Peluncuran resmi disertai pelatihan penggunaan dan dukungan purna jual.' },
+];
+
 export const revalidate = 60; // ISR cache data for 60 seconds
+
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -455,12 +481,12 @@ export default async function ServiceDetail({ params }: Props) {
         : (servicePlansMap[slug] || []);
 
     return (
-        <div className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
-            {/* Background Spotlights */}
-            <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-brand-blue/5 rounded-full blur-3xl pointer-events-none -z-10" />
-            <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-blue/5 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="relative pt-36 pb-24 md:pt-48 md:pb-32 overflow-hidden">
+            {/* Background decorative blobs */}
+            <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-brand-blue/4 rounded-full blur-3xl pointer-events-none -z-10 -translate-x-1/2 -translate-y-1/4" />
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-blue/4 rounded-full blur-3xl pointer-events-none -z-10 translate-x-1/3 translate-y-1/4" />
 
-            <div className="max-w-4xl mx-auto px-6 md:px-8 space-y-12">
+            <div className="max-w-6xl mx-auto px-6 md:px-8 space-y-20">
                 {/* Back Button */}
                 <Link
                     href="/solutions"
@@ -470,44 +496,90 @@ export default async function ServiceDetail({ params }: Props) {
                     Kembali ke Layanan
                 </Link>
 
-                {/* Main Service Card */}
-                <SpotlightCard className="p-8 md:p-12 text-left border border-glass-border bg-gradient-to-b from-glass-bg/60 to-glass-bg/30">
+                {/* ── 01. Hero Section ── */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    {/* Left: text */}
                     <div className="space-y-6">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-14 h-14 rounded-2xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
-                                <IconComponent className="w-8 h-8" />
-                            </div>
-                            <div>
-                                {service.category && (
-                                    <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest block mb-0.5">
-                                        {service.category.name}
-                                    </span>
-                                )}
-                                <h1 className="text-2xl md:text-4xl font-black text-text-main tracking-tight leading-tight">
-                                    {service.name}
-                                </h1>
-                            </div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20">
+                            <IconComponent className="w-3.5 h-3.5 text-brand-blue" />
+                            {service.category && (
+                                <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">
+                                    {service.category.name}
+                                </span>
+                            )}
                         </div>
-
-                        <p className="text-text-gray text-base md:text-lg leading-relaxed font-medium">
+                        <h1 className="text-3xl md:text-5xl font-black text-text-main tracking-tight leading-tight">
+                            {service.name}
+                        </h1>
+                        <p className="text-text-gray text-base md:text-lg leading-relaxed font-medium max-w-lg">
                             {service.description}
                         </p>
+                        <div className="flex flex-wrap gap-3 pt-2">
+                            <a
+                                href={`https://wa.me/6285157303035?text=${encodeURIComponent(`Halo Diggity, saya ingin konsultasi mengenai layanan ${service.name}.`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue hover:bg-brand-blue-dark text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-brand-blue/20 group"
+                            >
+                                Konsultasi Gratis
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                            </a>
+                            <Link
+                                href="/portfolio"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-glass-bg hover:bg-glass-bg-hover text-text-main text-sm font-bold rounded-xl border border-glass-border transition-all"
+                            >
+                                Lihat Portfolio
+                            </Link>
+                        </div>
                     </div>
-                </SpotlightCard>
 
-                {/* Sub Services & Features Grid */}
+                    {/* Right: stats card */}
+                    <SpotlightCard className="p-8 space-y-6">
+                        <div className="grid grid-cols-2 gap-4">
+                            {[
+                                { label: 'Proyek Selesai', value: '200+' },
+                                { label: 'Klien Aktif', value: '50+' },
+                                { label: 'Rata-rata Rating', value: '4.9★' },
+                                { label: 'Tahun Berpengalaman', value: '5+' },
+                            ].map((stat, i) => (
+                                <div key={i} className="space-y-1 text-center p-4 rounded-xl bg-brand-blue/5 border border-brand-blue/10">
+                                    <p className="text-2xl font-black text-brand-blue">{stat.value}</p>
+                                    <p className="text-[11px] font-semibold text-text-muted leading-tight">{stat.label}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="border-t border-glass-border/40 pt-5 space-y-2">
+                            <p className="text-[11px] uppercase font-bold tracking-widest text-text-muted">Didukung Teknologi</p>
+                            <div className="flex flex-wrap gap-2">
+                                {['Next.js', 'React', 'Laravel', 'Node.js', 'AWS', 'Docker'].map((tech) => (
+                                    <span key={tech} className="px-2.5 py-1 text-[10px] font-bold bg-glass-bg border border-glass-border rounded-lg text-text-gray">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </SpotlightCard>
+                </div>
+
+                {/* ── 02. Cakupan Layanan ── */}
                 {subServices.length > 0 && (
-                    <div className="space-y-6 text-left">
-                        <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">
-                            Cakupan Layanan
-                        </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-8">
+                        <div className="space-y-2">
+                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Cakupan Kami</span>
+                            <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">
+                                Apa Saja yang Kami Kerjakan?
+                            </h2>
+                            <p className="text-text-gray text-sm font-medium max-w-xl">
+                                Setiap sub-layanan dikerjakan oleh tim spesialis berpengalaman dengan standar kualitas internasional.
+                            </p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {subServices.map((sub, i) => (
-                                <SpotlightCard key={i} className="p-5 flex items-center space-x-3.5 border border-glass-border">
-                                    <div className="w-8.5 h-8.5 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
-                                        <CheckCircle2 className="w-5 h-5" />
+                                <SpotlightCard key={i} className="p-5 flex items-start space-x-3.5">
+                                    <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5">
+                                        <CheckCircle2 className="w-4 h-4" />
                                     </div>
-                                    <span className="text-sm font-semibold text-text-main leading-snug">
+                                    <span className="text-sm font-semibold text-text-main leading-snug pt-1">
                                         {sub}
                                     </span>
                                 </SpotlightCard>
@@ -516,66 +588,86 @@ export default async function ServiceDetail({ params }: Props) {
                     </div>
                 )}
 
-                {/* Estimasi Investasi & Paket Layanan (B2B Plans Specific to Service) */}
-                {plans.length > 0 && (
-                    <div className="space-y-6 text-left pt-6">
-                        <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">
-                            Estimasi Investasi &amp; Paket Layanan
+                {/* ── 03. Alur Kerja ── */}
+                <div className="space-y-8">
+                    <div className="space-y-2">
+                        <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Cara Kerja Kami</span>
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">
+                            Proses yang Sederhana & Transparan
                         </h2>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        {workflowSteps.map((wf, i) => {
+                            const WfIcon = wf.icon;
+                            return (
+                                <SpotlightCard key={i} className="p-6 space-y-4 relative">
+                                    <span className="absolute top-4 right-4 text-4xl font-black text-brand-blue/8 select-none leading-none">
+                                        {wf.step}
+                                    </span>
+                                    <div className="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                        <WfIcon className="w-5 h-5" />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <h4 className="text-sm font-extrabold text-text-main">{wf.title}</h4>
+                                        <p className="text-xs text-text-gray leading-relaxed font-medium">{wf.desc}</p>
+                                    </div>
+                                </SpotlightCard>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* ── 04. Paket & Estimasi ── */}
+                {plans.length > 0 && (
+                    <div className="space-y-8">
+                        <div className="space-y-2">
+                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Investasi</span>
+                            <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">
+                                Estimasi Investasi & Paket Layanan
+                            </h2>
+                            <p className="text-text-gray text-sm font-medium max-w-xl">
+                                Semua harga bersifat estimasi awal. Penawaran final disesuaikan dengan kebutuhan spesifik proyek Anda.
+                            </p>
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                             {plans.map((plan, idx) => {
-                                const scaleText = idx === 0 
-                                    ? 'Skala Proyek Kecil / Startup' 
-                                    : idx === 1 
-                                    ? 'Skala Bisnis Berkembang' 
+                                const scaleText = idx === 0
+                                    ? 'Skala Startup / UMKM'
+                                    : idx === 1
+                                    ? 'Skala Bisnis Berkembang'
                                     : 'Skala Korporat & Enterprise';
 
-                                const whatsappMsg = `Halo Diggity, saya tertarik dengan paket [PLAN_NAME] untuk layanan [SERVICE_NAME]. Bisa tolong jelaskan detail lebih lanjut?`
-                                    .replace('[PLAN_NAME]', plan.name)
-                                    .replace('[SERVICE_NAME]', service.name);
+                                const whatsappMsg = `Halo Diggity, saya tertarik dengan paket ${plan.name} untuk layanan ${service.name}. Bisa tolong jelaskan detail lebih lanjut?`;
                                 const whatsappUrl = `https://wa.me/6285157303035?text=${encodeURIComponent(whatsappMsg)}`;
 
                                 return (
                                     <SpotlightCard
                                         key={idx}
-                                        className={`relative p-6 flex flex-col justify-between rounded-2xl border h-full transition-all duration-300 ${
-                                            plan.isPopular
-                                                ? 'border-brand-blue bg-glass-bg shadow-lg shadow-brand-blue/5 scale-[1.01] z-10'
-                                                : 'border-glass-border bg-glass-bg/60'
+                                        className={`relative p-6 flex flex-col justify-between h-full ${
+                                            plan.isPopular ? 'ring-1 ring-brand-blue/30' : ''
                                         }`}
                                     >
-                                        <div className="space-y-4">
-                                            <div className="space-y-1.5">
-                                                <div className="flex items-center justify-between gap-3">
-                                                    <h4 className="text-sm font-extrabold text-text-main leading-tight">{plan.name}</h4>
-                                                    {plan.isPopular && (
-                                                        <span className="px-2 py-0.5 bg-brand-blue/15 border border-brand-blue/25 text-brand-blue text-[8px] font-bold uppercase tracking-wider rounded-md shrink-0">
-                                                            Rekomendasi
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <p className="text-[10px] text-text-gray font-medium leading-relaxed">
-                                                    {plan.description}
-                                                </p>
-                                            </div>
-
-                                            <div className="flex flex-col space-y-1">
-                                                <span className="text-base font-black tracking-tight text-text-main">
-                                                    Penawaran Kustom
-                                                </span>
-                                                <span className="text-[9px] font-bold text-brand-blue uppercase tracking-wider">
-                                                    {scaleText}
+                                        {plan.isPopular && (
+                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                                                <span className="px-3 py-1 bg-brand-blue text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-brand-blue/30">
+                                                    Paling Populer
                                                 </span>
                                             </div>
-
-                                            {/* Features list */}
+                                        )}
+                                        <div className="space-y-5">
+                                            <div className="space-y-1">
+                                                <h4 className="text-sm font-extrabold text-text-main">{plan.name}</h4>
+                                                <p className="text-[10px] text-text-gray font-medium leading-relaxed">{plan.description}</p>
+                                            </div>
+                                            <div className="space-y-0.5">
+                                                <p className="text-xl font-black text-text-main">Penawaran Kustom</p>
+                                                <p className="text-[9px] font-bold text-brand-blue uppercase tracking-wider">{scaleText}</p>
+                                            </div>
                                             <div className="border-t border-glass-border/40 pt-4 space-y-2.5">
-                                                <span className="text-[9px] uppercase font-bold tracking-wider text-text-muted block">
-                                                    Cakupan Kerja
-                                                </span>
-                                                <ul className="space-y-2 list-none m-0 p-0">
+                                                <span className="text-[9px] uppercase font-bold tracking-wider text-text-muted block">Cakupan Kerja</span>
+                                                <ul className="space-y-2">
                                                     {plan.features.map((feature, fIdx) => (
-                                                        <li key={fIdx} className="flex items-start space-x-1.5 text-[11px] text-text-gray">
+                                                        <li key={fIdx} className="flex items-start gap-2 text-[11px] text-text-gray">
                                                             <CheckCircle2 className="w-3.5 h-3.5 text-brand-blue shrink-0 mt-0.5" />
                                                             <span className="font-medium leading-snug">{feature}</span>
                                                         </li>
@@ -583,18 +675,18 @@ export default async function ServiceDetail({ params }: Props) {
                                                 </ul>
                                             </div>
                                         </div>
-
                                         <div className="pt-6">
                                             <a
                                                 href={whatsappUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className={`w-full inline-flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+                                                className={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
                                                     plan.isPopular
-                                                        ? 'bg-brand-blue hover:bg-brand-blue-dark text-white'
+                                                        ? 'bg-brand-blue hover:bg-brand-blue-dark text-white shadow-md shadow-brand-blue/20'
                                                         : 'bg-glass-bg hover:bg-glass-bg-hover text-text-main border border-glass-border/80'
                                                 }`}
                                             >
+                                                <MessageCircle className="w-3.5 h-3.5" />
                                                 Minta Penawaran
                                             </a>
                                         </div>
@@ -605,27 +697,75 @@ export default async function ServiceDetail({ params }: Props) {
                     </div>
                 )}
 
-                {/* CTA Card */}
-                <SpotlightCard className="p-8 md:p-10 text-center space-y-6 border border-glass-border bg-gradient-to-b from-brand-blue/5 to-transparent relative overflow-hidden">
-                    <div className="absolute right-[-40px] bottom-[-40px] w-48 h-48 rounded-full bg-brand-blue/5 blur-3xl pointer-events-none" />
-                    <div className="max-w-xl mx-auto space-y-3 relative z-10">
-                        <h3 className="text-xl md:text-2xl font-black text-text-main tracking-tight">
-                            Butuh Solusi {service.name}?
-                        </h3>
-                        <p className="text-sm text-text-gray leading-relaxed font-medium">
-                            Konsultasikan rencana proyek Anda bersama tim konsultan teknis kami sekarang secara gratis.
-                        </p>
+                {/* ── 05. Mengapa Pilih Kami ── */}
+                <div className="space-y-8">
+                    <div className="space-y-2">
+                        <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Keunggulan Kami</span>
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">
+                            Mengapa Memilih Diggity?
+                        </h2>
                     </div>
-                    <div className="pt-2 relative z-10">
-                        <Link
-                            href={`/contact?service=${encodeURIComponent(mappedContactService)}`}
-                            className="inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors shadow-lg shadow-brand-blue/15 group"
-                        >
-                            Mulai Diskusi Proyek
-                            <ArrowLeft className="ml-2 w-4.5 h-4.5 rotate-180 group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {whyChooseUs.map((item, i) => {
+                            const ItemIcon = item.icon;
+                            return (
+                                <SpotlightCard key={i} className="p-6 space-y-3">
+                                    <div className="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                        <ItemIcon className="w-5 h-5" />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <h4 className="text-sm font-extrabold text-text-main">{item.title}</h4>
+                                        <p className="text-xs text-text-gray leading-relaxed font-medium">{item.desc}</p>
+                                    </div>
+                                </SpotlightCard>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* ── 06. CTA Final ── */}
+                <SpotlightCard className="relative p-10 md:p-14 overflow-hidden">
+                    <div className="absolute -top-16 -right-16 w-64 h-64 bg-brand-blue/8 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none" />
+                    <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                        <div className="space-y-3 text-left max-w-xl">
+                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Mulai Sekarang</span>
+                            <h3 className="text-2xl md:text-3xl font-black text-text-main tracking-tight">
+                                Butuh Solusi {service.name}?
+                            </h3>
+                            <p className="text-sm text-text-gray leading-relaxed font-medium">
+                                Konsultasikan kebutuhan proyek Anda secara gratis bersama tim konsultan teknis kami. Kami siap membantu menemukan solusi terbaik untuk bisnis Anda.
+                            </p>
+                            <div className="flex flex-wrap gap-4 pt-1">
+                                {['Konsultasi 100% Gratis', 'Tanpa Komitmen Awal', 'Respon Cepat ≤ 1 Jam'].map((point) => (
+                                    <div key={point} className="flex items-center gap-1.5 text-[11px] font-semibold text-text-muted">
+                                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-blue" />
+                                        {point}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+                            <Link
+                                href={`/contact?service=${encodeURIComponent(mappedContactService)}`}
+                                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-lg shadow-brand-blue/20 group"
+                            >
+                                Mulai Diskusi Proyek
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                            </Link>
+                            <a
+                                href={`https://wa.me/6285157303035?text=${encodeURIComponent(`Halo Diggity, saya tertarik dengan layanan ${service.name}. Bisa bantu saya?`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-text-main bg-glass-bg hover:bg-glass-bg-hover border border-glass-border rounded-xl transition-all"
+                            >
+                                <MessageCircle className="w-4 h-4 text-brand-blue" />
+                                Chat via WhatsApp
+                            </a>
+                        </div>
                     </div>
                 </SpotlightCard>
+
             </div>
         </div>
     );

@@ -480,6 +480,24 @@ export default async function ServiceDetail({ params }: Props) {
         ? service.plans
         : (servicePlansMap[slug] || []);
 
+    // Gunakan stats dinamis dari database jika tersedia, jika tidak gunakan fallback default
+    const defaultStats = [
+        { label: 'Proyek Selesai', value: '200+' },
+        { label: 'Klien Aktif', value: '50+' },
+        { label: 'Rata-rata Rating', value: '4.9★' },
+        { label: 'Tahun Berpengalaman', value: '5+' },
+    ];
+    const stats = (service.stats && service.stats.length > 0)
+        ? service.stats
+        : defaultStats;
+
+    // Gunakan tech_stack dinamis dari database jika tersedia, jika tidak gunakan fallback default
+    const defaultTechStack = ['Next.js', 'React', 'Laravel', 'Node.js', 'AWS', 'Docker'];
+    const techStack = (service.tech_stack && service.tech_stack.length > 0)
+        ? service.tech_stack
+        : defaultTechStack;
+
+
     return (
         <div className="relative pt-36 pb-24 md:pt-48 md:pb-32 overflow-hidden">
             {/* Background decorative blobs */}
@@ -536,12 +554,7 @@ export default async function ServiceDetail({ params }: Props) {
                     {/* Right: stats card */}
                     <SpotlightCard className="p-8 space-y-6">
                         <div className="grid grid-cols-2 gap-4">
-                            {[
-                                { label: 'Proyek Selesai', value: '200+' },
-                                { label: 'Klien Aktif', value: '50+' },
-                                { label: 'Rata-rata Rating', value: '4.9★' },
-                                { label: 'Tahun Berpengalaman', value: '5+' },
-                            ].map((stat, i) => (
+                            {stats.map((stat: { label: string; value: string }, i: number) => (
                                 <div key={i} className="space-y-1 text-center p-4 rounded-xl bg-brand-blue/5 border border-brand-blue/10">
                                     <p className="text-2xl font-black text-brand-blue">{stat.value}</p>
                                     <p className="text-[11px] font-semibold text-text-muted leading-tight">{stat.label}</p>
@@ -551,7 +564,7 @@ export default async function ServiceDetail({ params }: Props) {
                         <div className="border-t border-glass-border/40 pt-5 space-y-2">
                             <p className="text-[11px] uppercase font-bold tracking-widest text-text-muted">Didukung Teknologi</p>
                             <div className="flex flex-wrap gap-2">
-                                {['Next.js', 'React', 'Laravel', 'Node.js', 'AWS', 'Docker'].map((tech) => (
+                                {techStack.map((tech: string) => (
                                     <span key={tech} className="px-2.5 py-1 text-[10px] font-bold bg-glass-bg border border-glass-border rounded-lg text-text-gray">
                                         {tech}
                                     </span>

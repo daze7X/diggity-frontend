@@ -113,6 +113,11 @@ export interface Service {
         features: string[];
         isPopular?: boolean;
     }>;
+    stats?: Array<{
+        label: string;
+        value: string;
+    }>;
+    tech_stack?: string[];
 }
 
 export interface Portfolio {

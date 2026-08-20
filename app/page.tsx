@@ -509,7 +509,7 @@ export default async function Home() {
                             'Ritel & E-commerce', 'Manufaktur', 'Perhotelan',
                             'Teknologi & SaaS', 'Layanan Profesional', 'Logistik'
                         ]).map((ind, idx) => (
-                            <div key={idx} className="p-4 border border-glass-border/80 bg-glass-bg/50 backdrop-blur-md rounded-xl text-center flex items-center justify-center min-h-[60px] hover:border-brand-blue/40 hover:bg-glass-bg/80 hover:scale-[1.02] shadow-[var(--card-shadow)] transition-all duration-300 cursor-default">
+                            <div key={idx} className="p-4 border border-glass-border/40 bg-glass-bg/12 backdrop-blur-md rounded-xl text-center flex items-center justify-center min-h-[60px] hover:border-brand-blue/30 hover:bg-glass-bg/25 hover:scale-[1.02] shadow-[var(--card-shadow)] transition-all duration-300 cursor-default">
                                 <span className="text-xs font-bold text-text-main">{ind}</span>
                             </div>
                         ))}

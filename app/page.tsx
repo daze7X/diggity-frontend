@@ -417,40 +417,87 @@ export default async function Home() {
             </section>
 
             {/* 06. Academy Section */}
-            <section className="py-20">
-                <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                        <div className="space-y-4 text-left">
-                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                                Academy
-                            </span>
-                            <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                                Learn. Build Skills. <span className="text-brand-blue">Empower Your Future.</span>
-                            </h2>
-                        </div>
-                        <Link href="/academy" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
-                            Explore Academy <ArrowRight className="w-4 h-4" />
-                        </Link>
-                    </div>
+            {/* 06. Academy Section (Dark Contrast Section) */}
+            <section className="py-24 bg-[#0a192f] text-white relative overflow-hidden">
+                {/* Background Accent */}
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-blue/10 to-transparent pointer-events-none" />
+                <div className="absolute -left-40 -top-40 w-96 h-96 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none" />
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {[
-                            { name: 'Bootcamp', descId: 'Pelatihan rekayasa intensif', descEn: 'Intensive engineering training' },
-                            { name: 'Online Course', descId: 'Modul video belajar mandiri', descEn: 'Self-paced video modules' },
-                            { name: 'Corporate Training', descId: 'Peningkatan keterampilan karyawan', descEn: 'Upskilling employee workforce' },
-                            { name: 'Professional Certification', descId: 'Kredensial yang diakui industri', descEn: 'Industry recognized credentials' },
-                            { name: 'Workshop', descId: 'Kelas praktik langsung', descEn: 'Hands-on practice classes' },
-                            { name: 'Webinar', descId: 'Wawasan dinamis dari pakar', descEn: 'Expert dynamic insights' },
-                            { name: 'E-Book', descId: 'Panduan & buku pemrograman', descEn: 'Guides & programming books' },
-                            { name: 'Learning Ecosystem', descId: 'Portal LMS lengkap', descEn: 'Complete LMS portal' }
-                        ].map((item, idx) => (
-                            <SpotlightCard key={idx} className="p-5 text-left space-y-1">
-                                <h4 className="text-xs font-extrabold text-text-main">{item.name}</h4>
-                                <p className="text-[10px] text-text-gray font-medium leading-tight">
-                                    {locale === 'en' ? item.descEn : item.descId}
-                                </p>
-                            </SpotlightCard>
-                        ))}
+                <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <ScrollReveal animation="slide-right">
+                            <div className="space-y-8">
+                                <div className="space-y-4">
+                                    <span className="inline-block px-3 py-1 bg-brand-blue/20 text-blue-400 text-[10px] font-bold rounded-full uppercase tracking-widest border border-brand-blue/30">
+                                        Diggity Academy
+                                    </span>
+                                    <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+                                        Learn. Build Skills. <br/>
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                                            Empower Your Future.
+                                        </span>
+                                    </h2>
+                                    <p className="text-slate-400 text-lg leading-relaxed max-w-lg">
+                                        {locale === 'en' 
+                                            ? 'We don\'t just build technology. We build the people behind it. Master in-demand digital skills through our intensive bootcamps, self-paced courses, and corporate training.' 
+                                            : 'Kami tidak sekadar membangun teknologi. Kami membangun SDM di baliknya. Kuasai keahlian digital paling dicari melalui bootcamp intensif, e-learning, dan pelatihan korporat.'}
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {[
+                                        { name: 'Coding Bootcamp', icon: Code },
+                                        { name: 'Corporate Training', icon: Users },
+                                        { name: 'Professional Certification', icon: Award },
+                                        { name: 'Digital Ecosystem (LMS)', icon: Globe },
+                                    ].map((item, idx) => {
+                                        const Icon = item.icon;
+                                        return (
+                                            <div key={idx} className="flex items-center space-x-3 text-slate-300 bg-white/5 p-4 rounded-xl border border-white/10 hover:border-brand-blue/50 hover:bg-white/10 transition-colors">
+                                                <div className="w-8 h-8 rounded-lg bg-brand-blue/20 flex items-center justify-center text-blue-400">
+                                                    <Icon className="w-4 h-4" />
+                                                </div>
+                                                <span className="font-bold text-sm">{item.name}</span>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+
+                                <div className="pt-4">
+                                    <Link href="/academy" className="inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-lg shadow-brand-blue/25 hover:-translate-y-1">
+                                        {locale === 'en' ? 'Explore Academy Programs' : 'Jelajahi Program Akademi'}
+                                        <ArrowRight className="ml-2 w-4 h-4" />
+                                    </Link>
+                                </div>
+                            </div>
+                        </ScrollReveal>
+
+                        <ScrollReveal animation="slide-left" delay={200}>
+                            <div className="relative">
+                                <div className="aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
+                                    <Image 
+                                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" 
+                                        alt="Team Learning" 
+                                        fill 
+                                        className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-700" 
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-transparent to-transparent opacity-80" />
+                                </div>
+                                
+                                {/* Floating Badge */}
+                                <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl border border-glass-border/30 animate-bounce" style={{ animationDuration: '4s' }}>
+                                    <div className="flex items-center space-x-4">
+                                        <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-600 dark:text-green-400">
+                                            <TrendingUp className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            <p className="text-2xl font-black text-slate-900 dark:text-white">500+</p>
+                                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Alumni Sukses</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ScrollReveal>
                     </div>
                 </div>
             </section>

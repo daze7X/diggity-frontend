@@ -108,7 +108,7 @@ export default function HomeProducts({ locale }: HomeProductsProps) {
         }
     };
 
-    const activeList = getActiveProducts();
+    const activeList = getActiveProducts().slice(0, 6);
 
     return (
         <div className="space-y-8">

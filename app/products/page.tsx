@@ -105,16 +105,16 @@ export default async function ProductsPage({ searchParams }: PageProps) {
                             products.map((product) => (
                                 <div
                                     key={product.id}
-                                    className={`relative flex flex-col justify-between h-full transition-all duration-300 ${
+                                    className={`group relative flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-2 ${
                                         product.is_popular
                                             ? 'scale-100 md:scale-[1.02] z-10'
                                             : ''
                                     }`}
                                 >
                                     <SpotlightCard
-                                        className={`p-8 relative flex flex-col justify-between h-full border transition-all duration-300 ${
+                                        className={`p-8 relative flex flex-col justify-between h-full border transition-all duration-300 group-hover:shadow-2xl group-hover:border-brand-blue/40 ${
                                             product.is_popular
-                                                ? 'border-brand-blue/80 dark:border-brand-blue/60 bg-brand-blue/5 shadow-2xl shadow-brand-blue/15'
+                                                ? 'border-brand-blue/80 dark:border-brand-blue/60 bg-brand-blue/5 shadow-xl shadow-brand-blue/15'
                                                 : 'border-glass-border bg-glass-bg'
                                         }`}
                                     >
@@ -152,43 +152,39 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
                                         <div className="border-t border-glass-border/60 my-4" />
 
-                                        <ul className="space-y-3.5 text-xs">
+                                        <ul className="space-y-4 text-xs pb-4">
                                             {product.features?.map((feature, idx) => (
                                                 <li key={idx} className="flex items-start space-x-3 text-text-gray font-medium">
                                                     <Check className="w-4.5 h-4.5 text-brand-blue flex-shrink-0 mt-0.5" />
-                                                    <span>{feature}</span>
+                                                    <span className="leading-relaxed">{feature}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
 
-                                    <div className="pt-8 space-y-3">
-                                        <Link
-                                            href={`/products/${product.slug}`}
-                                            className={`block w-full py-3.5 text-center text-sm font-semibold rounded-xl transition-all cursor-pointer ${
-                                                product.is_popular
-                                                    ? 'bg-brand-blue text-white hover:bg-brand-blue-dark shadow-md shadow-brand-blue/20'
-                                                    : 'bg-glass-bg text-text-main border border-slate-300 dark:border-glass-border hover:border-brand-blue/50 hover:bg-brand-blue/5'
-                                            }`}
-                                        >
-                                            Detail & Fitur
-                                        </Link>
-                                        
+                                    <div className="pt-6 border-t border-glass-border/30 space-y-4 flex flex-col items-center">
                                         {product.billing_period === 'one_time' && product.file_path ? (
                                             <Link
                                                 href={`/products/${product.slug}`}
-                                                className="flex items-center justify-center gap-1.5 w-full py-3 text-center text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/15 rounded-xl transition-colors"
+                                                className="flex items-center justify-center w-full py-3.5 text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-all shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5"
                                             >
-                                                <Download className="w-3.5 h-3.5" /> Unduh Instan
+                                                <Download className="w-4 h-4 mr-2" /> Unduh Instan
                                             </Link>
                                         ) : (
                                             <Link
                                                 href={`/contact?product=${encodeURIComponent(product.name)}`}
-                                                className="flex items-center justify-center gap-1.5 w-full py-3 text-center text-xs font-bold text-brand-blue bg-brand-blue/5 border border-brand-blue/15 hover:bg-brand-blue/10 rounded-xl transition-colors"
+                                                className="flex items-center justify-center w-full py-3.5 text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-lg shadow-brand-blue/20 hover:-translate-y-0.5"
                                             >
-                                                Minta Demo Layanan <ArrowUpRight className="w-3.5 h-3.5" />
+                                                Minta Demo Layanan <ArrowUpRight className="w-4 h-4 ml-1.5" />
                                             </Link>
                                         )}
+                                        
+                                        <Link
+                                            href={`/products/${product.slug}`}
+                                            className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark inline-flex items-center group"
+                                        >
+                                            Lihat Detail & Fitur <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+                                        </Link>
                                     </div>
                                 </SpotlightCard>
                                 {product.is_popular && (

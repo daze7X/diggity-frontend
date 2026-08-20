@@ -1,9 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { api, Product, Faq } from '../../lib/api';
 import { Check, ArrowRight, Shield, Download, ArrowUpRight, ThumbsUp } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 import FaqAccordion from '../../components/FaqAccordion';
+
+export const metadata: Metadata = {
+  title: 'Katalog Produk Digital & Solusi Bisnis - Diggity',
+  description: 'Jelajahi berbagai produk digital unggulan dari Diggity, mulai dari Business Software, AI Products, hingga Cloud Platform untuk menumbuhkan bisnis Anda secara terstruktur.',
+};
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 

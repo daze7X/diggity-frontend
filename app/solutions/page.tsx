@@ -1,6 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import { Metadata } from 'next';
 import SpotlightCard from '../../components/SpotlightCard';
+
+export const metadata: Metadata = {
+  title: 'Solusi Bisnis & Layanan Enterprise - Diggity',
+  description: 'Temukan berbagai solusi teknologi dari Diggity, mulai dari Website Development, Custom ERP, Cloud Infrastructure, hingga Digital Skill Lab untuk perusahaan Anda.',
+};
 import { 
     Code, 
     Terminal, 

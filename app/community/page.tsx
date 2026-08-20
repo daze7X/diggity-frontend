@@ -1,7 +1,11 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Komunitas Digital Eksklusif - Diggity',
+  description: 'Bergabunglah dengan ribuan talenta digital, developer, desainer, dan founder dalam komunitas eksklusif Diggity. Dapatkan akses ke mentor, event, dan peluang karir.',
+};
 import { 
     Users, 
     ArrowLeft, 

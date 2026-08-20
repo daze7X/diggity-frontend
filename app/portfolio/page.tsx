@@ -1,7 +1,13 @@
 import React from 'react';
+import { Metadata } from 'next';
 import { api, Category, Portfolio } from '../../lib/api';
 import PortfolioList from '../../components/PortfolioList';
 import { getLocaleServer } from '../../lib/locale-server';
+
+export const metadata: Metadata = {
+  title: 'Success Stories & Portofolio Karya - Diggity',
+  description: 'Lihat studi kasus dan kisah sukses dari berbagai perusahaan yang telah mempercayakan transformasi digital mereka kepada Diggity.',
+};
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 

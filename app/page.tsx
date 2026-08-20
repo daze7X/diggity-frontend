@@ -7,6 +7,7 @@ import SpotlightCard from '../components/SpotlightCard';
 import HomePortfolios from '../components/HomePortfolios';
 import HomeProducts from '../components/HomeProducts';
 import HomeTestimonials from '../components/HomeTestimonials';
+import ScrollReveal from '../components/ScrollReveal';
 import { 
     Code, 
     Smartphone, 
@@ -149,7 +150,7 @@ export default async function Home() {
                     </div>
 
                     {/* 02. Trusted By Section (Client Logos Marquee) */}
-                    <div className="pt-16 max-w-5xl mx-auto">
+                    <ScrollReveal animation="fade-up" delay={200} className="pt-16 max-w-5xl mx-auto">
                         <p className="text-center text-[10px] font-bold uppercase tracking-widest text-text-muted mb-6">
                             {locale === 'en' ? 'Trusted by forward-thinking businesses and organizations' : 'Dipercaya oleh berbagai bisnis, organisasi, dan institusi'}
                         </p>
@@ -196,7 +197,7 @@ export default async function Home() {
                                 )}
                             </div>
                         </div>
-                    </div>
+                    </ScrollReveal>
                 </div>
 
                 {/* Gradient fade-out overlay */}
@@ -206,7 +207,7 @@ export default async function Home() {
             {/* 03. What We Do Section */}
             <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
-                    <div className="text-center max-w-3xl mx-auto space-y-4">
+                    <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto space-y-4">
                         <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
                             {locale === 'en' ? 'What We Do' : 'Apa Yang Kami Lakukan'}
                         </span>
@@ -218,80 +219,86 @@ export default async function Home() {
                                 ? 'Diggity assists businesses and organizations through three core ecosystems.'
                                 : 'Diggity membantu bisnis dan organisasi melalui tiga ekosistem utama.'}
                         </p>
-                    </div>
+                    </ScrollReveal>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* SOLUTIONS */}
-                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
-                            <div className="space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
-                                        <Cpu className="w-6 h-6" />
+                        <ScrollReveal animation="fade-up" delay={100}>
+                            <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
+                                            <Cpu className="w-6 h-6" />
+                                        </div>
+                                        <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                            BUILD · GROW
+                                        </span>
                                     </div>
-                                    <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
-                                        BUILD · GROW
-                                    </span>
+                                    <h3 className="text-xl font-bold text-text-main">SOLUTIONS</h3>
+                                    <p className="text-sm text-text-gray leading-relaxed">
+                                        {locale === 'en'
+                                            ? 'Build and grow your business through technology, AI, creative, marketing, cloud, cybersecurity, and consulting.'
+                                            : 'Membangun dan mengembangkan bisnis melalui teknologi, AI, creative, marketing, cloud, cybersecurity, dan consulting.'}
+                                    </p>
                                 </div>
-                                <h3 className="text-xl font-bold text-text-main">SOLUTIONS</h3>
-                                <p className="text-sm text-text-gray leading-relaxed">
-                                    {locale === 'en'
-                                        ? 'Build and grow your business through technology, AI, creative, marketing, cloud, cybersecurity, and consulting.'
-                                        : 'Membangun dan mengembangkan bisnis melalui teknologi, AI, creative, marketing, cloud, cybersecurity, dan consulting.'}
-                                </p>
-                            </div>
-                            <Link href="/solutions" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
-                                <span>Explore Solutions</span>
-                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
-                            </Link>
-                        </SpotlightCard>
+                                <Link href="/solutions" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
+                                    <span>Explore Solutions</span>
+                                    <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+                                </Link>
+                            </SpotlightCard>
+                        </ScrollReveal>
 
                         {/* PRODUCTS */}
-                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
-                            <div className="space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
-                                        <Layers className="w-6 h-6" />
+                        <ScrollReveal animation="fade-up" delay={200}>
+                            <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
+                                            <Layers className="w-6 h-6" />
+                                        </div>
+                                        <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                            SCALE
+                                        </span>
                                     </div>
-                                    <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
-                                        SCALE
-                                    </span>
+                                    <h3 className="text-xl font-bold text-text-main">PRODUCTS</h3>
+                                    <p className="text-sm text-text-gray leading-relaxed">
+                                        {locale === 'en'
+                                            ? 'Ready-to-use digital products to improve efficiency, productivity, automation, and scalability.'
+                                            : 'Produk digital siap pakai untuk meningkatkan efisiensi, produktivitas, otomatisasi, dan skalabilitas.'}
+                                    </p>
                                 </div>
-                                <h3 className="text-xl font-bold text-text-main">PRODUCTS</h3>
-                                <p className="text-sm text-text-gray leading-relaxed">
-                                    {locale === 'en'
-                                        ? 'Ready-to-use digital products to improve efficiency, productivity, automation, and scalability.'
-                                        : 'Produk digital siap pakai untuk meningkatkan efisiensi, produktivitas, otomatisasi, dan skalabilitas.'}
-                                </p>
-                            </div>
-                            <Link href="/products" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
-                                <span>Explore Products</span>
-                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
-                            </Link>
-                        </SpotlightCard>
+                                <Link href="/products" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
+                                    <span>Explore Products</span>
+                                    <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+                                </Link>
+                            </SpotlightCard>
+                        </ScrollReveal>
 
                         {/* ACADEMY */}
-                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
-                            <div className="space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
-                                        <GraduationCap className="w-6 h-6" />
+                        <ScrollReveal animation="fade-up" delay={300}>
+                            <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
+                                            <GraduationCap className="w-6 h-6" />
+                                        </div>
+                                        <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                            EMPOWER
+                                        </span>
                                     </div>
-                                    <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
-                                        EMPOWER
-                                    </span>
+                                    <h3 className="text-xl font-bold text-text-main">ACADEMY</h3>
+                                    <p className="text-sm text-text-gray leading-relaxed">
+                                        {locale === 'en'
+                                            ? 'Education and competency development for individuals and corporate teams.'
+                                            : 'Pendidikan dan pengembangan kompetensi untuk individu maupun organisasi.'}
+                                    </p>
                                 </div>
-                                <h3 className="text-xl font-bold text-text-main">ACADEMY</h3>
-                                <p className="text-sm text-text-gray leading-relaxed">
-                                    {locale === 'en'
-                                        ? 'Education and competency development for individuals and corporate teams.'
-                                        : 'Pendidikan dan pengembangan kompetensi untuk individu maupun organisasi.'}
-                                </p>
-                            </div>
-                            <Link href="/academy" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
-                                <span>Explore Academy</span>
-                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
-                            </Link>
-                        </SpotlightCard>
+                                <Link href="/academy" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
+                                    <span>Explore Academy</span>
+                                    <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+                                </Link>
+                            </SpotlightCard>
+                        </ScrollReveal>
                     </div>
                 </div>
             </section>

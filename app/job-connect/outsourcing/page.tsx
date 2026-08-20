@@ -89,7 +89,7 @@ export default function OutsourcingPage() {
     };
 
     return (
-        <div className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden text-left">
+        <div className="relative pt-24 pb-20 md:pt-28 md:pb-28 overflow-hidden text-left">
             {/* Background Spotlights */}
             <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-brand-blue/5 rounded-full blur-3xl pointer-events-none -z-10" />
             <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-blue/5 rounded-full blur-3xl pointer-events-none -z-10" />

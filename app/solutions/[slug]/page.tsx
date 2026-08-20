@@ -499,7 +499,7 @@ export default async function ServiceDetail({ params }: Props) {
 
 
     return (
-        <div className="relative pt-36 pb-24 md:pt-48 md:pb-32 overflow-hidden">
+        <div className="relative pt-24 pb-24 md:pt-28 md:pb-32 overflow-hidden">
             {/* Background decorative blobs */}
             <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-brand-blue/4 rounded-full blur-3xl pointer-events-none -z-10 -translate-x-1/2 -translate-y-1/4" />
             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-blue/4 rounded-full blur-3xl pointer-events-none -z-10 translate-x-1/3 translate-y-1/4" />

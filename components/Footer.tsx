@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api, CompanySetting } from '../lib/api';
 import { executeRecaptcha } from '../lib/recaptcha';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
@@ -64,7 +65,15 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 text-left">
                     {/* Column 1: Info */}
                     <div className="md:col-span-2 space-y-6">
-                        <Link href="/" className="inline-block">
+                        <Link href="/" className="inline-flex items-center space-x-2.5 shrink-0">
+                            <div className="relative w-8 h-8 overflow-hidden rounded-full border border-slate-800">
+                                <Image 
+                                    src="/logo-round.png" 
+                                    alt="Diggity Logo" 
+                                    fill 
+                                    className="object-cover" 
+                                />
+                            </div>
                             <span className="text-2xl font-black tracking-tight text-slate-100">
                                 DIGGITY<span className="text-brand-blue">.</span>
                             </span>

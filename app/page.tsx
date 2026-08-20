@@ -5,6 +5,8 @@ import { api, Service, Portfolio, Testimonial, Product, Blog } from '../lib/api'
 import ContactForm from '../components/ContactForm';
 import SpotlightCard from '../components/SpotlightCard';
 import HomePortfolios from '../components/HomePortfolios';
+import HomeProducts from '../components/HomeProducts';
+import HomeTestimonials from '../components/HomeTestimonials';
 import { 
     Code, 
     Smartphone, 
@@ -26,18 +28,15 @@ import {
     Layers,
     BookOpen,
     HelpCircle,
-    ArrowUpRight
+    ArrowUpRight,
+    Building2,
+    Award,
+    Compass,
+    Handshake,
+    ThumbsUp,
+    PlayCircle,
+    Sparkles
 } from 'lucide-react';
-
-const iconMap: Record<string, React.ComponentType<any>> = {
-    code: Code,
-    smartphone: Smartphone,
-    palette: Palette,
-    search: Search,
-    'trending-up': TrendingUp,
-    server: Server,
-    'graduation-cap': GraduationCap,
-};
 
 import { generatePageMetadata } from '../lib/seo';
 import { getLocaleServer } from '../lib/locale-server';
@@ -86,19 +85,6 @@ export default async function Home() {
         console.error('Error fetching home page data:', error);
     }
 
-    const stats = locale === 'en' ? [
-        { value: '150+', label: 'Happy Clients' },
-        { value: '300+', label: 'Projects Completed' },
-        { value: '99%', label: 'Success KPI Rate' },
-        { value: '8+', label: 'Years Experience' },
-    ] : [
-        { value: '150+', label: 'Klien Puas' },
-        { value: '300+', label: 'Proyek Selesai' },
-        { value: '99%', label: 'Tingkat Sukses KPI' },
-        { value: '8+', label: 'Tahun Pengalaman' },
-    ];
-
-    // Fallback professional avatars if database lacks avatars
     const fallbackAvatars = [
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80",
         "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80",
@@ -107,9 +93,9 @@ export default async function Home() {
 
     return (
         <div className="relative">
-            {/* 1. Hero Section */}
+            {/* 01. Hero Section */}
             <section className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
-                {/* Dynamic Background SVGs from Haikei */}
+                {/* Dynamic Background SVGs */}
                 <div className="absolute inset-0 pointer-events-none -z-10 select-none overflow-hidden">
                     {/* Light Mode Background */}
                     <Image
@@ -140,7 +126,7 @@ export default async function Home() {
                         </span>
                     </h1>
 
-                    <p className="text-lg md:text-xl text-text-gray max-w-3xl mx-auto font-medium">
+                    <p className="text-lg md:text-xl text-text-gray max-w-3xl mx-auto font-medium leading-relaxed">
                         {locale === 'en' 
                             ? 'We build digital solutions, grow businesses through technology, and empower communities through continuous learning.'
                             : 'Kami membangun solusi digital, mengembangkan bisnis melalui teknologi, dan memberdayakan masyarakat melalui pembelajaran berkelanjutan.'}
@@ -149,20 +135,20 @@ export default async function Home() {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                         <Link
                             href="/about"
-                            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors shadow-lg shadow-brand-blue/15"
+                            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors shadow-lg shadow-brand-blue/15 cursor-pointer"
                         >
                             {locale === 'en' ? 'Explore Diggity' : 'Jelajahi Diggity'}
                         </Link>
                         <Link
                             href="#contact"
-                            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-text-main bg-glass-bg border border-glass-border rounded-xl hover:border-brand-blue/40 transition-colors"
+                            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-text-main bg-glass-bg border border-glass-border rounded-xl hover:border-brand-blue/40 transition-colors cursor-pointer"
                         >
                             {locale === 'en' ? 'Talk to Our Team' : 'Hubungi Tim Kami'}
                             <ArrowRight className="ml-2 w-4.5 h-4.5" />
                         </Link>
                     </div>
 
-                    {/* 2. Trusted By Section (Client Logos Marquee) */}
+                    {/* 02. Trusted By Section (Client Logos Marquee) */}
                     <div className="pt-16 max-w-5xl mx-auto">
                         <p className="text-center text-[10px] font-bold uppercase tracking-widest text-text-muted mb-6">
                             {locale === 'en' ? 'Trusted by forward-thinking businesses and organizations' : 'Dipercaya oleh berbagai bisnis, organisasi, dan institusi'}
@@ -178,7 +164,6 @@ export default async function Home() {
                                 {settings && settings.partner_logos && settings.partner_logos.length > 0 ? (
                                     (() => {
                                         const logos = settings.partner_logos;
-                                        // Ulangi logo dinamis agar mengisi penuh lebar layar kawan
                                         const minItems = 16;
                                         const repeatCount = Math.ceil(minItems / logos.length);
                                         const duplicatedLogos = Array(repeatCount).fill(logos).flat();
@@ -218,7 +203,7 @@ export default async function Home() {
                 <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-brand-bg via-brand-bg/85 to-transparent pointer-events-none z-10" />
             </section>
 
-            {/* 3. What We Do Section */}
+            {/* 03. What We Do Section */}
             <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -228,7 +213,7 @@ export default async function Home() {
                         <h2 className="text-3xl md:text-5xl font-extrabold text-text-main tracking-tight">
                             {locale === 'en' ? 'One Digital Ecosystem. Three Ways to Grow.' : 'Satu Ekosistem Digital. Tiga Cara Tumbuh.'}
                         </h2>
-                        <p className="text-text-gray text-sm md:text-base max-w-xl mx-auto">
+                        <p className="text-text-gray text-sm md:text-base max-w-xl mx-auto leading-relaxed">
                             {locale === 'en' 
                                 ? 'Diggity assists businesses and organizations through three core ecosystems.'
                                 : 'Diggity membantu bisnis dan organisasi melalui tiga ekosistem utama.'}
@@ -236,67 +221,82 @@ export default async function Home() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* 1. Solutions */}
-                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full">
+                        {/* SOLUTIONS */}
+                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
                             <div className="space-y-4">
-                                <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
-                                    <Cpu className="w-6 h-6" />
+                                <div className="flex items-center justify-between">
+                                    <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
+                                        <Cpu className="w-6 h-6" />
+                                    </div>
+                                    <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                        BUILD · GROW
+                                    </span>
                                 </div>
-                                <h3 className="text-xl font-bold text-text-main">SOLUTIONS (BUILD &amp; GROW)</h3>
+                                <h3 className="text-xl font-bold text-text-main">SOLUTIONS</h3>
                                 <p className="text-sm text-text-gray leading-relaxed">
                                     {locale === 'en'
                                         ? 'Build and grow your business through technology, AI, creative, marketing, cloud, cybersecurity, and consulting.'
                                         : 'Membangun dan mengembangkan bisnis melalui teknologi, AI, creative, marketing, cloud, cybersecurity, dan consulting.'}
                                 </p>
                             </div>
-                            <Link href="/solutions" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group mt-4">
+                            <Link href="/solutions" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
                                 <span>Explore Solutions</span>
-                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
                             </Link>
                         </SpotlightCard>
 
-                        {/* 2. Products */}
-                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full">
+                        {/* PRODUCTS */}
+                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
                             <div className="space-y-4">
-                                <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
-                                    <Layers className="w-6 h-6" />
+                                <div className="flex items-center justify-between">
+                                    <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
+                                        <Layers className="w-6 h-6" />
+                                    </div>
+                                    <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                        SCALE
+                                    </span>
                                 </div>
-                                <h3 className="text-xl font-bold text-text-main">PRODUCTS (SCALE)</h3>
+                                <h3 className="text-xl font-bold text-text-main">PRODUCTS</h3>
                                 <p className="text-sm text-text-gray leading-relaxed">
                                     {locale === 'en'
                                         ? 'Ready-to-use digital products to improve efficiency, productivity, automation, and scalability.'
                                         : 'Produk digital siap pakai untuk meningkatkan efisiensi, produktivitas, otomatisasi, dan skalabilitas.'}
                                 </p>
                             </div>
-                            <Link href="/products" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group mt-4">
+                            <Link href="/products" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
                                 <span>Explore Products</span>
-                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
                             </Link>
                         </SpotlightCard>
 
-                        {/* 3. Academy */}
-                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full">
+                        {/* ACADEMY */}
+                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between text-left h-full group hover:border-brand-blue/30 transition-all duration-300">
                             <div className="space-y-4">
-                                <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
-                                    <GraduationCap className="w-6 h-6" />
+                                <div className="flex items-center justify-between">
+                                    <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-105 transition-transform">
+                                        <GraduationCap className="w-6 h-6" />
+                                    </div>
+                                    <span className="px-2.5 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                        EMPOWER
+                                    </span>
                                 </div>
-                                <h3 className="text-xl font-bold text-text-main">ACADEMY (EMPOWER)</h3>
+                                <h3 className="text-xl font-bold text-text-main">ACADEMY</h3>
                                 <p className="text-sm text-text-gray leading-relaxed">
                                     {locale === 'en'
                                         ? 'Education and competency development for individuals and corporate teams.'
                                         : 'Pendidikan dan pengembangan kompetensi untuk individu maupun organisasi.'}
                                 </p>
                             </div>
-                            <Link href="/academy" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group mt-4">
+                            <Link href="/academy" className="inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group/link mt-6">
                                 <span>Explore Academy</span>
-                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
                             </Link>
                         </SpotlightCard>
                     </div>
                 </div>
             </section>
 
-            {/* 4. Solutions Section */}
+            {/* 04. Solutions Section */}
             <section className="py-20">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -308,12 +308,13 @@ export default async function Home() {
                                 Build &amp; Grow Your <span className="text-brand-blue">Digital Business</span>
                             </h2>
                         </div>
-                        <Link href="/solutions" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0">
+                        <Link href="/solutions" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
                             Explore All Solutions <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {/* 1. Technology Solutions */}
                         <SpotlightCard className="p-6 text-left space-y-4">
                             <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue">
                                 <Code className="w-5 h-5" />
@@ -322,6 +323,7 @@ export default async function Home() {
                             <p className="text-xs text-text-gray leading-relaxed">Website, Mobile App, Software Development, ERP Systems, and Custom Platforms.</p>
                         </SpotlightCard>
 
+                        {/* 2. AI & Emerging Technology */}
                         <SpotlightCard className="p-6 text-left space-y-4">
                             <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue">
                                 <Cpu className="w-5 h-5" />
@@ -330,6 +332,7 @@ export default async function Home() {
                             <p className="text-xs text-text-gray leading-relaxed">Artificial Intelligence, Robotic Process Automation, Machine Learning, and Big Data.</p>
                         </SpotlightCard>
 
+                        {/* 3. Creative & Brand Experience */}
                         <SpotlightCard className="p-6 text-left space-y-4">
                             <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue">
                                 <Palette className="w-5 h-5" />
@@ -338,6 +341,7 @@ export default async function Home() {
                             <p className="text-xs text-text-gray leading-relaxed">Branding Strategy, UI/UX Design, Creative Writing, and Video Production.</p>
                         </SpotlightCard>
 
+                        {/* 4. Growth Marketing */}
                         <SpotlightCard className="p-6 text-left space-y-4">
                             <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue">
                                 <TrendingUp className="w-5 h-5" />
@@ -346,6 +350,7 @@ export default async function Home() {
                             <p className="text-xs text-text-gray leading-relaxed">Search Engine Optimization (SEO), Paid Ads (Google/Meta), Social Media, and E-commerce.</p>
                         </SpotlightCard>
 
+                        {/* 5. Cloud & Cyber Security */}
                         <SpotlightCard className="p-6 text-left space-y-4">
                             <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue">
                                 <Cloud className="w-5 h-5" />
@@ -354,14 +359,16 @@ export default async function Home() {
                             <p className="text-xs text-text-gray leading-relaxed">Cloud Infrastructure, DevOps Automation, Security Audits, and Quality Assurance.</p>
                         </SpotlightCard>
 
+                        {/* 6. Consulting */}
                         <SpotlightCard className="p-6 text-left space-y-4">
                             <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue">
                                 <Shield className="w-5 h-5" />
                             </div>
-                            <h4 className="text-base font-extrabold text-text-main">Consulting &amp; Digital Transformation</h4>
-                            <p className="text-xs text-text-gray leading-relaxed">IT Roadmapping, Enterprise Digital Architecture, and Change Management.</p>
+                            <h4 className="text-base font-extrabold text-text-main">Consulting</h4>
+                            <p className="text-xs text-text-gray leading-relaxed">IT Roadmapping, Enterprise Digital Architecture, Business Consulting, and Digital Transformation.</p>
                         </SpotlightCard>
 
+                        {/* 7. IT Talent & Workforce Solutions */}
                         <SpotlightCard className="p-6 text-left space-y-4 md:col-span-2 lg:col-span-3">
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                 <div className="space-y-1">
@@ -371,8 +378,8 @@ export default async function Home() {
                                     <h4 className="text-base font-extrabold text-text-main">IT Talent &amp; Workforce Solutions</h4>
                                     <p className="text-xs text-text-gray leading-relaxed">IT Headhunting, Outsourcing, and Tech Talent Recruitment Management.</p>
                                 </div>
-                                <Link href="/job-connect" className="px-5 py-2.5 bg-brand-blue text-white rounded-lg text-xs font-bold hover:bg-brand-blue-dark transition-colors inline-flex items-center gap-1.5 shrink-0 self-start sm:self-center">
-                                    Explore Talent Solutions <ArrowUpRight className="w-3.5 h-3.5" />
+                                <Link href="/solutions" className="px-5 py-2.5 bg-brand-blue text-white rounded-lg text-xs font-bold hover:bg-brand-blue-dark transition-colors inline-flex items-center gap-1.5 shrink-0 self-start sm:self-center cursor-pointer">
+                                    Explore Solutions <ArrowUpRight className="w-3.5 h-3.5" />
                                 </Link>
                             </div>
                         </SpotlightCard>
@@ -380,7 +387,7 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* 5. Products Section */}
+            {/* 05. Products Section */}
             <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -392,54 +399,17 @@ export default async function Home() {
                                 Digital Products Built to <span className="text-brand-blue">Scale</span>
                             </h2>
                         </div>
-                        <Link href="/products" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0">
+                        <Link href="/products" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
                             Explore All Products <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>
 
-                    {/* Product Category Tags */}
-                    <div className="flex flex-wrap gap-2">
-                        {['Business Software', 'AI Products', 'Cloud Products', 'Digital Marketplace'].map((cat, idx) => (
-                            <span key={idx} className="px-3.5 py-1.5 bg-glass-bg border border-glass-border text-text-main rounded-full text-xs font-bold">
-                                {cat}
-                            </span>
-                        ))}
-                    </div>
-
-                    {/* Product Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {products.length > 0 ? (
-                            products.map((prod) => (
-                                <SpotlightCard key={prod.id} className="p-6 text-left flex flex-col justify-between h-full min-h-[180px]">
-                                    <div className="space-y-2">
-                                        <div className="flex justify-between items-start">
-                                            <h4 className="text-lg font-extrabold text-text-main">{prod.name}</h4>
-                                            {prod.is_popular && (
-                                                <span className="px-2 py-0.5 bg-brand-blue/15 text-brand-blue text-[9px] font-black uppercase rounded">Popular</span>
-                                            )}
-                                        </div>
-                                        <p className="text-xs text-text-gray leading-relaxed line-clamp-3">{prod.description}</p>
-                                    </div>
-                                    <div className="pt-4 border-t border-glass-border/40 mt-4 flex items-center justify-between">
-                                        <span className="text-xs font-black text-brand-blue">
-                                            {prod.price > 0 ? `Rp ${new Intl.NumberFormat('id-ID').format(prod.price)} / ${prod.billing_period}` : 'Custom Pricing'}
-                                        </span>
-                                        <Link href={`/products/${prod.slug}`} className="text-xs font-bold text-brand-blue hover:underline flex items-center gap-1">
-                                            View Product <ArrowUpRight className="w-3.5 h-3.5" />
-                                        </Link>
-                                    </div>
-                                </SpotlightCard>
-                            ))
-                        ) : (
-                            <div className="col-span-2 text-center text-xs text-text-muted py-8">
-                                No featured products available in the database yet.
-                            </div>
-                        )}
-                    </div>
+                    {/* Interactive Tabbed Product Grid */}
+                    <HomeProducts locale={locale} />
                 </div>
             </section>
 
-            {/* 6. Academy Section */}
+            {/* 06. Academy Section */}
             <section className="py-20">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -451,73 +421,94 @@ export default async function Home() {
                                 Learn. Build Skills. <span className="text-brand-blue">Empower Your Future.</span>
                             </h2>
                         </div>
-                        <Link href="/academy" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0">
+                        <Link href="/academy" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
                             Explore Academy <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
-                            { name: 'Bootcamp', desc: 'Intensive engineering training' },
-                            { name: 'Online Course', desc: 'Self-paced video modules' },
-                            { name: 'Corporate Training', desc: 'Upskilling employee workforce' },
-                            { name: 'Professional Certification', desc: 'Industry recognized credentials' },
-                            { name: 'Workshop', desc: 'Hands-on practice classes' },
-                            { name: 'Webinar', desc: 'Expert dynamic insights' },
-                            { name: 'E-Book', desc: 'Guides & programming books' },
-                            { name: 'Learning Ecosystem', desc: 'Complete LMS portal' }
+                            { name: 'Bootcamp', descId: 'Pelatihan rekayasa intensif', descEn: 'Intensive engineering training' },
+                            { name: 'Online Course', descId: 'Modul video belajar mandiri', descEn: 'Self-paced video modules' },
+                            { name: 'Corporate Training', descId: 'Peningkatan keterampilan karyawan', descEn: 'Upskilling employee workforce' },
+                            { name: 'Professional Certification', descId: 'Kredensial yang diakui industri', descEn: 'Industry recognized credentials' },
+                            { name: 'Workshop', descId: 'Kelas praktik langsung', descEn: 'Hands-on practice classes' },
+                            { name: 'Webinar', descId: 'Wawasan dinamis dari pakar', descEn: 'Expert dynamic insights' },
+                            { name: 'E-Book', descId: 'Panduan & buku pemrograman', descEn: 'Guides & programming books' },
+                            { name: 'Learning Ecosystem', descId: 'Portal LMS lengkap', descEn: 'Complete LMS portal' }
                         ].map((item, idx) => (
                             <SpotlightCard key={idx} className="p-5 text-left space-y-1">
                                 <h4 className="text-xs font-extrabold text-text-main">{item.name}</h4>
-                                <p className="text-[10px] text-text-gray font-medium leading-tight">{item.desc}</p>
+                                <p className="text-[10px] text-text-gray font-medium leading-tight">
+                                    {locale === 'en' ? item.descEn : item.descId}
+                                </p>
                             </SpotlightCard>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* 7. Career Section */}
+            {/* 07. Career Section */}
             <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-8">
                     <div className="text-center max-w-2xl mx-auto space-y-3">
-                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Careers</span>
+                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
+                            {locale === 'en' ? 'Careers' : 'Karir'}
+                        </span>
                         <h3 className="text-3xl font-extrabold text-text-main tracking-tight">
-                            Talent Development &amp; Opportunities
+                            {locale === 'en' ? 'Opportunities & Talent Development' : 'Peluang & Pengembangan Bakat'}
                         </h3>
                         <p className="text-sm text-text-gray leading-relaxed max-w-md mx-auto">
-                            Join our partners or build your career with leading corporations. Explore our job board.
+                            {locale === 'en' 
+                                ? 'Join our team or build your career with leading corporations. Explore our vacancies.'
+                                : 'Bergabunglah dengan tim kami atau bangun karir Anda bersama korporasi terkemuka. Jelajahi lowongan kami.'}
                         </p>
                     </div>
 
-                    <div className="max-w-md mx-auto bg-glass-bg/50 border border-glass-border p-6 rounded-2xl text-center space-y-4">
+                    <div className="max-w-md mx-auto bg-glass-bg/50 border border-glass-border p-8 rounded-2xl text-center space-y-6 shadow-md">
                         <div className="w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue mx-auto">
                             <Briefcase className="w-6 h-6" />
                         </div>
-                        <h4 className="text-sm font-bold text-text-main">Job Board &amp; Talent Pool</h4>
-                        <p className="text-xs text-text-gray">Submit your CV or apply for open tech positions in our network.</p>
-                        <Link href="/job-connect" className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-brand-blue text-white rounded-lg text-xs font-bold hover:bg-brand-blue-dark transition-colors">
-                            Explore Job Board &rarr;
+                        <div className="space-y-2">
+                            <h4 className="text-base font-bold text-text-main">{locale === 'en' ? 'Job Board & Talent Pool' : 'Papan Lowongan Kerja'}</h4>
+                            <p className="text-xs text-text-gray leading-relaxed">
+                                {locale === 'en'
+                                    ? 'Submit your CV or apply for open tech positions in our network.'
+                                    : 'Kirimkan CV Anda atau lamar posisi teknologi yang terbuka di jaringan kami.'}
+                            </p>
+                        </div>
+                        <Link href="/job-connect" className="inline-flex items-center justify-center w-full px-5 py-3 bg-brand-blue text-white rounded-lg text-xs font-bold hover:bg-brand-blue-dark transition-colors cursor-pointer">
+                            {locale === 'en' ? 'Explore Career Opportunities' : 'Jelajahi Lowongan Pekerjaan'} &rarr;
                         </Link>
+                        <div className="text-[10px] text-text-muted italic pt-2">
+                            {locale === 'en'
+                                ? '* Note: IT Headhunting & IT Outsourcing are mapped under Solutions.'
+                                : '* Catatan: Layanan IT Headhunting & IT Outsourcing berada di bawah Solutions.'}
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* 8. Industries Section */}
+            {/* 08. Industries Section */}
             <section className="py-20">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-4">
                         <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Industries</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                            Digital Solutions for <span className="text-brand-blue">Every Industry</span>
+                            {locale === 'en' ? 'Digital Solutions for Every Industry' : 'Solusi Digital untuk Setiap Industri'}
                         </h2>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-                        {[
+                        {(locale === 'en' ? [
                             'Government', 'Education', 'Healthcare', 'Finance & Banking',
                             'Retail & E-commerce', 'Manufacturing', 'Hospitality',
                             'Technology & SaaS', 'Professional Services', 'Logistics'
-                        ].map((ind, idx) => (
+                        ] : [
+                            'Pemerintah', 'Pendidikan', 'Kesehatan', 'Keuangan & Perbankan',
+                            'Ritel & E-commerce', 'Manufaktur', 'Perhotelan',
+                            'Teknologi & SaaS', 'Layanan Profesional', 'Logistik'
+                        ]).map((ind, idx) => (
                             <div key={idx} className="p-4 border border-glass-border/60 bg-glass-bg/20 rounded-xl text-center flex items-center justify-center min-h-[60px] hover:border-brand-blue/30 transition-all cursor-default">
                                 <span className="text-xs font-bold text-text-main">{ind}</span>
                             </div>
@@ -526,34 +517,59 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* 9. Why Diggity Section */}
+            {/* 09. Why Diggity Section */}
             <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-4">
                         <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Why Diggity</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                            More Than a <span className="text-brand-blue">Digital Agency</span>
+                            {locale === 'en' ? 'More Than a Digital Agency' : 'Lebih Dari Sekadar Agensi Digital'}
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                    {/* Balanced 3-Column Grid: 5 Core Cards + 1 CTA Card */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
                         {[
-                            { title: 'End-to-End Capability', desc: 'Integrated solutions covering Technology, AI, Creative, Marketing, Cloud, and Consulting.' },
-                            { title: 'Product Mindset', desc: 'We build digital products that are scalable, modular, and maintainable, not just temporary projects.' },
-                            { title: 'Business Driven', desc: 'Technology only succeeds when it drives client ROI, sales conversions, and efficiency indicators.' },
-                            { title: 'Integrated Ecosystem', desc: 'Cohesive workflow syncing Solutions, SaaS Products, and Academy for workforce skills.' },
-                            { title: 'Long-Term Partnership', desc: 'We walk with you through every phase: from Build and Grow to Scale and Empower.' }
+                            { title: 'End-to-End Capability', descId: 'Solusi terintegrasi mencakup Teknologi, AI, Creative, Marketing, Cloud, dan Consulting.', descEn: 'Integrated solutions covering Technology, AI, Creative, Marketing, Cloud, and Consulting.' },
+                            { title: 'Product Mindset', descId: 'Kami membangun produk digital yang dapat diskalakan (scalable), modular, dan maintainable, bukan sekadar proyek sementara.', descEn: 'We build scalable, modular, and maintainable digital products, not just temporary projects.' },
+                            { title: 'Business Driven', descId: 'Teknologi hanya berhasil jika mendorong ROI bisnis klien, konversi penjualan, dan efisiensi indikator.', descEn: 'Technology only succeeds when it drives client ROI, sales conversions, and business efficiency.' },
+                            { title: 'Integrated Ecosystem', descId: 'Alur kerja yang padu menyinkronkan Solutions, Produk SaaS, dan Academy untuk kesiapan keterampilan tim.', descEn: 'Cohesive workflow syncing Solutions, SaaS Products, and Academy for workforce skills.' },
+                            { title: 'Long-Term Partnership', descId: 'Kami mendampingi Anda melewati setiap fase: dari Build dan Grow hingga Scale dan Empower.', descEn: 'We walk with you through every phase: from Build and Grow to Scale and Empower.' }
                         ].map((val, idx) => (
-                            <SpotlightCard key={idx} className="p-6 space-y-3 flex flex-col justify-between">
+                            <SpotlightCard key={idx} className="p-6 space-y-3 flex flex-col justify-between border border-glass-border">
                                 <div className="space-y-2">
                                     <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue text-xs font-bold">
                                         {idx + 1}
                                     </div>
                                     <h4 className="text-base font-extrabold text-text-main">{val.title}</h4>
-                                    <p className="text-xs text-text-gray leading-relaxed">{val.desc}</p>
+                                    <p className="text-xs text-text-gray leading-relaxed">
+                                        {locale === 'en' ? val.descEn : val.descId}
+                                    </p>
                                 </div>
                             </SpotlightCard>
                         ))}
+
+                        {/* 6th Slot CTA Card for Balance */}
+                        <SpotlightCard className="p-6 flex flex-col justify-between border border-brand-blue/20 bg-brand-blue/5 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/5 to-transparent pointer-events-none" />
+                            <div className="space-y-3 z-10">
+                                <div className="w-8 h-8 rounded-lg bg-brand-blue/25 flex items-center justify-center text-brand-blue">
+                                    <Sparkles className="w-4 h-4" />
+                                </div>
+                                <h4 className="text-base font-extrabold text-text-main">
+                                    {locale === 'en' ? 'Start Your Project' : 'Mulai Proyek Anda'}
+                                </h4>
+                                <p className="text-xs text-text-gray leading-relaxed">
+                                    {locale === 'en' 
+                                        ? 'Transform your business with our dynamic tech ecosystem today.'
+                                        : 'Transformasikan bisnis Anda bersama ekosistem teknologi dinamis kami hari ini.'}
+                                </p>
+                            </div>
+                            <Link href="#contact" className="mt-4 inline-flex items-center text-xs font-bold text-brand-blue hover:text-brand-blue-dark group cursor-pointer z-10">
+                                <span>{locale === 'en' ? 'Get Free Consultation' : 'Konsultasi Gratis Sekarang'}</span>
+                                <ArrowRight className="ml-1 w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                            </Link>
+                        </SpotlightCard>
                     </div>
                 </div>
             </section>
@@ -567,39 +583,40 @@ export default async function Home() {
                                 Portfolio
                             </span>
                             <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                                Our Proven <span className="text-brand-blue">Work</span>
+                                {locale === 'en' ? 'Our Featured Work' : 'Karya Pilihan Kami'}
                             </h2>
                         </div>
-                        <Link href="/portfolio" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0">
-                            View All Portfolio <ArrowRight className="w-4 h-4" />
+                        <Link href="/portfolio" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
+                            {locale === 'en' ? 'View All Portfolio' : 'Lihat Semua Portofolio'} <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <SpotlightCard className="p-8 space-y-4 text-left">
-                            <h4 className="text-xl font-bold text-text-main">IT Portfolio</h4>
-                            <p className="text-xs text-text-gray">Website • Mobile App • Software • ERP • AI • Digital Platforms</p>
-                            <div className="pt-4">
-                                <Link href="/portfolio/it" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline">
-                                    View IT Projects &rarr;
+                    {/* Dual Divisions */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <SpotlightCard className="p-6 space-y-3 text-left border border-glass-border">
+                            <h4 className="text-lg font-bold text-text-main">IT Portfolio</h4>
+                            <p className="text-xs text-text-gray leading-relaxed">Website • Mobile App • Software • ERP • AI • Digital Platforms</p>
+                            <div className="pt-2">
+                                <Link href="/portfolio?tab=it" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline cursor-pointer">
+                                    Explore IT Projects &rarr;
                                 </Link>
                             </div>
                         </SpotlightCard>
 
-                        <SpotlightCard className="p-8 space-y-4 text-left">
-                            <h4 className="text-xl font-bold text-text-main">Marketing &amp; Creative Portfolio</h4>
-                            <p className="text-xs text-text-gray">Branding • Campaigns • Social Media • Design • Video • Digital Ads</p>
-                            <div className="pt-4">
-                                <Link href="/portfolio/marketing" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline">
-                                    View Marketing Projects &rarr;
+                        <SpotlightCard className="p-6 space-y-3 text-left border border-glass-border">
+                            <h4 className="text-lg font-bold text-text-main">Marketing &amp; Creative Portfolio</h4>
+                            <p className="text-xs text-text-gray leading-relaxed">Branding • Campaigns • Social Media • Design • Video • Digital Ads</p>
+                            <div className="pt-2">
+                                <Link href="/portfolio?tab=marketing" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline cursor-pointer">
+                                    Explore Marketing Projects &rarr;
                                 </Link>
                             </div>
                         </SpotlightCard>
                     </div>
 
-                    {/* Portfolios dynamic modal viewer */}
+                    {/* Portfolios dynamic viewer - Limited to 3 cards max */}
                     <div className="mt-8">
-                        <HomePortfolios portfolios={portfolios} />
+                        <HomePortfolios portfolios={portfolios.slice(0, 3)} />
                     </div>
                 </div>
             </section>
@@ -610,35 +627,37 @@ export default async function Home() {
                     <div className="text-center max-w-2xl mx-auto space-y-4">
                         <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Success Stories</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                            Turning Challenges into <span className="text-brand-blue">Business Impact</span>
+                            {locale === 'en' ? 'Turning Challenges into Business Impact' : 'Mengubah Tantangan Menjadi Dampak Bisnis'}
                         </h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                         {portfolios.slice(0, 3).map((item, idx) => (
-                            <SpotlightCard key={idx} className="p-6 space-y-4 flex flex-col justify-between">
+                            <SpotlightCard key={idx} className="p-6 space-y-4 flex flex-col justify-between border border-glass-border">
                                 <div className="space-y-3">
-                                    <h4 className="text-sm font-extrabold text-brand-blue uppercase tracking-wider">Case: {item.client || 'Client project'}</h4>
-                                    <h5 className="text-base font-extrabold text-text-main">{item.title}</h5>
-                                    <div className="text-xs text-text-gray space-y-2">
+                                    <span className="px-2 py-0.5 bg-brand-blue/10 text-brand-blue text-[9px] font-bold uppercase rounded tracking-wider">
+                                        Case: {item.client || 'Enterprise'}
+                                    </span>
+                                    <h4 className="text-base font-extrabold text-text-main">{item.title}</h4>
+                                    <div className="text-xs text-text-gray space-y-3 pt-2">
                                         <div>
-                                            <span className="font-bold text-text-main block">Challenge:</span>
-                                            <p className="line-clamp-2">{item.problem}</p>
+                                            <span className="font-extrabold text-text-main block mb-0.5">Challenge:</span>
+                                            <p className="line-clamp-2 leading-relaxed">{item.problem}</p>
                                         </div>
                                         <div>
-                                            <span className="font-bold text-text-main block">Solution:</span>
-                                            <p className="line-clamp-2">{item.solution}</p>
+                                            <span className="font-extrabold text-text-main block mb-0.5">Solution:</span>
+                                            <p className="line-clamp-2 leading-relaxed">{item.solution}</p>
                                         </div>
                                         {item.result && (
                                             <div>
-                                                <span className="font-bold text-text-main block">Impact:</span>
-                                                <p className="line-clamp-2 text-brand-blue font-semibold">{item.result}</p>
+                                                <span className="font-extrabold text-text-main block mb-0.5">Impact:</span>
+                                                <p className="line-clamp-2 text-brand-blue font-bold leading-relaxed">{item.result}</p>
                                             </div>
                                         )}
                                     </div>
                                 </div>
-                                <Link href={`/portfolio?slug=${item.slug}`} className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline mt-4">
-                                    Read Full Story &rarr;
+                                <Link href={`/portfolio/${item.slug}`} className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline mt-4 cursor-pointer">
+                                    {locale === 'en' ? 'Read Case Study' : 'Baca Selengkapnya'} &rarr;
                                 </Link>
                             </SpotlightCard>
                         ))}
@@ -652,24 +671,26 @@ export default async function Home() {
                     <div className="text-center max-w-2xl mx-auto space-y-4">
                         <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Partnership</span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                            Grow Together <span className="text-brand-blue">With Diggity</span>
+                            {locale === 'en' ? 'Grow Together With Diggity' : 'Tumbuh Bersama Diggity'}
                         </h2>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
-                            { title: 'Strategic Partnership', desc: 'Expand service boundaries' },
-                            { title: 'Technology Partnership', desc: 'Co-build core digital tools' },
-                            { title: 'Agency Partnership', desc: 'Subcontract & scale output' },
-                            { title: 'Referral Program', desc: 'Introduce clients & earn rewards' }
+                            { title: 'Strategic Partnership', descId: 'Perluas batasan layanan Anda', descEn: 'Expand service boundaries' },
+                            { title: 'Technology Partnership', descId: 'Membangun bersama alat teknologi', descEn: 'Co-build core digital tools' },
+                            { title: 'Agency Partnership', descId: 'Subkontrak & tingkatkan skala output', descEn: 'Subcontract & scale output' },
+                            { title: 'Referral Program', descId: 'Kenalkan klien & dapatkan imbalan', descEn: 'Introduce clients & earn rewards' }
                         ].map((part, idx) => (
-                            <SpotlightCard key={idx} className="p-6 text-left space-y-2 flex flex-col justify-between">
+                            <SpotlightCard key={idx} className="p-6 text-left space-y-2 flex flex-col justify-between border border-glass-border">
                                 <div className="space-y-1">
                                     <h4 className="text-sm font-extrabold text-text-main">{part.title}</h4>
-                                    <p className="text-[11px] text-text-gray leading-tight">{part.desc}</p>
+                                    <p className="text-[11px] text-text-gray leading-tight">
+                                        {locale === 'en' ? part.descEn : part.descId}
+                                    </p>
                                 </div>
-                                <Link href="/partnership" className="text-[10px] font-bold text-brand-blue hover:underline mt-4">
-                                    Join Network &rarr;
+                                <Link href="/partnership" className="text-[10px] font-bold text-brand-blue hover:underline mt-4 cursor-pointer">
+                                    {locale === 'en' ? 'Join Network' : 'Bergabung Jaringan'} &rarr;
                                 </Link>
                             </SpotlightCard>
                         ))}
@@ -677,61 +698,21 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* 13. Testimonials Section */}
+            {/* 13. Testimonials Section (Slider Carousel) */}
             {testimonials.length > 0 && (
                 <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
                     <div className="max-w-7xl mx-auto px-6 md:px-8">
                         <div className="text-center space-y-4 mb-16">
                             <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                                Validasi Klien
+                                {locale === 'en' ? 'Client Validation' : 'Validasi Klien'}
                             </span>
                             <h3 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                                Laporan Hasil <span className="text-brand-blue">Umpan Balik</span>
+                                {locale === 'en' ? 'Feedback Reports' : 'Laporan Hasil Umpan Balik'}
                             </h3>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                            {testimonials.map((test: any, idx) => (
-                                <SpotlightCard
-                                    key={test.id}
-                                    className="p-8 space-y-6 flex flex-col justify-between"
-                                >
-                                    <div className="space-y-4">
-                                        <div className="flex items-center space-x-1 text-brand-blue">
-                                            {[...Array(test.rating)].map((_, i) => (
-                                                <Star key={i} className="w-4 h-4 fill-brand-blue stroke-brand-blue" />
-                                            ))}
-                                        </div>
-                                        <p className="text-sm md:text-base italic text-text-gray leading-relaxed">
-                                            &ldquo;{test.review || test.message}&rdquo;
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center space-x-3 pt-4 border-t border-glass-border">
-                                        <div className="relative w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center font-bold text-brand-blue text-sm overflow-hidden">
-                                            {test.avatar ? (
-                                                <Image 
-                                                    src={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${test.avatar}`}
-                                                    alt={test.client_name || test.name}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            ) : (
-                                                <Image 
-                                                    src={fallbackAvatars[idx % fallbackAvatars.length]}
-                                                    alt={test.client_name || test.name}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            )}
-                                        </div>
-                                        <div>
-                                            <h5 className="text-sm font-bold text-text-main">{test.client_name || test.name}</h5>
-                                            <p className="text-xs text-text-muted">{test.company}</p>
-                                        </div>
-                                    </div>
-                                </SpotlightCard>
-                            ))}
-                        </div>
+                        {/* Testimonials Slider Component */}
+                        <HomeTestimonials testimonials={testimonials} locale={locale} />
                     </div>
                 </section>
             )}
@@ -748,7 +729,7 @@ export default async function Home() {
                                 Ideas, Knowledge &amp; <span className="text-brand-blue">Digital Perspectives</span>
                             </h2>
                         </div>
-                        <Link href="/insights" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0">
+                        <Link href="/insights" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
                             Explore Insights <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>
@@ -761,7 +742,7 @@ export default async function Home() {
                                     ? `${storageUrl}/${blog.image}` 
                                     : 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=400&q=80';
                                 return (
-                                    <Link key={blog.id} href={`/insights/${blog.slug}`} className="group block space-y-4">
+                                    <Link key={blog.id} href={`/insights/${blog.slug}`} className="group block space-y-4 cursor-pointer">
                                         <div className="relative aspect-video rounded-2xl overflow-hidden border border-glass-border">
                                             <Image src={imageUrl} alt={blog.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
                                         </div>
@@ -794,7 +775,9 @@ export default async function Home() {
                                 Ready to Build What&apos;s Next?
                             </h2>
                             <p className="text-text-gray text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-                                Mari mengubah ide, tantangan, dan peluang Anda menjadi solusi digital yang memberikan dampak nyata.
+                                {locale === 'en'
+                                    ? 'Let\'s transform your ideas, challenges, and opportunities into digital solutions that make a real impact.'
+                                    : 'Mari mengubah ide, tantangan, dan peluang Anda menjadi solusi digital yang memberikan dampak nyata.'}
                             </p>
                         </div>
                     </SpotlightCard>
@@ -804,29 +787,31 @@ export default async function Home() {
                         <div className="space-y-8 lg:sticky lg:top-32 text-left">
                             <div className="space-y-4">
                                 <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                                    Hubungi Kami
+                                    {locale === 'en' ? 'Contact Us' : 'Hubungi Kami'}
                                 </span>
                                 <h3 className="text-3xl md:text-5xl font-extrabold text-text-main tracking-tight leading-tight">
-                                    Mari Bangun Sesuatu yang <span className="text-brand-blue">Hebat Bersama</span>
+                                    {locale === 'en' ? 'Let\'s Build Something Great Together' : 'Mari Bangun Sesuatu yang Hebat Bersama'}
                                 </h3>
                             </div>
                             
                             <p className="text-text-gray text-base leading-relaxed">
-                                Punya ide produk digital, butuh bantuan pemasaran ads/SEO, atau mencari server hosting handal untuk infrastruktur IT perusahaan Anda? Hubungi kami sekarang dan dapatkan analisis bisnis gratis dari pakar kami.
+                                {locale === 'en'
+                                    ? 'Have a digital product idea, need help with ads/SEO, or seeking reliable VPS cloud hosting? Contact us today for a free expert consultation.'
+                                    : 'Punya ide produk digital, butuh bantuan pemasaran ads/SEO, atau mencari server hosting handal untuk infrastruktur IT perusahaan Anda? Hubungi kami sekarang dan dapatkan analisis bisnis gratis dari pakar kami.'}
                             </p>
 
                             <div className="space-y-4 text-sm font-medium">
                                 <div className="flex items-center space-x-3 text-text-main">
                                     <CheckCircle2 className="w-5 h-5 text-brand-blue" />
-                                    <span>Konsultasi gratis tanpa komitmen apa-apa</span>
+                                    <span>{locale === 'en' ? 'Free consultation with no commitments' : 'Konsultasi gratis tanpa komitmen apa-apa'}</span>
                                 </div>
                                 <div className="flex items-center space-x-3 text-text-main">
                                     <CheckCircle2 className="w-5 h-5 text-brand-blue" />
-                                    <span>Analisis performa web &amp; audit SEO dasar</span>
+                                    <span>{locale === 'en' ? 'Web performance analysis & SEO audit' : 'Analisis performa web & audit SEO dasar'}</span>
                                 </div>
                                 <div className="flex items-center space-x-3 text-text-main">
                                     <CheckCircle2 className="w-5 h-5 text-brand-blue" />
-                                    <span>Tawaran harga khusus (Best Value Guarantee)</span>
+                                    <span>{locale === 'en' ? 'Best Value Guarantee pricing packages' : 'Tawaran harga khusus (Best Value Guarantee)'}</span>
                                 </div>
                             </div>
                         </div>

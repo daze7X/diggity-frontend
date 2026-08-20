@@ -12,17 +12,16 @@ function ContactFormContent() {
         email: '',
         phone: '',
         company: '',
-        service: 'App Builder Squad (Web/Mobile Apps)',
+        service: 'Layanan Teknologi/Marketing',
         message: '',
     });
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
 
     const servicesList = [
-        'App Builder Squad (Web/Mobile Apps)',
-        'Brand Growth Division (SEO/Google Ads)',
-        'Cloud Service Hub (VPS/Hosting/Maintenance)',
-        'Digital Skill Lab (IT Training/Workshops)',
+        'Layanan Teknologi/Marketing',
+        'Produk Digital',
+        'Pelatihan IT',
     ];
 
     const searchParams = useSearchParams();
@@ -30,17 +29,17 @@ function ContactFormContent() {
 
     useEffect(() => {
         if (packageParam) {
-            let selectedService = 'App Builder Squad (Web/Mobile Apps)';
+            let selectedService = 'Layanan Teknologi/Marketing';
             let prefilledMessage = '';
 
             if (packageParam === 'starter-pack') {
-                selectedService = 'App Builder Squad (Web/Mobile Apps)';
+                selectedService = 'Layanan Teknologi/Marketing';
                 prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Starter Pack" (1 Landing Page). Mohon hubungi saya.';
             } else if (packageParam === 'business-pro') {
-                selectedService = 'App Builder Squad (Web/Mobile Apps)';
+                selectedService = 'Layanan Teknologi/Marketing';
                 prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Business Pro" (Hingga 5 Halaman + CMS). Mohon hubungi saya.';
             } else if (packageParam === 'enterprise-custom') {
-                selectedService = 'App Builder Squad (Web/Mobile Apps)';
+                selectedService = 'Layanan Teknologi/Marketing';
                 prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Enterprise Custom" (Aplikasi Web/ERP/Mobile Kustom). Mohon hubungi saya.';
             }
 
@@ -67,7 +66,7 @@ function ContactFormContent() {
                 email: '',
                 phone: '',
                 company: '',
-                service: 'App Builder Squad (Web/Mobile Apps)',
+                service: 'Layanan Teknologi/Marketing',
                 message: '',
             });
             setMessage('Pesan Anda berhasil terkirim! Tim kami akan segera menghubungi Anda.');
@@ -83,7 +82,7 @@ function ContactFormContent() {
             <div className="topographic-bg pointer-events-none" />
             
             <div className="relative z-20 space-y-6 text-left">
-                <h3 className="text-2xl font-bold text-text-main">Konsultasi Baru</h3>
+                <h3 className="text-2xl font-bold text-text-main">Konsultasi</h3>
                 
                 {status === 'success' ? (
                     <div className="flex flex-col items-center justify-center text-center py-10 space-y-4">
@@ -168,7 +167,7 @@ function ContactFormContent() {
                         {/* Service Selection */}
                         <div className="space-y-1">
                             <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                Pilih Layanan Utama <span className="text-brand-blue">*</span>
+                                Pilih Kebutuhan <span className="text-brand-blue">*</span>
                             </label>
                             <select
                                 value={formData.service}

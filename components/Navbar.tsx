@@ -238,7 +238,17 @@ export default function Navbar() {
 
                     {/* Desktop Navigation Links */}
                     <div className="hidden lg:flex items-center space-x-1 xl:space-x-3.5">
-                        {/* 1. Solutions Dropdown Menu (On Click) */}
+                        {/* 1. About Link */}
+                        <Link
+                            href="/about"
+                            className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg ${
+                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
+                            }`}
+                        >
+                            {t('nav.about')}
+                        </Link>
+
+                        {/* 2. Solutions Dropdown Menu (On Click) */}
                         <div className="relative">
                             <button
                                 onClick={() => handleDropdownToggle('solutions')}
@@ -253,7 +263,7 @@ export default function Navbar() {
                             </button>
                         </div>
 
-                        {/* 2. Products Dropdown Menu (On Click) */}
+                        {/* 3. Products Dropdown Menu (On Click) */}
                         <div className="relative">
                             <button
                                 onClick={() => handleDropdownToggle('products')}
@@ -266,7 +276,7 @@ export default function Navbar() {
                             </button>
                         </div>
 
-                        {/* 3. Academy Dropdown Menu (On Click) */}
+                        {/* 4. Academy Dropdown Menu (On Click) */}
                         <div className="relative">
                             <button
                                 onClick={() => handleDropdownToggle('academy')}
@@ -278,18 +288,6 @@ export default function Navbar() {
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'academy' ? 'rotate-180' : ''}`} />
                             </button>
                         </div>
-
-                        {/* 4. Job Connect / Career (Main Menu Link) */}
-                        <Link
-                            href="/job-connect"
-                            className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg ${
-                                isActive('/job-connect') && !pathname.includes('/headhunting') && !pathname.includes('/outsourcing')
-                                    ? 'text-brand-blue' 
-                                    : 'text-text-gray'
-                            }`}
-                        >
-                            Job Connect
-                        </Link>
 
                         {/* 5. Portfolio Dropdown Menu (On Click) */}
                         <div className="relative">
@@ -319,14 +317,16 @@ export default function Navbar() {
                             </button>
                         </div>
 
-                        {/* 7. About Link */}
+                        {/* 7. Career (Main Menu Link) */}
                         <Link
-                            href="/about"
+                            href="/job-connect"
                             className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg ${
-                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
+                                isActive('/job-connect') && !pathname.includes('/headhunting') && !pathname.includes('/outsourcing')
+                                    ? 'text-brand-blue' 
+                                    : 'text-text-gray'
                             }`}
                         >
-                            {t('nav.about')}
+                            {t('nav.jobConnect')}
                         </Link>
                     </div>
 
@@ -797,6 +797,17 @@ export default function Navbar() {
                             {t('nav.home')}
                         </Link>
 
+                        {/* Mobile About Link */}
+                        <Link
+                            href="/about"
+                            onClick={() => setIsOpen(false)}
+                            className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
+                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
+                            }`}
+                        >
+                            {t('nav.about')}
+                        </Link>
+
                         {/* Mobile Solutions Accordion */}
                         <div className="border-b border-glass-border/40 py-1.5">
                             <button
@@ -875,19 +886,6 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        {/* Mobile Job Connect Direct Link */}
-                        <Link
-                            href="/job-connect"
-                            onClick={() => setIsOpen(false)}
-                            className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
-                                isActive('/job-connect') && !pathname.includes('/headhunting') && !pathname.includes('/outsourcing')
-                                    ? 'text-brand-blue' 
-                                    : 'text-text-gray'
-                            }`}
-                        >
-                            Job Connect
-                        </Link>
-
                         {/* Mobile Portfolio Accordion */}
                         <div className="border-b border-glass-border/40 py-1.5">
                             <button
@@ -941,14 +939,17 @@ export default function Navbar() {
                             )}
                         </div>
 
+                        {/* Mobile Career Direct Link */}
                         <Link
-                            href="/about"
+                            href="/job-connect"
                             onClick={() => setIsOpen(false)}
                             className={`text-base font-semibold py-1.5 transition-colors border-b border-glass-border/40 ${
-                                isActive('/about') ? 'text-brand-blue' : 'text-text-gray'
+                                isActive('/job-connect') && !pathname.includes('/headhunting') && !pathname.includes('/outsourcing')
+                                    ? 'text-brand-blue' 
+                                    : 'text-text-gray'
                             }`}
                         >
-                            {t('nav.about')}
+                            {t('nav.jobConnect')}
                         </Link>
 
                         {/* Mobile Right/Bottom CTAs */}

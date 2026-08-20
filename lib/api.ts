@@ -78,6 +78,8 @@ export interface CompanySetting {
     company_pt_name?: string;
     company_nib?: string;
     company_kbli?: string;
+    discord_url?: string;
+    telegram_url?: string;
     philosophy_build?: string;
     philosophy_grow?: string;
     philosophy_scale?: string;

@@ -15,8 +15,19 @@ import {
     Star 
 } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
+import { api } from '../../lib/api';
 
-export default function DigitalCommunityPage() {
+export default async function DigitalCommunityPage() {
+    let settings = null;
+    try {
+        settings = await api.getCompanySettings();
+    } catch (e) {
+        console.error(e);
+    }
+
+    const discordUrl = settings?.discord_url || 'https://discord.gg';
+    const telegramUrl = settings?.telegram_url || 'https://t.me';
+
     const benefits = [
         {
             title: 'Info Lowongan Kerja Eksklusif',
@@ -90,7 +101,7 @@ export default function DigitalCommunityPage() {
                         {/* Direct CTAs */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                             <a 
-                                href="https://discord.gg"
+                                href={discordUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center gap-2 p-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-2xl text-xs font-black shadow-lg shadow-[#5865F2]/10 transition-all cursor-pointer"
@@ -99,7 +110,7 @@ export default function DigitalCommunityPage() {
                                 Gabung Discord Komunitas
                             </a>
                             <a 
-                                href="https://t.me"
+                                href={telegramUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center gap-2 p-4 bg-glass-bg border border-glass-border hover:bg-glass-bg-hover text-text-main rounded-2xl text-xs font-black transition-all cursor-pointer"

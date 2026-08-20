@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -71,7 +71,7 @@ export default function ScrollReveal({
             className={className}
             style={{
                 ...(isVisible ? getFinalStyle() : getInitialStyle()),
-                transition: \opacity \ms ease-out \ms, transform \ms cubic-bezier(0.16, 1, 0.3, 1) \ms\,
+                transition: `opacity ${duration}ms ease-out ${delay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
                 willChange: 'opacity, transform',
             }}
         >

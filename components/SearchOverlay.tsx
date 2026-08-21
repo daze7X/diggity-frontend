@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Search, X, Loader2, Sparkles, Briefcase, BookOpen } from 'lucide-react';
 import { api, SearchResults } from '../lib/api';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SearchOverlayProps {
     isOpen: boolean;
@@ -11,6 +12,7 @@ interface SearchOverlayProps {
 }
 
 export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
+    const { language } = useLanguage();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchResults | null>(null);
     const [loading, setLoading] = useState(false);

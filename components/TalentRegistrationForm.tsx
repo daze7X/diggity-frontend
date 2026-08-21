@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import { api } from '../lib/api';
 import { Send, CheckCircle, Sparkles, User, Briefcase, Plus, X } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function TalentRegistrationForm() {
+    const { language } = useLanguage();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');

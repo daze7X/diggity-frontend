@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { api } from '../lib/api';
 import { Download, Loader2, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '../context/LanguageContext';
 
 interface Props {
     productId: number;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function ProductPurchaseCTA({ productId, productSlug, price, name, billingPeriod, filePath }: Props) {
+    const { language } = useLanguage();
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
 

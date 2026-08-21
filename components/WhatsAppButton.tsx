@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { api } from '../lib/api';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function WhatsAppButton() {
+    const { language } = useLanguage();
     const [whatsappNumber, setWhatsappNumber] = useState('628123456789');
 
     useEffect(() => {

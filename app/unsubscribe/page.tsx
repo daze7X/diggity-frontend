@@ -5,9 +5,11 @@ import { useSearchParams } from 'next/navigation';
 import { api } from '@/lib/api';
 import { Mail, MailCheck, AlertCircle, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 function UnsubscribeFormContent() {
     const searchParams = useSearchParams();
+    const { language: locale } = useLanguage();
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -32,14 +34,14 @@ function UnsubscribeFormContent() {
             const res = await api.unsubscribeNewsletter(email);
             if (res.success) {
                 setStatus('success');
-                setMessage(res.message || 'Anda telah sukses berhenti berlangganan dari newsletter kami.');
+                setMessage(res.message || (locale === 'en' ? 'You have successfully unsubscribed from our newsletter.' : 'Anda telah sukses berhenti berlangganan dari newsletter kami.'));
             } else {
                 setStatus('error');
-                setMessage(res.message || 'Gagal memproses permintaan Anda.');
+                setMessage(res.message || (locale === 'en' ? 'Failed to process your request.' : 'Gagal memproses permintaan Anda.'));
             }
         } catch (err: any) {
             setStatus('error');
-            setMessage(err.message || 'Gagal memproses permintaan Anda. Pastikan email Anda benar.');
+            setMessage(err.message || (locale === 'en' ? 'Failed to process your request. Ensure your email is correct.' : 'Gagal memproses permintaan Anda. Pastikan email Anda benar.'));
         } finally {
             setLoading(false);
         }
@@ -59,10 +61,10 @@ function UnsubscribeFormContent() {
                             <Mail className="w-8 h-8" />
                         </div>
                         <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
-                            Berhenti Berlangganan
+                            {locale === 'en' ? 'Unsubscribe' : 'Berhenti Berlangganan'}
                         </h2>
                         <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
-                            Kami sedih melihat Anda pergi. Masukkan email Anda di bawah untuk membatalkan langganan newsletter kami.
+                            {locale === 'en' ? 'We are sad to see you go. Enter your email below to cancel your newsletter subscription.' : 'Kami sedih melihat Anda pergi. Masukkan email Anda di bawah untuk membatalkan langganan newsletter kami.'}
                         </p>
                     </div>
 
@@ -77,7 +79,7 @@ function UnsubscribeFormContent() {
                                 </p>
                             </div>
                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                Terima kasih telah bergabung bersama kami sebelumnya. Anda selalu dapat berlangganan kembali kapan saja melalui footer utama kami.
+                                {locale === 'en' ? 'Thank you for joining us previously. You can always resubscribe anytime via our main footer.' : 'Terima kasih telah bergabung bersama kami sebelumnya. Anda selalu dapat berlangganan kembali kapan saja melalui footer utama kami.'}
                             </p>
                             <div className="pt-4">
                                 <Link 
@@ -85,7 +87,7 @@ function UnsubscribeFormContent() {
                                     className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white transition-colors"
                                 >
                                     <ArrowLeft className="w-4 h-4" />
-                                    Kembali ke Beranda
+                                    {locale === 'en' ? 'Back to Home' : 'Kembali ke Beranda'}
                                 </Link>
                             </div>
                         </div>
@@ -93,7 +95,7 @@ function UnsubscribeFormContent() {
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Alamat Email
+                                    {locale === 'en' ? 'Email Address' : 'Alamat Email'}
                                 </label>
                                 <input
                                     type="email"
@@ -120,10 +122,10 @@ function UnsubscribeFormContent() {
                                 {loading ? (
                                     <>
                                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        <span>Memproses...</span>
+                                        <span>{locale === 'en' ? 'Processing...' : 'Memproses...'}</span>
                                     </>
                                 ) : (
-                                    <span>Konfirmasi Berhenti Berlangganan</span>
+                                    <span>{locale === 'en' ? 'Confirm Unsubscribe' : 'Konfirmasi Berhenti Berlangganan'}</span>
                                 )}
                             </button>
 
@@ -133,7 +135,7 @@ function UnsubscribeFormContent() {
                                     className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white transition-colors"
                                 >
                                     <ArrowLeft className="w-4 h-4" />
-                                    Batal dan Kembali
+                                    {locale === 'en' ? 'Cancel and Return' : 'Batal dan Kembali'}
                                 </Link>
                             </div>
                         </form>

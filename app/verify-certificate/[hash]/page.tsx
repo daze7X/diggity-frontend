@@ -4,6 +4,7 @@ import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { Award, CheckCircle, AlertTriangle, ShieldCheck, Calendar, User, BookOpen, Copy, Check } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface CertificateData {
     number: string;
@@ -19,6 +20,7 @@ interface CertificateData {
 export default function VerifyCertificatePage({ params: paramsPromise }: { params: Promise<{ hash: string }> }) {
     const params = use(paramsPromise);
     const { hash } = params;
+    const { language: locale } = useLanguage();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [certificate, setCertificate] = useState<CertificateData | null>(null);
@@ -33,18 +35,18 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                 if (res.success && res.certificate) {
                     setCertificate(res.certificate);
                 } else {
-                    setError(res.message || 'Sertifikat tidak valid.');
+                    setError(res.message || (locale === 'en' ? 'Invalid certificate.' : 'Sertifikat tidak valid.'));
                 }
             } catch (err: any) {
                 console.error(err);
-                setError('Sertifikat tidak ditemukan atau kode verifikasi tidak valid.');
+                setError(locale === 'en' ? 'Certificate not found or verification code is invalid.' : 'Sertifikat tidak ditemukan atau kode verifikasi tidak valid.');
             } finally {
                 setLoading(false);
             }
         };
 
         fetchVerification();
-    }, [hash]);
+    }, [hash, locale]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(window.location.href);
@@ -69,7 +71,7 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                 {loading ? (
                     <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl p-12 text-center shadow-2xl">
                         <div className="w-12 h-12 border-4 border-brand-blue border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                        <p className="text-slate-400 text-sm">Sedang memverifikasi keabsahan sertifikat...</p>
+                        <p className="text-slate-400 text-sm">{locale === 'en' ? 'Verifying certificate authenticity...' : 'Sedang memverifikasi keabsahan sertifikat...'}</p>
                     </div>
                 ) : error || !certificate ? (
                     <div className="bg-slate-900/50 backdrop-blur-md border border-rose-500/20 rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
@@ -79,9 +81,9 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                             <AlertTriangle className="w-8 h-8" />
                         </div>
 
-                        <h1 className="text-2xl font-bold text-white mb-3">Sertifikat Tidak Valid</h1>
+                        <h1 className="text-2xl font-bold text-white mb-3">{locale === 'en' ? 'Invalid Certificate' : 'Sertifikat Tidak Valid'}</h1>
                         <p className="text-slate-400 text-sm mb-8 leading-relaxed max-w-sm mx-auto">
-                            Maaf, kode hash verifikasi sertifikat yang Anda masukkan tidak terdaftar atau telah diarsipkan dari sistem database resmi Diggity.
+                            {locale === 'en' ? 'Sorry, the certificate verification hash code you entered is not registered or has been archived from Diggity\'s official database system.' : 'Maaf, kode hash verifikasi sertifikat yang Anda masukkan tidak terdaftar atau telah diarsipkan dari sistem database resmi Diggity.'}
                         </p>
 
                         <div className="space-y-3">
@@ -89,7 +91,7 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                                 href="/"
                                 className="block w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-sm font-semibold transition-colors"
                             >
-                                Kembali ke Beranda
+                                {locale === 'en' ? 'Back to Home' : 'Kembali ke Beranda'}
                             </Link>
                         </div>
                     </div>
@@ -107,8 +109,8 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                             <span className="inline-flex items-center gap-1.5 px-3  py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">
                                 <CheckCircle className="w-3.5 h-3.5" /> Verified & Valid
                             </span>
-                            <h1 className="text-2xl font-extrabold text-white mt-3">Verifikasi Sertifikat Berhasil</h1>
-                            <p className="text-slate-400 text-xs mt-1">Sertifikat ini resmi diterbitkan oleh Diggity Academy.</p>
+                            <h1 className="text-2xl font-extrabold text-white mt-3">{locale === 'en' ? 'Certificate Verification Successful' : 'Verifikasi Sertifikat Berhasil'}</h1>
+                            <p className="text-slate-400 text-xs mt-1">{locale === 'en' ? 'This certificate is officially issued by Diggity Academy.' : 'Sertifikat ini resmi diterbitkan oleh Diggity Academy.'}</p>
                         </div>
 
                         {/* Certificate Details Card */}
@@ -118,7 +120,7 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                                     <User className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">Nama Penerima</p>
+                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">{locale === 'en' ? 'Recipient Name' : 'Nama Penerima'}</p>
                                     <p className="text-base font-bold text-white mt-0.5">{certificate.recipient_name}</p>
                                 </div>
                             </div>
@@ -128,7 +130,7 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                                     <BookOpen className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">Nama Kelas / Program</p>
+                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">{locale === 'en' ? 'Class / Program Name' : 'Nama Kelas / Program'}</p>
                                     <p className="text-base font-bold text-white mt-0.5">{certificate.course_title}</p>
                                 </div>
                             </div>
@@ -138,7 +140,7 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                                     <Award className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">Nomor Sertifikat</p>
+                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">{locale === 'en' ? 'Certificate Number' : 'Nomor Sertifikat'}</p>
                                     <p className="text-sm font-mono text-amber-400 mt-0.5">{certificate.number}</p>
                                 </div>
                             </div>
@@ -148,9 +150,9 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                                     <Calendar className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">Tanggal Diterbitkan</p>
+                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">{locale === 'en' ? 'Date Issued' : 'Tanggal Diterbitkan'}</p>
                                     <p className="text-sm font-bold text-white mt-0.5">
-                                        {new Date(certificate.issued_at).toLocaleDateString('id-ID', {
+                                        {new Date(certificate.issued_at).toLocaleDateString(locale === 'en' ? 'en-US' : 'id-ID', {
                                             day: 'numeric',
                                             month: 'long',
                                             year: 'numeric'
@@ -168,11 +170,11 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                             >
                                 {copied ? (
                                     <>
-                                        <Check className="w-4 h-4 text-emerald-400" /> Tersalin!
+                                        <Check className="w-4 h-4 text-emerald-400" /> {locale === 'en' ? 'Copied!' : 'Tersalin!'}
                                     </>
                                 ) : (
                                     <>
-                                        <Copy className="w-4 h-4" /> Salin Tautan
+                                        <Copy className="w-4 h-4" /> {locale === 'en' ? 'Copy Link' : 'Salin Tautan'}
                                     </>
                                 )}
                             </button>
@@ -180,7 +182,7 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
                                 href={`/academy/${certificate.course_slug}`}
                                 className="flex items-center justify-center gap-2 py-3 px-4 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-brand-blue/20"
                             >
-                                Lihat Detail Kelas
+                                {locale === 'en' ? 'View Class Details' : 'Lihat Detail Kelas'}
                             </Link>
                         </div>
                     </div>

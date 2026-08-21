@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
     LifeBuoy, 
     Plus, 
@@ -27,6 +28,7 @@ interface SupportTicket {
 }
 
 export default function DashboardSupport() {
+    const { language: locale } = useLanguage();
     const [tickets, setTickets] = useState<SupportTicket[]>([]);
     const [loading, setLoading] = useState(true);
     
@@ -58,7 +60,7 @@ export default function DashboardSupport() {
     const handleCreateTicket = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!subject.trim() || !message.trim()) {
-            setError('Semua kolom wajib diisi.');
+            setError(locale === 'en' ? 'All fields are required.' : 'Semua kolom wajib diisi.');
             return;
         }
 
@@ -78,11 +80,11 @@ export default function DashboardSupport() {
                 setIsOpen(false);
                 fetchTickets(); // Refresh list
             } else {
-                setError(res.message || 'Gagal membuat tiket bantuan.');
+                setError(res.message || (locale === 'en' ? 'Failed to create support ticket.' : 'Gagal membuat tiket bantuan.'));
             }
         } catch (err) {
             console.error('Error creating ticket:', err);
-            setError('Terjadi kesalahan koneksi. Silakan coba beberapa saat lagi.');
+            setError(locale === 'en' ? 'Connection error occurred. Please try again later.' : 'Terjadi kesalahan koneksi. Silakan coba beberapa saat lagi.');
         } finally {
             setSubmitting(false);
         }
@@ -130,7 +132,7 @@ export default function DashboardSupport() {
     };
 
     const formatRelativeTime = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('id-ID', {
+        return new Date(dateString).toLocaleDateString(locale === 'en' ? 'en-US' : 'id-ID', {
             day: 'numeric',
             month: 'short',
             year: 'numeric',
@@ -145,14 +147,14 @@ export default function DashboardSupport() {
             {/* Header section */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">Tiket Bantuan & Support</h2>
-                    <p className="text-xs md:text-sm text-text-muted">Ajukan tiket pertanyaan atau kendala teknis Anda, dan tim kami akan segera merespon.</p>
+                    <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">{locale === 'en' ? 'Support & Help Tickets' : 'Tiket Bantuan & Support'}</h2>
+                    <p className="text-xs md:text-sm text-text-muted">{locale === 'en' ? 'Submit your questions or technical issues, and our team will respond shortly.' : 'Ajukan tiket pertanyaan atau kendala teknis Anda, dan tim kami akan segera merespon.'}</p>
                 </div>
                 <button
                     onClick={() => setIsOpen(true)}
                     className="flex items-center gap-1.5 px-5 py-2.5 bg-brand-blue hover:bg-brand-blue-dark text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-brand-blue/15 w-full sm:w-auto justify-center cursor-pointer"
                 >
-                    <Plus className="w-4 h-4" /> Buat Tiket Baru
+                    <Plus className="w-4 h-4" /> {locale === 'en' ? 'Create New Ticket' : 'Buat Tiket Baru'}
                 </button>
             </div>
 
@@ -161,7 +163,7 @@ export default function DashboardSupport() {
                 {loading ? (
                     <div className="text-center py-20 bg-glass-bg border border-glass-border rounded-2xl">
                         <span className="text-xs text-text-muted font-bold font-mono flex items-center justify-center gap-2">
-                            <Loader2 className="w-4 h-4 animate-spin text-brand-blue" /> Memuat daftar tiket...
+                            <Loader2 className="w-4 h-4 animate-spin text-brand-blue" /> {locale === 'en' ? 'Loading ticket list...' : 'Memuat daftar tiket...'}
                         </span>
                     </div>
                 ) : tickets.length > 0 ? (
@@ -193,7 +195,7 @@ export default function DashboardSupport() {
 
                                         {/* Priority Badge */}
                                         <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold border capitalize ${getPriorityStyle(ticket.priority)}`}>
-                                            Urgensi: {ticket.priority}
+                                            {locale === 'en' ? 'Urgency:' : 'Urgensi:'} {ticket.priority}
                                         </span>
 
                                         <span className="text-[10px] text-text-muted flex items-center gap-1">
@@ -208,7 +210,7 @@ export default function DashboardSupport() {
                                         href={`/dashboard/support/${ticket.id}`}
                                         className="flex items-center justify-center gap-1.5 px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-all border border-slate-700 w-full md:w-auto cursor-pointer"
                                     >
-                                        <MessageSquare className="w-3.5 h-3.5" /> Buka Percakapan
+                                        <MessageSquare className="w-3.5 h-3.5" /> {locale === 'en' ? 'Open Conversation' : 'Buka Percakapan'}
                                     </Link>
                                 </div>
                             </div>
@@ -218,16 +220,16 @@ export default function DashboardSupport() {
                     <div className="text-center py-20 bg-glass-bg border border-glass-border rounded-2xl space-y-4">
                         <LifeBuoy className="w-12 h-12 mx-auto text-brand-blue/30" />
                         <div className="space-y-1">
-                            <h4 className="font-bold text-text-main text-sm">Tidak Ada Tiket Aktif</h4>
+                            <h4 className="font-bold text-text-main text-sm">{locale === 'en' ? 'No Active Tickets' : 'Tidak Ada Tiket Aktif'}</h4>
                             <p className="text-xs text-text-muted max-w-sm mx-auto leading-relaxed">
-                                Anda belum pernah mengajukan tiket bantuan. Jika Anda menemui kendala billing atau teknis, silakan buat tiket baru.
+                                {locale === 'en' ? 'You have never submitted a support ticket. If you encounter billing or technical issues, please create a new ticket.' : 'Anda belum pernah mengajukan tiket bantuan. Jika Anda menemui kendala billing atau teknis, silakan buat tiket baru.'}
                             </p>
                         </div>
                         <button
                             onClick={() => setIsOpen(true)}
                             className="inline-flex items-center px-4 py-2 bg-brand-blue text-white rounded-lg text-xs font-semibold hover:bg-brand-blue-dark transition-colors cursor-pointer"
                         >
-                            Buat Tiket Pertamamu <Plus className="ml-1 w-3 h-3" />
+                            {locale === 'en' ? 'Create Your First Ticket' : 'Buat Tiket Pertamamu'} <Plus className="ml-1 w-3 h-3" />
                         </button>
                     </div>
                 )}
@@ -247,8 +249,8 @@ export default function DashboardSupport() {
                         </button>
 
                         <div className="text-left space-y-1">
-                            <h3 className="text-lg font-bold text-white">Buat Tiket Bantuan Baru</h3>
-                            <p className="text-xs text-slate-400">Silakan jelaskan kendala atau pertanyaan Anda pada formulir di bawah ini.</p>
+                            <h3 className="text-lg font-bold text-white">{locale === 'en' ? 'Create New Support Ticket' : 'Buat Tiket Bantuan Baru'}</h3>
+                            <p className="text-xs text-slate-400">{locale === 'en' ? 'Please describe your issue or question in the form below.' : 'Silakan jelaskan kendala atau pertanyaan Anda pada formulir di bawah ini.'}</p>
                         </div>
 
                         {error && (
@@ -260,37 +262,37 @@ export default function DashboardSupport() {
 
                         <form onSubmit={handleCreateTicket} className="space-y-4 text-left">
                             <div className="space-y-1.5">
-                                <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">Subjek Masalah</label>
+                                <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">{locale === 'en' ? 'Issue Subject' : 'Subjek Masalah'}</label>
                                 <input
                                     type="text"
                                     value={subject}
                                     onChange={(e) => setSubject(e.target.value)}
-                                    placeholder="Contoh: Gagal memutar video Modul 2"
+                                    placeholder={locale === 'en' ? 'Example: Failed to play Module 2 video' : 'Contoh: Gagal memutar video Modul 2'}
                                     className="w-full px-4 py-3 bg-slate-950 border border-slate-800 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue rounded-xl text-xs text-white placeholder-slate-600 outline-none transition-all"
                                     required
                                 />
                             </div>
 
                             <div className="space-y-1.5">
-                                <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">Kategori Kendala</label>
+                                <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">{locale === 'en' ? 'Issue Category' : 'Kategori Kendala'}</label>
                                 <select
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
                                     className="w-full px-4 py-3 bg-slate-950 border border-slate-800 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue rounded-xl text-xs text-white outline-none transition-all"
                                 >
-                                    <option value="technical">Technical Support (Kendala Kelas / Web)</option>
-                                    <option value="billing">Billing & Payment (Kendala Pembayaran / Invoices)</option>
-                                    <option value="general">General Inquiry (Pertanyaan Umum & Kemitraan)</option>
+                                    <option value="technical">{locale === 'en' ? 'Technical Support (Class / Web Issues)' : 'Technical Support (Kendala Kelas / Web)'}</option>
+                                    <option value="billing">{locale === 'en' ? 'Billing & Payment (Payment / Invoices Issues)' : 'Billing & Payment (Kendala Pembayaran / Invoices)'}</option>
+                                    <option value="general">{locale === 'en' ? 'General Inquiry (General Questions & Partnerships)' : 'General Inquiry (Pertanyaan Umum & Kemitraan)'}</option>
                                 </select>
                             </div>
 
                             <div className="space-y-1.5">
-                                <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">Pesan Kronologi</label>
+                                <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">{locale === 'en' ? 'Chronology Message' : 'Pesan Kronologi'}</label>
                                 <textarea
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                     rows={4}
-                                    placeholder="Jelaskan secara detail langkah-langkah kendala atau pertanyaan yang ingin Anda sampaikan..."
+                                    placeholder={locale === 'en' ? 'Explain in detail the steps of the issue or the question you want to convey...' : 'Jelaskan secara detail langkah-langkah kendala atau pertanyaan yang ingin Anda sampaikan...'}
                                     className="w-full px-4 py-3 bg-slate-950 border border-slate-800 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue rounded-xl text-xs text-white placeholder-slate-600 outline-none resize-none transition-all"
                                     required
                                 />
@@ -302,7 +304,7 @@ export default function DashboardSupport() {
                                     onClick={() => setIsOpen(false)}
                                     className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
                                 >
-                                    Batal
+                                    {locale === 'en' ? 'Cancel' : 'Batal'}
                                 </button>
                                 <button
                                     type="submit"
@@ -311,10 +313,10 @@ export default function DashboardSupport() {
                                 >
                                     {submitting ? (
                                         <>
-                                            <Loader2 className="w-3.5 h-3.5 animate-spin" /> Mengirim...
+                                            <Loader2 className="w-3.5 h-3.5 animate-spin" /> {locale === 'en' ? 'Sending...' : 'Mengirim...'}
                                         </>
                                     ) : (
-                                        'Kirim Tiket'
+                                        locale === 'en' ? 'Submit Ticket' : 'Kirim Tiket'
                                     )}
                                 </button>
                             </div>

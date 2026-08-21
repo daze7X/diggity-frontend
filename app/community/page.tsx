@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { getLocaleServer } from '../../lib/locale-server';
 
 export const metadata: Metadata = {
   title: 'Komunitas Digital Eksklusif - Diggity',
@@ -22,6 +23,7 @@ import SpotlightCard from '../../components/SpotlightCard';
 import { api } from '../../lib/api';
 
 export default async function DigitalCommunityPage() {
+    const locale = await getLocaleServer();
     let settings = null;
     try {
         settings = await api.getCompanySettings();
@@ -32,7 +34,28 @@ export default async function DigitalCommunityPage() {
     const discordUrl = settings?.discord_url || 'https://discord.gg';
     const telegramUrl = settings?.telegram_url || 'https://t.me';
 
-    const benefits = [
+    const benefits = locale === 'en' ? [
+        {
+            title: 'Exclusive Job Vacancy Info',
+            description: 'Get freelance project, internship, remote work info, and internal job vacancies from Diggity partners before they are published to external job portals.',
+            icon: Briefcase
+        },
+        {
+            title: 'Monthly Webinar & Discussion Sessions',
+            description: 'Join monthly free live mentoring sharing sessions, coding portfolio reviews, and tech trend (AI/Web/Mobile) reviews with our senior Tech Leads.',
+            icon: Presentation
+        },
+        {
+            title: 'Q&A & Debugging Forum',
+            description: 'A place to discuss, ask about coding errors, and exchange solutions with fellow developers of various skill levels.',
+            icon: Code
+        },
+        {
+            title: 'Professional Network & Partnerships',
+            description: 'For those who are tech founders, freelancers, or business owners, here you can collaborate to find clients, partners, or co-founders.',
+            icon: Share2
+        }
+    ] : [
         {
             title: 'Info Lowongan Kerja Eksklusif',
             description: 'Dapatkan info project freelance, magang, remote work, serta lowongan pekerjaan internal partner Diggity sebelum dipublikasikan ke job portal luar.',
@@ -55,7 +78,23 @@ export default async function DigitalCommunityPage() {
         }
     ];
 
-    const testimonials = [
+    const testimonials = locale === 'en' ? [
+        {
+            name: 'Agus Raharjo',
+            role: 'Frontend Dev, Surabaya',
+            quote: 'Joining Diggity Discord got me my first freelance web project within 2 weeks of networking in the project-match channel!'
+        },
+        {
+            name: 'Dewi Fitriani',
+            role: 'UI/UX Designer, Jakarta',
+            quote: 'The monthly webinar materials and portfolio sharing sessions are very substantial, critiqued directly by industry practitioners. Very helpful for me to switch careers!'
+        },
+        {
+            name: 'Budi Santoso',
+            role: 'Tech Founder, Yogyakarta',
+            quote: 'I found a CTO co-founder for my logistics startup through discussions in this community\'s B2B Networking channel. Very active community!'
+        }
+    ] : [
         {
             name: 'Agus Raharjo',
             role: 'Frontend Dev, Surabaya',
@@ -88,7 +127,7 @@ export default async function DigitalCommunityPage() {
                         className="inline-flex items-center gap-2 text-xs font-bold text-text-gray hover:text-brand-blue transition-colors group"
                     >
                         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                        Kembali ke Wawasan & Edukasi
+                        {locale === 'en' ? 'Back to Insights & Education' : 'Kembali ke Wawasan & Edukasi'}
                     </Link>
                 </div>
 
@@ -96,10 +135,10 @@ export default async function DigitalCommunityPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
                         <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-text-main leading-tight">
-                            Belajar, Berjejaring, &amp; <span className="text-brand-blue">Tumbuh Bersama</span>
+                            {locale === 'en' ? <>Learn, Network, &amp; <span className="text-brand-blue">Grow Together</span></> : <>Belajar, Berjejaring, &amp; <span className="text-brand-blue">Tumbuh Bersama</span></>}
                         </h1>
                         <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed">
-                            Wadah kolaborasi inklusif bagi talenta digital, mahasiswa, pengembang profesional, hingga founder bisnis teknologi di Indonesia untuk saling berbagi ilmu dan peluang kerja.
+                            {locale === 'en' ? 'An inclusive collaboration platform for digital talents, students, professional developers, and tech business founders in Indonesia to share knowledge and job opportunities.' : 'Wadah kolaborasi inklusif bagi talenta digital, mahasiswa, pengembang profesional, hingga founder bisnis teknologi di Indonesia untuk saling berbagi ilmu dan peluang kerja.'}
                         </p>
                         
                         {/* Direct CTAs */}
@@ -111,7 +150,7 @@ export default async function DigitalCommunityPage() {
                                 className="flex items-center justify-center gap-2 p-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-2xl text-xs font-black shadow-lg shadow-[#5865F2]/10 transition-all cursor-pointer"
                             >
                                 <MessageSquare className="w-4.5 h-4.5" />
-                                Gabung Discord Komunitas
+                                {locale === 'en' ? 'Join Community Discord' : 'Gabung Discord Komunitas'}
                             </a>
                             <a 
                                 href={telegramUrl}
@@ -120,7 +159,7 @@ export default async function DigitalCommunityPage() {
                                 className="flex items-center justify-center gap-2 p-4 bg-glass-bg border border-glass-border hover:bg-glass-bg-hover text-text-main rounded-2xl text-xs font-black transition-all cursor-pointer"
                             >
                                 <Users className="w-4.5 h-4.5 text-brand-blue" />
-                                Saluran Telegram
+                                {locale === 'en' ? 'Telegram Channel' : 'Saluran Telegram'}
                             </a>
                         </div>
                     </div>
@@ -129,24 +168,24 @@ export default async function DigitalCommunityPage() {
                     <div className="relative">
                         <div className="absolute inset-0 bg-brand-blue/5 rounded-3xl blur-2xl -z-10" />
                         <SpotlightCard className="p-8 md:p-10 border border-glass-border bg-gradient-to-b from-glass-bg/60 to-glass-bg/30 rounded-3xl space-y-6">
-                            <h3 className="text-lg font-extrabold text-text-main">Mulai Terhubung Hari Ini</h3>
+                            <h3 className="text-lg font-extrabold text-text-main">{locale === 'en' ? 'Start Connecting Today' : 'Mulai Terhubung Hari Ini'}</h3>
                             <p className="text-xs text-text-gray leading-relaxed font-medium">
-                                Ribuan pesan terkirim harian, ratusan pertanyaan teknis terpecahkan, serta puluhan lowongan freelance dibagikan setiap bulannya oleh sesama anggota.
+                                {locale === 'en' ? 'Thousands of messages sent daily, hundreds of technical questions solved, and dozens of freelance vacancies shared every month by fellow members.' : 'Ribuan pesan terkirim harian, ratusan pertanyaan teknis terpecahkan, serta puluhan lowongan freelance dibagikan setiap bulannya oleh sesama anggota.'}
                             </p>
                             
                             {/* Visual Stats */}
                             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-glass-border/60">
                                 <div className="space-y-1">
                                     <span className="text-2xl md:text-3xl font-black text-brand-blue block">1,500+</span>
-                                    <span className="text-[9px] uppercase font-bold text-text-muted tracking-wider block">Anggota Aktif</span>
+                                    <span className="text-[9px] uppercase font-bold text-text-muted tracking-wider block">{locale === 'en' ? 'Active Members' : 'Anggota Aktif'}</span>
                                 </div>
                                 <div className="space-y-1">
                                     <span className="text-2xl md:text-3xl font-black text-brand-blue block">12+</span>
-                                    <span className="text-[9px] uppercase font-bold text-text-muted tracking-wider block">Webinar Tahunan</span>
+                                    <span className="text-[9px] uppercase font-bold text-text-muted tracking-wider block">{locale === 'en' ? 'Annual Webinars' : 'Webinar Tahunan'}</span>
                                 </div>
                                 <div className="space-y-1">
                                     <span className="text-2xl md:text-3xl font-black text-brand-blue block">50+</span>
-                                    <span className="text-[9px] uppercase font-bold text-text-muted tracking-wider block">Solusi Bug / Bulan</span>
+                                    <span className="text-[9px] uppercase font-bold text-text-muted tracking-wider block">{locale === 'en' ? 'Bug Solutions / Month' : 'Solusi Bug / Bulan'}</span>
                                 </div>
                             </div>
                         </SpotlightCard>
@@ -157,10 +196,10 @@ export default async function DigitalCommunityPage() {
                 <div className="space-y-10">
                     <div className="max-w-3xl space-y-2">
                         <h2 className="text-2xl md:text-3xl font-black text-text-main">
-                            Apa Saja Keuntungan Bergabung?
+                            {locale === 'en' ? 'What Are the Benefits of Joining?' : 'Apa Saja Keuntungan Bergabung?'}
                         </h2>
                         <p className="text-sm text-text-gray font-medium">
-                            Sebuah wadah belajar dengan dukungan langsung dari sesama pengembang.
+                            {locale === 'en' ? 'A learning platform with direct support from fellow developers.' : 'Sebuah wadah belajar dengan dukungan langsung dari sesama pengembang.'}
                         </p>
                     </div>
 
@@ -188,10 +227,10 @@ export default async function DigitalCommunityPage() {
                 <div className="space-y-10">
                     <div className="max-w-3xl space-y-2">
                         <h2 className="text-2xl md:text-3xl font-black text-text-main">
-                            Kata Mereka yang Sudah Bergabung
+                            {locale === 'en' ? 'What They Say About Us' : 'Kata Mereka yang Sudah Bergabung'}
                         </h2>
                         <p className="text-sm text-text-gray font-medium">
-                            Kisah sukses, kolaborasi nyata, dan wawasan baru yang didapatkan oleh para anggota komunitas.
+                            {locale === 'en' ? 'Success stories, real collaborations, and new insights gained by community members.' : 'Kisah sukses, kolaborasi nyata, dan wawasan baru yang didapatkan oleh para anggota komunitas.'}
                         </p>
                     </div>
 

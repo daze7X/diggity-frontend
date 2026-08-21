@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { api, Course } from '../../lib/api';
 import { BookOpen, Clock, Award, Check, Sparkles } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
+import { getLocaleServer } from '../../lib/locale-server';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
@@ -12,6 +13,7 @@ interface PageProps {
 }
 
 export default async function AcademyPage({ searchParams }: PageProps) {
+    const locale = await getLocaleServer();
     let courses: Course[] = [];
     const resolvedParams = await searchParams;
     const category = typeof resolvedParams.category === 'string' ? resolvedParams.category : undefined;
@@ -47,15 +49,15 @@ export default async function AcademyPage({ searchParams }: PageProps) {
                         Diggity <span className="text-brand-blue">Academy</span>
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
-                        Mengembangkan kompetensi individu dan organisasi melalui pendidikan, pelatihan, sertifikasi, dan learning ecosystem.
+                        {locale === 'en' ? 'Developing individual and organizational competencies through education, training, certification, and learning ecosystems.' : 'Mengembangkan kompetensi individu dan organisasi melalui pendidikan, pelatihan, sertifikasi, dan learning ecosystem.'}
                     </p>
                 </div>
 
                 {/* Course Grid */}
                 <div className="space-y-6">
                     <div className="text-left">
-                        <h2 className="text-xl font-extrabold text-text-main tracking-tight">Katalog Kelas Populer</h2>
-                        <p className="text-sm text-text-muted">Akses kurikulum komprehensif, video panduan, dan sertifikat resmi kompetensi.</p>
+                        <h2 className="text-xl font-extrabold text-text-main tracking-tight">{locale === 'en' ? 'Popular Course Catalog' : 'Katalog Kelas Populer'}</h2>
+                        <p className="text-sm text-text-muted">{locale === 'en' ? 'Access comprehensive curricula, video guides, and official competency certificates.' : 'Akses kurikulum komprehensif, video panduan, dan sertifikat resmi kompetensi.'}</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
@@ -78,7 +80,7 @@ export default async function AcademyPage({ searchParams }: PageProps) {
                                             ) : (
                                                 <div className="text-text-muted/40 font-bold flex flex-col items-center gap-2">
                                                     <BookOpen className="w-8 h-8 text-brand-blue/40" />
-                                                    <span className="text-[10px] uppercase tracking-wider">Modul Academy</span>
+                                                    <span className="text-[10px] uppercase tracking-wider">{locale === 'en' ? 'Academy Module' : 'Modul Academy'}</span>
                                                 </div>
                                             )}
                                             {course.category && (
@@ -101,19 +103,19 @@ export default async function AcademyPage({ searchParams }: PageProps) {
                                         <div className="pt-2 border-t border-glass-border/40 text-[11px] text-text-gray space-y-1">
                                             {course.instructor_name && (
                                                 <div>
-                                                    <span className="text-text-muted">Instruktur:</span> <strong className="text-text-main">{course.instructor_name}</strong> {course.instructor_title && `(${course.instructor_title})`}
+                                                    <span className="text-text-muted">{locale === 'en' ? 'Instructor:' : 'Instruktur:'}</span> <strong className="text-text-main">{course.instructor_name}</strong> {course.instructor_title && `(${course.instructor_title})`}
                                                 </div>
                                             )}
                                             <div className="flex items-center space-x-1.5 text-brand-blue font-bold">
                                                 <Award className="w-3.5 h-3.5" />
-                                                <span>Sertifikat Resmi Kompetensi</span>
+                                                <span>{locale === 'en' ? 'Official Competency Certificate' : 'Sertifikat Resmi Kompetensi'}</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="pt-6 text-left space-y-4">
                                         <div className="flex justify-between items-center">
-                                            <span className="text-[10px] font-bold text-text-muted uppercase">Investasi Kelas</span>
+                                            <span className="text-[10px] font-bold text-text-muted uppercase">{locale === 'en' ? 'Class Investment' : 'Investasi Kelas'}</span>
                                             <span className="text-base font-black text-brand-blue">{formatPrice(course.price)}</span>
                                         </div>
 
@@ -121,7 +123,7 @@ export default async function AcademyPage({ searchParams }: PageProps) {
                                             href={`/academy/${course.slug}`}
                                             className="block w-full py-3 text-center text-xs font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-md shadow-brand-blue/15"
                                         >
-                                            Lihat Silabus Kelas
+                                            {locale === 'en' ? 'View Class Syllabus' : 'Lihat Silabus Kelas'}
                                         </Link>
                                     </div>
                                 </SpotlightCard>
@@ -129,7 +131,7 @@ export default async function AcademyPage({ searchParams }: PageProps) {
                         ) : (
                             <div className="col-span-full text-center text-text-muted py-20 bg-glass-bg border border-glass-border rounded-2xl">
                                 <BookOpen className="w-12 h-12 mx-auto text-brand-blue/30 mb-3" />
-                                <p className="text-sm">Saat ini belum ada kelas pelatihan aktif. Silakan kembali beberapa saat lagi!</p>
+                                <p className="text-sm">{locale === 'en' ? 'Currently there are no active training classes. Please come back later!' : 'Saat ini belum ada kelas pelatihan aktif. Silakan kembali beberapa saat lagi!'}</p>
                             </div>
                         )}
                     </div>

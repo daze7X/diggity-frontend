@@ -1,10 +1,12 @@
 import React, { Suspense } from 'react';
 import { api, Category, Blog } from '../../lib/api';
 import BlogList from '../../components/BlogList';
+import { getLocaleServer } from '../../lib/locale-server';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
 export default async function BlogPage() {
+    const locale = await getLocaleServer();
     let blogs: Blog[] = [];
     let categories: Category[] = [];
 
@@ -35,15 +37,15 @@ export default async function BlogPage() {
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-tight">
-                        Wawasan & Edukasi
+                        {locale === 'en' ? 'Insights & Education' : 'Wawasan & Edukasi'}
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
-                        Artikel edukasi, tren teknologi terbaru, dan panduan praktis digital marketing.
+                        {locale === 'en' ? 'Educational articles, latest tech trends, and practical digital marketing guides.' : 'Artikel edukasi, tren teknologi terbaru, dan panduan praktis digital marketing.'}
                     </p>
                 </div>
 
                 {/* Blog Filter & Grid List */}
-                <Suspense fallback={<div className="text-center py-12 text-sm text-text-gray font-semibold">Memuat artikel...</div>}>
+                <Suspense fallback={<div className="text-center py-12 text-sm text-text-gray font-semibold">{locale === 'en' ? 'Loading articles...' : 'Memuat artikel...'}</div>}>
                     <BlogList blogs={blogs} categories={categories} />
                 </Suspense>
 

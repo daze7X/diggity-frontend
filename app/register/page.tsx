@@ -4,11 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { User, Mail, KeyRound, ArrowRight, Loader2, Sparkles, UserPlus } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 
 export default function RegisterPage() {
     const { user, register, loading } = useAuth();
+    const { language: locale } = useLanguage();
     const router = useRouter();
 
     const [name, setName] = useState('');
@@ -31,7 +33,7 @@ export default function RegisterPage() {
 
         if (password !== passwordConfirmation) {
             setStatus('error');
-            setErrorMessage('Konfirmasi password tidak cocok.');
+            setErrorMessage(locale === 'en' ? 'Password confirmation does not match.' : 'Konfirmasi password tidak cocok.');
             return;
         }
 
@@ -40,8 +42,9 @@ export default function RegisterPage() {
             setStatus('success');
             router.push('/dashboard');
         } catch (err: any) {
+            console.error('Registration error:', err);
             setStatus('error');
-            setErrorMessage(err.message || 'Pendaftaran gagal. Pastikan email belum terdaftar.');
+            setErrorMessage(err.message || (locale === 'en' ? 'Failed to create account. Please try again.' : 'Gagal membuat akun. Silakan coba kembali.'));
         }
     };
 
@@ -67,100 +70,108 @@ export default function RegisterPage() {
                             <UserPlus className="w-7 h-7" />
                         </div>
                         <h1 className="text-2xl md:text-3xl font-black text-text-main tracking-tight">
-                            Create Account
+                            {locale === 'en' ? 'Create Account' : 'Buat Akun Baru'}
                         </h1>
                         <p className="text-xs text-text-gray font-medium leading-relaxed">
-                            Daftarkan akun pelanggan baru untuk memulai pemesanan produk digital dan akses LMS Academy.
+                            {locale === 'en' ? 'Start your digital transformation journey today with Diggity.' : 'Mulai perjalanan transformasi digital Anda hari ini bersama Diggity.'}
                         </p>
                     </div>
+                    {status === 'error' && (
+                        <div className="mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 text-sm font-medium text-center flex items-center justify-center gap-2">
+                            <UserPlus className="w-4 h-4" />
+                            {errorMessage}
+                        </div>
+                    )}
 
-                    <form onSubmit={handleSubmit} className="space-y-4 text-xs md:text-sm">
-                        
-                        {/* Name Input */}
-                        <div className="space-y-1.5 text-left">
-                            <label className="font-bold text-text-gray block text-xs">Nama Lengkap</label>
+                    <form className="space-y-5" onSubmit={handleSubmit}>
+                        <div className="space-y-1.5">
+                            <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                {locale === 'en' ? 'Full Name' : 'Nama Lengkap'}
+                            </label>
                             <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <User className="h-5 w-5 text-slate-400" />
+                                </div>
                                 <input
                                     type="text"
                                     required
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    placeholder="Masukkan nama lengkap Anda"
-                                    className="w-full pl-11 pr-4 py-3 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-text-main placeholder-text-muted transition-colors"
+                                    className="block w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm text-slate-950 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue transition-all"
+                                    placeholder={locale === 'en' ? 'e.g. John Doe' : 'M. Fulan'}
                                 />
-                                <User className="w-4.5 h-4.5 text-text-muted absolute left-4 top-3.5" />
                             </div>
                         </div>
 
-                        {/* Email Input */}
-                        <div className="space-y-1.5 text-left">
-                            <label className="font-bold text-text-gray block text-xs">Email Address</label>
+                        <div className="space-y-1.5">
+                            <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                {locale === 'en' ? 'Email Address' : 'Alamat Email'}
+                            </label>
                             <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <Mail className="h-5 w-5 text-slate-400" />
+                                </div>
                                 <input
                                     type="email"
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    className="block w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm text-slate-950 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue transition-all"
                                     placeholder="nama@email.com"
-                                    className="w-full pl-11 pr-4 py-3 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-text-main placeholder-text-muted transition-colors"
                                 />
-                                <Mail className="w-4.5 h-4.5 text-text-muted absolute left-4 top-3.5" />
                             </div>
                         </div>
 
-                        {/* Password Input */}
-                        <div className="space-y-1.5 text-left">
-                            <label className="font-bold text-text-gray block text-xs">Password</label>
+                        <div className="space-y-1.5">
+                            <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                {locale === 'en' ? 'Password' : 'Kata Sandi'}
+                            </label>
                             <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <KeyRound className="h-5 w-5 text-slate-400" />
+                                </div>
                                 <input
                                     type="password"
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Min. 8 karakter"
-                                    className="w-full pl-11 pr-4 py-3 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-text-main placeholder-text-muted transition-colors"
+                                    className="block w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm text-slate-950 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue transition-all"
+                                    placeholder="••••••••"
                                 />
-                                <KeyRound className="w-4.5 h-4.5 text-text-muted absolute left-4 top-3.5" />
                             </div>
                         </div>
 
-                        {/* Password Confirmation Input */}
-                        <div className="space-y-1.5 text-left">
-                            <label className="font-bold text-text-gray block text-xs">Konfirmasi Password</label>
+                        <div className="space-y-1.5">
+                            <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                {locale === 'en' ? 'Password Confirmation' : 'Konfirmasi Kata Sandi'}
+                            </label>
                             <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <KeyRound className="h-5 w-5 text-slate-400" />
+                                </div>
                                 <input
                                     type="password"
                                     required
                                     value={passwordConfirmation}
                                     onChange={(e) => setPasswordConfirmation(e.target.value)}
-                                    placeholder="Ulangi password Anda"
-                                    className="w-full pl-11 pr-4 py-3 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-text-main placeholder-text-muted transition-colors"
+                                    className="block w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm text-slate-950 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue transition-all"
+                                    placeholder="••••••••"
                                 />
-                                <KeyRound className="w-4.5 h-4.5 text-text-muted absolute left-4 top-3.5" />
                             </div>
                         </div>
-
-                        {status === 'error' && (
-                            <p className="text-xs text-rose-500 font-bold text-left pt-1">
-                                {errorMessage}
-                            </p>
-                        )}
 
                         <div className="pt-2">
                             <button
                                 type="submit"
                                 disabled={status === 'loading'}
-                                className="w-full py-3.5 bg-brand-blue text-white hover:bg-brand-blue-dark disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-bold transition-all shadow-md shadow-brand-blue/15 flex items-center justify-center gap-1.5 cursor-pointer"
+                                className="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-lg shadow-brand-blue/20 text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue transition-all disabled:opacity-50 disabled:cursor-not-allowed group cursor-pointer"
                             >
                                 {status === 'loading' ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 animate-spin" />
-                                        <span>Mendaftarkan...</span>
-                                    </>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
                                 ) : (
                                     <>
-                                        <span>Daftar Akun Baru</span>
-                                        <ArrowRight className="w-4 h-4" />
+                                        {locale === 'en' ? 'Create Account' : 'Daftar Sekarang'}
+                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </>
                                 )}
                             </button>
@@ -168,13 +179,12 @@ export default function RegisterPage() {
                     </form>
 
                     {/* Footer link */}
-                    <div className="text-center text-xs text-text-gray font-medium pt-2 border-t border-glass-border/40">
-                        Sudah punya akun?{' '}
-                        <Link href="/login" className="text-brand-blue font-bold hover:underline inline-flex items-center gap-0.5">
-                            Masuk Disini
+                    <div className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400 font-medium">
+                        {locale === 'en' ? 'Already have an account?' : 'Sudah punya akun?'} {' '}
+                        <Link href="/login" className="font-bold text-brand-blue hover:text-brand-blue-dark transition-colors">
+                            {locale === 'en' ? 'Sign in' : 'Masuk di sini'}
                         </Link>
                     </div>
-
                 </SpotlightCard>
             </div>
         </div>

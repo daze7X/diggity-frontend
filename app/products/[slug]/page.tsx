@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { api, Product } from '../../../lib/api';
+import { getLocaleServer } from '../../../lib/locale-server';
 import SpotlightCard from '../../../components/SpotlightCard';
 import ProductPurchaseCTA from '../../../components/ProductPurchaseCTA';
 import { 
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductDetail({ params }: Props) {
+    const locale = await getLocaleServer();
     const { slug } = await params;
     let product: Product | null = null;
     let relatedProducts: Product[] = [];
@@ -55,9 +57,9 @@ export default async function ProductDetail({ params }: Props) {
     if (!product) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
-                <h1 className="text-2xl font-bold text-text-main">Produk Tidak Ditemukan</h1>
+                <h1 className="text-2xl font-bold text-text-main">{locale === 'en' ? 'Product Not Found' : 'Produk Tidak Ditemukan'}</h1>
                 <Link href="/products" className="text-brand-blue hover:underline">
-                    Kembali ke Katalog Produk
+                    {locale === 'en' ? 'Back to Product Catalog' : 'Kembali ke Katalog Produk'}
                 </Link>
             </div>
         );
@@ -71,11 +73,11 @@ export default async function ProductDetail({ params }: Props) {
         }).format(price);
 
         if (period === 'one_time') {
-            return `${formatted} (Sekali Bayar)`;
+            return locale === 'en' ? `${formatted} (One-time)` : `${formatted} (Sekali Bayar)`;
         } else if (period === 'monthly') {
-            return `${formatted} / bulan`;
+            return locale === 'en' ? `${formatted} / month` : `${formatted} / bulan`;
         } else if (period === 'yearly') {
-            return `${formatted} / tahun`;
+            return locale === 'en' ? `${formatted} / year` : `${formatted} / tahun`;
         }
         return `${formatted} / ${period}`;
     };
@@ -94,7 +96,7 @@ export default async function ProductDetail({ params }: Props) {
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                    Kembali ke Produk
+                    {locale === 'en' ? 'Back to Products' : 'Kembali ke Produk'}
                 </Link>
 
                 {/* Main Product Frame */}
@@ -115,15 +117,15 @@ export default async function ProductDetail({ params }: Props) {
                                     </h1>
                                     <div className="flex flex-wrap gap-4 text-xs text-text-muted font-medium pt-1">
                                         {product.sku && <span className="flex items-center gap-1.5"><Tag className="w-3.5 h-3.5 text-brand-blue" /> SKU: {product.sku}</span>}
-                                        <span className="flex items-center gap-1.5"><Layers className="w-3.5 h-3.5 text-brand-blue" /> Versi: {product.version}</span>
-                                        <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-brand-blue" /> Update Terbaru: Aktif</span>
+                                        <span className="flex items-center gap-1.5"><Layers className="w-3.5 h-3.5 text-brand-blue" /> {locale === 'en' ? 'Version:' : 'Versi:'} {product.version}</span>
+                                        <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-brand-blue" /> {locale === 'en' ? 'Latest Update: Active' : 'Update Terbaru: Aktif'}</span>
                                     </div>
                                 </div>
 
                                 <div className="border-t border-glass-border/40 my-6" />
 
                                 <div className="space-y-4">
-                                    <h2 className="text-lg font-bold text-text-main">Deskripsi Produk</h2>
+                                    <h2 className="text-lg font-bold text-text-main">{locale === 'en' ? 'Product Description' : 'Deskripsi Produk'}</h2>
                                     <p className="text-text-gray text-base leading-relaxed font-medium">
                                         {product.description}
                                     </p>
@@ -134,7 +136,7 @@ export default async function ProductDetail({ params }: Props) {
                         {/* Features Checkbox Grid */}
                         <SpotlightCard className="p-8 text-left border border-glass-border">
                             <div className="space-y-6">
-                                <h3 className="text-lg font-bold text-text-main">Fitur Unggulan</h3>
+                                <h3 className="text-lg font-bold text-text-main">{locale === 'en' ? 'Key Features' : 'Fitur Unggulan'}</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {product.features?.map((feature, i) => (
                                         <div key={i} className="flex items-start space-x-3 text-text-gray font-medium">
@@ -179,7 +181,7 @@ export default async function ProductDetail({ params }: Props) {
                         <SpotlightCard className="p-8 text-left border border-glass-border bg-gradient-to-b from-glass-bg/60 to-glass-bg/30">
                             <div className="space-y-6">
                                 <div>
-                                    <span className="text-xs font-bold text-text-muted uppercase tracking-wider block mb-1">Investasi</span>
+                                    <span className="text-xs font-bold text-text-muted uppercase tracking-wider block mb-1">{locale === 'en' ? 'Investment' : 'Investasi'}</span>
                                     <div className="text-3xl font-black text-brand-blue">
                                         {formatPrice(product.price, product.billing_period)}
                                     </div>
@@ -189,8 +191,8 @@ export default async function ProductDetail({ params }: Props) {
                                     <div className="flex items-start space-x-3 text-xs text-text-gray font-medium">
                                         <Shield className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
                                         <div>
-                                            <span className="font-bold text-text-main block">Dukungan Garansi</span>
-                                            Dukungan teknis dan garansi perbaikan bug gratis.
+                                            <span className="font-bold text-text-main block">{locale === 'en' ? 'Warranty Support' : 'Dukungan Garansi'}</span>
+                                            {locale === 'en' ? 'Technical support and free bug fix warranty.' : 'Dukungan teknis dan garansi perbaikan bug gratis.'}
                                         </div>
                                     </div>
 
@@ -198,7 +200,7 @@ export default async function ProductDetail({ params }: Props) {
                                         <div className="flex items-start space-x-3 text-xs text-text-gray font-medium">
                                             <Info className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
                                             <div>
-                                                <span className="font-bold text-text-main block">Lisensi Produk</span>
+                                                <span className="font-bold text-text-main block">{locale === 'en' ? 'Product License' : 'Lisensi Produk'}</span>
                                                 {product.license_info}
                                             </div>
                                         </div>
@@ -223,14 +225,14 @@ export default async function ProductDetail({ params }: Props) {
                         {/* Related Products list */}
                         {relatedProducts.length > 0 && (
                             <div className="space-y-4 text-left">
-                                <h4 className="text-sm font-bold text-text-main tracking-wider uppercase">Produk Lainnya</h4>
+                                <h4 className="text-sm font-bold text-text-main tracking-wider uppercase">{locale === 'en' ? 'Other Products' : 'Produk Lainnya'}</h4>
                                 <div className="space-y-3">
                                     {relatedProducts.map((p) => (
                                         <Link key={p.id} href={`/products/${p.slug}`} className="block group">
                                             <SpotlightCard className="p-4 border border-glass-border hover:border-brand-blue/30 transition-all flex justify-between items-center">
                                                 <div>
                                                     <span className="text-xs font-bold text-text-main group-hover:text-brand-blue transition-colors block">{p.name}</span>
-                                                    <span className="text-[10px] text-text-muted">{p.category?.name || 'Produk'}</span>
+                                                    <span className="text-[10px] text-text-muted">{p.category?.name || (locale === 'en' ? 'Product' : 'Produk')}</span>
                                                 </div>
                                                 <ArrowUpRight className="w-4 h-4 text-text-muted group-hover:text-brand-blue transition-colors" />
                                             </SpotlightCard>

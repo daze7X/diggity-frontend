@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { api, Course } from '../../../lib/api';
 import SpotlightCard from '../../../components/SpotlightCard';
 import EnrollmentCTA from '../../../components/EnrollmentCTA';
+import { getLocaleServer } from '../../../lib/locale-server';
 import { 
     ArrowLeft, 
     BookOpen, 
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CourseDetail({ params }: Props) {
+    const locale = await getLocaleServer();
     const { slug } = await params;
     let course: Course | null = null;
 
@@ -52,9 +54,9 @@ export default async function CourseDetail({ params }: Props) {
     if (!course) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
-                <h1 className="text-2xl font-bold text-text-main">Kelas Tidak Ditemukan</h1>
+                <h1 className="text-2xl font-bold text-text-main">{locale === 'en' ? 'Class Not Found' : 'Kelas Tidak Ditemukan'}</h1>
                 <Link href="/academy" className="text-brand-blue hover:underline">
-                    Kembali ke Kelas Academy
+                    {locale === 'en' ? 'Back to Academy Classes' : 'Kembali ke Kelas Academy'}
                 </Link>
             </div>
         );
@@ -97,7 +99,7 @@ export default async function CourseDetail({ params }: Props) {
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                    Kembali ke Academy
+                    {locale === 'en' ? 'Back to Academy' : 'Kembali ke Academy'}
                 </Link>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -117,16 +119,16 @@ export default async function CourseDetail({ params }: Props) {
                                         {course.title}
                                     </h1>
                                     <div className="flex flex-wrap gap-4 text-xs text-text-muted font-medium pt-1">
-                                        <span className="flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5 text-brand-blue" /> {course.modules?.length || 0} Modul</span>
-                                        <span className="flex items-center gap-1.5"><PlayCircle className="w-3.5 h-3.5 text-brand-blue" /> {totalLessons} Sesi Kelas</span>
-                                        <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-brand-blue" /> {totalMinutes} Menit Pembelajaran</span>
+                                        <span className="flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5 text-brand-blue" /> {course.modules?.length || 0} {locale === 'en' ? 'Modules' : 'Modul'}</span>
+                                        <span className="flex items-center gap-1.5"><PlayCircle className="w-3.5 h-3.5 text-brand-blue" /> {totalLessons} {locale === 'en' ? 'Class Sessions' : 'Sesi Kelas'}</span>
+                                        <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-brand-blue" /> {totalMinutes} {locale === 'en' ? 'Learning Minutes' : 'Menit Pembelajaran'}</span>
                                     </div>
                                 </div>
 
                                 <div className="border-t border-glass-border/40 my-6" />
 
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-bold text-text-main">Ringkasan Kelas</h3>
+                                    <h3 className="text-lg font-bold text-text-main">{locale === 'en' ? 'Class Summary' : 'Ringkasan Kelas'}</h3>
                                     <p className="text-text-gray text-sm md:text-base leading-relaxed font-medium">
                                         {course.description}
                                     </p>
@@ -136,19 +138,19 @@ export default async function CourseDetail({ params }: Props) {
 
                         {/* Modules & Lessons Accordion List */}
                         <div className="space-y-4">
-                            <h3 className="text-xl font-extrabold text-text-main tracking-tight">Silabus & Kurikulum Kelas</h3>
+                            <h3 className="text-xl font-extrabold text-text-main tracking-tight">{locale === 'en' ? 'Syllabus & Class Curriculum' : 'Silabus & Kurikulum Kelas'}</h3>
                             {course.modules && course.modules.length > 0 ? (
                                 course.modules.map((mod, idx) => (
                                     <SpotlightCard key={mod.id} className="p-6 border border-glass-border bg-glass-bg/40 text-left">
                                         <div className="space-y-4">
                                             <div className="flex justify-between items-start">
                                                 <div>
-                                                    <span className="text-[10px] font-bold text-brand-blue uppercase block mb-1">Modul {idx + 1}</span>
+                                                    <span className="text-[10px] font-bold text-brand-blue uppercase block mb-1">{locale === 'en' ? 'Module' : 'Modul'} {idx + 1}</span>
                                                     <h4 className="text-base font-bold text-text-main leading-snug">{mod.title}</h4>
                                                     {mod.description && <p className="text-xs text-text-muted pt-1">{mod.description}</p>}
                                                 </div>
                                                 <span className="text-[10px] bg-brand-blue/5 border border-brand-blue/15 text-brand-blue font-bold px-2 py-0.5 rounded-md shrink-0">
-                                                    {mod.lessons?.length || 0} Sesi
+                                                    {mod.lessons?.length || 0} {locale === 'en' ? 'Sessions' : 'Sesi'}
                                                 </span>
                                             </div>
 
@@ -176,7 +178,7 @@ export default async function CourseDetail({ params }: Props) {
                                 ))
                             ) : (
                                 <div className="text-center py-6 text-text-muted text-xs bg-glass-bg border border-glass-border rounded-xl">
-                                    Silabus untuk kelas ini sedang dalam penyusunan.
+                                    {locale === 'en' ? 'The syllabus for this class is being prepared.' : 'Silabus untuk kelas ini sedang dalam penyusunan.'}
                                 </div>
                             )}
                         </div>
@@ -189,7 +191,7 @@ export default async function CourseDetail({ params }: Props) {
                         {course.instructor_name && (
                             <SpotlightCard className="p-6 border border-glass-border text-left">
                                 <div className="space-y-3">
-                                    <span className="text-[10px] font-black text-text-muted uppercase tracking-wider block">Instruktur Utama</span>
+                                    <span className="text-[10px] font-black text-text-muted uppercase tracking-wider block">{locale === 'en' ? 'Main Instructor' : 'Instruktur Utama'}</span>
                                     <div className="flex items-center space-x-3">
                                         <div className="w-10 h-10 bg-brand-blue/10 border border-brand-blue/20 rounded-full flex items-center justify-center text-brand-blue font-bold text-sm">
                                             {course.instructor_name.charAt(0)}
@@ -207,7 +209,7 @@ export default async function CourseDetail({ params }: Props) {
                         <SpotlightCard className="p-8 text-left border border-glass-border bg-gradient-to-b from-glass-bg/60 to-glass-bg/30">
                             <div className="space-y-6">
                                 <div>
-                                    <span className="text-xs font-bold text-text-muted uppercase tracking-wider block mb-1">Investasi Kelas</span>
+                                    <span className="text-xs font-bold text-text-muted uppercase tracking-wider block mb-1">{locale === 'en' ? 'Class Investment' : 'Investasi Kelas'}</span>
                                     <div className="text-3xl font-black text-brand-blue">
                                         {formatPrice(course.price)}
                                     </div>
@@ -217,15 +219,15 @@ export default async function CourseDetail({ params }: Props) {
                                     <div className="flex items-start space-x-3 text-xs text-text-gray font-medium">
                                         <Award className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
                                         <div>
-                                            <span className="font-bold text-text-main block">Sertifikat Kelayakan</span>
-                                            Dapatkan sertifikat resmi kompetensi IT berstandar industri pasca-pelatihan.
+                                            <span className="font-bold text-text-main block">{locale === 'en' ? 'Eligibility Certificate' : 'Sertifikat Kelayakan'}</span>
+                                            {locale === 'en' ? 'Get an official industry-standard IT competency certificate post-training.' : 'Dapatkan sertifikat resmi kompetensi IT berstandar industri pasca-pelatihan.'}
                                         </div>
                                     </div>
                                     <div className="flex items-start space-x-3 text-xs text-text-gray font-medium">
                                         <CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
                                         <div>
-                                            <span className="font-bold text-text-main block">Akses Selamanya</span>
-                                            Akses materi pembelajaran dan pembaruan kurikulum tanpa batas waktu.
+                                            <span className="font-bold text-text-main block">{locale === 'en' ? 'Lifetime Access' : 'Akses Selamanya'}</span>
+                                            {locale === 'en' ? 'Access learning materials and curriculum updates indefinitely.' : 'Akses materi pembelajaran dan pembaruan kurikulum tanpa batas waktu.'}
                                         </div>
                                     </div>
                                 </div>

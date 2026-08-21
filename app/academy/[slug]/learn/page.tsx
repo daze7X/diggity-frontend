@@ -4,6 +4,7 @@ import React, { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../../context/AuthContext';
+import { useLanguage } from '../../../../context/LanguageContext';
 import { 
     PlayCircle, 
     FileText, 
@@ -47,6 +48,7 @@ interface Props {
 export default function LMSPlayer({ params }: Props) {
     const { slug } = use(params);
     const { user, loading: authLoading } = useAuth();
+    const { language: locale } = useLanguage();
     const router = useRouter();
 
     const [course, setCourse] = useState<Course | null>(null);
@@ -75,7 +77,7 @@ export default function LMSPlayer({ params }: Props) {
                 
                 if (!res.ok) {
                     if (res.status === 403) {
-                        alert('Anda belum terdaftar aktif di kelas ini.');
+                        alert(locale === 'en' ? 'You are not actively enrolled in this class.' : 'Anda belum terdaftar aktif di kelas ini.');
                         router.push(`/academy/${slug}`);
                     }
                     throw new Error('Failed to load class syllabus');
@@ -102,7 +104,7 @@ export default function LMSPlayer({ params }: Props) {
         };
 
         fetchLMSData();
-    }, [user, slug, API_URL, router]);
+    }, [user, slug, API_URL, router, locale]);
 
     const handleMarkComplete = async () => {
         if (!activeLesson || !course || submitting) return;
@@ -125,10 +127,10 @@ export default function LMSPlayer({ params }: Props) {
             const data = await res.json();
             if (data.success) {
                 setCompletedLessons(data.completed_lessons || []);
-                setSuccessMessage('Materi berhasil diselesaikan!');
+                setSuccessMessage(locale === 'en' ? 'Material successfully completed!' : 'Materi berhasil diselesaikan!');
                 
                 if (data.enrollment_status === 'completed') {
-                    alert('Selamat! Anda telah menyelesaikan seluruh materi di kelas ini.');
+                    alert(locale === 'en' ? 'Congratulations! You have completed all materials in this class.' : 'Selamat! Anda telah menyelesaikan seluruh materi di kelas ini.');
                 }
 
                 // Auto-advance to next lesson if available
@@ -179,7 +181,7 @@ export default function LMSPlayer({ params }: Props) {
             <div className="min-h-screen flex items-center justify-center">
                 <div className="flex flex-col items-center space-y-4">
                     <Loader2 className="w-10 h-10 animate-spin text-brand-blue" />
-                    <span className="text-xs text-text-muted font-bold font-mono">Menyiapkan Ruang Belajar...</span>
+                    <span className="text-xs text-text-muted font-bold font-mono">{locale === 'en' ? 'Preparing Learning Space...' : 'Menyiapkan Ruang Belajar...'}</span>
                 </div>
             </div>
         );
@@ -202,7 +204,7 @@ export default function LMSPlayer({ params }: Props) {
                             href="/dashboard/academy" 
                             className="inline-flex items-center gap-1.5 text-xs text-brand-blue font-bold hover:underline mb-1"
                         >
-                            <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke LMS Saya
+                            <ArrowLeft className="w-3.5 h-3.5" /> {locale === 'en' ? 'Back to My LMS' : 'Kembali ke LMS Saya'}
                         </Link>
                         <h1 className="text-xl md:text-2xl font-black text-text-main tracking-tight leading-tight">
                             {course.title}
@@ -212,8 +214,8 @@ export default function LMSPlayer({ params }: Props) {
                     {/* Progress Badge */}
                     <div className="shrink-0 flex items-center gap-3">
                         <div className="text-right space-y-0.5">
-                            <span className="text-[10px] text-text-muted font-bold block uppercase">Progres Belajar</span>
-                            <span className="text-sm font-black text-text-main">{progressPercent}% Selesai ({completedCount}/{totalLessonsCount})</span>
+                            <span className="text-[10px] text-text-muted font-bold block uppercase">{locale === 'en' ? 'Learning Progress' : 'Progres Belajar'}</span>
+                            <span className="text-sm font-black text-text-main">{progressPercent}% {locale === 'en' ? 'Completed' : 'Selesai'} ({completedCount}/{totalLessonsCount})</span>
                         </div>
                         <div className="w-12 h-12 rounded-full border-2 border-brand-blue/30 flex items-center justify-center text-xs font-black text-brand-blue bg-brand-blue/5">
                             {progressPercent}%
@@ -232,15 +234,15 @@ export default function LMSPlayer({ params }: Props) {
                                 <Award className="w-6 h-6" />
                             </div>
                             <div className="space-y-1">
-                                <h3 className="text-base md:text-lg font-black text-text-main">Selamat atas Kelulusan Anda! 🏆</h3>
-                                <p className="text-xs text-text-muted leading-relaxed">Anda telah menyelesaikan seluruh materi pelajaran kelas ini dengan progres sempurna. Sertifikat resmi Anda telah diterbitkan.</p>
+                                <h3 className="text-base md:text-lg font-black text-text-main">{locale === 'en' ? 'Congratulations on Your Graduation! 🏆' : 'Selamat atas Kelulusan Anda! 🏆'}</h3>
+                                <p className="text-xs text-text-muted leading-relaxed">{locale === 'en' ? 'You have completed all class materials with perfect progress. Your official certificate has been issued.' : 'Anda telah menyelesaikan seluruh materi pelajaran kelas ini dengan progres sempurna. Sertifikat resmi Anda telah diterbitkan.'}</p>
                             </div>
                         </div>
                         <Link
                             href={`/dashboard/academy/${course.slug}/certificate`}
                             className="shrink-0 w-full md:w-auto flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-amber-600 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-amber-500/20"
                         >
-                            <Award className="w-4 h-4" /> Lihat & Unduh Sertifikat
+                            <Award className="w-4 h-4" /> {locale === 'en' ? 'View & Download Certificate' : 'Lihat & Unduh Sertifikat'}
                         </Link>
                     </div>
                 )}
@@ -273,7 +275,7 @@ export default function LMSPlayer({ params }: Props) {
                             ) : (
                                 <div className="absolute inset-0 flex flex-col items-center justify-center space-y-2 text-text-muted">
                                     <FileText className="w-12 h-12 text-brand-blue/30" />
-                                    <span className="text-xs font-bold font-mono">Modul Pembelajaran Tertulis</span>
+                                    <span className="text-xs font-bold font-mono">{locale === 'en' ? 'Written Learning Module' : 'Modul Pembelajaran Tertulis'}</span>
                                 </div>
                             )}
                         </div>
@@ -283,12 +285,12 @@ export default function LMSPlayer({ params }: Props) {
                             <div className="space-y-6 text-left">
                                 <div className="flex justify-between items-start border-b border-glass-border/30 pb-4 gap-4">
                                     <h2 className="text-lg md:text-xl font-bold text-text-main leading-snug">
-                                        {activeLesson?.title || 'Memuat Pelajaran...'}
+                                        {activeLesson?.title || (locale === 'en' ? 'Loading Lesson...' : 'Memuat Pelajaran...')}
                                     </h2>
                                     
                                     {activeLesson && completedLessons.includes(activeLesson.id) && (
                                         <span className="px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-bold uppercase tracking-wider rounded-md flex items-center gap-1">
-                                            <CheckCircle2 className="w-3.5 h-3.5" /> Selesai
+                                            <CheckCircle2 className="w-3.5 h-3.5" /> {locale === 'en' ? 'Completed' : 'Selesai'}
                                         </span>
                                     )}
                                 </div>
@@ -316,16 +318,16 @@ export default function LMSPlayer({ params }: Props) {
                                                 {submitting ? (
                                                     <>
                                                         <Loader2 className="w-4 h-4 animate-spin" />
-                                                        <span>Menyimpan progres...</span>
+                                                        <span>{locale === 'en' ? 'Saving progress...' : 'Menyimpan progres...'}</span>
                                                     </>
                                                 ) : completedLessons.includes(activeLesson.id) ? (
                                                     <>
                                                         <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                                                        <span>Materi Telah Selesai</span>
+                                                        <span>{locale === 'en' ? 'Material Completed' : 'Materi Telah Selesai'}</span>
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <span>Tandai Selesai & Lanjut</span>
+                                                        <span>{locale === 'en' ? 'Mark as Completed & Continue' : 'Tandai Selesai & Lanjut'}</span>
                                                         <ChevronRight className="w-4 h-4" />
                                                     </>
                                                 )}
@@ -342,14 +344,14 @@ export default function LMSPlayer({ params }: Props) {
                     <div className="lg:col-span-1 space-y-4">
                         <SpotlightCard className="p-6 border border-glass-border text-left">
                             <h3 className="text-sm font-black text-text-main uppercase tracking-wider mb-4 border-b border-glass-border/30 pb-2">
-                                Materi Kelas
+                                {locale === 'en' ? 'Class Materials' : 'Materi Kelas'}
                             </h3>
 
                             <div className="space-y-5">
                                 {course.modules.map((mod, midx) => (
                                     <div key={mod.id} className="space-y-2">
                                         <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block">
-                                            Modul {midx + 1}: {mod.title}
+                                            {locale === 'en' ? 'Module' : 'Modul'} {midx + 1}: {mod.title}
                                         </span>
 
                                         <div className="flex flex-col space-y-1.5 pl-1.5 border-l border-glass-border/40">

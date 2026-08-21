@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import SpotlightCard from '../../../components/SpotlightCard';
 import PortfolioGallery from '../../../components/PortfolioGallery';
+import { getLocaleServer } from '../../../lib/locale-server';
 
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
@@ -25,6 +26,7 @@ interface Props {
 
 export default async function PortfolioDetail({ params }: Props) {
     const { slug } = await params;
+    const locale = await getLocaleServer();
     let portfolio = null;
 
     try {
@@ -36,9 +38,11 @@ export default async function PortfolioDetail({ params }: Props) {
     if (!portfolio) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
-                <h1 className="text-2xl font-bold text-text-main">Studi Kasus Tidak Ditemukan</h1>
+                <h1 className="text-2xl font-bold text-text-main">
+                    {locale === 'en' ? 'Case Study Not Found' : 'Studi Kasus Tidak Ditemukan'}
+                </h1>
                 <Link href="/portfolio" className="text-brand-blue hover:underline">
-                    Kembali ke Portfolio
+                    {locale === 'en' ? 'Back to Portfolio' : 'Kembali ke Portfolio'}
                 </Link>
             </div>
         );
@@ -54,7 +58,7 @@ export default async function PortfolioDetail({ params }: Props) {
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                    Kembali ke Portfolio
+                    {locale === 'en' ? 'Back to Portfolio' : 'Kembali ke Portfolio'}
                 </Link>
 
                 {/* Hero / Header */}
@@ -74,21 +78,21 @@ export default async function PortfolioDetail({ params }: Props) {
                     <div className="space-y-1">
                         <div className="flex items-center text-text-muted space-x-1.5 font-bold uppercase tracking-wider text-[10px]">
                             <User className="w-3.5 h-3.5 text-brand-blue" />
-                            <span>Klien</span>
+                            <span>{locale === 'en' ? 'Client' : 'Klien'}</span>
                         </div>
                         <div className="font-semibold text-text-main">{portfolio.client || 'N/A'}</div>
                     </div>
                     <div className="space-y-1">
                         <div className="flex items-center text-text-muted space-x-1.5 font-bold uppercase tracking-wider text-[10px]">
                             <Calendar className="w-3.5 h-3.5 text-brand-blue" />
-                            <span>Durasi</span>
+                            <span>{locale === 'en' ? 'Duration' : 'Durasi'}</span>
                         </div>
                         <div className="font-semibold text-text-main">{portfolio.duration || 'N/A'}</div>
                     </div>
                     <div className="space-y-1 col-span-2">
                         <div className="flex items-center text-text-muted space-x-1.5 font-bold uppercase tracking-wider text-[10px]">
                             <Cpu className="w-3.5 h-3.5 text-brand-blue" />
-                            <span>Teknologi</span>
+                            <span>{locale === 'en' ? 'Technology' : 'Teknologi'}</span>
                         </div>
                         <div className="flex flex-wrap gap-1.5 pt-1">
                             {portfolio.technologies?.map((tech: string) => (
@@ -114,7 +118,9 @@ export default async function PortfolioDetail({ params }: Props) {
                         <div className="space-y-4">
                             <div className="flex items-center space-x-3 text-rose-500">
                                 <AlertCircle className="w-6 h-6" />
-                                <h2 className="text-xl font-bold text-text-main">Tantangan & Masalah</h2>
+                                <h2 className="text-xl font-bold text-text-main">
+                                    {locale === 'en' ? 'Challenges & Problems' : 'Tantangan & Masalah'}
+                                </h2>
                             </div>
                             <p className="text-text-gray leading-relaxed pl-9">
                                 {portfolio.problem}
@@ -127,7 +133,9 @@ export default async function PortfolioDetail({ params }: Props) {
                         <div className="space-y-4">
                             <div className="flex items-center space-x-3 text-brand-blue">
                                 <Compass className="w-6 h-6" />
-                                <h2 className="text-xl font-bold text-text-main">Strategi Pendekatan</h2>
+                                <h2 className="text-xl font-bold text-text-main">
+                                    {locale === 'en' ? 'Approach Strategy' : 'Strategi Pendekatan'}
+                                </h2>
                             </div>
                             <p className="text-text-gray leading-relaxed pl-9">
                                 {portfolio.strategy}
@@ -140,7 +148,9 @@ export default async function PortfolioDetail({ params }: Props) {
                         <div className="space-y-4">
                             <div className="flex items-center space-x-3 text-blue-600">
                                 <Settings className="w-6 h-6" />
-                                <h2 className="text-xl font-bold text-text-main">Eksekusi & Implementasi</h2>
+                                <h2 className="text-xl font-bold text-text-main">
+                                    {locale === 'en' ? 'Execution & Implementation' : 'Eksekusi & Implementasi'}
+                                </h2>
                             </div>
                             <p className="text-text-gray leading-relaxed pl-9">
                                 {portfolio.execution}
@@ -154,7 +164,9 @@ export default async function PortfolioDetail({ params }: Props) {
                             <div className="space-y-4">
                                 <div className="flex items-center space-x-3 text-emerald-500">
                                     <CheckCircle2 className="w-6 h-6" />
-                                    <h2 className="text-xl font-bold text-text-main">Hasil Akhir & Dampak Bisnis</h2>
+                                    <h2 className="text-xl font-bold text-text-main">
+                                        {locale === 'en' ? 'Final Results & Business Impact' : 'Hasil Akhir & Dampak Bisnis'}
+                                    </h2>
                                 </div>
                                 <p className="text-text-main font-medium leading-relaxed pl-9">
                                     {portfolio.result}
@@ -168,7 +180,9 @@ export default async function PortfolioDetail({ params }: Props) {
                         <div className="space-y-6 pt-6">
                             <div className="flex items-center space-x-3 text-yellow-500">
                                 <Sparkles className="w-6 h-6" />
-                                <h2 className="text-xl font-bold text-text-main">Umpan Balik Klien</h2>
+                                <h2 className="text-xl font-bold text-text-main">
+                                    {locale === 'en' ? 'Client Feedback' : 'Umpan Balik Klien'}
+                                </h2>
                             </div>
                             
                             <SpotlightCard className="p-8 bg-glass-bg/20 border border-glass-border/40 rounded-2xl relative overflow-hidden">

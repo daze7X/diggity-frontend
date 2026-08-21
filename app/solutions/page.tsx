@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 import SpotlightCard from '../../components/SpotlightCard';
 
 export const metadata: Metadata = {
-  title: 'Solusi Bisnis & Layanan Enterprise - Diggity',
-  description: 'Temukan berbagai solusi teknologi dari Diggity, mulai dari Website Development, Custom ERP, Cloud Infrastructure, hingga Digital Skill Lab untuk perusahaan Anda.',
+  title: 'Business Solutions & Enterprise Services - Diggity',
+  description: 'Find various technology solutions from Diggity, ranging from Website Development, Custom ERP, Cloud Infrastructure, to Digital Skill Lab for your company.',
 };
 import { 
     Code, 
@@ -79,10 +79,10 @@ export default async function SolutionsPage() {
                     <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
                     
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text-main leading-tight pt-2">
-                        Our <span className="text-brand-blue">Solutions</span>
+                        {locale === 'en' ? 'Our ' : 'Our '}<span className="text-brand-blue">Solutions</span>
                     </h1>
                     <p className="text-text-gray max-w-2xl mx-auto font-medium text-sm md:text-base leading-relaxed">
-                        Membantu perusahaan membangun, mengembangkan, dan mentransformasi bisnis melalui teknologi, kreativitas, marketing, dan consulting.
+                        {locale === 'en' ? 'Helping companies build, develop, and transform business through technology, creativity, marketing, and consulting.' : 'Membantu perusahaan membangun, mengembangkan, dan mentransformasi bisnis melalui teknologi, kreativitas, marketing, dan consulting.'}
                     </p>
                 </div>
 
@@ -99,9 +99,9 @@ export default async function SolutionsPage() {
                                         <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">APP BUILDER SQUAD</span>
                                     </div>
                                     
-                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Rekayasa Perangkat Lunak</h3>
+                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">{locale === 'en' ? 'Software Engineering' : 'Rekayasa Perangkat Lunak'}</h3>
                                     <p className="text-base text-text-gray leading-relaxed font-medium">
-                                        Membangun produk digital berspesifikasi tinggi dengan arsitektur kode sumber bersih, cepat, terukur, dan aman (Web, Mobile & Enterprise ERP).
+                                        {locale === 'en' ? 'Build high-specification digital products with clean, fast, scalable, and secure source code architecture (Web, Mobile & Enterprise ERP).' : 'Membangun produk digital berspesifikasi tinggi dengan arsitektur kode sumber bersih, cepat, terukur, dan aman (Web, Mobile & Enterprise ERP).'}
                                     </p>
                                     
                                     <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
@@ -117,7 +117,7 @@ export default async function SolutionsPage() {
                                 </div>
 
                                 <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
-                                    Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
+                                    {locale === 'en' ? 'Learn More' : 'Pelajari Selengkapnya'} <ArrowRight className="ml-2 w-4 h-4" />
                                 </div>
                             </SpotlightCard>
                         </Link>
@@ -133,9 +133,9 @@ export default async function SolutionsPage() {
                                         <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">BRAND GROWTH DIVISION</span>
                                     </div>
                                     
-                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Optimasi & Pemasaran</h3>
+                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">{locale === 'en' ? 'Optimization & Marketing' : 'Optimasi & Pemasaran'}</h3>
                                     <p className="text-base text-text-gray leading-relaxed font-medium">
-                                        Mengakselerasi jangkauan brand secara terarah untuk mendominasi peringkat pencarian organik dan melipatgandakan konversi penjualan.
+                                        {locale === 'en' ? 'Accelerate brand reach strategically to dominate organic search rankings and multiply sales conversions.' : 'Mengakselerasi jangkauan brand secara terarah untuk mendominasi peringkat pencarian organik dan melipatgandakan konversi penjualan.'}
                                     </p>
                                     
                                     <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
@@ -151,7 +151,7 @@ export default async function SolutionsPage() {
                                 </div>
 
                                 <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
-                                    Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
+                                    {locale === 'en' ? 'Learn More' : 'Pelajari Selengkapnya'} <ArrowRight className="ml-2 w-4 h-4" />
                                 </div>
                             </SpotlightCard>
                         </Link>
@@ -167,9 +167,9 @@ export default async function SolutionsPage() {
                                         <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">CLOUD SERVICE HUB</span>
                                     </div>
                                     
-                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Infrastruktur & Cloud</h3>
+                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">{locale === 'en' ? 'Infrastructure & Cloud' : 'Infrastruktur & Cloud'}</h3>
                                     <p className="text-base text-text-gray leading-relaxed font-medium">
-                                        Penyediaan arsitektur cloud server tangguh, orkestrasi DevOps berkelanjutan, dan audit keamanan berlapis tingkat enterprise.
+                                        {locale === 'en' ? 'Provision of robust cloud server architecture, continuous DevOps orchestration, and enterprise-grade layered security audits.' : 'Penyediaan arsitektur cloud server tangguh, orkestrasi DevOps berkelanjutan, dan audit keamanan berlapis tingkat enterprise.'}
                                     </p>
                                     
                                     <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
@@ -185,7 +185,7 @@ export default async function SolutionsPage() {
                                 </div>
 
                                 <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
-                                    Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
+                                    {locale === 'en' ? 'Learn More' : 'Pelajari Selengkapnya'} <ArrowRight className="ml-2 w-4 h-4" />
                                 </div>
                             </SpotlightCard>
                         </Link>
@@ -201,9 +201,9 @@ export default async function SolutionsPage() {
                                         <span className="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider">DIGITAL SKILL LAB</span>
                                     </div>
                                     
-                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">Pelatihan & Edukasi Digital</h3>
+                                    <h3 className="text-3xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-tight">{locale === 'en' ? 'Digital Training & Education' : 'Pelatihan & Edukasi Digital'}</h3>
                                     <p className="text-base text-text-gray leading-relaxed font-medium">
-                                        Meningkatkan kompetensi teknis tim internal perusahaan Anda agar siap bersaing di tengah pesatnya perkembangan transformasi digital.
+                                        {locale === 'en' ? 'Improve the technical competence of your company\'s internal team to be ready to compete in the midst of rapid digital transformation.' : 'Meningkatkan kompetensi teknis tim internal perusahaan Anda agar siap bersaing di tengah pesatnya perkembangan transformasi digital.'}
                                     </p>
                                     
                                     <ul className="text-sm text-text-gray space-y-3 pt-2 font-medium">
@@ -219,7 +219,7 @@ export default async function SolutionsPage() {
                                 </div>
 
                                 <div className="pt-8 mt-auto flex items-center text-brand-blue font-bold text-sm group-hover:translate-x-2 transition-transform">
-                                    Pelajari Selengkapnya <ArrowRight className="ml-2 w-4 h-4" />
+                                    {locale === 'en' ? 'Learn More' : 'Pelajari Selengkapnya'} <ArrowRight className="ml-2 w-4 h-4" />
                                 </div>
                             </SpotlightCard>
                         </Link>
@@ -235,10 +235,10 @@ export default async function SolutionsPage() {
                         
                         <div className="max-w-xl mx-auto space-y-3">
                             <h3 className="text-2xl md:text-3xl font-black text-text-main tracking-tight">
-                                Siap Mewujudkan Rencana Digital Anda?
+                                {locale === 'en' ? 'Ready to Realize Your Digital Plan?' : 'Siap Mewujudkan Rencana Digital Anda?'}
                             </h3>
                             <p className="text-sm text-text-gray leading-relaxed font-medium">
-                                Hubungi konsultan Diggity hari ini untuk menganalisis kebutuhan teknis, arsitektur sistem, dan perancangan strategi optimasi bisnis Anda secara gratis.
+                                {locale === 'en' ? 'Contact a Diggity consultant today to analyze your technical needs, system architecture, and design a free business optimization strategy.' : 'Hubungi konsultan Diggity hari ini untuk menganalisis kebutuhan teknis, arsitektur sistem, dan perancangan strategi optimasi bisnis Anda secara gratis.'}
                             </p>
                         </div>
                         
@@ -247,7 +247,7 @@ export default async function SolutionsPage() {
                                 href="/contact"
                                 className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors shadow-lg shadow-brand-blue/15 group"
                             >
-                                Mulai Konsultasi Gratis
+                                {locale === 'en' ? 'Start Free Consultation' : 'Mulai Konsultasi Gratis'}
                                 <ArrowRight className="ml-2 w-4.5 h-4.5 group-hover:translate-x-1 transition-transform" />
                             </Link>
                         </div>

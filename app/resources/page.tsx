@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 import { api } from '../../lib/api';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface ResourceItem {
     id: string;
@@ -31,6 +32,7 @@ interface ResourceItem {
 }
 
 export default function FreeResourcesPage() {
+    const { language: locale } = useLanguage();
     const [selectedResource, setSelectedResource] = useState<ResourceItem | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({
@@ -48,43 +50,43 @@ export default function FreeResourcesPage() {
         {
             id: 'it-audit',
             title: 'IT Audit & Security Compliance Checklist',
-            description: 'Dokumen panduan standar audit keamanan infrastruktur cloud dan aplikasi web/mobile. Membantu tim teknologi kawan bersiap menghadapi standar kepatuhan industri (SOC2, ISO 27001, GDPR).',
-            type: 'Panduan PDF & Excel',
+            description: locale === 'en' ? 'Standard guide document for cloud infrastructure and web/mobile application security audits. Helps your tech team prepare for industry compliance standards (SOC2, ISO 27001, GDPR).' : 'Dokumen panduan standar audit keamanan infrastruktur cloud dan aplikasi web/mobile. Membantu tim teknologi kawan bersiap menghadapi standar kepatuhan industri (SOC2, ISO 27001, GDPR).',
+            type: locale === 'en' ? 'PDF & Excel Guide' : 'Panduan PDF & Excel',
             size: '2.4 MB',
             icon: ShieldCheck,
             downloadUrl: '#',
             benefits: [
-                '50+ Poin penilaian infrastruktur cloud',
-                'Template dokumen kebijakan keamanan internal',
-                'Standar audit enkripsi data & akses credential'
+                locale === 'en' ? '50+ Cloud infrastructure assessment points' : '50+ Poin penilaian infrastruktur cloud',
+                locale === 'en' ? 'Internal security policy document templates' : 'Template dokumen kebijakan keamanan internal',
+                locale === 'en' ? 'Data encryption & credential access audit standards' : 'Standar audit enkripsi data & akses credential'
             ]
         },
         {
             id: 'saas-ui-kit',
             title: 'SaaS Dashboard Figma Wireframe Kit',
-            description: 'Ratusan komponen UI, ikon, bagan, dan layout halaman admin panel SaaS siap pakai di Figma. Mempercepat proses wireframing dan perancangan desain antarmuka aplikasi kawan.',
-            type: 'Berkas UI Kit (.fig)',
+            description: locale === 'en' ? 'Hundreds of ready-to-use SaaS admin panel UI components, icons, charts, and page layouts in Figma. Speeds up the wireframing and interface design process of your application.' : 'Ratusan komponen UI, ikon, bagan, dan layout halaman admin panel SaaS siap pakai di Figma. Mempercepat proses wireframing dan perancangan desain antarmuka aplikasi kawan.',
+            type: locale === 'en' ? 'UI Kit File (.fig)' : 'Berkas UI Kit (.fig)',
             size: '12.8 MB',
             icon: Layers,
             downloadUrl: '#',
             benefits: [
-                'Komponen responsif (Auto Layout 5.0)',
-                '15+ Kerangka halaman dashboard modular',
-                'Sistem tipografi dan palet warna global'
+                locale === 'en' ? 'Responsive components (Auto Layout 5.0)' : 'Komponen responsif (Auto Layout 5.0)',
+                locale === 'en' ? '15+ Modular dashboard page frameworks' : '15+ Kerangka halaman dashboard modular',
+                locale === 'en' ? 'Global typography system and color palette' : 'Sistem tipografi dan palet warna global'
             ]
         },
         {
             id: 'laravel-boilerplate',
             title: 'Laravel 11 & Next.js 16 SaaS Starter Boilerplate',
-            description: 'Kode boilerplate siap pakai untuk proyek SaaS. Terintegrasi penuh dengan sistem login, manajemen langganan Stripe/Midtrans, database PostgreSQL, dan dasbor admin dasar.',
-            type: 'Repositori Kode (ZIP)',
+            description: locale === 'en' ? 'Ready-to-use boilerplate code for SaaS projects. Fully integrated with login system, Stripe/Midtrans subscription management, PostgreSQL database, and basic admin dashboard.' : 'Kode boilerplate siap pakai untuk proyek SaaS. Terintegrasi penuh dengan sistem login, manajemen langganan Stripe/Midtrans, database PostgreSQL, dan dasbor admin dasar.',
+            type: locale === 'en' ? 'Code Repository (ZIP)' : 'Repositori Kode (ZIP)',
             size: '4.2 MB',
             icon: Code2,
             downloadUrl: '#',
             benefits: [
-                'Arsitektur RESTful API & Next.js Server Components',
-                'Setup autentikasi JWT & Role Permission',
-                'Konfigurasi Docker & Deploy script Vercel'
+                locale === 'en' ? 'RESTful API Architecture & Next.js Server Components' : 'Arsitektur RESTful API & Next.js Server Components',
+                locale === 'en' ? 'JWT Authentication & Role Permission Setup' : 'Setup autentikasi JWT & Role Permission',
+                locale === 'en' ? 'Docker Configuration & Vercel Deploy script' : 'Konfigurasi Docker & Deploy script Vercel'
             ]
         }
     ];
@@ -117,7 +119,7 @@ export default function FreeResourcesPage() {
                 phone: formData.phone,
                 company: formData.company,
                 service: 'Free Resource Download',
-                message: `Mendownload resource: ${selectedResource.title} (ID: ${selectedResource.id})`,
+                message: locale === 'en' ? `Downloading resource: ${selectedResource.title} (ID: ${selectedResource.id})` : `Mendownload resource: ${selectedResource.title} (ID: ${selectedResource.id})`,
             };
 
             await api.submitLead(payload);
@@ -125,12 +127,12 @@ export default function FreeResourcesPage() {
 
             // Simulating a real file download trigger
             setTimeout(() => {
-                alert(`Unduhan dimulai otomatis: ${selectedResource.title}`);
+                alert(locale === 'en' ? `Download started automatically: ${selectedResource.title}` : `Unduhan dimulai otomatis: ${selectedResource.title}`);
             }, 500);
 
         } catch (err: any) {
             console.error('Resource download lead submission error:', err);
-            setError(err.message || 'Gagal memproses permintaan unduhan kawan. Silakan coba lagi.');
+            setError(err.message || (locale === 'en' ? 'Failed to process download request. Please try again.' : 'Gagal memproses permintaan unduhan kawan. Silakan coba lagi.'));
         } finally {
             setLoading(false);
         }
@@ -151,7 +153,7 @@ export default function FreeResourcesPage() {
                         className="inline-flex items-center gap-2 text-xs font-bold text-text-gray hover:text-brand-blue transition-colors group"
                     >
                         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                        Kembali ke Wawasan & Edukasi
+                        {locale === 'en' ? 'Back to Insights & Education' : 'Kembali ke Wawasan & Edukasi'}
                     </Link>
                 </div>
 
@@ -160,10 +162,10 @@ export default function FreeResourcesPage() {
                     <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
                     
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text-main leading-tight">
-                        Resource Digital <span className="text-brand-blue">Gratis</span> untuk Anda
+                        {locale === 'en' ? 'Digital Resources ' : 'Resource Digital '} <span className="text-brand-blue">{locale === 'en' ? 'Free' : 'Gratis'}</span> {locale === 'en' ? 'for You' : 'untuk Anda'}
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
-                        Unduh e-book premium, panduan teknis, dan template desain siap pakai gratis yang dikurasi oleh tim ahli teknologi Diggity.
+                        {locale === 'en' ? 'Download premium e-books, technical guides, and free ready-to-use design templates curated by the Diggity technology expert team.' : 'Unduh e-book premium, panduan teknis, dan template desain siap pakai gratis yang dikurasi oleh tim ahli teknologi Diggity.'}
                     </p>
                 </div>
 
@@ -192,7 +194,7 @@ export default function FreeResourcesPage() {
 
                                     {/* Features Checkpoints */}
                                     <div className="border-t border-glass-border/60 pt-5 space-y-3">
-                                        <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider block">Yang kawan dapatkan:</span>
+                                        <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider block">{locale === 'en' ? 'What you get:' : 'Yang kawan dapatkan:'}</span>
                                         <ul className="space-y-2 list-none m-0 p-0 text-xs text-text-gray font-medium">
                                             {res.benefits.map((b, idx) => (
                                                 <li key={idx} className="flex items-start space-x-2">
@@ -210,7 +212,7 @@ export default function FreeResourcesPage() {
                                         className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl text-xs font-bold bg-brand-blue hover:bg-brand-blue-dark text-white shadow-md shadow-brand-blue/15 hover:scale-[1.01] transition-all cursor-pointer"
                                     >
                                         <Download className="w-4 h-4" />
-                                        Unduh Gratis Sekarang
+                                        {locale === 'en' ? 'Download for Free Now' : 'Unduh Gratis Sekarang'}
                                     </button>
                                 </div>
                             </SpotlightCard>
@@ -234,11 +236,11 @@ export default function FreeResourcesPage() {
 
                         <div className="space-y-2">
                             <span className="inline-block px-2.5 py-0.5 bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-md">
-                                Formulir Akses Unduhan
+                                {locale === 'en' ? 'Download Access Form' : 'Formulir Akses Unduhan'}
                             </span>
                             <h3 className="text-xl font-extrabold text-text-main pr-8">{selectedResource.title}</h3>
                             <p className="text-xs text-text-gray font-medium leading-relaxed">
-                                Silakan isi formulir singkat berikut kawan. Tautan unduhan file akan langsung terbuka otomatis setelah kawan mengirimkan data.
+                                {locale === 'en' ? 'Please fill out this short form. The file download link will automatically open after you submit the data.' : 'Silakan isi formulir singkat berikut kawan. Tautan unduhan file akan langsung terbuka otomatis setelah kawan mengirimkan data.'}
                             </p>
                         </div>
 
@@ -248,9 +250,9 @@ export default function FreeResourcesPage() {
                                     <CheckCircle2 className="w-6 h-6" />
                                 </div>
                                 <div className="space-y-1">
-                                    <h4 className="text-base font-bold text-text-main">Data Terverifikasi Sukses!</h4>
+                                    <h4 className="text-base font-bold text-text-main">{locale === 'en' ? 'Data Verified Successfully!' : 'Data Terverifikasi Sukses!'}</h4>
                                     <p className="text-xs text-text-gray max-w-sm mx-auto leading-relaxed">
-                                        Terima kasih kawan. Klik tombol di bawah ini jika file tidak terunduh secara otomatis di browser kawan.
+                                        {locale === 'en' ? 'Thank you. Click the button below if the file does not download automatically in your browser.' : 'Terima kasih kawan. Klik tombol di bawah ini jika file tidak terunduh secara otomatis di browser kawan.'}
                                     </p>
                                 </div>
                                 <button
@@ -259,7 +261,7 @@ export default function FreeResourcesPage() {
                                     }}
                                     className="px-6 py-2.5 bg-brand-blue hover:bg-brand-blue-dark text-white rounded-xl text-xs font-bold shadow-md shadow-brand-blue/15 cursor-pointer"
                                 >
-                                    Selesai &amp; Tutup
+                                    {locale === 'en' ? 'Done & Close' : 'Selesai & Tutup'}
                                 </button>
                             </div>
                         ) : (
@@ -272,34 +274,34 @@ export default function FreeResourcesPage() {
                                 )}
 
                                 <div className="space-y-1">
-                                    <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider">Nama Lengkap</label>
+                                    <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider">{locale === 'en' ? 'Full Name' : 'Nama Lengkap'}</label>
                                     <input
                                         type="text"
                                         name="name"
                                         required
                                         value={formData.name}
                                         onChange={handleChange}
-                                        placeholder="Masukkan nama lengkap Anda"
+                                        placeholder={locale === 'en' ? 'Enter your full name' : 'Masukkan nama lengkap Anda'}
                                         className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-xs text-text-main"
                                     />
                                 </div>
 
                                 <div className="space-y-1">
-                                    <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider">Nama Perusahaan</label>
+                                    <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider">{locale === 'en' ? 'Company Name' : 'Nama Perusahaan'}</label>
                                     <input
                                         type="text"
                                         name="company"
                                         required
                                         value={formData.company}
                                         onChange={handleChange}
-                                        placeholder="Contoh: Diggity Agensi"
+                                        placeholder={locale === 'en' ? 'Example: Diggity Agency' : 'Contoh: Diggity Agensi'}
                                         className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-xs text-text-main"
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
-                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider">Email Bisnis</label>
+                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider">{locale === 'en' ? 'Business Email' : 'Email Bisnis'}</label>
                                         <input
                                             type="email"
                                             name="email"
@@ -311,7 +313,7 @@ export default function FreeResourcesPage() {
                                         />
                                     </div>
                                     <div className="space-y-1">
-                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider">No. WhatsApp</label>
+                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider">{locale === 'en' ? 'WhatsApp No.' : 'No. WhatsApp'}</label>
                                         <input
                                             type="tel"
                                             name="phone"
@@ -332,12 +334,12 @@ export default function FreeResourcesPage() {
                                     {loading ? (
                                         <>
                                             <Loader2 className="w-4 h-4 animate-spin" />
-                                            <span>Mempersiapkan Unduhan...</span>
+                                            <span>{locale === 'en' ? 'Preparing Download...' : 'Mempersiapkan Unduhan...'}</span>
                                         </>
                                     ) : (
                                         <>
                                             <Download className="w-4 h-4" />
-                                            <span>Kirim &amp; Buka File</span>
+                                            <span>{locale === 'en' ? 'Submit & Open File' : 'Kirim & Buka File'}</span>
                                         </>
                                     )}
                                 </button>

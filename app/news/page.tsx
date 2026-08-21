@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { api, Blog } from '../../lib/api';
+import { getLocaleServer } from '../../lib/locale-server';
 import { FileText, ArrowRight, Calendar, Bookmark, Building } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 
@@ -16,6 +17,7 @@ const formatDate = (dateString: string) => {
 };
 
 export default async function NewsPortalPage() {
+    const locale = await getLocaleServer();
     let newsList: Blog[] = [];
 
     try {
@@ -43,10 +45,10 @@ export default async function NewsPortalPage() {
                     <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
                     
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text-main leading-tight">
-                        Kabar & Pengumuman <span className="text-brand-blue">Resmi</span>
+                        {locale === 'en' ? 'News & Announcements' : 'Kabar & Pengumuman'} <span className="text-brand-blue">{locale === 'en' ? 'Official' : 'Resmi'}</span>
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium">
-                        Kumpulan berita kemitraan, perilisan inovasi produk terbaru, serta pencapaian bisnis Diggity.
+                        {locale === 'en' ? 'Collection of partnership news, latest product innovation releases, and Diggity business achievements.' : 'Kumpulan berita kemitraan, perilisan inovasi produk terbaru, serta pencapaian bisnis Diggity.'}
                     </p>
                 </div>
 
@@ -87,7 +89,7 @@ export default async function NewsPortalPage() {
                                                 />
                                             </div>
                                             <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest pt-4 border-t border-glass-border/60 group-hover:translate-x-1 transition-transform">
-                                                Baca Selengkapnya
+                                                {locale === 'en' ? 'Read More' : 'Baca Selengkapnya'}
                                                 <ArrowRight className="ml-1 w-3.5 h-3.5" />
                                             </div>
                                         </div>
@@ -133,7 +135,7 @@ export default async function NewsPortalPage() {
                                             </div>
                                             <div className="p-6 pt-0">
                                                 <div className="flex items-center text-xs font-bold text-brand-blue uppercase tracking-widest pt-3 border-t border-glass-border group-hover:translate-x-1 transition-transform">
-                                                    Baca Berita Lengkap
+                                                    {locale === 'en' ? 'Read Full News' : 'Baca Berita Lengkap'}
                                                     <ArrowRight className="ml-1 w-3.5 h-3.5" />
                                                 </div>
                                             </div>
@@ -146,7 +148,7 @@ export default async function NewsPortalPage() {
                 ) : (
                     <div className="text-center text-text-muted py-24 border border-dashed border-glass-border rounded-3xl bg-glass-bg/10">
                         <FileText className="w-12 h-12 mx-auto text-text-muted opacity-40 mb-3" />
-                        <p className="text-sm font-semibold">Saat ini belum ada berita atau pengumuman resmi yang dirilis.</p>
+                        <p className="text-sm font-semibold">{locale === 'en' ? 'There are currently no official news or announcements released.' : 'Saat ini belum ada berita atau pengumuman resmi yang dirilis.'}</p>
                     </div>
                 )}
 

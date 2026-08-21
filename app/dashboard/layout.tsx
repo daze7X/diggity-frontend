@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { 
     LayoutDashboard, 
     User, 
@@ -19,6 +20,7 @@ import SpotlightCard from '../../components/SpotlightCard';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const { user, loading, logout } = useAuth();
+    const { language: locale } = useLanguage();
     const router = useRouter();
     const pathname = usePathname();
 
@@ -33,23 +35,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="min-h-screen flex items-center justify-center">
                 <div className="flex flex-col items-center space-y-4">
                     <Loader2 className="w-10 h-10 animate-spin text-brand-blue" />
-                    <span className="text-sm text-text-muted font-bold font-mono">Memuat Sesi...</span>
+                    <span className="text-sm text-text-muted font-bold font-mono">{locale === 'en' ? 'Loading Session...' : 'Memuat Sesi...'}</span>
                 </div>
             </div>
         );
     }
 
     const menuItems = [
-        { name: 'Overview', path: '/dashboard', icon: LayoutDashboard },
-        { name: 'Profil Saya', path: '/dashboard/profile', icon: User },
-        { name: 'Lisensi & Unduhan', path: '/dashboard/products', icon: Lock },
-        { name: 'Kelas Saya', path: '/dashboard/academy', icon: BookOpen },
-        { name: 'Riwayat Pesanan', path: '/dashboard/orders', icon: ShoppingCart },
-        { name: 'Tiket Bantuan', path: '/dashboard/support', icon: LifeBuoy },
+        { name: locale === 'en' ? 'Overview' : 'Overview', path: '/dashboard', icon: LayoutDashboard },
+        { name: locale === 'en' ? 'My Profile' : 'Profil Saya', path: '/dashboard/profile', icon: User },
+        { name: locale === 'en' ? 'Licenses & Downloads' : 'Lisensi & Unduhan', path: '/dashboard/products', icon: Lock },
+        { name: locale === 'en' ? 'My Classes' : 'Kelas Saya', path: '/dashboard/academy', icon: BookOpen },
+        { name: locale === 'en' ? 'Order History' : 'Riwayat Pesanan', path: '/dashboard/orders', icon: ShoppingCart },
+        { name: locale === 'en' ? 'Support Tickets' : 'Tiket Bantuan', path: '/dashboard/support', icon: LifeBuoy },
     ];
 
     const handleLogout = async () => {
-        if (confirm('Apakah Anda yakin ingin keluar dari akun Anda?')) {
+        if (confirm(locale === 'en' ? 'Are you sure you want to log out?' : 'Apakah Anda yakin ingin keluar dari akun Anda?')) {
             await logout();
             router.push('/login');
         }
@@ -66,7 +68,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             
                             {/* User Welcome Block */}
                             <div className="space-y-1 pb-4 border-b border-glass-border/40">
-                                <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest block">Dashboard Portal</span>
+                                <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest block">{locale === 'en' ? 'Portal Dashboard' : 'Dashboard Portal'}</span>
                                 <h3 className="text-base font-bold text-text-main leading-tight line-clamp-1">{user.name}</h3>
                                 <span className="text-[10px] text-text-muted font-mono leading-none block overflow-hidden text-ellipsis whitespace-nowrap">{user.email}</span>
                             </div>
@@ -97,7 +99,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                     className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs md:text-sm font-bold text-rose-500 hover:bg-rose-500/5 transition-colors cursor-pointer text-left"
                                 >
                                     <LogOut className="w-4 h-4 shrink-0" />
-                                    <span>Keluar Akun</span>
+                                    <span>{locale === 'en' ? 'Log Out' : 'Keluar Akun'}</span>
                                 </button>
                             </nav>
                         </SpotlightCard>
@@ -113,3 +115,4 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
     );
 }
+

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ShieldAlert, Download, Copy, Check, ShieldCheck, Sparkles, Key, Lock } from 'lucide-react';
 import SpotlightCard from '../../../components/SpotlightCard';
+import { useLanguage } from '../../../context/LanguageContext';
 
 interface UserProductLicense {
     id: number;
@@ -23,6 +24,7 @@ interface UserProductLicense {
 }
 
 export default function UserProducts() {
+    const { language: locale } = useLanguage();
     const [licenses, setLicenses] = useState<UserProductLicense[]>([]);
     const [loading, setLoading] = useState(true);
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -58,8 +60,8 @@ export default function UserProducts() {
     };
 
     const formatDate = (dateString: string | null) => {
-        if (!dateString) return 'Selamanya';
-        return new Date(dateString).toLocaleDateString('id-ID', {
+        if (!dateString) return locale === 'en' ? 'Lifetime' : 'Selamanya';
+        return new Date(dateString).toLocaleDateString(locale === 'en' ? 'en-US' : 'id-ID', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -69,14 +71,14 @@ export default function UserProducts() {
     return (
         <div className="space-y-6 text-left animate-fade-in">
             <div>
-                <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">Lisensi & Unduhan Produk</h2>
-                <p className="text-xs md:text-sm text-text-muted">Kelola kunci lisensi aktif Anda dan unduh paket instalasi software yang telah dibeli.</p>
+                <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">{locale === 'en' ? 'Licenses & Product Downloads' : 'Lisensi & Unduhan Produk'}</h2>
+                <p className="text-xs md:text-sm text-text-muted">{locale === 'en' ? 'Manage your active license keys and download purchased software installation packages.' : 'Kelola kunci lisensi aktif Anda dan unduh paket instalasi software yang telah dibeli.'}</p>
             </div>
 
             <div className="space-y-4">
                 {loading ? (
                     <div className="text-center py-20 bg-glass-bg border border-glass-border rounded-2xl">
-                        <span className="text-xs text-text-muted font-bold font-mono">Memuat lisensi...</span>
+                        <span className="text-xs text-text-muted font-bold font-mono">{locale === 'en' ? 'Loading licenses...' : 'Memuat lisensi...'}</span>
                     </div>
                 ) : licenses.length > 0 ? (
                     licenses.map((lic, idx) => {
@@ -96,7 +98,7 @@ export default function UserProducts() {
                                                 </span>
                                             )}
                                             <h3 className="text-lg md:text-xl font-bold text-text-main leading-snug">
-                                                {product?.name || 'Produk Kustom'} {product?.version && `v${product.version}`}
+                                                {product?.name || (locale === 'en' ? 'Custom Product' : 'Produk Kustom')} {product?.version && `v${product.version}`}
                                             </h3>
                                             {product?.description && (
                                                 <p className="text-xs text-text-gray line-clamp-2 leading-relaxed">
@@ -131,14 +133,14 @@ export default function UserProducts() {
                                                     </span>
                                                 ) : (
                                                     <span className="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 font-bold rounded-md uppercase tracking-wider flex items-center gap-1">
-                                                        <ShieldCheck className="w-3 h-3" /> Aktif
+                                                        <ShieldCheck className="w-3 h-3" /> {locale === 'en' ? 'Active' : 'Aktif'}
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
 
                                         <div className="text-[10px] text-text-muted font-medium pt-1">
-                                            Aktivasi: {formatDate(lic.activated_at)} | Berakhir: {formatDate(lic.expires_at)}
+                                            {locale === 'en' ? 'Activation:' : 'Aktivasi:'} {formatDate(lic.activated_at)} | {locale === 'en' ? 'Expires:' : 'Berakhir:'} {formatDate(lic.expires_at)}
                                         </div>
                                     </div>
 
@@ -150,14 +152,14 @@ export default function UserProducts() {
                                                 download
                                                 className="flex items-center justify-center gap-1.5 px-6 py-3 bg-emerald-500 text-white hover:bg-emerald-600 rounded-xl text-xs md:text-sm font-bold transition-all shadow-md shadow-emerald-500/15 w-full md:w-auto cursor-pointer"
                                             >
-                                                <Download className="w-4 h-4" /> Unduh Berkas Software
+                                                <Download className="w-4 h-4" /> {locale === 'en' ? 'Download Software File' : 'Unduh Berkas Software'}
                                             </a>
                                         ) : (
                                             <button
                                                 disabled
                                                 className="flex items-center justify-center gap-1.5 px-6 py-3 bg-slate-700/30 text-text-muted border border-glass-border rounded-xl text-xs md:text-sm font-bold w-full md:w-auto cursor-not-allowed"
                                             >
-                                                {isExpired ? 'Lisensi Berakhir' : 'Tidak Ada Unduhan'}
+                                                {isExpired ? (locale === 'en' ? 'License Expired' : 'Lisensi Berakhir') : (locale === 'en' ? 'No Download' : 'Tidak Ada Unduhan')}
                                             </button>
                                         )}
                                     </div>
@@ -170,16 +172,16 @@ export default function UserProducts() {
                     <div className="text-center py-20 bg-glass-bg border border-glass-border rounded-2xl space-y-4">
                         <Lock className="w-12 h-12 mx-auto text-brand-blue/30" />
                         <div className="space-y-1">
-                            <h4 className="font-bold text-text-main text-sm">Belum Ada Produk Terlisensi</h4>
+                            <h4 className="font-bold text-text-main text-sm">{locale === 'en' ? 'No Licensed Products Yet' : 'Belum Ada Produk Terlisensi'}</h4>
                             <p className="text-xs text-text-muted max-w-sm mx-auto leading-relaxed">
-                                Anda belum membeli produk digital siap pakai di Diggity. Jelajahi katalog kami untuk memulai.
+                                {locale === 'en' ? 'You haven\'t purchased any ready-to-use digital products from Diggity. Browse our catalog to start.' : 'Anda belum membeli produk digital siap pakai di Diggity. Jelajahi katalog kami untuk memulai.'}
                             </p>
                         </div>
                         <Link
                             href="/products"
                             className="inline-flex items-center px-4 py-2 bg-brand-blue text-white rounded-lg text-xs font-semibold hover:bg-brand-blue-dark transition-colors"
                         >
-                            Jelajahi Produk <Sparkles className="ml-1 w-3 h-3" />
+                            {locale === 'en' ? 'Explore Products' : 'Jelajahi Produk'} <Sparkles className="ml-1 w-3 h-3" />
                         </Link>
                     </div>
                 )}

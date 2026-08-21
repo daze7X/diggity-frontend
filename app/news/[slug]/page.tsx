@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { api, Blog } from '../../../lib/api';
+import { getLocaleServer } from '../../../lib/locale-server';
 import { ArrowLeft, Calendar, User, Share2 } from 'lucide-react';
 
 const Facebook = (props: React.SVGProps<SVGSVGElement>) => (
@@ -59,6 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function NewsDetailPage({ params }: Props) {
+    const locale = await getLocaleServer();
     const { slug } = await params;
     let news: Blog | null = null;
     let relatedNews: any[] = [];
@@ -84,9 +86,9 @@ export default async function NewsDetailPage({ params }: Props) {
     if (!news) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
-                <h1 className="text-2xl font-bold text-text-main">Berita Tidak Ditemukan</h1>
+                <h1 className="text-2xl font-bold text-text-main">{locale === 'en' ? 'News Not Found' : 'Berita Tidak Ditemukan'}</h1>
                 <Link href="/news" className="text-brand-blue hover:underline">
-                    Kembali ke Berita
+                    {locale === 'en' ? 'Back to News' : 'Kembali ke Berita'}
                 </Link>
             </div>
         );
@@ -124,13 +126,13 @@ export default async function NewsDetailPage({ params }: Props) {
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
                     <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                    Kembali ke Berita & Pengumuman
+                    {locale === 'en' ? 'Back to News & Announcements' : 'Kembali ke Berita & Pengumuman'}
                 </Link>
 
                 {/* Article Header */}
                 <div className="space-y-4 text-left">
                     <span className="inline-block px-3 py-1 bg-brand-blue/10 text-brand-blue border border-brand-blue/20 rounded-full text-xs font-bold uppercase tracking-wider">
-                        Berita Resmi
+                        {locale === 'en' ? 'Official News' : 'Berita Resmi'}
                     </span>
                     <h1 className="text-3xl md:text-5xl font-black text-text-main tracking-tight leading-tight">
                         {news.title}
@@ -139,7 +141,7 @@ export default async function NewsDetailPage({ params }: Props) {
                     <div className="flex flex-wrap items-center gap-6 text-sm text-text-gray pt-2 border-b border-glass-border pb-6">
                         <div className="flex items-center space-x-2">
                             <User className="w-4 h-4 text-brand-blue" />
-                            <span>Oleh Admin</span>
+                            <span>{locale === 'en' ? 'By Admin' : 'Oleh Admin'}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                             <Calendar className="w-4 h-4 text-brand-blue" />
@@ -176,7 +178,7 @@ export default async function NewsDetailPage({ params }: Props) {
                 <div className="border-t border-b border-glass-border py-6 flex items-center justify-between gap-4">
                     <span className="text-sm font-bold text-text-main flex items-center space-x-2">
                         <Share2 className="w-4 h-4 text-brand-blue" />
-                        <span>Bagikan Berita</span>
+                        <span>{locale === 'en' ? 'Share News' : 'Bagikan Berita'}</span>
                     </span>
                     <div className="flex items-center space-x-3">
                         <a
@@ -210,8 +212,8 @@ export default async function NewsDetailPage({ params }: Props) {
                 {relatedNews.length > 0 && (
                     <div className="pt-16 border-t border-glass-border space-y-8 text-left">
                         <div className="space-y-2">
-                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">Rekomendasi</span>
-                            <h3 className="text-2xl font-extrabold text-text-main tracking-tight">Berita Terkait</h3>
+                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">{locale === 'en' ? 'Recommendation' : 'Rekomendasi'}</span>
+                            <h3 className="text-2xl font-extrabold text-text-main tracking-tight">{locale === 'en' ? 'Related News' : 'Berita Terkait'}</h3>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -239,7 +241,7 @@ export default async function NewsDetailPage({ params }: Props) {
                                         {/* Meta & Title */}
                                         <div className="space-y-1">
                                             <span className="text-[10px] font-black text-brand-blue uppercase tracking-wider">
-                                                Berita Resmi
+                                                {locale === 'en' ? 'Official News' : 'Berita Resmi'}
                                             </span>
                                             <h4 className="text-sm font-bold text-text-main group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
                                                 {item.title}

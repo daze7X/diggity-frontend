@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
     LifeBuoy, 
     ArrowLeft, 
@@ -46,6 +47,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
     const params = use(paramsPromise);
     const { id } = params;
     const { user, loading: authLoading } = useAuth();
+    const { language: locale } = useLanguage();
     const router = useRouter();
     const [ticket, setTicket] = useState<SupportTicket | null>(null);
     const [messages, setMessages] = useState<SupportMessage[]>([]);
@@ -110,11 +112,11 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                     setTicket(res.ticket);
                 }
             } else {
-                setError(res.message || 'Gagal mengirim balasan.');
+                setError(res.message || (locale === 'en' ? 'Failed to send reply.' : 'Gagal mengirim balasan.'));
             }
         } catch (err) {
             console.error('Failed to send reply:', err);
-            setError('Terjadi kesalahan koneksi saat mengirim pesan.');
+            setError(locale === 'en' ? 'Connection error occurred while sending message.' : 'Terjadi kesalahan koneksi saat mengirim pesan.');
         } finally {
             setSubmitting(false);
         }
@@ -162,7 +164,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
     };
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('id-ID', {
+        return new Date(dateString).toLocaleDateString(locale === 'en' ? 'en-US' : 'id-ID', {
             day: 'numeric',
             month: 'long',
             year: 'numeric'
@@ -170,7 +172,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
     };
 
     const formatMessageTime = (dateString: string) => {
-        return new Date(dateString).toLocaleTimeString('id-ID', {
+        return new Date(dateString).toLocaleTimeString(locale === 'en' ? 'en-US' : 'id-ID', {
             hour: '2-digit',
             minute: '2-digit'
         });
@@ -181,7 +183,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
             <div className="min-h-[400px] flex items-center justify-center bg-glass-bg border border-glass-border rounded-2xl">
                 <div className="flex flex-col items-center space-y-4">
                     <Loader2 className="w-10 h-10 animate-spin text-brand-blue" />
-                    <span className="text-xs text-text-muted font-bold font-mono">Memuat riwayat chat...</span>
+                    <span className="text-xs text-text-muted font-bold font-mono">{locale === 'en' ? 'Loading chat history...' : 'Memuat riwayat chat...'}</span>
                 </div>
             </div>
         );
@@ -200,7 +202,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                     href="/dashboard/support"
                     className="inline-flex items-center gap-1.5 text-xs text-brand-blue font-bold hover:underline mb-1"
                 >
-                    <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Daftar Tiket
+                    <ArrowLeft className="w-3.5 h-3.5" /> {locale === 'en' ? 'Back to Ticket List' : 'Kembali ke Daftar Tiket'}
                 </Link>
             </div>
 
@@ -223,7 +225,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                                 <div className="flex items-center gap-2">
                                     <Tag className="w-4 h-4 text-slate-500" />
                                     <div>
-                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider">Kategori</p>
+                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider">{locale === 'en' ? 'Category' : 'Kategori'}</p>
                                         <p className="text-xs font-semibold text-slate-300 mt-0.5">{getCategoryLabel(ticket.category)}</p>
                                     </div>
                                 </div>
@@ -231,7 +233,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                                 <div className="flex items-center gap-2">
                                     <Calendar className="w-4 h-4 text-slate-500" />
                                     <div>
-                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider">Dibuat Pada</p>
+                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider">{locale === 'en' ? 'Created At' : 'Dibuat Pada'}</p>
                                         <p className="text-xs font-semibold text-slate-300 mt-0.5">{formatDate(ticket.created_at)}</p>
                                     </div>
                                 </div>
@@ -241,13 +243,13 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                         {/* Status Badges at bottom */}
                         <div className="space-y-2.5 pt-4 border-t border-glass-border/30">
                             <div className="flex justify-between items-center text-xs">
-                                <span className="text-slate-400">Status Tiket:</span>
+                                <span className="text-slate-400">{locale === 'en' ? 'Ticket Status:' : 'Status Tiket:'}</span>
                                 <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-bold border capitalize ${getStatusStyle(ticket.status)}`}>
                                     {ticket.status.replace('_', ' ')}
                                 </span>
                             </div>
                             <div className="flex justify-between items-center text-xs">
-                                <span className="text-slate-400">Tingkat Urgensi:</span>
+                                <span className="text-slate-400">{locale === 'en' ? 'Urgency Level:' : 'Tingkat Urgensi:'}</span>
                                 <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-bold border capitalize ${getPriorityStyle(ticket.priority)}`}>
                                     {ticket.priority}
                                 </span>
@@ -273,7 +275,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                                     >
                                         {/* Sender Name */}
                                         <span className="text-[10px] text-slate-500 mb-1 flex items-center gap-1 font-semibold">
-                                            {isMe ? 'Saya' : msg.user?.name || 'Support Agent'}
+                                            {isMe ? (locale === 'en' ? 'Me' : 'Saya') : msg.user?.name || 'Support Agent'}
                                             {isAgent && (
                                                 <span className="px-1.5 py-0.5 bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[8px] font-black rounded uppercase tracking-wider">
                                                     SUPPORT AGENT
@@ -301,7 +303,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                             })
                         ) : (
                             <div className="text-center py-10 text-slate-500 text-xs">
-                                Belum ada percakapan.
+                                {locale === 'en' ? 'No conversation yet.' : 'Belum ada percakapan.'}
                             </div>
                         )}
                         <div ref={messagesEndRef} />
@@ -313,7 +315,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                             <div className="flex items-start gap-2 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-500 rounded-xl text-[10px] font-semibold text-left mb-3">
                                 <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                                 <span>
-                                    Tiket ini sudah ditandai **Resolved/Closed**. Mengirim pesan balasan baru otomatis akan **membuka kembali** tiket ini.
+                                    {locale === 'en' ? 'This ticket is already marked **Resolved/Closed**. Sending a new reply will automatically **reopen** this ticket.' : 'Tiket ini sudah ditandai **Resolved/Closed**. Mengirim pesan balasan baru otomatis akan **membuka kembali** tiket ini.'}
                                 </span>
                             </div>
                         )}
@@ -329,7 +331,7 @@ export default function TicketDetailsPage({ params: paramsPromise }: { params: P
                                 type="text"
                                 value={replyText}
                                 onChange={(e) => setReplyText(e.target.value)}
-                                placeholder="Ketik balasan pesan bantuan Anda di sini..."
+                                placeholder={locale === 'en' ? 'Type your support message reply here...' : 'Ketik balasan pesan bantuan Anda di sini...'}
                                 className="flex-1 px-4 py-3 bg-slate-950 border border-slate-850 focus:border-brand-blue focus:ring-1 focus:ring-brand-blue rounded-xl text-xs text-white placeholder-slate-600 outline-none transition-all"
                                 required
                             />

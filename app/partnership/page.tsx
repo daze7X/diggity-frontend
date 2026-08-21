@@ -8,7 +8,7 @@ import SpotlightCard from '../../components/SpotlightCard';
 import { Handshake, Users, Cpu, DollarSign, CheckCircle2, Send, AlertCircle } from 'lucide-react';
 
 export default function PartnershipPage() {
-    const { language } = useLanguage();
+    const { language: locale } = useLanguage();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -21,38 +21,38 @@ export default function PartnershipPage() {
     const [statusMessage, setStatusMessage] = useState('');
 
     const partnershipTypes = [
-        { id: 'Strategic Partnership', name: language === 'en' ? 'Strategic Partnership' : 'Kemitraan Strategis' },
-        { id: 'Technology Partnership', name: language === 'en' ? 'Technology Partnership' : 'Kemitraan Teknologi' },
-        { id: 'Agency Partnership', name: language === 'en' ? 'Agency Partnership' : 'Kemitraan Agency / Subkontrak' },
-        { id: 'Referral Program', name: language === 'en' ? 'Referral / Affiliate Program' : 'Program Referral & Komisi' }
+        { id: 'Strategic Partnership', name: locale === 'en' ? 'Strategic Partnership' : 'Kemitraan Strategis' },
+        { id: 'Technology Partnership', name: locale === 'en' ? 'Technology Partnership' : 'Kemitraan Teknologi' },
+        { id: 'Agency Partnership', name: locale === 'en' ? 'Agency Partnership' : 'Kemitraan Agency / Subkontrak' },
+        { id: 'Referral Program', name: locale === 'en' ? 'Referral / Affiliate Program' : 'Program Referral & Komisi' }
     ];
 
     const pillars = [
         {
             icon: Handshake,
-            title: language === 'en' ? 'Strategic Partnership' : 'Kemitraan Strategis',
-            desc: language === 'en' 
+            title: locale === 'en' ? 'Strategic Partnership' : 'Kemitraan Strategis',
+            desc: locale === 'en' 
                 ? 'Co-deliver end-to-end IT development and creative marketing projects. Expand service boundaries for mutual enterprise clients.' 
                 : 'Kolaborasi bersama Diggity untuk menghadirkan proyek IT & pemasaran terpadu skala besar guna memperluas batas kapasitas layanan.',
         },
         {
             icon: Cpu,
-            title: language === 'en' ? 'Technology Partnership' : 'Kemitraan Teknologi',
-            desc: language === 'en' 
+            title: locale === 'en' ? 'Technology Partnership' : 'Kemitraan Teknologi',
+            desc: locale === 'en' 
                 ? 'Integrate SaaS, APIs, or digital products. Co-build core tools, plugins, and cloud orchestrations that scale businesses.' 
                 : 'Integrasi sistem SaaS, API, atau produk digital. Ikut membangun perkakas inti, plugin, serta otomatisasi arsitektur cloud server.',
         },
         {
             icon: Users,
-            title: language === 'en' ? 'Agency Partnership' : 'Kemitraan Agency',
-            desc: language === 'en' 
+            title: locale === 'en' ? 'Agency Partnership' : 'Kemitraan Agency',
+            desc: locale === 'en' 
                 ? 'Access white-label development and performance marketing resources. Scale your delivery capability without scaling overhead.' 
                 : 'Dukungan subkontrak pengerjaan rekayasa software dan periklanan digital secara white-label untuk menaikkan kapasitas produksi agensi Anda.',
         },
         {
             icon: DollarSign,
-            title: language === 'en' ? 'Referral Program' : 'Program Referral',
-            desc: language === 'en' 
+            title: locale === 'en' ? 'Referral Program' : 'Program Referral',
+            desc: locale === 'en' 
                 ? 'Introduce clients to Diggity and earn up to 10% commission on the signed contract value. Fast, transparent payout system.' 
                 : 'Rekomendasikan klien baru yang membutuhkan solusi teknologi/kreatif ke Diggity dan dapatkan bagi hasil komisi hingga 10% nilai proyek.',
         }
@@ -82,7 +82,7 @@ export default function PartnershipPage() {
                 message: '',
             });
             setStatusMessage(
-                language === 'en'
+                locale === 'en'
                     ? 'Your partnership proposal has been submitted successfully! Our team will contact you soon.'
                     : 'Proposal kemitraan Anda berhasil dikirim! Tim kemitraan kami akan segera menghubungi Anda.'
             );
@@ -90,7 +90,7 @@ export default function PartnershipPage() {
             setStatus('error');
             setStatusMessage(
                 err.message || 
-                (language === 'en' 
+                (locale === 'en' 
                     ? 'Failed to submit proposal. Please try again.' 
                     : 'Gagal mengirim proposal. Silakan coba kembali.')
             );
@@ -110,14 +110,14 @@ export default function PartnershipPage() {
                     <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
                     
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text-main leading-tight pt-2">
-                        {language === 'en' ? (
+                        {locale === 'en' ? (
                             <>Partnership & <span className="text-brand-blue">Referral</span></>
                         ) : (
                             <>Kemitraan & <span className="text-brand-blue">Referral</span></>
                         )}
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium leading-relaxed max-w-2xl mx-auto">
-                        {language === 'en' 
+                        {locale === 'en' 
                             ? 'Build high-quality digital products, expand service boundaries, or refer clients to unlock revenue sharing.' 
                             : 'Membangun produk digital berkualitas tinggi, memperluas cakupan layanan, atau merekomendasikan klien baru untuk membuka potensi bagi hasil.'}
                     </p>
@@ -150,25 +150,25 @@ export default function PartnershipPage() {
                     <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
                         <div className="space-y-3">
                             <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
-                                {language === 'en' ? 'PARTNER BENEFITS' : 'KEUNTUNGAN MITRA'}
+                                {locale === 'en' ? 'PARTNER BENEFITS' : 'KEUNTUNGAN MITRA'}
                             </span>
                             <h2 className="text-2xl md:text-4xl font-extrabold text-text-main tracking-tight leading-tight">
-                                {language === 'en' ? 'Why Partner with Diggity?' : 'Mengapa Bermitra dengan Diggity?'}
+                                {locale === 'en' ? 'Why Partner with Diggity?' : 'Mengapa Bermitra dengan Diggity?'}
                             </h2>
                         </div>
                         
                         <p className="text-text-gray text-sm md:text-base leading-relaxed">
-                            {language === 'en'
+                            {locale === 'en'
                                 ? 'We combine modern technology stacks, creative design, and business-driven growth marketing to deliver exceptional ROI for clients.'
                                 : 'Kami menggabungkan rekayasa teknologi modern, desain visual berestetika tinggi, dan strategi growth marketing terarah untuk memberikan ROI terbaik bagi klien.'}
                         </p>
 
                         <div className="space-y-4">
                             {[
-                                language === 'en' ? 'High project success rate with strict QA control' : 'Success rate proyek yang tinggi dengan kontrol QA yang ketat',
-                                language === 'en' ? 'Transparent tracking for client referrals & payouts' : 'Pencatatan referral klien & pembayaran bagi hasil yang transparan',
-                                language === 'en' ? 'Access to experienced software developers & marketers' : 'Akses ke tim pengembang software & pemasar digital berpengalaman',
-                                language === 'en' ? 'Modular contract terms tailored for mutual benefit' : 'Kontrak kerja sama modular yang dirancang saling menguntungkan'
+                                locale === 'en' ? 'High project success rate with strict QA control' : 'Success rate proyek yang tinggi dengan kontrol QA yang ketat',
+                                locale === 'en' ? 'Transparent tracking for client referrals & payouts' : 'Pencatatan referral klien & pembayaran bagi hasil yang transparan',
+                                locale === 'en' ? 'Access to experienced software developers & marketers' : 'Akses ke tim pengembang software & pemasar digital berpengalaman',
+                                locale === 'en' ? 'Modular contract terms tailored for mutual benefit' : 'Kontrak kerja sama modular yang dirancang saling menguntungkan'
                             ].map((benefit, bIdx) => (
                                 <div key={bIdx} className="flex items-start space-x-3 text-xs text-text-main font-medium">
                                     <CheckCircle2 className="w-4.5 h-4.5 text-brand-blue shrink-0 mt-0.5" />
@@ -182,7 +182,7 @@ export default function PartnershipPage() {
                     <div className="lg:col-span-7 w-full">
                         <SpotlightCard className="p-8 md:p-10 border border-glass-border bg-glass-bg/60">
                             <h3 className="text-2xl font-bold text-text-main mb-6">
-                                {language === 'en' ? 'Partnership Proposal' : 'Ajukan Proposal Kemitraan'}
+                                {locale === 'en' ? 'Partnership Proposal' : 'Ajukan Proposal Kemitraan'}
                             </h3>
 
                             {status === 'success' ? (
@@ -191,14 +191,14 @@ export default function PartnershipPage() {
                                         <CheckCircle2 className="w-10 h-10" />
                                     </div>
                                     <h4 className="text-lg font-semibold text-text-main">
-                                        {language === 'en' ? 'Proposal Sent!' : 'Proposal Terkirim!'}
+                                        {locale === 'en' ? 'Proposal Sent!' : 'Proposal Terkirim!'}
                                     </h4>
                                     <p className="text-sm text-text-gray max-w-sm">{statusMessage}</p>
                                     <button
                                         onClick={() => setStatus('idle')}
                                         className="mt-6 px-6 py-2.5 text-sm font-semibold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors cursor-pointer"
                                     >
-                                        {language === 'en' ? 'Send Another Proposal' : 'Kirim Proposal Lain'}
+                                        {locale === 'en' ? 'Send Another Proposal' : 'Kirim Proposal Lain'}
                                     </button>
                                 </div>
                             ) : (
@@ -206,20 +206,20 @@ export default function PartnershipPage() {
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <label className="text-xs font-extrabold text-text-main uppercase tracking-wider block">
-                                                {language === 'en' ? 'Your Name' : 'Nama Anda'}
+                                                {locale === 'en' ? 'Your Name' : 'Nama Anda'}
                                             </label>
                                             <input
                                                 type="text"
                                                 required
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                placeholder={language === 'en' ? 'e.g. John Doe' : 'Nama Lengkap Anda'}
+                                                placeholder={locale === 'en' ? 'e.g. John Doe' : 'Nama Lengkap Anda'}
                                                 className="w-full px-4 py-3 bg-brand-bg/50 border border-glass-border rounded-xl text-xs text-text-main placeholder-text-muted focus:outline-none focus:border-brand-blue transition-colors"
                                             />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-xs font-extrabold text-text-main uppercase tracking-wider block">
-                                                {language === 'en' ? 'Business Email' : 'Email Bisnis'}
+                                                {locale === 'en' ? 'Business Email' : 'Email Bisnis'}
                                             </label>
                                             <input
                                                 type="email"
@@ -235,7 +235,7 @@ export default function PartnershipPage() {
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <label className="text-xs font-extrabold text-text-main uppercase tracking-wider block">
-                                                {language === 'en' ? 'WhatsApp Number' : 'No. WhatsApp'}
+                                                {locale === 'en' ? 'WhatsApp Number' : 'No. WhatsApp'}
                                             </label>
                                             <input
                                                 type="tel"
@@ -248,14 +248,14 @@ export default function PartnershipPage() {
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-xs font-extrabold text-text-main uppercase tracking-wider block">
-                                                {language === 'en' ? 'Company Name' : 'Nama Perusahaan'}
+                                                {locale === 'en' ? 'Company Name' : 'Nama Perusahaan'}
                                             </label>
                                             <input
                                                 type="text"
                                                 required
                                                 value={formData.company}
                                                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                                placeholder={language === 'en' ? 'e.g. PT Maju Bersama' : 'Nama Perusahaan/Agensi'}
+                                                placeholder={locale === 'en' ? 'e.g. PT Maju Bersama' : 'Nama Perusahaan/Agensi'}
                                                 className="w-full px-4 py-3 bg-brand-bg/50 border border-glass-border rounded-xl text-xs text-text-main placeholder-text-muted focus:outline-none focus:border-brand-blue transition-colors"
                                             />
                                         </div>
@@ -263,7 +263,7 @@ export default function PartnershipPage() {
 
                                     <div className="space-y-2">
                                         <label className="text-xs font-extrabold text-text-main uppercase tracking-wider block">
-                                            {language === 'en' ? 'Partnership Category' : 'Kategori Kemitraan'}
+                                            {locale === 'en' ? 'Partnership Category' : 'Kategori Kemitraan'}
                                         </label>
                                         <select
                                             value={formData.partnershipType}
@@ -281,14 +281,14 @@ export default function PartnershipPage() {
 
                                     <div className="space-y-2">
                                         <label className="text-xs font-extrabold text-text-main uppercase tracking-wider block">
-                                            {language === 'en' ? 'Message / Collaboration Idea' : 'Pesan / Ide Kerja Sama'}
+                                            {locale === 'en' ? 'Message / Collaboration Idea' : 'Pesan / Ide Kerja Sama'}
                                         </label>
                                         <textarea
                                             required
                                             rows={4}
                                             value={formData.message}
                                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            placeholder={language === 'en' ? 'Describe your business model and partnership idea...' : 'Jelaskan model bisnis Anda dan ide kerja sama yang ingin dilakukan...'}
+                                            placeholder={locale === 'en' ? 'Describe your business model and partnership idea...' : 'Jelaskan model bisnis Anda dan ide kerja sama yang ingin dilakukan...'}
                                             className="w-full px-4 py-3 bg-brand-bg/50 border border-glass-border rounded-xl text-xs text-text-main placeholder-text-muted focus:outline-none focus:border-brand-blue transition-colors resize-none"
                                         />
                                     </div>
@@ -306,10 +306,10 @@ export default function PartnershipPage() {
                                         className="w-full flex items-center justify-center gap-2 py-3.5 bg-brand-blue text-white rounded-xl text-xs font-bold hover:bg-brand-blue-dark transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-brand-blue/15"
                                     >
                                         {status === 'loading' ? (
-                                            language === 'en' ? 'Submitting...' : 'Mengirim...'
+                                            locale === 'en' ? 'Submitting...' : 'Mengirim...'
                                         ) : (
                                             <>
-                                                {language === 'en' ? 'Submit Proposal' : 'Kirim Proposal'}
+                                                {locale === 'en' ? 'Submit Proposal' : 'Kirim Proposal'}
                                                 <Send className="w-3.5 h-3.5" />
                                             </>
                                         )}

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { ShoppingBag, ArrowRight, ShieldCheck, Clock, ShieldAlert } from 'lucide-react';
 import SpotlightCard from '../../../components/SpotlightCard';
+import { useLanguage } from '../../../context/LanguageContext';
 
 interface OrderItem {
     id: number;
@@ -28,6 +29,7 @@ interface Order {
 }
 
 export default function UserOrders() {
+    const { language: locale } = useLanguage();
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -56,7 +58,7 @@ export default function UserOrders() {
     }, [API_URL]);
 
     const formatPrice = (price: string) => {
-        return new Intl.NumberFormat('id-ID', {
+        return new Intl.NumberFormat(locale === 'en' ? 'en-US' : 'id-ID', {
             style: 'currency',
             currency: 'IDR',
             minimumFractionDigits: 0,
@@ -64,7 +66,7 @@ export default function UserOrders() {
     };
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('id-ID', {
+        return new Date(dateString).toLocaleDateString(locale === 'en' ? 'en-US' : 'id-ID', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -74,14 +76,14 @@ export default function UserOrders() {
     return (
         <div className="space-y-6 text-left animate-fade-in">
             <div>
-                <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">Riwayat Transaksi</h2>
-                <p className="text-xs md:text-sm text-text-muted">Pantau status transaksi masuk dan metode pembayaran yang Anda lakukan.</p>
+                <h2 className="text-xl md:text-2xl font-extrabold text-text-main tracking-tight">{locale === 'en' ? 'Transaction History' : 'Riwayat Transaksi'}</h2>
+                <p className="text-xs md:text-sm text-text-muted">{locale === 'en' ? 'Monitor incoming transaction statuses and payment methods you have made.' : 'Pantau status transaksi masuk dan metode pembayaran yang Anda lakukan.'}</p>
             </div>
 
             <div className="space-y-4">
                 {loading ? (
                     <div className="text-center py-20 bg-glass-bg border border-glass-border rounded-2xl">
-                        <span className="text-xs text-text-muted font-bold font-mono">Memuat pesanan...</span>
+                        <span className="text-xs text-text-muted font-bold font-mono">{locale === 'en' ? 'Loading orders...' : 'Memuat pesanan...'}</span>
                     </div>
                 ) : orders.length > 0 ? (
                     orders.map((order) => {
@@ -95,18 +97,18 @@ export default function UserOrders() {
                                     {/* Order Meta Header */}
                                     <div className="flex flex-col sm:flex-row justify-between sm:items-center border-b border-glass-border/30 pb-3 gap-2 text-xs md:text-sm">
                                         <div>
-                                            <span className="text-text-muted">No. Pesanan:</span>{' '}
+                                            <span className="text-text-muted">{locale === 'en' ? 'Order No:' : 'No. Pesanan:'}</span>{' '}
                                             <strong className="text-brand-blue font-mono font-bold uppercase tracking-wider">{order.order_number}</strong>
                                         </div>
                                         <div className="text-text-muted font-medium">
-                                            Tanggal: {formatDate(order.created_at)}
+                                            {locale === 'en' ? 'Date:' : 'Tanggal:'} {formatDate(order.created_at)}
                                         </div>
                                     </div>
 
                                     {/* Items List */}
                                     <div className="space-y-2">
                                         {order.items?.map((item) => {
-                                            const itemName = item.product?.name || item.course?.title || 'Produk Digital';
+                                            const itemName = item.product?.name || item.course?.title || (locale === 'en' ? 'Digital Product' : 'Produk Digital');
                                             return (
                                                 <div key={item.id} className="flex justify-between items-center text-xs md:text-sm text-text-gray font-medium">
                                                     <span>{itemName}</span>
@@ -123,7 +125,7 @@ export default function UserOrders() {
                                             <div className="flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider">
                                                 {isPaid ? (
                                                     <span className="px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-md flex items-center gap-1">
-                                                        <ShieldCheck className="w-3.5 h-3.5" /> Lunas
+                                                        <ShieldCheck className="w-3.5 h-3.5" /> {locale === 'en' ? 'Paid' : 'Lunas'}
                                                     </span>
                                                 ) : isPending ? (
                                                     <span className="px-2.5 py-0.5 bg-amber-500/10 border border-amber-500/20 text-amber-500 rounded-md flex items-center gap-1">
@@ -131,20 +133,20 @@ export default function UserOrders() {
                                                     </span>
                                                 ) : (
                                                     <span className="px-2.5 py-0.5 bg-rose-500/10 border border-rose-500/20 text-rose-500 rounded-md flex items-center gap-1">
-                                                        <ShieldAlert className="w-3.5 h-3.5" /> Gagal
+                                                        <ShieldAlert className="w-3.5 h-3.5" /> {locale === 'en' ? 'Failed' : 'Gagal'}
                                                     </span>
                                                 )}
                                             </div>
 
                                             {/* Payment method */}
                                             <div className="text-[11px] text-text-muted font-medium uppercase tracking-wider">
-                                                Metode: <strong className="text-text-main">{order.payment_method}</strong>
+                                                {locale === 'en' ? 'Method:' : 'Metode:'} <strong className="text-text-main">{order.payment_method}</strong>
                                             </div>
                                         </div>
 
                                         {/* Total amount */}
                                         <div className="text-right">
-                                            <span className="text-[10px] text-text-muted uppercase font-bold block">Total Bayar</span>
+                                            <span className="text-[10px] text-text-muted uppercase font-bold block">{locale === 'en' ? 'Total Payment' : 'Total Bayar'}</span>
                                             <span className="text-lg font-black text-brand-blue">{formatPrice(order.total_amount)}</span>
                                         </div>
                                     </div>
@@ -157,9 +159,9 @@ export default function UserOrders() {
                     <div className="text-center py-20 bg-glass-bg border border-glass-border rounded-2xl space-y-4">
                         <ShoppingBag className="w-12 h-12 mx-auto text-brand-blue/30" />
                         <div className="space-y-1">
-                            <h4 className="font-bold text-text-main text-sm">Belum Ada Transaksi</h4>
+                            <h4 className="font-bold text-text-main text-sm">{locale === 'en' ? 'No Transactions Yet' : 'Belum Ada Transaksi'}</h4>
                             <p className="text-xs text-text-muted max-w-sm mx-auto leading-relaxed">
-                                Riwayat transaksi pesanan Anda akan muncul di halaman ini setelah melakukan pembelian produk atau kelas.
+                                {locale === 'en' ? 'Your order transaction history will appear here after purchasing products or classes.' : 'Riwayat transaksi pesanan Anda akan muncul di halaman ini setelah melakukan pembelian produk atau kelas.'}
                             </p>
                         </div>
                     </div>

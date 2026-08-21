@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { Award, Printer, ArrowLeft, ShieldCheck, Download, Loader2 } from 'lucide-react';
 
 interface CertificateData {
@@ -25,6 +26,7 @@ export default function CertificatePage({ params: paramsPromise }: { params: Pro
     const params = use(paramsPromise);
     const { slug } = params;
     const { user, loading: authLoading } = useAuth();
+    const { language: locale } = useLanguage();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [certificate, setCertificate] = useState<CertificateData | null>(null);
@@ -67,7 +69,7 @@ export default function CertificatePage({ params: paramsPromise }: { params: Pro
         return (
             <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center">
                 <Loader2 className="w-10 h-10 text-brand-blue animate-spin mb-4" />
-                <p className="text-slate-400 text-sm">Menyiapkan sertifikat kelulusan Anda...</p>
+                <p className="text-slate-400 text-sm">{locale === 'en' ? 'Preparing your certificate of completion...' : 'Menyiapkan sertifikat kelulusan Anda...'}</p>
             </div>
         );
     }
@@ -90,17 +92,17 @@ export default function CertificatePage({ params: paramsPromise }: { params: Pro
                     href={`/academy/${slug}/learn`}
                     className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors"
                 >
-                    <ArrowLeft className="w-4 h-4" /> Kembali Ke Kelas
+                    <ArrowLeft className="w-4 h-4" /> {locale === 'en' ? 'Back to Class' : 'Kembali Ke Kelas'}
                 </Link>
                 <div className="flex items-center gap-3">
                     <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">
-                        <ShieldCheck className="w-3.5 h-3.5" /> Sertifikat Resmi
+                        <ShieldCheck className="w-3.5 h-3.5" /> {locale === 'en' ? 'Official Certificate' : 'Sertifikat Resmi'}
                     </span>
                     <button
                         onClick={handlePrint}
                         className="flex items-center gap-1.5 bg-brand-blue hover:bg-brand-blue/90 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-lg shadow-brand-blue/25"
                     >
-                        <Printer className="w-4 h-4" /> Cetak / Simpan PDF
+                        <Printer className="w-4 h-4" /> {locale === 'en' ? 'Print / Save PDF' : 'Cetak / Simpan PDF'}
                     </button>
                 </div>
             </div>
@@ -130,20 +132,20 @@ export default function CertificatePage({ params: paramsPromise }: { params: Pro
                             <span className="text-xs font-bold text-slate-500 tracking-widest uppercase">Academy</span>
                         </div>
                         <h1 className="text-3xl md:text-5xl font-serif font-bold text-slate-950 tracking-wide uppercase select-none">
-                            Sertifikat Kelulusan
+                            {locale === 'en' ? 'Certificate of Completion' : 'Sertifikat Kelulusan'}
                         </h1>
                         <div className="w-32 h-[3px] bg-amber-500 mt-3" />
                     </div>
 
                     {/* Recipient Section */}
                     <div className="text-center my-6 md:my-10 relative z-10">
-                        <p className="text-xs md:text-sm font-serif italic text-slate-500">Dengan bangga mempersembahkan kepada:</p>
+                        <p className="text-xs md:text-sm font-serif italic text-slate-500">{locale === 'en' ? 'Proudly presented to:' : 'Dengan bangga mempersembahkan kepada:'}</p>
                         <h2 className="text-3xl md:text-5xl font-black text-slate-950 tracking-wide mt-3 md:mt-4 font-sans select-all decoration-amber-500 decoration-wavy underline-offset-8">
                             {user.name}
                         </h2>
                         <div className="w-full max-w-lg mx-auto h-[1px] bg-slate-200 mt-4" />
                         <p className="text-xs md:text-sm text-slate-500 mt-4 md:mt-6 leading-relaxed max-w-2xl mx-auto">
-                            Atas dedikasi, partisipasi aktif, dan kelulusan luar biasa dalam menyelesaikan seluruh kurikulum materi serta tugas pelatihan tingkat profesional pada kelas:
+                            {locale === 'en' ? 'For dedication, active participation, and outstanding completion in finishing the entire curriculum and professional level training tasks for the class:' : 'Atas dedikasi, partisipasi aktif, dan kelulusan luar biasa dalam menyelesaikan seluruh kurikulum materi serta tugas pelatihan tingkat profesional pada kelas:'}
                         </p>
                         <h3 className="text-lg md:text-2xl font-extrabold text-slate-950 tracking-normal mt-3 select-all">
                             {certificate.course.title}
@@ -174,10 +176,10 @@ export default function CertificatePage({ params: paramsPromise }: { params: Pro
                                 className="w-16 h-16 pointer-events-none select-none border border-slate-200" 
                             />
                             <div className="text-left text-slate-500">
-                                <p className="text-[8px] uppercase tracking-widest text-slate-400">Verifikasi Resmi</p>
+                                <p className="text-[8px] uppercase tracking-widest text-slate-400">{locale === 'en' ? 'Official Verification' : 'Verifikasi Resmi'}</p>
                                 <p className="text-[9px] font-mono font-bold text-slate-900 mt-0.5">{certificate.certificate_number}</p>
                                 <p className="text-[8px] mt-0.5 leading-tight max-w-[130px]">
-                                    Scan QR code untuk melihat status kelulusan di portal resmi Diggity.
+                                    {locale === 'en' ? 'Scan QR code to view completion status on the official Diggity portal.' : 'Scan QR code untuk melihat status kelulusan di portal resmi Diggity.'}
                                 </p>
                             </div>
                         </div>

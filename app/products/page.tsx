@@ -242,10 +242,10 @@ export default async function ProductsPage({ searchParams }: PageProps) {
                     <SpotlightCard className="p-10 text-center space-y-6 border border-glass-border bg-gradient-to-b from-glass-bg/40 to-glass-bg/25">
                         <div className="max-w-md mx-auto space-y-2">
                             <h4 className="text-xl md:text-2xl font-black text-text-main tracking-tight">
-                                Masih punya pertanyaan lain?
+                                {locale === 'en' ? 'Still have questions?' : 'Masih punya pertanyaan lain?'}
                             </h4>
                             <p className="text-sm text-text-gray font-medium leading-relaxed">
-                                Tim kami siap membantu menemukan solusi arsitektur digital terbaik untuk bisnis Anda.
+                                {locale === 'en' ? 'Our team is ready to help find the best digital architecture solution for your business.' : 'Tim kami siap membantu menemukan solusi arsitektur digital terbaik untuk bisnis Anda.'}
                             </p>
                         </div>
                         <div>

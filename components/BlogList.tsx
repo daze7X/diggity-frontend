@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Blog, Category } from '../lib/api';
 import { FileText, Search, ArrowRight } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
+import { useLanguage } from '../context/LanguageContext';
 
 interface BlogListProps {
     blogs: Blog[];
@@ -26,10 +27,19 @@ const slugify = (text: string) => {
 };
 
 export default function BlogList({ blogs, categories }: BlogListProps) {
+    const { language } = useLanguage();
     const router = useRouter();
     const searchParams = useSearchParams();
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState<string>('All');
+
+    const t = {
+        searchPlaceholder: language === 'en' ? 'Search articles...' : 'Cari artikel...',
+        all: language === 'en' ? 'All' : 'Semua',
+        featuredArticle: language === 'en' ? 'Featured Article' : 'Artikel Utama',
+        readArticle: language === 'en' ? 'Read Featured Article' : 'Baca Artikel Utama',
+        readMore: language === 'en' ? 'Read More' : 'Baca Selengkapnya',
+    };
 
     // Sync state with URL parameter on mount and when URL query changes
     useEffect(() => {
@@ -90,7 +100,7 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Cari artikel..."
+                        placeholder={language === 'en' ? 'Search articles...' : 'Cari artikel...'}
                         className="w-full pl-11 pr-4 py-3 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-sm text-text-main placeholder-text-muted"
                     />
                     <Search className="w-5 h-5 text-text-muted absolute left-4 top-3" />
@@ -230,8 +240,8 @@ export default function BlogList({ blogs, categories }: BlogListProps) {
                     {/* Column Right (1/3 Width - Sidebar) */}
                     <div className="space-y-10 lg:border-l lg:border-glass-border/40 lg:pl-10">
                         <div className="space-y-3">
-                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">Wawasan Terpopuler</span>
-                            <h3 className="text-2xl font-black text-text-main tracking-tight">Trending di Diggity</h3>
+                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">{language === 'en' ? 'POPULAR INSIGHTS' : 'WAWASAN TERPOPULER'}</span>
+                            <h3 className="text-2xl font-black text-text-main tracking-tight">{language === 'en' ? 'Trending at Diggity' : 'Trending di Diggity'}</h3>
                         </div>
 
                         <div className="space-y-1">

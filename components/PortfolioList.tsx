@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Portfolio, Category } from '../lib/api';
 import SpotlightCard from './SpotlightCard';
 import { Code, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface PortfolioListProps {
     portfolios: Portfolio[];
@@ -13,6 +14,7 @@ interface PortfolioListProps {
 }
 
 export default function PortfolioList({ portfolios, categories }: PortfolioListProps) {
+    const { language } = useLanguage();
     const [activeCategory, setActiveCategory] = useState<string>('All');
 
     const filteredPortfolios = activeCategory === 'All'

@@ -461,9 +461,7 @@ export default async function ServiceDetail({ params }: Props) {
         return (
             <div className="pt-48 pb-20 text-center space-y-4">
                 <h1 className="text-2xl font-bold text-text-main">Layanan Tidak Ditemukan</h1>
-                <Link href="/solutions" className="text-brand-blue hover:underline">
-                    Kembali ke Layanan
-                </Link>
+                <Link href="/solutions" className="text-brand-blue hover:underline">{locale === "en" ? "Back to Services" : "Kembali ke Layanan"}</Link>
             </div>
         );
     }
@@ -512,9 +510,7 @@ export default async function ServiceDetail({ params }: Props) {
                     href="/solutions"
                     className="inline-flex items-center text-sm font-semibold text-text-muted hover:text-brand-blue transition-colors group text-left"
                 >
-                    <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                    Kembali ke Layanan
-                </Link>
+                    <ArrowLeft className="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-0.5" />{locale === "en" ? "Back to Services" : "Kembali ke Layanan"}</Link>
 
                 {/* ── 01. Hero Section ── */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -540,16 +536,12 @@ export default async function ServiceDetail({ params }: Props) {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue hover:bg-brand-blue-dark text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-brand-blue/20 group"
-                            >
-                                Konsultasi Gratis
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                            >{locale === "en" ? "Free Consultation" : "Konsultasi Gratis"}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                             </a>
                             <Link
                                 href="/portfolio"
                                 className="inline-flex items-center gap-2 px-6 py-3 bg-glass-bg hover:bg-glass-bg-hover text-text-main text-sm font-bold rounded-xl border border-glass-border transition-all"
-                            >
-                                Lihat Portfolio
-                            </Link>
+                            >{locale === "en" ? "View Portfolio" : "Lihat Portfolio"}</Link>
                         </div>
                     </div>
 
@@ -580,13 +572,9 @@ export default async function ServiceDetail({ params }: Props) {
                 {subServices.length > 0 && (
                     <div className="space-y-8">
                         <div className="space-y-2">
-                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Cakupan Kami</span>
-                            <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">
-                                Apa Saja yang Kami Kerjakan?
-                            </h2>
-                            <p className="text-text-gray text-sm font-medium max-w-xl">
-                                Setiap sub-layanan dikerjakan oleh tim spesialis berpengalaman dengan standar kualitas internasional.
-                            </p>
+                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">{locale === "en" ? "Our Scope" : "Cakupan Kami"}</span>
+                            <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">{locale === "en" ? "What Do We Do?" : "Apa Saja yang Kami Kerjakan?"}</h2>
+                            <p className="text-text-gray text-sm font-medium max-w-xl">{locale === "en" ? "Every sub-service is handled by experienced specialists with international quality standards." : "Setiap sub-layanan dikerjakan oleh tim spesialis berpengalaman dengan standar kualitas internasional."}</p>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {subServices.map((sub, i) => (
@@ -606,10 +594,8 @@ export default async function ServiceDetail({ params }: Props) {
                 {/* ── 03. Alur Kerja ── */}
                 <div className="space-y-8">
                     <div className="space-y-2">
-                        <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Cara Kerja Kami</span>
-                        <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">
-                            Proses yang Sederhana & Transparan
-                        </h2>
+                        <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">{locale === "en" ? "How We Work" : "Cara Kerja Kami"}</span>
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">{locale === "en" ? "Simple & Transparent Process" : "Proses yang Sederhana & Transparan"}</h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         {workflowSteps(locale).map((wf, i) => {
@@ -636,13 +622,9 @@ export default async function ServiceDetail({ params }: Props) {
                 {plans.length > 0 && (
                     <div className="space-y-8">
                         <div className="space-y-2">
-                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">Investasi</span>
-                            <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">
-                                Estimasi Investasi & Paket Layanan
-                            </h2>
-                            <p className="text-text-gray text-sm font-medium max-w-xl">
-                                Semua harga bersifat estimasi awal. Penawaran final disesuaikan dengan kebutuhan spesifik proyek Anda.
-                            </p>
+                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">{locale === "en" ? "Investment" : "Investasi"}</span>
+                            <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">{locale === "en" ? "Investment Estimation & Service Packages" : "Estimasi Investasi & Paket Layanan"}</h2>
+                            <p className="text-text-gray text-sm font-medium max-w-xl">{locale === "en" ? "All prices are initial estimates. The final offer will be tailored to the specific needs of your project." : "Semua harga bersifat estimasi awal. Penawaran final disesuaikan dengan kebutuhan spesifik proyek Anda."}</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                             {plans.map((plan, idx) => {
@@ -716,9 +698,7 @@ export default async function ServiceDetail({ params }: Props) {
                 <div className="space-y-8">
                     <div className="space-y-2">
                         <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">{locale === 'en' ? 'Our Advantages' : 'Keunggulan Kami'}</span>
-                        <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">
-                            Mengapa Memilih Diggity?
-                        </h2>
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight">{locale === "en" ? "Why Choose Diggity?" : "Mengapa Memilih Diggity?"}</h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {whyChooseUs(locale).map((item, i) => {
@@ -746,7 +726,7 @@ export default async function ServiceDetail({ params }: Props) {
                         <div className="space-y-3 text-left max-w-xl">
                             <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">{locale === 'en' ? 'Start Now' : 'Mulai Sekarang'}</span>
                             <h3 className="text-2xl md:text-3xl font-black text-text-main tracking-tight">
-                                Butuh Solusi {service.name}?
+                                {locale === "en" ? `Need ${service.name} Solution?` : `Butuh Solusi ${service.name}?`}
                             </h3>
                             <p className="text-sm text-text-gray leading-relaxed font-medium">
                                 {locale === 'en' ? 'Consult your project needs for free with our technical consultant team. We are ready to help find the best solution for your business.' : 'Konsultasikan kebutuhan proyek Anda secara gratis bersama tim konsultan teknis kami. Kami siap membantu menemukan solusi terbaik untuk bisnis Anda.'}
@@ -764,9 +744,7 @@ export default async function ServiceDetail({ params }: Props) {
                             <Link
                                 href={`/contact?service=${encodeURIComponent(mappedContactService)}`}
                                 className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-lg shadow-brand-blue/20 group"
-                            >
-                                Mulai Diskusi Proyek
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                            >{locale === "en" ? "Start Project Discussion" : "Mulai Diskusi Proyek"}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                             </Link>
                             <a
                                 href={`https://wa.me/6285157303035?text=${encodeURIComponent(`Halo Diggity, saya tertarik dengan layanan ${service.name}. Bisa bantu saya?`)}`}
@@ -774,9 +752,7 @@ export default async function ServiceDetail({ params }: Props) {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-text-main bg-glass-bg hover:bg-glass-bg-hover border border-glass-border rounded-xl transition-all"
                             >
-                                <MessageCircle className="w-4 h-4 text-brand-blue" />
-                                Chat via WhatsApp
-                            </a>
+                                <MessageCircle className="w-4 h-4 text-brand-blue" />{locale === "en" ? "Chat via WhatsApp" : "Chat via WhatsApp"}</a>
                         </div>
                     </div>
                 </SpotlightCard>

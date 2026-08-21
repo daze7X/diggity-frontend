@@ -397,20 +397,20 @@ const servicePlansMap: Record<string, CustomPlan[]> = {
     ]
 };
 
-const whyChooseUs = [
-    { icon: Users, title: 'Tim Berpengalaman', desc: '{locale === 'en' ? 'Supported by expert practitioners with a portfolio of hundreds of successful projects across various industries.' : 'Didukung oleh praktisi ahli dengan portofolio ratusan proyek sukses di berbagai industri.'}' },
-    { icon: Award, title: 'Kualitas Terukur', desc: '{locale === 'en' ? 'Every deliverable goes through a strict QA process before being handed over to the client.' : 'Setiap deliverable melalui proses QA ketat sebelum diserahkan ke klien.'}' },
-    { icon: Clock, title: 'Tepat Waktu', desc: '{locale === 'en' ? 'Our commitment to the project timeline agreed upon since kickoff.' : 'Komitmen kami pada timeline proyek yang disepakati sejak awal kickoff.'}' },
-    { icon: Headphones, title: 'Dukungan Purna Jual', desc: '{locale === 'en' ? 'Maintenance & post-project support services according to your business needs.' : 'Layanan maintenance & support pasca-proyek sesuai kebutuhan bisnis Anda.'}' },
-    { icon: Lightbulb, title: 'Solusi Inovatif', desc: '{locale === 'en' ? 'Utilizing the latest relevant and scalable technologies for business growth.' : 'Menggunakan teknologi terkini yang relevan dan terukur untuk pertumbuhan bisnis.'}' },
-    { icon: MessageCircle, title: 'Komunikasi Transparan', desc: '{locale === 'en' ? 'Regular progress reports and unlimited consultation throughout the project.' : 'Laporan kemajuan berkala dan konsultasi tanpa batas selama proyek berjalan.'}' },
+const whyChooseUs = (locale: string) => [
+    { icon: Users, title: 'Tim Berpengalaman', desc: locale === 'en' ? 'Supported by expert practitioners with a portfolio of hundreds of successful projects across various industries.' : 'Didukung oleh praktisi ahli dengan portofolio ratusan proyek sukses di berbagai industri.' },
+    { icon: Award, title: 'Kualitas Terukur', desc: locale === 'en' ? 'Every deliverable goes through a strict QA process before being handed over to the client.' : 'Setiap deliverable melalui proses QA ketat sebelum diserahkan ke klien.' },
+    { icon: Clock, title: 'Tepat Waktu', desc: locale === 'en' ? 'Our commitment to the project timeline agreed upon since kickoff.' : 'Komitmen kami pada timeline proyek yang disepakati sejak awal kickoff.' },
+    { icon: Headphones, title: 'Dukungan Purna Jual', desc: locale === 'en' ? 'Maintenance & post-project support services according to your business needs.' : 'Layanan maintenance & support pasca-proyek sesuai kebutuhan bisnis Anda.' },
+    { icon: Lightbulb, title: 'Solusi Inovatif', desc: locale === 'en' ? 'Utilizing the latest relevant and scalable technologies for business growth.' : 'Menggunakan teknologi terkini yang relevan dan terukur untuk pertumbuhan bisnis.' },
+    { icon: MessageCircle, title: 'Komunikasi Transparan', desc: locale === 'en' ? 'Regular progress reports and unlimited consultation throughout the project.' : 'Laporan kemajuan berkala dan konsultasi tanpa batas selama proyek berjalan.' },
 ];
 
-const workflowSteps = [
-    { step: '01', icon: MessageCircle, title: 'Konsultasi Gratis', desc: '{locale === 'en' ? 'Discuss your business needs and goals directly with our consultants.' : 'Diskusi kebutuhan dan tujuan bisnis Anda bersama konsultan kami secara langsung.'}' },
-    { step: '02', icon: ClipboardList, title: 'Analisis & Proposal', desc: '{locale === 'en' ? 'Our team prepares a transparent scope of work, cost estimate, and timeline.' : 'Tim kami menyusun scope of work, estimasi biaya, dan timeline yang transparan.'}' },
-    { step: '03', icon: Lightbulb, title: 'Eksekusi & Produksi', desc: '{locale === 'en' ? 'Execution by our specialist team with regular progress updates to the client.' : 'Pengerjaan oleh tim spesialis dengan update progres berkala kepada klien.'}' },
-    { step: '04', icon: Rocket, title: 'Serah Terima & Go Live', desc: '{locale === 'en' ? 'Official launch accompanied by user training and after-sales support.' : 'Peluncuran resmi disertai pelatihan penggunaan dan dukungan purna jual.'}' },
+const workflowSteps = (locale: string) => [
+    { step: '01', icon: MessageCircle, title: 'Konsultasi Gratis', desc: locale === 'en' ? 'Discuss your business needs and goals directly with our consultants.' : 'Diskusi kebutuhan dan tujuan bisnis Anda bersama konsultan kami secara langsung.' },
+    { step: '02', icon: ClipboardList, title: 'Analisis & Proposal', desc: locale === 'en' ? 'Our team prepares a transparent scope of work, cost estimate, and timeline.' : 'Tim kami menyusun scope of work, estimasi biaya, dan timeline yang transparan.' },
+    { step: '03', icon: Lightbulb, title: 'Eksekusi & Produksi', desc: locale === 'en' ? 'Execution by our specialist team with regular progress updates to the client.' : 'Pengerjaan oleh tim spesialis dengan update progres berkala kepada klien.' },
+    { step: '04', icon: Rocket, title: 'Serah Terima & Go Live', desc: locale === 'en' ? 'Official launch accompanied by user training and after-sales support.' : 'Peluncuran resmi disertai pelatihan penggunaan dan dukungan purna jual.' },
 ];
 
 export const revalidate = 60; // ISR cache data for 60 seconds
@@ -436,6 +436,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ServiceDetail({ params }: Props) {
+    const locale = await getLocaleServer();
     const { slug } = await params;
     let service = null;
 
@@ -611,7 +612,7 @@ export default async function ServiceDetail({ params }: Props) {
                         </h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                        {workflowSteps.map((wf, i) => {
+                        {workflowSteps(locale).map((wf, i) => {
                             const WfIcon = wf.icon;
                             return (
                                 <SpotlightCard key={i} className="p-6 space-y-4 relative">
@@ -720,7 +721,7 @@ export default async function ServiceDetail({ params }: Props) {
                         </h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {whyChooseUs.map((item, i) => {
+                        {whyChooseUs(locale).map((item, i) => {
                             const ItemIcon = item.icon;
                             return (
                                 <SpotlightCard key={i} className="p-6 space-y-3">
@@ -751,7 +752,7 @@ export default async function ServiceDetail({ params }: Props) {
                                 {locale === 'en' ? 'Consult your project needs for free with our technical consultant team. We are ready to help find the best solution for your business.' : 'Konsultasikan kebutuhan proyek Anda secara gratis bersama tim konsultan teknis kami. Kami siap membantu menemukan solusi terbaik untuk bisnis Anda.'}
                             </p>
                             <div className="flex flex-wrap gap-4 pt-1">
-                                {['{locale === 'en' ? '100% Free Consultation' : 'Konsultasi 100% Gratis'}', '{locale === 'en' ? 'No Initial Commitment' : 'Tanpa Komitmen Awal'}', '{locale === 'en' ? 'Fast Response' : 'Respon Cepat'} ≤ 1 Jam'].map((point) => (
+                                {[(locale === 'en' ? '100% Free Consultation' : 'Konsultasi 100% Gratis'), (locale === 'en' ? 'No Initial Commitment' : 'Tanpa Komitmen Awal'), (locale === 'en' ? 'Fast Response' : 'Respon Cepat') + ' ≤ 1 Jam'].map((point) => (
                                     <div key={point} className="flex items-center gap-1.5 text-[11px] font-semibold text-text-muted">
                                         <CheckCircle2 className="w-3.5 h-3.5 text-brand-blue" />
                                         {point}

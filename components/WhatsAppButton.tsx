@@ -21,7 +21,7 @@ export default function WhatsAppButton() {
     }, []);
 
     const defaultMessage = encodeURIComponent(
-        'Halo Diggity, saya tertarik untuk berkonsultasi mengenai proyek digital perusahaan kami.'
+        language === 'en' ? 'Hello Diggity, I am interested in consulting about our company digital project.' : 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai proyek digital perusahaan kami.'
     );
 
     return (

@@ -151,9 +151,9 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         {/* No results */}
                         {query && !loading && !hasResults && (
                             <div className="text-center py-8 space-y-2">
-                                <p className="text-sm font-semibold text-slate-800 dark:text-white">Tidak ada hasil cocok</p>
+                                <p className="text-sm font-semibold text-slate-800 dark:text-white">{language === 'en' ? 'No matching results' : 'Tidak ada hasil cocok'}</p>
                                 <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs mx-auto leading-relaxed">
-                                    Coba ketik kata kunci lain yang berhubungan dengan pengembangan sistem, SEO, hosting, atau digital skill.
+                                    {language === 'en' ? 'Try typing other keywords related to system development, SEO, hosting, or digital skills.' : 'Coba ketik kata kunci lain yang berhubungan dengan pengembangan sistem, SEO, hosting, atau digital skill.'}
                                 </p>
                             </div>
                         )}

@@ -73,9 +73,9 @@ export default function TalentRegistrationForm() {
                     <CheckCircle className="w-10 h-10" />
                 </div>
                 <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-text-main">Registrasi Berhasil!</h3>
+                    <h3 className="text-xl font-bold text-text-main">{language === 'en' ? 'Registration Successful!' : 'Registrasi Berhasil!'}</h3>
                     <p className="text-sm text-text-gray max-w-md mx-auto leading-relaxed">
-                        Terima kasih telah mendaftarkan diri Anda di jaringan talenta Diggity. Tim kami akan meninjau kualifikasi dan menghubungi Anda jika ada proyek yang sesuai.
+                        {language === 'en' ? 'Thank you for registering in the Diggity talent network. Our team will review your qualifications and contact you if there is a suitable project.' : 'Terima kasih telah mendaftarkan diri Anda di jaringan talenta Diggity. Tim kami akan meninjau kualifikasi dan menghubungi Anda jika ada proyek yang sesuai.'}
                     </p>
                 </div>
                 <button
@@ -95,9 +95,9 @@ export default function TalentRegistrationForm() {
                     <span className="px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-[10px] font-bold text-brand-blue uppercase tracking-wider inline-flex items-center gap-1.5 mb-2">
                         <Sparkles className="w-3 h-3" /> Talent Network
                     </span>
-                    <h3 className="text-xl font-bold text-text-main">Gabung Jaringan Talenta</h3>
+                    <h3 className="text-xl font-bold text-text-main">{language === 'en' ? 'Join Talent Network' : 'Gabung Jaringan Talenta'}</h3>
                     <p className="text-xs text-text-gray leading-relaxed pt-1">
-                        Daftarkan diri Anda sebagai talenta lepas individu atau tim khusus untuk proyek kemitraan Diggity.
+                        {language === 'en' ? 'Register yourself as a freelance individual or specialized team for Diggity partnership projects.' : 'Daftarkan diri Anda sebagai talenta lepas individu atau tim khusus untuk proyek kemitraan Diggity.'}
                     </p>
                 </div>
 
@@ -148,7 +148,7 @@ export default function TalentRegistrationForm() {
                                 required
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                placeholder="Masukkan nama Anda"
+                                placeholder={language === 'en' ? 'Enter your name' : 'Masukkan nama Anda'}
                                 className="w-full px-4 py-3 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-text-main placeholder-text-muted"
                             />
                         </div>
@@ -246,7 +246,7 @@ export default function TalentRegistrationForm() {
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Jelaskan secara singkat mengenai spesialisasi dan latar belakang proyek Anda."
+                            placeholder={language === 'en' ? 'Briefly describe your specialization and project background.' : 'Jelaskan secara singkat mengenai spesialisasi dan latar belakang proyek Anda.'}
                             rows={3}
                             className="w-full px-4 py-3 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-xl focus:border-brand-blue focus:outline-none text-text-main placeholder-text-muted text-sm"
                         />

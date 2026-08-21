@@ -81,20 +81,20 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
                             router.push('/dashboard/orders?payment=pending');
                         },
                         onError: () => {
-                            alert('Pembayaran gagal.');
+                            alert(language === 'en' ? 'Payment failed.' : 'Pembayaran gagal.');
                         },
                         onClose: () => {
-                            alert('Anda menutup popup pembayaran sebelum menyelesaikan transaksi.');
+                            alert(language === 'en' ? 'You closed the payment popup before completing the transaction.' : 'Anda menutup popup pembayaran sebelum menyelesaikan transaksi.');
                         },
                     });
                 } else {
                     window.location.href = redirectUrl;
                 }
             } else {
-                alert(res.message || 'Gagal memproses pesanan.');
+                alert(res.message || (language === 'en' ? 'Failed to process order.' : 'Gagal memproses pesanan.'));
             }
         } catch (err: any) {
-            alert(err.message || 'Terjadi kesalahan sistem saat checkout.');
+            alert(err.message || (language === 'en' ? 'System error occurred during checkout.' : 'Terjadi kesalahan sistem saat checkout.'));
         } finally {
             setSubmitting(false);
         }

@@ -68,7 +68,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
                         Products
                     </h1>
                     <p className="text-lg md:text-xl text-text-gray font-medium leading-relaxed max-w-2xl mx-auto">
-                        Menyediakan produk digital siap pakai untuk meningkatkan efisiensi, produktivitas, otomasi, dan skalabilitas bisnis.
+                        {locale === 'en' ? 'Providing ready-to-use digital products to enhance business efficiency, productivity, automation, and scalability.' : 'Menyediakan produk digital siap pakai untuk meningkatkan efisiensi, produktivitas, otomasi, dan skalabilitas bisnis.'}
                     </p>
                 </div>
 

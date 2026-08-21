@@ -644,13 +644,7 @@ export default async function ServiceDetail({ params }: Props) {
                                             plan.isPopular ? 'ring-1 ring-brand-blue/30' : ''
                                         }`}
                                     >
-                                        {plan.isPopular && (
-                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                                                <span className="px-3 py-1 bg-brand-blue text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-brand-blue/30">
-                                                    Paling Populer
-                                                </span>
-                                            </div>
-                                        )}
+
                                         <div className="space-y-5">
                                             <div className="space-y-1">
                                                 <h4 className="text-sm font-extrabold text-text-main">{plan.name}</h4>

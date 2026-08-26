@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { getLocaleServer } from '../../../lib/locale-server';
-import { api } from '../../../lib/api';
-import SpotlightCard from '../../../components/SpotlightCard';
-import ScrollReveal from '../../../components/ScrollReveal';
+import { getLocaleServer } from '../../../../lib/locale-server';
+import { api } from '../../../../lib/api';
+import SpotlightCard from '../../../../components/SpotlightCard';
+import ScrollReveal from '../../../../components/ScrollReveal';
 import {
     ArrowLeft,
     ArrowRight,

@@ -535,16 +535,18 @@ function SectionHeader({ label, title, subtitle }: { label: string; title: strin
 export const revalidate = 60;
 
 interface Props {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ category: string; service: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = await params;
+    const { service } = await params;
+    
+    let dbService = null;
     try {
-        const service = await api.getServiceBySlug(slug);
+        dbService = await api.getSolutionBySlug(service);
         return {
-            title: `${service.name} | Diggity Service`,
-            description: service.description || 'Pelajari selengkapnya tentang layanan profesional kami di Diggity.',
+            title: `${dbService.name} | Diggity Service`,
+            description: dbService.description || 'Pelajari selengkapnya tentang layanan profesional kami di Diggity.',
         };
     } catch {
         return { title: 'Layanan Profesional | Diggity' };
@@ -556,19 +558,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 ───────────────────────────────────────────── */
 export default async function ServiceDetail({ params }: Props) {
     const locale = await getLocaleServer();
-    const { slug } = await params;
+    const { category, service: slug } = await params;
     let service = null;
 
     try {
-        service = await api.getServiceBySlug(slug);
+        service = await api.getSolutionBySlug(slug);
     } catch {
-        try {
-            const allServices = await api.getServices();
-            const fallbackService = allServices.find((s) => s.category?.slug === slug);
-            if (fallbackService) service = await api.getServiceBySlug(fallbackService.slug);
-        } catch (fallbackError) {
-            console.error('Error in category fallback lookup:', fallbackError);
-        }
+        console.error('Error fetching service:', slug);
     }
 
     if (!service) {

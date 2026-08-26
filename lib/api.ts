@@ -299,6 +299,10 @@ export const api = {
     
     getSolutions: (): Promise<Service[]> => fetchAPI('/solutions'),
     getSolutionBySlug: (slug: string): Promise<Service> => fetchAPI(`/solutions/${slug}`),
+    getSolutionsByCategory: (categorySlug: string): Promise<Service[]> =>
+        fetchAPI('/solutions').then((services: Service[]) =>
+            services.filter(s => s.category?.slug === categorySlug)
+        ),
     
     getProducts: (category?: string): Promise<Product[]> => {
         const query = category ? `?category=${category}` : '';

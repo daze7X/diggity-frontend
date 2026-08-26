@@ -174,42 +174,27 @@ export default function Navbar() {
     };
 
     const getServiceHref = (slug: string, categorySlug?: string) => {
-        if (categorySlug === 'tech-talent-solutions' || slug === 'job-connect' || slug === 'headhunting' || slug === 'outsourcing') {
-            if (slug === 'job-connect') return '/job-connect?tab=careers';
-            return `/job-connect/${slug}`;
-        }
+        if (slug === 'job-connect') return '/job-connect?tab=careers';
+        if (slug === 'headhunting' || slug === 'outsourcing') return `/job-connect/${slug}`;
         return `/solutions/${slug}`;
     };
 
-    // Filter services dynamically from database
-    const dbSolutionsCol1 = services.filter(s => 
-        (s.category?.slug === 'app-builder-squad' || s.category?.slug === 'cloud-service-hub') && 
-        s.slug !== 'consulting'
-    );
-    const dbSolutionsCol2 = services.filter(s => 
-        s.category?.slug === 'brand-growth-division' || 
-        s.slug === 'consulting'
-    );
-    const dbSolutionsCol3 = services.filter(s => 
-        s.category?.slug === 'tech-talent-solutions' && s.slug !== 'job-connect'
-    );
-
-    // Fallbacks
+    // Filter categories instead of services for the Mega Menu
+    // We'll map the 7 categories manually to 3 columns to match the existing grid layout
     const fallbackSolutionsCol1 = [
-        { name: 'Technology Solutions', slug: 'technology-solutions', icon: 'code', description: 'Web apps, native mobile apps, and ERP development.', categorySlug: 'app-builder-squad' },
-        { name: 'AI & Emerging Technology', slug: 'ai-emerging-technology', icon: 'cpu', description: 'AI assistants, smart chatbots, and data integration.', categorySlug: 'app-builder-squad' },
-        { name: 'Cloud & Cyber Security', slug: 'cloud-cyber-security', icon: 'shield-check', description: 'DevOps setup, cloud infrastructure, and security.', categorySlug: 'cloud-service-hub' }
+        { name: 'Technology Solutions', slug: 'technology', icon: 'code', description: 'End-to-end technology solutions to build and integrate digital systems.', categorySlug: 'technology' },
+        { name: 'AI & Emerging Technology', slug: 'ai-emerging-technology', icon: 'cpu', description: 'AI, data, automation, IoT, and emerging tech capabilities.', categorySlug: 'ai-emerging-technology' },
+        { name: 'Cloud & Cyber Security', slug: 'cloud-cyber-security', icon: 'shield-check', description: 'Cloud infrastructure, DevOps, security, and managed services.', categorySlug: 'cloud-cyber-security' }
     ];
 
     const fallbackSolutionsCol2 = [
-        { name: 'Creative & Brand Experience', slug: 'creative-brand-experience', icon: 'layers', description: 'UI/UX Figma wireframing, branding, and video.', categorySlug: 'brand-growth-division' },
-        { name: 'Growth Marketing & SEO', slug: 'growth-marketing', icon: 'trending-up', description: 'Local SEO domination and Google/Meta Ads.', categorySlug: 'brand-growth-division' },
-        { name: 'IT Consulting & Strategy', slug: 'consulting', icon: 'help-circle', description: 'Technology transformation advisory.', categorySlug: 'cloud-service-hub' }
+        { name: 'Creative & Brand Experience', slug: 'creative-brand-experience', icon: 'layers', description: 'Branding, creative production, and digital experience.', categorySlug: 'creative-brand-experience' },
+        { name: 'Growth Marketing', slug: 'growth-marketing', icon: 'trending-up', description: 'Digital marketing strategy for awareness and conversion.', categorySlug: 'growth-marketing' },
+        { name: 'Consulting', slug: 'consulting', icon: 'help-circle', description: 'Technology, business, and digital transformation consulting.', categorySlug: 'consulting' }
     ];
 
     const fallbackSolutionsCol3 = [
-        { name: 'IT Headhunting', slug: 'headhunting', icon: 'user-check', description: 'Hire the best tech talent quickly based on your needs.', categorySlug: 'tech-talent-solutions' },
-        { name: 'IT Outsourcing', slug: 'outsourcing', icon: 'users', description: 'Build a remote developer team in 7 days.', categorySlug: 'tech-talent-solutions' }
+        { name: 'IT Talent & Workforce', slug: 'it-talent-workforce', icon: 'users', description: 'Provision and management of IT talent (Headhunting & Outsourcing).', categorySlug: 'it-talent-workforce' }
     ];
 
     const fallbackProducts = [
@@ -218,9 +203,11 @@ export default function Navbar() {
         { name: 'Sleek Dashboard UI Kit', slug: 'sleek-dashboard-ui-kit', icon: 'layers', description: 'UI kits, templates, and digital assets.', categorySlug: 'product' }
     ];
 
-    const solutionsCol1Items = dbSolutionsCol1.length > 0 ? dbSolutionsCol1.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'code', description: s.description || '', categorySlug: s.category?.slug })) : fallbackSolutionsCol1;
-    const solutionsCol2Items = dbSolutionsCol2.length > 0 ? dbSolutionsCol2.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'help-circle', description: s.description || '', categorySlug: s.category?.slug })) : fallbackSolutionsCol2;
-    const solutionsCol3Items = dbSolutionsCol3.length > 0 ? dbSolutionsCol3.map(s => ({ name: s.name, slug: s.slug, icon: s.icon || 'user-check', description: s.description || '', categorySlug: s.category?.slug })) : fallbackSolutionsCol3;
+    // For the mega menu, we now link directly to the category page: /solutions/[category]
+    // The link text will be the category name
+    const solutionsCol1Items = fallbackSolutionsCol1;
+    const solutionsCol2Items = fallbackSolutionsCol2;
+    const solutionsCol3Items = fallbackSolutionsCol3;
     const productsItems = products.length > 0 ? products.slice(0, 3).map(p => ({ name: p.name, slug: p.slug, icon: p.is_popular ? 'server' : 'cpu', description: p.description || '', categorySlug: 'product' })) : fallbackProducts;
 
     return (

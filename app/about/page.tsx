@@ -441,10 +441,13 @@ export default async function About() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         {/* Featured card — spans 2 rows */}
+                        {(() => {
+                            const FeaturedIcon = values[0].icon;
+                            return (
                         <ScrollReveal animation="fade-up" delay={0} className="md:row-span-2">
                             <SpotlightCard className={`p-8 h-full flex flex-col gap-6 bg-gradient-to-br ${values[0].gradient} border-brand-blue/20`}>
                                 <div className={`w-16 h-16 rounded-2xl ${values[0].iconBg} flex items-center justify-center`}>
-                                    <values[0].icon className={`w-8 h-8 ${values[0].iconColor}`} strokeWidth={1.5} />
+                                    <FeaturedIcon className={`w-8 h-8 ${values[0].iconColor}`} strokeWidth={1.5} />
                                 </div>
                                 <div className="space-y-3 flex-1">
                                     <h3 className="text-xl md:text-2xl font-black text-text-main">{values[0].title}</h3>
@@ -459,6 +462,8 @@ export default async function About() {
                                 </div>
                             </SpotlightCard>
                         </ScrollReveal>
+                            );
+                        })()}
 
                         {/* Remaining 3 cards — stacked */}
                         {values.slice(1).map((val, i) => {

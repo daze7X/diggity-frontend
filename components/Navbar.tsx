@@ -143,6 +143,18 @@ export default function Navbar() {
         setActiveDropdown(activeDropdown === type ? null : type);
     };
 
+    const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (pathname === '/') {
+            e.preventDefault();
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                window.history.pushState(null, '', '/#contact');
+            }
+        }
+        setIsOpen(false);
+    };
+
     // Helper helper for dynamic icons
     const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
         const iconMap: Record<string, any> = {
@@ -385,6 +397,7 @@ export default function Navbar() {
                         {/* Contact Us Premium Button (CTA) */}
                         <Link
                             href="/#contact"
+                            onClick={handleContactClick}
                             className="inline-flex items-center justify-center px-4.5 py-2 text-sm font-extrabold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-md shadow-brand-blue/10 hover:scale-[1.02]"
                         >
                             {language === 'en' ? 'Contact Us' : 'Hubungi Kami'}
@@ -979,7 +992,7 @@ export default function Navbar() {
 
                             <Link
                                 href="/#contact"
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleContactClick}
                                 className="inline-flex items-center justify-center w-full px-4 py-3 text-base font-bold text-brand-blue bg-glass-bg border border-glass-border hover:bg-glass-bg-hover rounded-xl transition-colors"
                             >
                                 {language === 'en' ? 'Contact Us' : 'Hubungi Kami'}

@@ -1,19 +1,27 @@
 import React from 'react';
-import Image from 'next/image';
 import { api, Team } from '../../lib/api';
 import SpotlightCard from '../../components/SpotlightCard';
-import { 
-    ShieldCheck, 
-    Award, 
-    Users, 
+import ScrollReveal from '../../components/ScrollReveal';
+import {
+    ShieldCheck,
+    Award,
+    Users,
     Compass,
-    FileText
+    FileText,
+    Code,
+    TrendingUp,
+    Server,
+    GraduationCap,
+    Building2,
+    Briefcase,
+    Star,
+    Zap,
 } from 'lucide-react';
 
 import { generatePageMetadata } from '../../lib/seo';
 import { getLocaleServer } from '../../lib/locale-server';
 
-export const revalidate = 60; // Cache data for 60 seconds (ISR)
+export const revalidate = 60;
 
 export async function generateMetadata() {
     try {
@@ -57,26 +65,119 @@ export default async function About() {
     ];
 
     const values = locale === 'en' ? [
-        { icon: Compass, title: 'Boundless Innovation', desc: 'We continuously explore leading edge technologies to deliver competitive advantages for our clients.' },
-        { icon: ShieldCheck, title: 'Integrity & Transparency', desc: 'Building client trust through honesty, regular communication, and transparent analytical reports.' },
-        { icon: Award, title: 'Classy Quality', desc: 'No compromise in quality. From code hygiene to the aesthetics of UI/UX interfaces.' },
-        { icon: Users, title: 'High-Impact Collaboration', desc: 'We are not just a vendor, we are a strategic partner working closely to drive your business growth.' },
+        {
+            icon: Compass,
+            title: 'Boundless Innovation',
+            desc: 'We continuously explore leading edge technologies to deliver competitive advantages for our clients.',
+            gradient: 'from-blue-500/20 to-indigo-500/10',
+            iconColor: 'text-blue-600 dark:text-blue-400',
+            iconBg: 'bg-blue-500/10',
+        },
+        {
+            icon: ShieldCheck,
+            title: 'Integrity & Transparency',
+            desc: 'Building client trust through honesty, regular communication, and transparent analytical reports.',
+            gradient: 'from-emerald-500/20 to-teal-500/10',
+            iconColor: 'text-emerald-600 dark:text-emerald-400',
+            iconBg: 'bg-emerald-500/10',
+        },
+        {
+            icon: Award,
+            title: 'Classy Quality',
+            desc: 'No compromise in quality. From code hygiene to the aesthetics of UI/UX interfaces.',
+            gradient: 'from-amber-500/20 to-orange-500/10',
+            iconColor: 'text-amber-600 dark:text-amber-400',
+            iconBg: 'bg-amber-500/10',
+        },
+        {
+            icon: Users,
+            title: 'High-Impact Collaboration',
+            desc: 'We are not just a vendor, we are a strategic partner working closely to drive your business growth.',
+            gradient: 'from-violet-500/20 to-purple-500/10',
+            iconColor: 'text-violet-600 dark:text-violet-400',
+            iconBg: 'bg-violet-500/10',
+        },
     ] : [
-        { icon: Compass, title: 'Inovasi Tanpa Batas', desc: 'Kami terus mengeksplorasi teknologi terdepan untuk menghadirkan keunggulan kompetitif bagi klien kami.' },
-        { icon: ShieldCheck, title: 'Integritas & Transparansi', desc: 'Membangun kepercayaan klien melalui kejujuran, komunikasi berkala, dan penyajian laporan analitik yang transparan.' },
-        { icon: Award, title: 'Kualitas Berkelas', desc: 'Tidak ada kompromi dalam kualitas. Mulai dari kebersihan baris kode hingga estetika antarmuka UI/UX.' },
-        { icon: Users, title: 'Kolaborasi Dampak Tinggi', desc: 'Kami tidak sekadar vendor, kami adalah mitra strategis yang bekerja erat untuk mendorong pertumbuhan bisnis Anda.' },
+        {
+            icon: Compass,
+            title: 'Inovasi Tanpa Batas',
+            desc: 'Kami terus mengeksplorasi teknologi terdepan untuk menghadirkan keunggulan kompetitif bagi klien kami.',
+            gradient: 'from-blue-500/20 to-indigo-500/10',
+            iconColor: 'text-blue-600 dark:text-blue-400',
+            iconBg: 'bg-blue-500/10',
+        },
+        {
+            icon: ShieldCheck,
+            title: 'Integritas & Transparansi',
+            desc: 'Membangun kepercayaan klien melalui kejujuran, komunikasi berkala, dan penyajian laporan analitik yang transparan.',
+            gradient: 'from-emerald-500/20 to-teal-500/10',
+            iconColor: 'text-emerald-600 dark:text-emerald-400',
+            iconBg: 'bg-emerald-500/10',
+        },
+        {
+            icon: Award,
+            title: 'Kualitas Berkelas',
+            desc: 'Tidak ada kompromi dalam kualitas. Mulai dari kebersihan baris kode hingga estetika antarmuka UI/UX.',
+            gradient: 'from-amber-500/20 to-orange-500/10',
+            iconColor: 'text-amber-600 dark:text-amber-400',
+            iconBg: 'bg-amber-500/10',
+        },
+        {
+            icon: Users,
+            title: 'Kolaborasi Dampak Tinggi',
+            desc: 'Kami tidak sekadar vendor, kami adalah mitra strategis yang bekerja erat untuk mendorong pertumbuhan bisnis Anda.',
+            gradient: 'from-violet-500/20 to-purple-500/10',
+            iconColor: 'text-violet-600 dark:text-violet-400',
+            iconBg: 'bg-violet-500/10',
+        },
     ];
 
-    // Read dynamic settings with static fallbacks
-    const ptName = settings?.company_pt_name || 'PT Diggity Digital Internasional';
-    const nib = settings?.company_nib || '9120304910243';
-    const kbli = settings?.company_kbli || 'KBLI 62019 (Aktivitas Pemrograman Komputer Lainnya)';
-
-    const buildDesc = settings?.philosophy_build || (locale === 'en' ? 'Designing high-performance software products (web/mobile).' : 'Merancang produk software (web/mobile) berkinerja tinggi.');
-    const growDesc = settings?.philosophy_grow || (locale === 'en' ? 'Driving market growth through SEO, advertising, and social media marketing.' : 'Mendorong pertumbuhan pasar melalui SEO, periklanan, dan marketing media sosial.');
-    const scaleDesc = settings?.philosophy_scale || (locale === 'en' ? 'Ensuring cloud hosting infrastructure reliability and stable system capacity.' : 'Menjamin keandalan infrastruktur cloud server dan kapasitas sistem yang stabil.');
-    const empowerDesc = settings?.philosophy_empower || (locale === 'en' ? 'Empowering your team through digital skills training and transfer.' : 'Memberdayakan tim Anda melalui pelatihan dan transfer keahlian digital.');
+    const pillars = [
+        {
+            num: '01',
+            label: 'BUILD',
+            icon: Code,
+            accentBorder: 'border-t-blue-500',
+            accentText: 'text-blue-600 dark:text-blue-400',
+            accentBg: 'bg-blue-500/10',
+            desc: settings?.philosophy_build || (locale === 'en'
+                ? 'Designing high-performance software products (web/mobile).'
+                : 'Merancang produk software (web/mobile) berkinerja tinggi.'),
+        },
+        {
+            num: '02',
+            label: 'GROW',
+            icon: TrendingUp,
+            accentBorder: 'border-t-emerald-500',
+            accentText: 'text-emerald-600 dark:text-emerald-400',
+            accentBg: 'bg-emerald-500/10',
+            desc: settings?.philosophy_grow || (locale === 'en'
+                ? 'Driving market growth through SEO, advertising, and social media marketing.'
+                : 'Mendorong pertumbuhan pasar melalui SEO, periklanan, dan marketing media sosial.'),
+        },
+        {
+            num: '03',
+            label: 'SCALE',
+            icon: Server,
+            accentBorder: 'border-t-amber-500',
+            accentText: 'text-amber-600 dark:text-amber-400',
+            accentBg: 'bg-amber-500/10',
+            desc: settings?.philosophy_scale || (locale === 'en'
+                ? 'Ensuring cloud hosting infrastructure reliability and stable system capacity.'
+                : 'Menjamin keandalan infrastruktur cloud server dan kapasitas sistem yang stabil.'),
+        },
+        {
+            num: '04',
+            label: 'EMPOWER',
+            icon: GraduationCap,
+            accentBorder: 'border-t-violet-500',
+            accentText: 'text-violet-600 dark:text-violet-400',
+            accentBg: 'bg-violet-500/10',
+            desc: settings?.philosophy_empower || (locale === 'en'
+                ? 'Empowering your team through digital skills training and transfer.'
+                : 'Memberdayakan tim Anda melalui pelatihan dan transfer keahlian digital.'),
+        },
+    ];
 
     const defaultVision = locale === 'en'
         ? 'To be the leading digital transformation partner in Southeast Asia, empowering businesses to grow in a structured and sustainable manner through integrated technology, creativity, and education.'
@@ -104,203 +205,333 @@ export default async function About() {
         ? settings.history_timeline
         : defaultTimeline;
 
+    const missionAccents = [
+        'border-l-blue-500 bg-blue-500/5',
+        'border-l-emerald-500 bg-emerald-500/5',
+        'border-l-violet-500 bg-violet-500/5',
+    ];
+    const missionNumColors = [
+        'from-blue-500 to-indigo-600',
+        'from-emerald-500 to-teal-600',
+        'from-violet-500 to-purple-600',
+    ];
+
+    const timelineColors = [
+        { dot: 'bg-blue-500', year: 'from-blue-500/20 to-blue-500/5', text: 'text-blue-600 dark:text-blue-400' },
+        { dot: 'bg-emerald-500', year: 'from-emerald-500/20 to-emerald-500/5', text: 'text-emerald-600 dark:text-emerald-400' },
+        { dot: 'bg-amber-500', year: 'from-amber-500/20 to-amber-500/5', text: 'text-amber-600 dark:text-amber-400' },
+        { dot: 'bg-violet-500', year: 'from-violet-500/20 to-violet-500/5', text: 'text-violet-600 dark:text-violet-400' },
+    ];
+
+    const stats = [
+        { label: locale === 'en' ? 'Founded' : 'Berdiri', value: '2018', icon: Building2 },
+        { label: locale === 'en' ? 'Projects' : 'Proyek', value: '200+', icon: Briefcase },
+        { label: locale === 'en' ? 'Clients' : 'Klien', value: '50+', icon: Users },
+        { label: locale === 'en' ? 'Rating' : 'Rating', value: '4.9★', icon: Star },
+    ];
+
     return (
-        <div className="relative pt-36 pb-20 md:pt-48 md:pb-28">
-            <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-24">
-                
-                {/* 1. Header Section */}
-                <div className="text-center space-y-4 max-w-3xl mx-auto relative">
-                    {/* Glowing Spotlight behind title */}
-                    <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 bg-brand-blue/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
-                    
-                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text-main leading-tight">
-                        {locale === 'en' ? (
-                            <>About <span className="text-brand-blue">Us</span></>
-                        ) : (
-                            <>Tentang <span className="text-brand-blue">Kami</span></>
-                        )}
-                    </h1>
-                    <p className="text-lg md:text-xl text-text-gray font-medium">
-                        {locale === 'en' ? 'Build. Grow. Scale. Your Business in the Digital Era.' : 'Membangun, Menumbuhkan, dan Menskalakan Bisnis Anda di Era Digital.'}
-                    </p>
-                    <div className="pt-4 flex justify-center">
-                        <a 
-                            href="/company-profile-diggity.pdf" 
+        <div className="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+            {/* Background decorative blobs */}
+            <div className="absolute top-0 left-0 w-[600px] h-[500px] bg-brand-blue/5 rounded-full blur-[120px] pointer-events-none -z-10 -translate-x-1/3 -translate-y-1/4" />
+            <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-indigo-500/4 rounded-full blur-[100px] pointer-events-none -z-10 translate-x-1/3" />
+
+            <div className="max-w-6xl mx-auto px-6 md:px-8 space-y-28">
+
+                {/* ════════════════════════════════
+                    01. HERO SECTION
+                ════════════════════════════════ */}
+                <ScrollReveal animation="fade-up">
+                    <div className="text-center space-y-8 max-w-4xl mx-auto">
+                        <div className="space-y-4">
+                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-text-main leading-[0.95]">
+                                {locale === 'en' ? (
+                                    <>About <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-indigo-500">Us</span></>
+                                ) : (
+                                    <>Tentang <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-indigo-500">Kami</span></>
+                                )}
+                            </h1>
+                            <p className="text-base md:text-xl text-text-gray font-medium max-w-2xl mx-auto leading-relaxed">
+                                {locale === 'en'
+                                    ? 'Build. Grow. Scale. Your Business in the Digital Era.'
+                                    : 'Membangun, Menumbuhkan, dan Menskalakan Bisnis Anda di Era Digital.'}
+                            </p>
+                        </div>
+
+                        {/* Stats bar */}
+                        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-0 md:divide-x md:divide-glass-border">
+                            {stats.map((s, i) => {
+                                const Icon = s.icon;
+                                return (
+                                    <div key={i} className="flex items-center gap-2.5 px-6 py-2">
+                                        <Icon className="w-4 h-4 text-brand-blue shrink-0" />
+                                        <span className="text-lg font-black text-text-main">{s.value}</span>
+                                        <span className="text-xs font-semibold text-text-muted">{s.label}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        <a
+                            href="/company-profile-diggity.pdf"
                             download
-                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-blue text-white hover:bg-brand-blue-dark rounded-xl text-xs font-bold transition-all hover:scale-[1.02] shadow-lg shadow-brand-blue/10 cursor-pointer"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-glass-bg border border-glass-border text-text-main hover:border-brand-blue/40 hover:text-brand-blue rounded-xl text-sm font-bold transition-all"
                         >
                             <FileText className="w-4 h-4" />
                             {locale === 'en' ? 'Download Company Profile (PDF)' : 'Unduh Company Profile (PDF)'}
                         </a>
                     </div>
-                </div>
+                </ScrollReveal>
 
-                {/* 2. History & Philosophy (Bento Grid Layout) */}
-                <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                        {/* Card 1: Sejarah & Filosofi (Spans all 4 columns) */}
-                        <SpotlightCard className="p-8 md:col-span-4 flex flex-col justify-between text-left space-y-6">
-                            <div className="space-y-4">
-                                <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                                    {locale === 'en' ? 'History & Philosophy' : 'Sejarah & Filosofi'}
-                                </span>
-                                <h3 className="text-2xl md:text-3xl font-extrabold text-text-main tracking-tight leading-tight">
+                {/* ════════════════════════════════
+                    02. PHILOSOPHY — History Text
+                ════════════════════════════════ */}
+                <ScrollReveal animation="fade-up">
+                    <SpotlightCard className="p-8 md:p-12 relative overflow-hidden">
+                        {/* Decorative large text */}
+                        <span className="absolute right-8 top-4 text-[120px] font-black text-brand-blue/5 select-none leading-none pointer-events-none hidden md:block">
+                            2018
+                        </span>
+                        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                    <span className="h-px w-8 bg-brand-blue/50 rounded-full" />
+                                    <span className="text-[11px] font-black text-brand-blue uppercase tracking-[0.2em]">
+                                        {locale === 'en' ? 'History & Philosophy' : 'Sejarah & Filosofi'}
+                                    </span>
+                                </div>
+                                <h2 className="text-3xl md:text-4xl font-black text-text-main tracking-tight leading-tight">
                                     {locale === 'en' ? 'Our Core Digital Engineering Pillars' : 'Pilar Utama Rekayasa Digital Kami'}
-                                </h3>
+                                </h2>
+                            </div>
+                            <div className="space-y-3">
                                 <p className="text-text-gray leading-relaxed text-sm md:text-base">
-                                    {locale === 'en' 
+                                    {locale === 'en'
                                         ? 'Established in 2018 in Tangerang, Diggity was born from a vision to deliver global-standard digital solutions for local businesses. We believe in structured growth frameworks to help businesses build technical foundations, dominate markets, scale capacity, and train internal capabilities.'
                                         : 'Didirikan pada tahun 2018 di Tangerang, Diggity lahir dari visi untuk memberikan solusi digital berkualitas global bagi bisnis lokal. Kami meyakini filosofi pertumbuhan terstruktur untuk membantu bisnis membangun fondasi teknis, mendominasi pasar, menskalakan kapasitas, dan melatih kemandirian internal.'}
                                 </p>
+                                <p className="text-xs font-semibold text-text-muted">Tangerang, Indonesia • Est. 2018</p>
                             </div>
-                            <div className="text-xs font-semibold text-text-muted">
-                                Tangerang, Indonesia • Est. 2018
-                            </div>
-                        </SpotlightCard>
+                        </div>
+                    </SpotlightCard>
+                </ScrollReveal>
 
-                        {/* Card 3: BUILD */}
-                        <SpotlightCard className="p-6 text-left flex flex-col justify-between min-h-[160px] md:col-span-1">
-                            <div className="space-y-2">
-                                <div className="text-lg font-bold text-brand-blue">01 / BUILD</div>
-                                <p className="text-xs text-text-gray leading-relaxed">{buildDesc}</p>
-                            </div>
-                        </SpotlightCard>
-
-                        {/* Card 4: GROW */}
-                        <SpotlightCard className="p-6 text-left flex flex-col justify-between min-h-[160px] md:col-span-1">
-                            <div className="space-y-2">
-                                <div className="text-lg font-bold text-brand-blue">02 / GROW</div>
-                                <p className="text-xs text-text-gray leading-relaxed">{growDesc}</p>
-                            </div>
-                        </SpotlightCard>
-
-                        {/* Card 5: SCALE */}
-                        <SpotlightCard className="p-6 text-left flex flex-col justify-between min-h-[160px] md:col-span-1">
-                            <div className="space-y-2">
-                                <div className="text-lg font-bold text-brand-blue">03 / SCALE</div>
-                                <p className="text-xs text-text-gray leading-relaxed">{scaleDesc}</p>
-                            </div>
-                        </SpotlightCard>
-
-                        {/* Card 6: EMPOWER */}
-                        <SpotlightCard className="p-6 text-left flex flex-col justify-between min-h-[160px] md:col-span-1">
-                            <div className="space-y-2">
-                                <div className="text-lg font-bold text-brand-blue">04 / EMPOWER</div>
-                                <p className="text-xs text-text-gray leading-relaxed">{empowerDesc}</p>
-                            </div>
-                        </SpotlightCard>
-                    </div>
-                </div>
-
-                {/* 2.5 Vision & Mission Section */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                    {/* Vision Card */}
-                    <div className="lg:col-span-5 flex">
-                        <SpotlightCard className="p-8 flex flex-col justify-center text-left bg-gradient-to-br from-brand-blue/5 to-transparent border border-glass-border/60 rounded-2xl w-full">
-                            <div className="space-y-4">
-                                <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
-                                    {locale === 'en' ? 'Vision' : 'Visi'}
-                                </span>
-                                <h3 className="text-2xl md:text-3xl font-black text-text-main tracking-tight leading-tight">
-                                    {locale === 'en' ? 'Our Strategic Horizon' : 'Arah Strategis Kami'}
-                                </h3>
-                                <p className="text-text-main text-base md:text-lg font-medium leading-relaxed italic border-l-2 border-brand-blue pl-4">
-                                    &ldquo;{vision}&rdquo;
-                                </p>
-                            </div>
-                        </SpotlightCard>
-                    </div>
-
-                    {/* Mission Card */}
-                    <div className="lg:col-span-7 flex">
-                        <SpotlightCard className="p-8 flex flex-col justify-between text-left border border-glass-border rounded-2xl w-full">
-                            <div className="space-y-6">
-                                <div className="space-y-1">
-                                    <span className="text-xs font-bold text-brand-blue uppercase tracking-widest block">
-                                        {locale === 'en' ? 'Mission' : 'Misi'}
-                                    </span>
-                                    <h3 className="text-2xl font-black text-text-main tracking-tight">
-                                        {locale === 'en' ? 'How We Deliver Impact' : 'Bagaimana Kami Mewujudkannya'}
-                                    </h3>
-                                </div>
-
-                                <div className="space-y-4">
-                                    {missionPoints.map((point: any, index: number) => (
-                                        <div key={index} className="flex items-start space-x-4 p-3 rounded-xl hover:bg-glass-bg transition-colors border border-transparent hover:border-glass-border/30">
-                                            <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue font-black text-sm">
-                                                {index + 1}
-                                            </div>
-                                            <p className="text-xs md:text-sm text-text-gray leading-relaxed font-medium pt-1">
-                                                {point.text}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </SpotlightCard>
-                    </div>
-                </div>
-
-                {/* 3. Company Values */}
-                <div className="space-y-12">
-                    <div className="text-center space-y-4 max-w-2xl mx-auto">
-                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                            {locale === 'en' ? 'Company Values' : 'Nilai Perusahaan'}
-                        </span>
-                        <h3 className="text-3xl font-extrabold text-text-main tracking-tight">
-                            {locale === 'en' ? 'Core Principles Guiding Us' : 'Prinsip Yang Mengarahkan Kami'}
-                        </h3>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                        {values.map((val, i) => {
-                            const IconComponent = val.icon;
+                {/* ════════════════════════════════
+                    03. PILLARS — Build/Grow/Scale/Empower
+                ════════════════════════════════ */}
+                <div className="space-y-8">
+                    <ScrollReveal animation="fade-up">
+                        <div className="flex items-center gap-3">
+                            <span className="h-px w-8 bg-brand-blue/50 rounded-full" />
+                            <span className="text-[11px] font-black text-brand-blue uppercase tracking-[0.2em]">
+                                {locale === 'en' ? 'Our Framework' : 'Kerangka Kerja Kami'}
+                            </span>
+                        </div>
+                    </ScrollReveal>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        {pillars.map((p, i) => {
+                            const PIcon = p.icon;
                             return (
-                                <SpotlightCard key={i} className="flex space-x-5 p-6">
-                                    <div className="flex-shrink-0 w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center text-brand-blue">
-                                        <IconComponent className="w-6 h-6" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <h4 className="text-lg font-bold text-text-main">{val.title}</h4>
-                                        <p className="text-sm text-text-gray leading-relaxed">{val.desc}</p>
-                                    </div>
-                                </SpotlightCard>
+                                <ScrollReveal key={i} animation="fade-up" delay={i * 80}>
+                                    <SpotlightCard className={`p-6 relative overflow-hidden flex flex-col gap-5 border-t-2 ${p.accentBorder} h-full`}>
+                                        {/* Large decorative number */}
+                                        <span className={`absolute -bottom-2 -right-1 text-7xl font-black select-none leading-none pointer-events-none ${p.accentText} opacity-10`}>
+                                            {p.num}
+                                        </span>
+
+                                        <div className={`w-12 h-12 rounded-2xl ${p.accentBg} flex items-center justify-center shrink-0`}>
+                                            <PIcon className={`w-6 h-6 ${p.accentText}`} strokeWidth={1.5} />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <p className={`text-xs font-black uppercase tracking-[0.15em] ${p.accentText}`}>
+                                                {p.num} / {p.label}
+                                            </p>
+                                            <p className="text-sm text-text-gray leading-relaxed font-medium">{p.desc}</p>
+                                        </div>
+                                    </SpotlightCard>
+                                </ScrollReveal>
                             );
                         })}
                     </div>
                 </div>
 
-                {/* 4. Timeline Section */}
-                <div className="space-y-16 py-10 text-left">
-                    <div className="text-center space-y-4 max-w-2xl mx-auto">
-                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Milestones</span>
-                        <h3 className="text-3xl font-extrabold text-text-main tracking-tight">
-                            {locale === 'en' ? 'Our Historic Journey' : 'Perjalanan Sejarah Kami'}
-                        </h3>
-                    </div>
-                    <div className="relative border-l border-glass-border ml-4 md:ml-32 space-y-12">
-                        {timelineData.map((item: any, i: number) => (
-                            <div key={i} className="relative pl-8 md:pl-12">
-                                {/* Dot Indicator */}
-                                <span className="absolute -left-2 top-1.5 w-4 h-4 rounded-full bg-brand-blue border-4 border-brand-bg transition-colors" />
-                                
-                                {/* Year label on the left for desktops */}
-                                <span className="hidden md:block absolute -left-36 top-1 text-xl font-black text-brand-blue w-24 text-right">
-                                    {item.year}
+                {/* ════════════════════════════════
+                    04. VISION — Dramatic Quote
+                ════════════════════════════════ */}
+                <ScrollReveal animation="fade-up">
+                    <div className="relative overflow-hidden rounded-3xl border border-brand-blue/15 bg-gradient-to-br from-[#0a192f] via-[#0d2040] to-[#091525]">
+                        {/* Decorative blobs */}
+                        <div className="absolute -top-20 -left-20 w-72 h-72 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none" />
+                        <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
+
+                        {/* Giant quote mark */}
+                        <span className="absolute top-4 left-8 text-[180px] font-black text-white/5 leading-none select-none pointer-events-none font-serif">"</span>
+
+                        <div className="relative z-10 p-10 md:p-16 space-y-6">
+                            <div className="flex items-center gap-3">
+                                <span className="h-px w-8 bg-blue-400/50 rounded-full" />
+                                <span className="text-[11px] font-black text-blue-400 uppercase tracking-[0.2em]">
+                                    {locale === 'en' ? 'Vision' : 'Visi'}
                                 </span>
-                                
-                                <div className="space-y-2 max-w-2xl">
-                                    {/* Year badge for mobile only */}
-                                    <span className="inline-block md:hidden px-2 py-0.5 bg-brand-blue/10 text-brand-blue text-xs font-black rounded mb-1">
-                                        {item.year}
-                                    </span>
-                                    <h4 className="text-lg font-bold text-text-main">{item.title}</h4>
-                                    <p className="text-sm text-text-gray leading-relaxed">{item.desc}</p>
-                                </div>
                             </div>
-                        ))}
+                            <h2 className="text-xl md:text-2xl font-black text-white/60 tracking-tight">
+                                {locale === 'en' ? 'Our Strategic Horizon' : 'Arah Strategis Kami'}
+                            </h2>
+                            <p className="text-xl md:text-3xl font-black text-white leading-snug max-w-4xl tracking-tight">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-white">
+                                    {vision}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </ScrollReveal>
+
+                {/* ════════════════════════════════
+                    05. MISSION — Accent Cards
+                ════════════════════════════════ */}
+                <ScrollReveal animation="fade-up">
+                    <div className="space-y-10">
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                                <span className="h-px w-8 bg-brand-blue/50 rounded-full" />
+                                <span className="text-[11px] font-black text-brand-blue uppercase tracking-[0.2em]">
+                                    {locale === 'en' ? 'Mission' : 'Misi'}
+                                </span>
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-black text-text-main tracking-tight leading-tight">
+                                {locale === 'en' ? 'How We Deliver Impact' : 'Bagaimana Kami Mewujudkannya'}
+                            </h2>
+                        </div>
+                        <div className="space-y-4">
+                            {missionPoints.map((point: any, index: number) => (
+                                <ScrollReveal key={index} animation="fade-up" delay={index * 80}>
+                                    <div className={`flex items-start gap-6 p-6 rounded-2xl border-l-4 ${missionAccents[index] || 'border-l-brand-blue bg-brand-blue/5'}`}>
+                                        {/* Large gradient number circle */}
+                                        <div className={`shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br ${missionNumColors[index] || 'from-brand-blue to-indigo-600'} flex items-center justify-center text-white font-black text-lg shadow-lg`}>
+                                            {index + 1}
+                                        </div>
+                                        <p className="text-sm md:text-base text-text-gray leading-relaxed font-medium pt-2.5">
+                                            {point.text}
+                                        </p>
+                                    </div>
+                                </ScrollReveal>
+                            ))}
+                        </div>
+                    </div>
+                </ScrollReveal>
+
+                {/* ════════════════════════════════
+                    06. VALUES — Bento Grid
+                ════════════════════════════════ */}
+                <div className="space-y-10">
+                    <ScrollReveal animation="fade-up">
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                                <span className="h-px w-8 bg-brand-blue/50 rounded-full" />
+                                <span className="text-[11px] font-black text-brand-blue uppercase tracking-[0.2em]">
+                                    {locale === 'en' ? 'Company Values' : 'Nilai Perusahaan'}
+                                </span>
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-black text-text-main tracking-tight">
+                                {locale === 'en' ? 'Core Principles Guiding Us' : 'Prinsip Yang Mengarahkan Kami'}
+                            </h2>
+                        </div>
+                    </ScrollReveal>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {/* Featured card — spans 2 rows */}
+                        <ScrollReveal animation="fade-up" delay={0} className="md:row-span-2">
+                            <SpotlightCard className={`p-8 h-full flex flex-col gap-6 bg-gradient-to-br ${values[0].gradient} border-brand-blue/20`}>
+                                <div className={`w-16 h-16 rounded-2xl ${values[0].iconBg} flex items-center justify-center`}>
+                                    <values[0].icon className={`w-8 h-8 ${values[0].iconColor}`} strokeWidth={1.5} />
+                                </div>
+                                <div className="space-y-3 flex-1">
+                                    <h3 className="text-xl md:text-2xl font-black text-text-main">{values[0].title}</h3>
+                                    <p className="text-base text-text-gray leading-relaxed font-medium">{values[0].desc}</p>
+                                </div>
+                                {/* Decorative element */}
+                                <div className="flex items-center gap-2 pt-2">
+                                    <Zap className={`w-4 h-4 ${values[0].iconColor}`} />
+                                    <span className={`text-xs font-bold ${values[0].iconColor} uppercase tracking-wider`}>
+                                        {locale === 'en' ? 'Core Value' : 'Nilai Utama'}
+                                    </span>
+                                </div>
+                            </SpotlightCard>
+                        </ScrollReveal>
+
+                        {/* Remaining 3 cards — stacked */}
+                        {values.slice(1).map((val, i) => {
+                            const Icon = val.icon;
+                            return (
+                                <ScrollReveal key={i + 1} animation="fade-up" delay={(i + 1) * 80}>
+                                    <SpotlightCard className={`p-7 flex items-start gap-5 bg-gradient-to-br ${val.gradient} h-full`}>
+                                        <div className={`w-14 h-14 rounded-2xl ${val.iconBg} flex items-center justify-center shrink-0`}>
+                                            <Icon className={`w-7 h-7 ${val.iconColor}`} strokeWidth={1.5} />
+                                        </div>
+                                        <div className="space-y-1.5">
+                                            <h4 className="text-base font-extrabold text-text-main">{val.title}</h4>
+                                            <p className="text-sm text-text-gray leading-relaxed font-medium">{val.desc}</p>
+                                        </div>
+                                    </SpotlightCard>
+                                </ScrollReveal>
+                            );
+                        })}
                     </div>
                 </div>
 
+                {/* ════════════════════════════════
+                    07. TIMELINE — Milestone Cards
+                ════════════════════════════════ */}
+                <div className="space-y-10">
+                    <ScrollReveal animation="fade-up">
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                                <span className="h-px w-8 bg-brand-blue/50 rounded-full" />
+                                <span className="text-[11px] font-black text-brand-blue uppercase tracking-[0.2em]">
+                                    Milestones
+                                </span>
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-black text-text-main tracking-tight">
+                                {locale === 'en' ? 'Our Historic Journey' : 'Perjalanan Sejarah Kami'}
+                            </h2>
+                        </div>
+                    </ScrollReveal>
+
+                    <div className="relative">
+                        {/* Gradient connector line */}
+                        <div className="absolute left-[27px] md:left-[43px] top-8 bottom-8 w-px bg-gradient-to-b from-brand-blue via-emerald-500 via-amber-500 to-violet-500 opacity-30 pointer-events-none" />
+
+                        <div className="space-y-5">
+                            {timelineData.map((item: any, i: number) => {
+                                const tc = timelineColors[i % timelineColors.length];
+                                return (
+                                    <ScrollReveal key={i} animation="fade-up" delay={i * 80}>
+                                        <div className="flex items-start gap-5 md:gap-8">
+                                            {/* Dot indicator */}
+                                            <div className={`w-14 h-14 rounded-2xl ${tc.dot} bg-opacity-15 flex items-center justify-center shrink-0 relative z-10 border border-white/10`}
+                                                style={{ background: `linear-gradient(135deg, ${tc.dot.replace('bg-', '')}20, ${tc.dot.replace('bg-', '')}05)` }}
+                                            >
+                                                <span className={`text-base font-black ${tc.text}`}>{item.year.slice(-2)}'</span>
+                                            </div>
+
+                                            {/* Content card */}
+                                            <SpotlightCard className="flex-1 p-6 flex flex-col sm:flex-row sm:items-center gap-4">
+                                                <div className={`shrink-0 px-4 py-2 rounded-xl bg-gradient-to-br ${tc.year} border border-white/5`}>
+                                                    <span className={`text-2xl font-black ${tc.text} leading-none`}>{item.year}</span>
+                                                </div>
+                                                <div className="space-y-1 flex-1">
+                                                    <h4 className="text-base font-extrabold text-text-main">{item.title}</h4>
+                                                    <p className="text-sm text-text-gray leading-relaxed font-medium">{item.desc}</p>
+                                                </div>
+                                            </SpotlightCard>
+                                        </div>
+                                    </ScrollReveal>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>

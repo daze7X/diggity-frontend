@@ -2,8 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
-import { api, Course } from '../../lib/api';
-import { BookOpen, Clock, Award, Check, Sparkles, GraduationCap, Building, MonitorPlay, Book, ArrowLeft, ArrowRight, Users, PlayCircle } from 'lucide-react';
+import { api, Course, Faq } from '../../lib/api';
+import { BookOpen, Clock, Award, Check, Sparkles, GraduationCap, Building, MonitorPlay, Book, ArrowLeft, ArrowRight, Users, PlayCircle, Briefcase } from 'lucide-react';
+import FaqAccordion from '../../components/FaqAccordion';
 import SpotlightCard from '../../components/SpotlightCard';
 import ScrollReveal from '../../components/ScrollReveal';
 import { getLocaleServer } from '../../lib/locale-server';
@@ -73,14 +74,20 @@ const ACADEMY_CATEGORIES = [
 export default async function AcademyPage({ searchParams }: PageProps) {
     const locale = await getLocaleServer();
     let allCourses: Course[] = [];
+    let faqs: Faq[] = [];
     
     const resolvedParams = await searchParams;
     const category = typeof resolvedParams.category === 'string' ? resolvedParams.category : undefined;
 
     try {
-        allCourses = await api.getCourses(); // Fetch all courses to enable local filtering and counting
+        const [coursesRes, faqsRes] = await Promise.all([
+            api.getCourses(),
+            api.getFaqs()
+        ]);
+        allCourses = coursesRes;
+        faqs = faqsRes;
     } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error('Error fetching academy data:', error);
     }
 
     const displayedCourses = category 
@@ -103,6 +110,37 @@ export default async function AcademyPage({ searchParams }: PageProps) {
         { icon: BookOpen, val: `${allCourses.length || 20}+`,  labelEn: 'Courses', labelId: 'Total Kelas' },
         { icon: Award,    val: '100%',  labelEn: 'Certified', labelId: 'Tersertifikasi' },
         { icon: PlayCircle, val: '24/7',   labelEn: 'Access', labelId: 'Akses Penuh' },
+    ];
+    
+    const BENEFITS = [
+        {
+            icon: Users,
+            titleEn: '1-on-1 Mentoring',
+            titleId: 'Mentoring 1-on-1',
+            descEn: 'Personalized guidance from experienced industry professionals.',
+            descId: 'Bimbingan personal langsung dari praktisi industri berpengalaman.'
+        },
+        {
+            icon: Award,
+            titleEn: 'Official Certificate',
+            titleId: 'Sertifikat Resmi',
+            descEn: 'Industry-recognized certification upon completion.',
+            descId: 'Sertifikasi standar industri yang diakui setelah kelulusan.'
+        },
+        {
+            icon: Briefcase,
+            titleEn: 'Job Connect',
+            titleId: 'Disalurkan Kerja',
+            descEn: 'Direct access to our hiring partners and job placements.',
+            descId: 'Akses langsung ke mitra perusahaan kami untuk penyaluran kerja.'
+        },
+        {
+            icon: Clock,
+            titleEn: 'Lifetime Access',
+            titleId: 'Akses Selamanya',
+            descEn: 'Keep all course materials and future updates forever.',
+            descId: 'Akses penuh ke seluruh materi dan pembaruannya seumur hidup.'
+        }
     ];
     
     const activeCategoryConfig = ACADEMY_CATEGORIES.find(c => c.id === category);
@@ -332,8 +370,50 @@ export default async function AcademyPage({ searchParams }: PageProps) {
                     )}
                 </div>
 
+                {/* ═══ WHY CHOOSE US ═══ */}
+                <div className="pt-8 pb-4">
+                    <div className="text-center space-y-4 mb-12">
+                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">{locale === 'en' ? 'Why Choose Us' : 'Keunggulan Kami'}</span>
+                        <h3 className="text-3xl font-extrabold text-text-main tracking-tight">
+                            {locale === 'en' ? 'Learn from the Best' : 'Belajar dari yang Terbaik'}
+                        </h3>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                        {BENEFITS.map((benefit, idx) => (
+                            <ScrollReveal key={idx} animation="fade-up" delay={idx * 100} className="h-full">
+                                <div className="p-6 bg-glass-bg border border-glass-border rounded-2xl flex flex-col items-center text-center space-y-4 hover:border-brand-blue/30 hover:bg-glass-bg/80 hover:-translate-y-1 transition-all h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                        <benefit.icon className="w-6 h-6" />
+                                    </div>
+                                    <h4 className="text-sm font-extrabold text-text-main">
+                                        {locale === 'en' ? benefit.titleEn : benefit.titleId}
+                                    </h4>
+                                    <p className="text-xs text-text-gray leading-relaxed">
+                                        {locale === 'en' ? benefit.descEn : benefit.descId}
+                                    </p>
+                                </div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+
+                {/* FAQ Section */}
+                {faqs.length > 0 && (
+                    <div className="space-y-12 max-w-4xl mx-auto pt-12 border-t border-glass-border/40">
+                        <div className="text-center space-y-4">
+                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">{locale === 'en' ? 'General Questions' : 'Pertanyaan Umum'}</span>
+                            <h3 className="text-3xl font-extrabold text-text-main tracking-tight">Frequently Asked Questions</h3>
+                        </div>
+
+                        <div className="space-y-6 text-left">
+                            <FaqAccordion faqs={faqs} />
+                        </div>
+                    </div>
+                )}
+
                 {/* Closing CTA */}
-                <div className="max-w-4xl mx-auto pt-12 border-t border-glass-border">
+                <div className="max-w-4xl mx-auto pt-16 border-t border-glass-border/40">
                     <SpotlightCard className="p-10 text-center space-y-6 border border-glass-border bg-gradient-to-b from-glass-bg/40 to-glass-bg/25">
                         <div className="max-w-md mx-auto space-y-2">
                             <h4 className="text-xl md:text-2xl font-black text-text-main tracking-tight">

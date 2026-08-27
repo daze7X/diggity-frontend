@@ -139,8 +139,17 @@ export default function Navbar() {
         return pathname.startsWith(path);
     };
 
-    const handleDropdownToggle = (type: 'solutions' | 'products' | 'academy' | 'portfolio' | 'insights') => {
-        setActiveDropdown(activeDropdown === type ? null : type);
+    const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
+    const handleMouseEnter = (type: 'solutions' | 'products' | 'academy' | 'portfolio' | 'insights') => {
+        if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+        setActiveDropdown(type);
+    };
+
+    const handleMouseLeave = () => {
+        closeTimeoutRef.current = setTimeout(() => {
+            setActiveDropdown(null);
+        }, 200);
     };
 
     const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -247,10 +256,14 @@ export default function Navbar() {
                             {t('nav.about')}
                         </Link>
 
-                        {/* 2. Solutions Dropdown Menu (On Click) */}
-                        <div className="relative">
-                            <button
-                                onClick={() => handleDropdownToggle('solutions')}
+                        {/* 2. Solutions Dropdown Menu (Hover) */}
+                        <div 
+                            className="relative" 
+                            onMouseEnter={() => handleMouseEnter('solutions')} 
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <Link
+                                href="/solutions"
                                 className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
                                     isActive('/solutions') || isActive('/job-connect/headhunting') || isActive('/job-connect/outsourcing')
                                         ? 'text-brand-blue' 
@@ -259,52 +272,68 @@ export default function Navbar() {
                             >
                                 <span>Solutions</span>
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
-                            </button>
+                            </Link>
                         </div>
 
-                        {/* 3. Products Dropdown Menu (On Click) */}
-                        <div className="relative">
-                            <button
-                                onClick={() => handleDropdownToggle('products')}
+                        {/* 3. Products Dropdown Menu (Hover) */}
+                        <div 
+                            className="relative"
+                            onMouseEnter={() => handleMouseEnter('products')} 
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <Link
+                                href="/products"
                                 className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
                                     isActive('/products') ? 'text-brand-blue' : 'text-text-gray'
                                 }`}
                             >
                                 <span>Products</span>
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
-                            </button>
+                            </Link>
                         </div>
 
-                        {/* 4. Academy Dropdown Menu (On Click) */}
-                        <div className="relative">
-                            <button
-                                onClick={() => handleDropdownToggle('academy')}
+                        {/* 4. Academy Dropdown Menu (Hover) */}
+                        <div 
+                            className="relative"
+                            onMouseEnter={() => handleMouseEnter('academy')} 
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <Link
+                                href="/academy"
                                 className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
                                     isActive('/academy') ? 'text-brand-blue' : 'text-text-gray'
                                 }`}
                             >
                                 <span>{t('nav.academy')}</span>
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'academy' ? 'rotate-180' : ''}`} />
-                            </button>
+                            </Link>
                         </div>
 
-                        {/* 5. Portfolio Dropdown Menu (On Click) */}
-                        <div className="relative">
-                            <button
-                                onClick={() => handleDropdownToggle('portfolio')}
+                        {/* 5. Portfolio Dropdown Menu (Hover) */}
+                        <div 
+                            className="relative"
+                            onMouseEnter={() => handleMouseEnter('portfolio')} 
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <Link
+                                href="/portfolio"
                                 className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
                                     isActive('/portfolio') ? 'text-brand-blue' : 'text-text-gray'
                                 }`}
                             >
                                 <span>{t('nav.portfolio')}</span>
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'portfolio' ? 'rotate-180' : ''}`} />
-                            </button>
+                            </Link>
                         </div>
 
-                        {/* 6. Insights Dropdown Menu (On Click) */}
-                        <div className="relative">
-                            <button
-                                onClick={() => handleDropdownToggle('insights')}
+                        {/* 6. Insights Dropdown Menu (Hover) */}
+                        <div 
+                            className="relative"
+                            onMouseEnter={() => handleMouseEnter('insights')} 
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <Link
+                                href="/insights"
                                 className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
                                     isActive('/insights') || isActive('/news') || isActive('/community') || isActive('/partnership')
                                         ? 'text-brand-blue' 
@@ -313,7 +342,7 @@ export default function Navbar() {
                             >
                                 <span>{t('nav.insights')}</span>
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'insights' ? 'rotate-180' : ''}`} />
-                            </button>
+                            </Link>
                         </div>
 
                         {/* 7. Career (Main Menu Link) */}
@@ -438,6 +467,8 @@ export default function Navbar() {
                 {/* 1. Solutions Mega-Menu Panel */}
                 {activeDropdown === 'solutions' && (
                     <div 
+                        onMouseEnter={() => handleMouseEnter('solutions')}
+                        onMouseLeave={handleMouseLeave}
                         className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
                     >
                         {/* Col 1: Layanan Rekayasa & Optimasi (Solutions) */}
@@ -517,6 +548,8 @@ export default function Navbar() {
                 {/* 2. Products Mega-Menu Panel */}
                 {activeDropdown === 'products' && (
                     <div 
+                        onMouseEnter={() => handleMouseEnter('products')}
+                        onMouseLeave={handleMouseLeave}
                         className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-5xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
                     >
                         {/* Col 1: Product Categories */}
@@ -569,6 +602,8 @@ export default function Navbar() {
                 {/* 3. Academy Mega-Menu Panel */}
                 {activeDropdown === 'academy' && (
                     <div 
+                        onMouseEnter={() => handleMouseEnter('academy')}
+                        onMouseLeave={handleMouseLeave}
                         className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
                     >
                         {/* Col 1: Program Belajar (EMPOWER) */}
@@ -642,6 +677,8 @@ export default function Navbar() {
                 {/* 4. Portfolio Dropdown Panel */}
                 {activeDropdown === 'portfolio' && (
                     <div 
+                        onMouseEnter={() => handleMouseEnter('portfolio')}
+                        onMouseLeave={handleMouseLeave}
                         className="absolute left-1/3 right-auto top-full mt-4 mx-auto max-w-sm bg-brand-bg/95 border border-glass-border rounded-2xl p-6 shadow-2xl backdrop-blur-2xl text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50 space-y-4"
                     >
                         <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
@@ -671,6 +708,8 @@ export default function Navbar() {
                 {/* 5. Insights Mega-Menu Panel */}
                 {activeDropdown === 'insights' && (
                     <div 
+                        onMouseEnter={() => handleMouseEnter('insights')}
+                        onMouseLeave={handleMouseLeave}
                         className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
                     >
                         {/* Col 1: Categories (Left side) */}
@@ -821,6 +860,9 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'solutions' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
+                                    <Link href="/solutions" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold hover:text-brand-blue-dark py-1 mb-2 border-b border-glass-border/40 pb-2">
+                                        Lihat Semua Solusi ➔
+                                    </Link>
                                     {solutionsCol1Items.map((item, idx) => (
                                         <Link key={`m1-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                             {item.name}
@@ -853,6 +895,9 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'products' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
+                                    <Link href="/products" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold hover:text-brand-blue-dark py-1 mb-2 border-b border-glass-border/40 pb-2">
+                                        Lihat Semua Produk ➔
+                                    </Link>
                                     {productsItems.map((item, idx) => (
                                         <Link key={`mp-${idx}`} href={`/products/${item.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                             {item.name}

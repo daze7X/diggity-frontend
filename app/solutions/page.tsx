@@ -153,11 +153,6 @@ export default async function SolutionsPage() {
         .map(slug => categoriesMap.get(slug))
         .filter(Boolean) as { name: string; slug: string; services: Service[] }[];
 
-    // Include any extra categories not in order list
-    for (const [slug, cat] of categoriesMap.entries()) {
-        if (!CATEGORY_ORDER.includes(slug)) categories.push(cat);
-    }
-
     const stats = [
         { icon: Users,    val: '100+', labelEn: 'Clients', labelId: 'Klien' },
         { icon: Zap,      val: `${categories.length || 7}`,  labelEn: 'Categories', labelId: 'Kategori' },

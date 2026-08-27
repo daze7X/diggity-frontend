@@ -27,6 +27,8 @@ const PRODUCT_CATEGORIES = [
         descId: 'Sistem ERP, CRM, dan manajemen terintegrasi untuk menyederhanakan operasional harian.',
         icon: Briefcase,
         gradient: 'from-blue-500/10 to-indigo-500/5',
+        textGradient: 'from-blue-500 to-indigo-500',
+        bgGlow: 'bg-blue-500/15',
         accentText: 'text-blue-500',
         accentBg: 'bg-blue-500/10',
         border: 'border-blue-500/20',
@@ -39,6 +41,8 @@ const PRODUCT_CATEGORIES = [
         descId: 'Agen AI siap pakai dan tools otomatisasi cerdas untuk menumbuhkan bisnis Anda.',
         icon: Bot,
         gradient: 'from-violet-500/10 to-purple-500/5',
+        textGradient: 'from-violet-500 to-purple-500',
+        bgGlow: 'bg-violet-500/15',
         accentText: 'text-violet-500',
         accentBg: 'bg-violet-500/10',
         border: 'border-violet-500/20',
@@ -51,6 +55,8 @@ const PRODUCT_CATEGORIES = [
         descId: 'Infrastruktur cloud yang scalable, layanan hosting, dan platform SaaS.',
         icon: Cloud,
         gradient: 'from-cyan-500/10 to-sky-500/5',
+        textGradient: 'from-cyan-500 to-sky-500',
+        bgGlow: 'bg-cyan-500/15',
         accentText: 'text-cyan-500',
         accentBg: 'bg-cyan-500/10',
         border: 'border-cyan-500/20',
@@ -63,6 +69,8 @@ const PRODUCT_CATEGORIES = [
         descId: 'Template premium, UI kits, dan aset digital berkualitas tinggi untuk para kreator.',
         icon: ShoppingBag,
         gradient: 'from-pink-500/10 to-rose-500/5',
+        textGradient: 'from-pink-500 to-rose-500',
+        bgGlow: 'bg-pink-500/15',
         accentText: 'text-pink-500',
         accentBg: 'bg-pink-500/10',
         border: 'border-pink-500/20',
@@ -95,6 +103,19 @@ export default async function ProductsPage({ searchParams }: PageProps) {
         
     const featuredProducts = allProducts.filter(p => p.is_popular).slice(0, 3);
 
+    const formatPrice = (price: number, period: string) => {
+        const formatted = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+        }).format(price);
+
+        if (period === 'one_time') return `${formatted} (Sekali Bayar)`;
+        if (period === 'monthly') return `${formatted} / bulan`;
+        if (period === 'yearly') return `${formatted} / tahun`;
+        return `${formatted} / ${period}`;
+    };
+
     const stats = [
         { icon: Users,    val: '500+', labelEn: 'Active Users', labelId: 'Pengguna Aktif' },
         { icon: Box,      val: `${allProducts.length || 15}+`,  labelEn: 'Products', labelId: 'Total Produk' },
@@ -103,6 +124,17 @@ export default async function ProductsPage({ searchParams }: PageProps) {
     ];
     
     const activeCategoryConfig = PRODUCT_CATEGORIES.find(c => c.id === category);
+
+    // Dynamic grid classes to center items if there are less than 3
+    const itemsToDisplay = category ? displayedProducts : featuredProducts;
+    const itemsCount = itemsToDisplay.length;
+    let gridContainerClass = "grid-cols-1 md:grid-cols-3 max-w-6xl mx-auto";
+    
+    if (itemsCount === 1) {
+        gridContainerClass = "grid-cols-1 max-w-md mx-auto";
+    } else if (itemsCount === 2) {
+        gridContainerClass = "grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto";
+    }
 
     return (
         <div className="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
@@ -159,21 +191,29 @@ export default async function ProductsPage({ searchParams }: PageProps) {
                     </ScrollReveal>
                 ) : (
                     <ScrollReveal animation="fade-up">
-                        <div className="text-center space-y-6 max-w-3xl mx-auto">
-                            <Link href="/products" className="inline-flex items-center text-xs font-bold text-text-gray hover:text-brand-blue transition-colors bg-glass-bg border border-glass-border px-3 py-1.5 rounded-lg mb-4">
+                        <div className="relative text-center space-y-6 max-w-3xl mx-auto pb-6">
+                            {/* Glowing Background Blob specific to the category */}
+                            {activeCategoryConfig && (
+                                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] ${activeCategoryConfig.bgGlow} rounded-full blur-[100px] pointer-events-none -z-10`} />
+                            )}
+                            
+                            <Link href="/products" className="inline-flex items-center text-xs font-bold text-text-gray hover:text-brand-blue transition-colors bg-glass-bg border border-glass-border px-3 py-1.5 rounded-lg mb-4 hover:-translate-y-0.5 shadow-sm">
                                 <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> {locale === 'en' ? 'Back to All Products' : 'Kembali ke Semua Produk'}
                             </Link>
-                            <div className="flex items-center justify-center gap-3">
-                                <div className={`w-12 h-12 rounded-2xl ${activeCategoryConfig?.accentBg || 'bg-brand-blue/10'} flex items-center justify-center`}>
-                                    {activeCategoryConfig ? <activeCategoryConfig.icon className={`w-6 h-6 ${activeCategoryConfig.accentText}`} /> : <Box className="w-6 h-6 text-brand-blue" />}
+                            
+                            <div className="flex flex-col items-center justify-center gap-4">
+                                <div className={`w-16 h-16 rounded-2xl ${activeCategoryConfig?.accentBg || 'bg-brand-blue/10'} flex items-center justify-center shadow-lg`}>
+                                    {activeCategoryConfig ? <activeCategoryConfig.icon className={`w-8 h-8 ${activeCategoryConfig.accentText}`} strokeWidth={1.5} /> : <Box className="w-8 h-8 text-brand-blue" />}
                                 </div>
+                                <h1 className="text-4xl md:text-6xl font-black tracking-tighter">
+                                    <span className={`text-transparent bg-clip-text bg-gradient-to-r ${activeCategoryConfig?.textGradient || 'from-brand-blue to-indigo-500'}`}>
+                                        {activeCategoryConfig?.name || 'Category Products'}
+                                    </span>
+                                </h1>
+                                <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed max-w-2xl">
+                                    {locale === 'en' ? activeCategoryConfig?.descEn : activeCategoryConfig?.descId}
+                                </p>
                             </div>
-                            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-text-main">
-                                {activeCategoryConfig?.name || 'Category Products'}
-                            </h1>
-                            <p className="text-base text-text-gray font-medium">
-                                {locale === 'en' ? activeCategoryConfig?.descEn : activeCategoryConfig?.descId}
-                            </p>
                         </div>
                     </ScrollReveal>
                 )}
@@ -233,7 +273,12 @@ export default async function ProductsPage({ searchParams }: PageProps) {
                 )}
 
                 {/* ═══ PRODUCTS GRID ═══ */}
-                <div className="space-y-6 pt-8">
+                <div className="space-y-6 pt-8 relative">
+                    {/* Add a subtle divider if in category view */}
+                    {category && (
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-glass-border to-transparent" />
+                    )}
+
                     {!category && featuredProducts.length > 0 && (
                         <ScrollReveal animation="fade-up">
                             <div className="flex items-center gap-4 pb-6">
@@ -245,9 +290,9 @@ export default async function ProductsPage({ searchParams }: PageProps) {
                         </ScrollReveal>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-                        {(category ? displayedProducts : featuredProducts).length > 0 ? (
-                            (category ? displayedProducts : featuredProducts).map((product, idx) => (
+                    <div className={`grid gap-8 items-stretch ${gridContainerClass}`}>
+                        {itemsToDisplay.length > 0 ? (
+                            itemsToDisplay.map((product, idx) => (
                                 <ScrollReveal key={product.id} animation="fade-up" delay={idx * 50} className={`group relative flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-2 ${product.is_popular ? 'scale-100 md:scale-[1.02] z-10' : ''}`}>
                                     <SpotlightCard
                                         className={`p-8 relative flex flex-col justify-between h-full border transition-all duration-300 group-hover:shadow-2xl group-hover:border-brand-blue/40 ${

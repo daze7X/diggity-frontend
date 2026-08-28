@@ -525,7 +525,7 @@ export default function Navbar() {
                                         </div>
                                         
                                         {subServices.length > 0 ? (
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar content-start">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[350px] overflow-y-auto overscroll-contain pr-2 custom-scrollbar content-start">
                                                 {subServices.map((svc) => (
                                                     <Link 
                                                         key={svc.slug}

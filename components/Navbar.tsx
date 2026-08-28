@@ -102,6 +102,19 @@ export default function Navbar() {
         };
     }, []);
 
+
+    // Prevent background scrolling when any mega menu is open
+    useEffect(() => {
+        if (activeDropdown || isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [activeDropdown, isOpen]);
+
     // Close dropdown on route change
     useEffect(() => {
         setActiveDropdown(null);

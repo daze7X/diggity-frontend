@@ -879,18 +879,8 @@ export default function Navbar() {
                                     <Link href="/solutions" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold hover:text-brand-blue-dark py-1 mb-2 border-b border-glass-border/40 pb-2">
                                         Lihat Semua Solusi ➔
                                     </Link>
-                                    {solutionsCol1Items.map((item, idx) => (
-                                        <Link key={`m1-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                            {item.name}
-                                        </Link>
-                                    ))}
-                                    {solutionsCol2Items.map((item, idx) => (
-                                        <Link key={`m2-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                            {item.name}
-                                        </Link>
-                                    ))}
-                                    {solutionsCol3Items.map((item, idx) => (
-                                        <Link key={`m3-${idx}`} href={getServiceHref(item.slug, item.categorySlug)} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    {SOLUTION_CATEGORIES.map((item, idx) => (
+                                        <Link key={`ms-${idx}`} href={`/solutions/${item.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                             {item.name}
                                         </Link>
                                     ))}

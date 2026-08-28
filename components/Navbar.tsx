@@ -24,6 +24,7 @@ import {
     Briefcase,
     Info
 } from 'lucide-react';
+import SubServiceIcon from './SubServiceIcon';
 import SearchOverlay from './SearchOverlay';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -533,7 +534,7 @@ export default function Navbar() {
                                                         className="group p-3 rounded-xl border border-transparent hover:border-glass-border hover:bg-glass-bg transition-all flex flex-col gap-2"
                                                     >
                                                         <div className="w-7 h-7 rounded-md bg-brand-blue/5 flex items-center justify-center shrink-0 border border-brand-blue/10">
-                                                            <Code className="w-3.5 h-3.5 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
+                                                            <SubServiceIcon slug={svc.slug} fallbackCategoryIcon={activeCat.icon} className="w-3.5 h-3.5 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
                                                         </div>
                                                         <div>
                                                             <h4 className="text-[12px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">

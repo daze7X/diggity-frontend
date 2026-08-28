@@ -3,7 +3,7 @@ import {
     Globe, Smartphone, Monitor, Code2, Building, GitBranch, PenTool, Wrench,
     Brain, Bot, MessageSquare, LineChart, Database, BarChart, Wifi, Glasses, MonitorPlay, Gamepad2, Settings,
     Palette, Camera, Video, Film, Box, Edit3, Megaphone,
-    Search, MousePointerClick, Share2, Music, Linkedin, Store, ShoppingBag, FileText, Star, Mail, TrendingUp,
+    Search, MousePointerClick, Share2, Music, Store, ShoppingBag, FileText, Star, Mail, TrendingUp,
     Cloud, CloudLightning, Activity, Server, Shield, ShieldAlert, CheckCircle, Headphones,
     Lightbulb, Briefcase, Zap, Compass, UserPlus, Users, Code, Cpu, Layers, HelpCircle
 } from 'lucide-react';
@@ -49,7 +49,7 @@ const slugIconMap: Record<string, any> = {
     'google-ads': MousePointerClick,
     'meta-ads': Share2,
     'tiktok-ads': Music,
-    'linkedin-ads': Linkedin,
+    'linkedin-ads': Users,
     'marketplace-management': Store,
     'marketplace-ads': ShoppingBag,
     'social-media-management': Smartphone,

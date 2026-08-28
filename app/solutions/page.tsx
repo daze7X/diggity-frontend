@@ -164,8 +164,14 @@ export default async function SolutionsPage() {
     const locale = await getLocaleServer();
 
     let allServices: Service[] = [];
+    let faqs: Faq[] = [];
     try {
-        allServices = await api.getSolutions();
+        const [servicesRes, faqsRes] = await Promise.all([
+            api.getSolutions(),
+            api.getFaqs()
+        ]);
+        allServices = servicesRes || [];
+        faqs = faqsRes || [];
     } catch {
         // fallback: empty
     }

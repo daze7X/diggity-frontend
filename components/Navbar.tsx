@@ -41,6 +41,7 @@ export default function Navbar() {
     const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
     const [services, setServices] = useState<Service[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
+    const [hoveredSolutionCategory, setHoveredSolutionCategory] = useState<string>('technology');
     const pathname = usePathname();
 
     useEffect(() => {
@@ -53,8 +54,8 @@ export default function Navbar() {
                 console.error('Failed to load insights in navbar:', err);
             });
 
-        // Fetch services
-        api.getServices()
+        // Fetch services (now using getSolutions to get all 56 items)
+        api.getSolutions()
             .then((data) => {
                 setServices(data || []);
             })
@@ -183,27 +184,21 @@ export default function Navbar() {
     };
 
     const getServiceHref = (slug: string, categorySlug?: string) => {
-        if (slug === 'job-connect') return '/job-connect?tab=careers';
-        if (slug === 'headhunting' || slug === 'outsourcing') return `/job-connect/${slug}`;
-        return `/solutions/${slug}`;
+        if (categorySlug === 'it-talent-workforce') {
+            if (slug === 'it-headhunting') return '/job-connect/headhunting';
+            if (slug === 'it-outsourcing') return '/job-connect/outsourcing';
+        }
+        return categorySlug ? `/solutions/${categorySlug}/${slug}` : `/solutions/${slug}`;
     };
 
-    // Filter categories instead of services for the Mega Menu
-    // We'll map the 7 categories manually to 3 columns to match the existing grid layout
-    const fallbackSolutionsCol1 = [
-        { name: 'Technology Solutions', slug: 'technology', icon: 'code', description: 'End-to-end technology solutions to build and integrate digital systems.', categorySlug: 'technology' },
-        { name: 'AI & Emerging Technology', slug: 'ai-emerging-technology', icon: 'cpu', description: 'AI, data, automation, IoT, and emerging tech capabilities.', categorySlug: 'ai-emerging-technology' },
-        { name: 'Cloud & Cyber Security', slug: 'cloud-cyber-security', icon: 'shield-check', description: 'Cloud infrastructure, DevOps, security, and managed services.', categorySlug: 'cloud-cyber-security' }
-    ];
-
-    const fallbackSolutionsCol2 = [
-        { name: 'Creative & Brand Experience', slug: 'creative-brand-experience', icon: 'layers', description: 'Branding, creative production, and digital experience.', categorySlug: 'creative-brand-experience' },
-        { name: 'Growth Marketing', slug: 'growth-marketing', icon: 'trending-up', description: 'Digital marketing strategy for awareness and conversion.', categorySlug: 'growth-marketing' },
-        { name: 'Consulting', slug: 'consulting', icon: 'help-circle', description: 'Technology, business, and digital transformation consulting.', categorySlug: 'consulting' }
-    ];
-
-    const fallbackSolutionsCol3 = [
-        { name: 'IT Talent & Workforce', slug: 'it-talent-workforce', icon: 'users', description: 'Provision and management of IT talent (Headhunting & Outsourcing).', categorySlug: 'it-talent-workforce' }
+    const SOLUTION_CATEGORIES = [
+        { name: 'Technology Solutions', slug: 'technology', icon: 'code', description: 'End-to-end technology solutions to build and integrate digital systems.' },
+        { name: 'AI & Emerging Technology', slug: 'ai-emerging-technology', icon: 'cpu', description: 'AI, data, automation, IoT, and emerging tech capabilities.' },
+        { name: 'Creative & Brand Experience', slug: 'creative-brand-experience', icon: 'layers', description: 'Branding, creative production, and digital experience.' },
+        { name: 'Growth Marketing', slug: 'growth-marketing', icon: 'trending-up', description: 'Digital marketing strategy for awareness and conversion.' },
+        { name: 'Cloud & Cyber Security', slug: 'cloud-cyber-security', icon: 'shield-check', description: 'Cloud infrastructure, DevOps, security, and managed services.' },
+        { name: 'Consulting', slug: 'consulting', icon: 'help-circle', description: 'Technology, business, and digital transformation consulting.' },
+        { name: 'IT Talent & Workforce', slug: 'it-talent-workforce', icon: 'users', description: 'Provision and management of IT talent (Headhunting & Outsourcing).' }
     ];
 
     const fallbackProducts = [
@@ -212,11 +207,6 @@ export default function Navbar() {
         { name: 'Sleek Dashboard UI Kit', slug: 'sleek-dashboard-ui-kit', icon: 'layers', description: 'UI kits, templates, and digital assets.', categorySlug: 'product' }
     ];
 
-    // For the mega menu, we now link directly to the category page: /solutions/[category]
-    // The link text will be the category name
-    const solutionsCol1Items = fallbackSolutionsCol1;
-    const solutionsCol2Items = fallbackSolutionsCol2;
-    const solutionsCol3Items = fallbackSolutionsCol3;
     const productsItems = products.length > 0 ? products.slice(0, 3).map(p => ({ name: p.name, slug: p.slug, icon: p.is_popular ? 'server' : 'cpu', description: p.description || '', categorySlug: 'product' })) : fallbackProducts;
 
     return (
@@ -464,83 +454,109 @@ export default function Navbar() {
                     DESKTOP MEGA DROP-DOWN PANELS (ON CLICK)
                     ======================================================== */}
                 
-                {/* 1. Solutions Mega-Menu Panel */}
+                {/* 1. Solutions Mega-Menu Panel (Mekari Style Tab UI) */}
                 {activeDropdown === 'solutions' && (
                     <div 
                         onMouseEnter={() => handleMouseEnter('solutions')}
                         onMouseLeave={handleMouseLeave}
-                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-6 shadow-2xl backdrop-blur-2xl flex flex-col md:flex-row gap-6 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50 min-h-[420px]"
                     >
-                        {/* Col 1: Layanan Rekayasa & Optimasi (Solutions) */}
-                        <div className="space-y-4">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Apps &amp; Cloud Services
+                        {/* Left Pane: Categories (Tab List) */}
+                        <div className="w-full md:w-1/3 flex flex-col space-y-1 border-r border-glass-border/40 pr-6">
+                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2 mb-2">
+                                Solution Categories
                             </span>
-                            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                {solutionsCol1Items.map((item, idx) => (
-                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
-                                        <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                            <DynamicIcon name={item.icon} className="w-4 h-4" />
+                            <div className="space-y-1">
+                                {SOLUTION_CATEGORIES.map((cat) => (
+                                    <Link
+                                        key={cat.slug}
+                                        href={`/solutions/${cat.slug}`}
+                                        onMouseEnter={() => setHoveredSolutionCategory(cat.slug)}
+                                        onClick={() => setActiveDropdown(null)}
+                                        className={`group flex items-center gap-3 p-3 rounded-xl transition-all duration-200 ${
+                                            hoveredSolutionCategory === cat.slug 
+                                                ? 'bg-glass-bg border border-glass-border/60 shadow-sm' 
+                                                : 'border border-transparent hover:bg-glass-bg/50'
+                                        }`}
+                                    >
+                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                                            hoveredSolutionCategory === cat.slug 
+                                                ? 'bg-brand-blue text-white shadow-md shadow-brand-blue/20' 
+                                                : 'bg-brand-blue/10 text-brand-blue group-hover:bg-brand-blue/20'
+                                        }`}>
+                                            <DynamicIcon name={cat.icon} className="w-4 h-4" />
                                         </div>
-                                        <div className="space-y-0.5">
-                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
-                                                {item.name}
+                                        <div className="flex-1 text-left">
+                                            <h4 className={`text-[13px] font-extrabold leading-tight transition-colors ${
+                                                hoveredSolutionCategory === cat.slug ? 'text-brand-blue' : 'text-text-main group-hover:text-brand-blue'
+                                            }`}>
+                                                {cat.name}
                                             </h4>
-                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed">
-                                                {item.description}
-                                            </p>
                                         </div>
+                                        <ChevronDown className={`w-4 h-4 -rotate-90 transition-transform ${hoveredSolutionCategory === cat.slug ? 'text-brand-blue opacity-100 translate-x-1' : 'text-text-muted opacity-0 group-hover:opacity-50'}`} />
                                     </Link>
                                 ))}
                             </div>
                         </div>
 
-                        {/* Col 2: Kategori Layanan Lanjutan */}
-                        <div className="space-y-4">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Strategy &amp; Growth
-                            </span>
-                            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                {solutionsCol2Items.map((item, idx) => (
-                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
-                                        <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                            <DynamicIcon name={item.icon} className="w-4 h-4" />
+                        {/* Right Pane: Sub-Services Content */}
+                        <div className="w-full md:w-2/3 flex flex-col">
+                            {(() => {
+                                const activeCat = SOLUTION_CATEGORIES.find(c => c.slug === hoveredSolutionCategory) || SOLUTION_CATEGORIES[0];
+                                const subServices = services.filter(s => s.category?.slug === activeCat.slug);
+                                
+                                return (
+                                    <>
+                                        <div className="flex items-center justify-between border-b border-glass-border pb-3 mb-4">
+                                            <div>
+                                                <h3 className="text-lg font-black text-text-main flex items-center gap-2">
+                                                    {activeCat.name}
+                                                </h3>
+                                                <p className="text-[11px] text-text-gray font-medium mt-0.5 max-w-md">{activeCat.description}</p>
+                                            </div>
+                                            <Link 
+                                                href={`/solutions/${activeCat.slug}`}
+                                                onClick={() => setActiveDropdown(null)}
+                                                className="text-[11px] font-bold text-brand-blue bg-brand-blue/10 hover:bg-brand-blue hover:text-white transition-colors px-3 py-1.5 rounded-lg flex items-center gap-1 shrink-0"
+                                            >
+                                                Explore All <ArrowUpRight className="w-3.5 h-3.5" />
+                                            </Link>
                                         </div>
-                                        <div className="space-y-0.5">
-                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
-                                                {item.name}
-                                            </h4>
-                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed">
-                                                {item.description}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Col 3: IT Talent & Workforce */}
-                        <div className="space-y-4">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                IT Talent &amp; Workforce
-                            </span>
-                            <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                {solutionsCol3Items.map((item, idx) => (
-                                    <Link key={idx} href={getServiceHref(item.slug, item.categorySlug)} className="group flex items-start gap-3 p-1.5 rounded-xl hover:bg-glass-bg transition-all">
-                                        <div className="w-8 h-8 rounded-lg bg-brand-blue/10 dark:bg-brand-blue/15 border border-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mt-0.5 group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                            <DynamicIcon name={item.icon} className="w-4 h-4" />
-                                        </div>
-                                        <div className="space-y-0.5">
-                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
-                                                {item.name}
-                                            </h4>
-                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed">
-                                                {item.description}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
+                                        
+                                        {subServices.length > 0 ? (
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar content-start">
+                                                {subServices.map((svc) => (
+                                                    <Link 
+                                                        key={svc.slug}
+                                                        href={getServiceHref(svc.slug, activeCat.slug)}
+                                                        onClick={() => setActiveDropdown(null)}
+                                                        className="group p-3 rounded-xl border border-transparent hover:border-glass-border hover:bg-glass-bg transition-all flex flex-col gap-2"
+                                                    >
+                                                        <div className="w-7 h-7 rounded-md bg-brand-blue/5 flex items-center justify-center shrink-0 border border-brand-blue/10">
+                                                            <Code className="w-3.5 h-3.5 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
+                                                        </div>
+                                                        <div>
+                                                            <h4 className="text-[12px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
+                                                                {svc.name}
+                                                            </h4>
+                                                            <p className="text-[10px] text-text-gray font-medium line-clamp-2 mt-1 leading-relaxed">
+                                                                {svc.description || `Layanan profesional untuk ${svc.name} yang disesuaikan dengan kebutuhan Anda.`}
+                                                            </p>
+                                                        </div>
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div className="flex-1 flex flex-col items-center justify-center text-text-muted">
+                                                <div className="w-12 h-12 rounded-full border border-glass-border flex items-center justify-center mb-3 bg-glass-bg animate-pulse">
+                                                    <DynamicIcon name={activeCat.icon} className="w-5 h-5 text-brand-blue/30" />
+                                                </div>
+                                                <p className="text-xs font-medium">Memuat sub-layanan...</p>
+                                            </div>
+                                        )}
+                                    </>
+                                );
+                            })()}
                         </div>
                     </div>
                 )}

@@ -3,12 +3,13 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import SpotlightCard from '../../components/SpotlightCard';
 import ScrollReveal from '../../components/ScrollReveal';
-import { api, Service } from '../../lib/api';
+import FaqAccordion from '../../components/FaqAccordion';
+import { api, Service, Faq } from '../../lib/api';
 import { getLocaleServer } from '../../lib/locale-server';
 import {
     Code2, Bot, Palette, TrendingUp, Cloud, Lightbulb,
     Users, ArrowRight, ChevronRight, Zap, Star, Calendar,
-    Building2,
+    Building2, ShieldCheck, Target, Clock, MessageSquare,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -106,7 +107,7 @@ const CATEGORY_CONFIG: Record<string, {
 };
 
 const DEFAULT_CONFIG = {
-    icon: Building2,
+    icon: Building2, ShieldCheck, Target, Clock, MessageSquare,
     gradient: 'from-brand-blue/10 to-indigo-500/5',
     accentText: 'text-brand-blue',
     accentBg: 'bg-brand-blue/10',
@@ -125,6 +126,38 @@ const CATEGORY_ORDER = [
     'cloud-cyber-security',
     'consulting',
     'it-talent-workforce',
+];
+
+
+const BENEFITS = [
+    {
+        icon: Target,
+        titleEn: 'Tailored Strategies',
+        titleId: 'Strategi Tepat Sasaran',
+        descEn: 'We don’t believe in one-size-fits-all. Every solution is custom-engineered to meet your specific business goals.',
+        descId: 'Kami merancang solusi yang dikustomisasi secara presisi untuk memenuhi target bisnis spesifik Anda.',
+    },
+    {
+        icon: ShieldCheck,
+        titleEn: 'Enterprise-Grade Security',
+        titleId: 'Keamanan Tingkat Enterprise',
+        descEn: 'Built with scalable and secure architectures to ensure your digital assets are protected at all times.',
+        descId: 'Dibangun dengan arsitektur yang aman dan scalable untuk memastikan aset digital Anda selalu terlindungi.',
+    },
+    {
+        icon: Users,
+        titleEn: 'Expert Multidisciplinary Team',
+        titleId: 'Tim Ahli Multidisiplin',
+        descEn: 'From senior engineers to creative strategists, our team brings diverse expertise to cover every angle.',
+        descId: 'Mulai dari engineer senior hingga strategis kreatif, tim kami membawa keahlian beragam dari berbagai sisi.',
+    },
+    {
+        icon: Clock,
+        titleEn: 'Agile & Fast Delivery',
+        titleId: 'Eksekusi Agile & Cepat',
+        descEn: 'We utilize agile methodologies to ensure rapid deployment without compromising on quality or performance.',
+        descId: 'Kami menggunakan metodologi agile untuk memastikan peluncuran yang cepat tanpa mengorbankan kualitas.',
+    }
 ];
 
 export default async function SolutionsPage() {
@@ -287,6 +320,48 @@ export default async function SolutionsPage() {
                     </div>
                 </div>
 
+
+                {/* 🌟 WHY CHOOSE US 🌟 */}
+                <div className="py-8 md:py-12">
+                    <ScrollReveal animation="fade-up">
+                        <div className="text-center max-w-2xl mx-auto space-y-4 mb-10">
+                            <span className="text-sm font-black text-brand-blue uppercase tracking-widest px-3 py-1.5 bg-brand-blue/10 border border-brand-blue/20 rounded-full">
+                                {locale === 'en' ? 'The Diggity Advantage' : 'Keunggulan Diggity'}
+                            </span>
+                            <h2 className="text-2xl md:text-3xl font-black text-text-main tracking-tight">
+                                {locale === 'en' ? 'Why Partner With Us?' : 'Mengapa Memilih Kami?'}
+                            </h2>
+                            <p className="text-sm text-text-gray font-medium leading-relaxed">
+                                {locale === 'en'
+                                    ? 'We combine technical excellence with strategic thinking to deliver solutions that drive real business growth.'
+                                    : 'Kami memadukan keunggulan teknis dengan pemikiran strategis untuk memberikan solusi yang mendorong pertumbuhan bisnis nyata.'}
+                            </p>
+                        </div>
+                    </ScrollReveal>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+                        {BENEFITS.map((benefit, i) => {
+                            const Icon = benefit.icon;
+                            return (
+                                <ScrollReveal key={i} animation="fade-up" delay={i * 100} className="h-full">
+                                    <div className="group p-6 md:p-8 rounded-3xl bg-glass-bg border border-glass-border hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300 h-full flex flex-col">
+                                        <div className="w-14 h-14 rounded-2xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-blue transition-all duration-300">
+                                            <Icon className="w-7 h-7 text-brand-blue group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
+                                        </div>
+                                        <h3 className="text-lg font-extrabold text-text-main mb-2">
+                                            {locale === 'en' ? benefit.titleEn : benefit.titleId}
+                                        </h3>
+                                        <p className="text-sm text-text-gray font-medium leading-relaxed flex-1">
+                                            {locale === 'en' ? benefit.descEn : benefit.descId}
+                                        </p>
+                                    </div>
+                                </ScrollReveal>
+                            );
+                        })}
+                    </div>
+                </div>
+
+
                 {/* ═══ CLOSING CTA ═══ */}
                 <ScrollReveal animation="fade-up">
                     <SpotlightCard className="relative overflow-hidden p-10 md:p-14 text-center border border-glass-border">
@@ -310,6 +385,34 @@ export default async function SolutionsPage() {
                         </div>
                     </SpotlightCard>
                 </ScrollReveal>
+
+                {/* 🌟 GLOBAL FAQS 🌟 */}
+                {faqs && faqs.length > 0 && (
+                    <div className="pt-8 pb-4 md:pt-12 md:pb-6">
+                        <ScrollReveal animation="fade-up">
+                            <div className="text-center max-w-2xl mx-auto space-y-4 mb-10">
+                                <div className="w-14 h-14 bg-brand-blue/10 border border-brand-blue/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <MessageSquare className="w-7 h-7 text-brand-blue" strokeWidth={1.5} />
+                                </div>
+                                <h2 className="text-2xl md:text-3xl font-black text-text-main tracking-tight">
+                                    {locale === 'en' ? 'Frequently Asked Questions' : 'Pertanyaan Umum'}
+                                </h2>
+                                <p className="text-sm text-text-gray font-medium leading-relaxed">
+                                    {locale === 'en' 
+                                        ? 'Find answers to common questions about our solutions and engagement models.' 
+                                        : 'Temukan jawaban untuk pertanyaan umum seputar layanan dan model kerja kami.'}
+                                </p>
+                            </div>
+                        </ScrollReveal>
+                        
+                        <ScrollReveal animation="fade-up" delay={150}>
+                            <div className="max-w-3xl mx-auto text-left bg-glass-bg border border-glass-border p-4 md:p-8 rounded-3xl">
+                                <FaqAccordion faqs={faqs} />
+                            </div>
+                        </ScrollReveal>
+                    </div>
+                )}
+
 
             </div>
         </div>

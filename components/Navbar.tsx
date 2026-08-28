@@ -103,17 +103,6 @@ export default function Navbar() {
     }, []);
 
 
-    // Prevent background scrolling when any mega menu is open
-    useEffect(() => {
-        if (activeDropdown || isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [activeDropdown, isOpen]);
 
     // Close dropdown on route change
     useEffect(() => {
@@ -477,10 +466,10 @@ export default function Navbar() {
                     >
                         {/* Left Pane: Categories (Tab List) */}
                         <div className="w-full md:w-1/3 flex flex-col space-y-1 border-r border-glass-border/40 pr-6">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2 mb-2">
+                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2 mb-2 shrink-0">
                                 Solution Categories
                             </span>
-                            <div className="space-y-1">
+                            <div className="space-y-1 max-h-[350px] overflow-y-auto overscroll-contain pr-2 custom-scrollbar">
                                 {SOLUTION_CATEGORIES.map((cat) => (
                                     <Link
                                         key={cat.slug}

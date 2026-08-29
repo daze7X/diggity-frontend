@@ -10,21 +10,15 @@ import SubServiceIcon from '../../../components/SubServiceIcon';
 
 export const revalidate = 60;
 
-export default async function MainCategoryPage({ params }: { params: { main: string } }) {
+export default async function MainCategoryPage({ params }: { params: Promise<{ main: string }> }) {
+    const { main } = await params;
     const locale = await getLocaleServer();
     const hierarchy = await api.getProductHierarchy().catch(() => []);
     
-    const mainCat = hierarchy.find(c => c.slug === params.main);
+    const mainCat = hierarchy.find(c => c.slug === main);
     
     if (!mainCat) {
-        return (
-            <div className="min-h-screen pt-32 pb-20 px-6 text-black bg-white">
-                <h1>DEBUG INFO</h1>
-                <p>Params Main: {params.main}</p>
-                <p>API URL: {process.env.NEXT_PUBLIC_API_URL}</p>
-                <textarea className="w-full h-96 mt-4 p-4 border text-black" readOnly value={JSON.stringify(hierarchy, null, 2)} />
-            </div>
-        );
+        notFound();
     }
 
     return (

@@ -17,7 +17,7 @@ export default async function SubCategoryPage({ params }: { params: { main: stri
     let products = [];
     
     try {
-        const res = await api.getProductsBySubcategory(params.sub);
+        const res = await api.getProductsBySubcategory(sub);
         subcategory = res.subcategory;
         products = res.products;
     } catch {
@@ -25,7 +25,7 @@ export default async function SubCategoryPage({ params }: { params: { main: stri
     }
 
     // Verify it belongs to the main category
-    if (subcategory?.parent?.slug !== params.main) {
+    if (subcategory?.parent?.slug !== main) {
         notFound();
     }
 
@@ -36,7 +36,7 @@ export default async function SubCategoryPage({ params }: { params: { main: stri
                 <nav className="flex text-xs font-semibold text-text-muted space-x-2">
                     <Link href="/products" className="hover:text-brand-blue transition-colors">Products</Link>
                     <span>/</span>
-                    <Link href={`/products/${params.main}`} className="hover:text-brand-blue transition-colors">{subcategory?.parent?.name}</Link>
+                    <Link href={`/products/${main}`} className="hover:text-brand-blue transition-colors">{subcategory?.parent?.name}</Link>
                     <span>/</span>
                     <span className="text-brand-blue">{subcategory?.name}</span>
                 </nav>
@@ -72,7 +72,7 @@ export default async function SubCategoryPage({ params }: { params: { main: stri
                                 
                                 <div className="pt-6 border-t border-glass-border/30 mt-auto">
                                     <Link
-                                        href={`/products/${params.main}/${params.sub}/${product.slug}`}
+                                        href={`/products/${main}/${sub}/${product.slug}`}
                                         className="flex items-center justify-center w-full py-3 text-sm font-bold text-brand-blue bg-brand-blue/10 hover:bg-brand-blue hover:text-white rounded-xl transition-all"
                                     >
                                         {locale === 'en' ? 'View Details' : 'Lihat Detail'} <ArrowRight className="w-4 h-4 ml-1.5" />

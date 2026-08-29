@@ -28,7 +28,7 @@ import SubServiceIcon from './SubServiceIcon';
 import SearchOverlay from './SearchOverlay';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { api, Blog, Product, Service } from '../lib/api';
+import { api, Blog, Product, Service , CategoryHierarchy } from "../lib/api";
 
 export default function Navbar() {
     const { user, loading } = useAuth();

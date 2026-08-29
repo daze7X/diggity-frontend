@@ -564,73 +564,82 @@ export default function Navbar() {
                     <div 
                         onMouseEnter={() => handleMouseEnter('products')}
                         onMouseLeave={handleMouseLeave}
-                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-6 shadow-2xl backdrop-blur-2xl flex flex-col md:flex-row gap-6 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50 min-h-[380px] overscroll-contain overflow-y-auto max-h-[calc(100vh-100px)]"
+                        className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[900px] max-w-[95vw] bg-white border border-glass-border rounded-3xl p-8 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                     >
-                        {/* Left Pane: Main Categories */}
-                        <div className="w-full md:w-1/3 flex flex-col border-r border-glass-border/40 pr-6">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2 mb-2 shrink-0">
-                                Product Categories
-                            </span>
-                            <div className="space-y-1">
-                                {productHierarchy.map((mainCat) => (
-                                    <Link 
-                                        key={mainCat.slug}
-                                        href={`/products/${mainCat.slug}`}
-                                        className="w-full text-left p-3 rounded-xl transition-all duration-200 flex items-center justify-between group hover:bg-glass-bg border border-transparent"
-                                        onClick={() => setActiveDropdown(null)}
-                                    >
-                                        <div className="flex items-center space-x-3">
-                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-brand-blue/20 bg-brand-blue/10`}>
-                                                <Layers className={`w-4 h-4 text-brand-blue`} />
-                                            </div>
-                                            <span className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors">
-                                                {mainCat.name}
-                                            </span>
-                                        </div>
-                                        <ChevronRight className="w-4 h-4 text-text-gray/50 group-hover:text-brand-blue transition-colors" />
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Right Pane: Subcategories */}
-                        <div className="w-full md:w-2/3 flex flex-col">
-                            <div className="flex items-center justify-between mb-4 shrink-0">
-                                <div className="space-y-1">
-                                    <h3 className="text-lg font-black text-text-main">
-                                        Explore Products
-                                    </h3>
-                                    <p className="text-xs text-text-gray font-medium">
-                                        Discover our comprehensive suite of digital products.
-                                    </p>
+                        <div className="flex flex-col md:flex-row gap-8">
+                            {/* Column 1: Business Software (Wide, 2 columns of items) */}
+                            {productHierarchy.filter(m => m.slug === 'business-software').map(mainCat => (
+                                <div key={mainCat.slug} className="flex-[2]">
+                                    <span className="text-[11px] font-bold text-text-gray uppercase tracking-widest block border-b border-glass-border pb-3 mb-5">
+                                        {mainCat.name}
+                                    </span>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                                        {mainCat.children?.map(sub => (
+                                            <Link 
+                                                key={sub.slug}
+                                                href={`/products/${mainCat.slug}/${sub.slug}`}
+                                                className="group flex items-start gap-3 p-2 -ml-2 rounded-lg hover:bg-brand-blue/5 transition-colors"
+                                                onClick={() => setActiveDropdown(null)}
+                                            >
+                                                <div className="mt-0.5 w-6 h-6 flex items-center justify-center shrink-0">
+                                                    <SubServiceIcon slug={sub.slug || ""} fallbackCategoryIcon="layers" className="w-5 h-5 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-[13px] font-bold text-text-main group-hover:text-brand-blue transition-colors leading-none mb-1.5">
+                                                        {sub.name}
+                                                    </h4>
+                                                    <p className="text-[11px] text-text-gray font-medium leading-snug">
+                                                        {sub.products_count || 0} Produk
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
-                                <Link 
-                                    href="/products" 
-                                    className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 bg-brand-blue/10 px-3 py-1.5 rounded-full transition-colors"
-                                    onClick={() => setActiveDropdown(null)}
-                                >
-                                    Explore All <ArrowUpRight className="w-3.5 h-3.5" />
-                                </Link>
-                            </div>
-                            
-                            {/* We just list all subcategories from all main categories (or we could make it hover-based, but PDF says "Mega Menu hanya menampilkan kategori utama dan subkategori") */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[350px] overflow-y-auto overscroll-contain pr-2 custom-scrollbar content-start">
-                                {productHierarchy.flatMap(main => main.children || []).map((subCat) => (
-                                    <Link 
-                                        key={subCat.slug}
-                                        href={`/products/${productHierarchy.find(m => m.children?.some(c => c.slug === subCat.slug))?.slug}/${subCat.slug}`}
-                                        onClick={() => setActiveDropdown(null)}
-                                        className="group p-3 rounded-xl border border-transparent hover:border-glass-border hover:bg-glass-bg transition-all flex flex-col gap-2"
-                                    >
-                                        <div className="flex items-center gap-2">
-                                            <SubServiceIcon slug={subCat.slug || ""} fallbackCategoryIcon="layers" className="w-4 h-4 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
-                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
-                                                {subCat.name}
-                                            </h4>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
+                            ))}
+
+                            {/* Separator */}
+                            <div className="w-[1px] bg-glass-border shrink-0 hidden md:block"></div>
+
+                            {/* Column 2: Digital Marketplace (Narrow, 1 column of items) */}
+                            {productHierarchy.filter(m => m.slug === 'digital-marketplace').map(mainCat => (
+                                <div key={mainCat.slug} className="flex-1">
+                                    <span className="text-[11px] font-bold text-text-gray uppercase tracking-widest block border-b border-glass-border pb-3 mb-5">
+                                        {mainCat.name}
+                                    </span>
+                                    <div className="flex flex-col gap-y-4">
+                                        {mainCat.children?.map(sub => (
+                                            <Link 
+                                                key={sub.slug}
+                                                href={`/products/${mainCat.slug}/${sub.slug}`}
+                                                className="group flex items-start gap-3 p-2 -ml-2 rounded-lg hover:bg-brand-blue/5 transition-colors"
+                                                onClick={() => setActiveDropdown(null)}
+                                            >
+                                                <div className="mt-0.5 w-6 h-6 flex items-center justify-center shrink-0">
+                                                    <SubServiceIcon slug={sub.slug || ""} fallbackCategoryIcon="layers" className="w-5 h-5 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-[13px] font-bold text-text-main group-hover:text-brand-blue transition-colors leading-none mb-1.5">
+                                                        {sub.name}
+                                                    </h4>
+                                                    <p className="text-[11px] text-text-gray font-medium leading-snug">
+                                                        {sub.products_count || 0} Produk
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        <div className="mt-8 pt-4 border-t border-glass-border flex justify-between items-center">
+                             <span className="text-xs font-medium text-text-gray">
+                                Dapatkan free trial 14 hari untuk semua modul.
+                             </span>
+                             <Link href="/products" onClick={() => setActiveDropdown(null)} className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark transition-colors flex items-center">
+                                 Jelajahi Semua Produk <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
+                             </Link>
                         </div>
                     </div>
                 )}

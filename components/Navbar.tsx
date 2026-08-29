@@ -41,7 +41,7 @@ export default function Navbar() {
     const [mobileExpanded, setMobileExpanded] = useState<'solutions' | 'products' | 'academy' | 'portfolio' | 'insights' | null>(null);
     const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
     const [services, setServices] = useState<Service[]>([]);
-    const [products, setProducts] = useState<Product[]>([]);
+    const [productHierarchy, setProductHierarchy] = useState<CategoryHierarchy[]>([]);
     const [hoveredSolutionCategory, setHoveredSolutionCategory] = useState<string>('technology');
     const pathname = usePathname();
 
@@ -564,60 +564,82 @@ export default function Navbar() {
                     </div>
                 )}
 
-                {/* 2. Products Mega-Menu Panel */}
+                {/* 2. Products Mega-Menu Panel (Mekari-style Tab UI) */}
                 {activeDropdown === 'products' && (
                     <div 
                         onMouseEnter={() => handleMouseEnter('products')}
                         onMouseLeave={handleMouseLeave}
-                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-5xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-6 shadow-2xl backdrop-blur-2xl flex flex-col md:flex-row gap-6 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50 min-h-[380px] overscroll-contain overflow-y-auto max-h-[calc(100vh-100px)]"
                     >
-                        {/* Col 1: Product Categories */}
-                        <div className="space-y-4 border-r border-glass-border/40 pr-6">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                        {/* Left Pane: Main Categories */}
+                        <div className="w-full md:w-1/3 flex flex-col border-r border-glass-border/40 pr-6">
+                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2 mb-2 shrink-0">
                                 Product Categories
                             </span>
-                            <div className="space-y-2">
-                                <Link href="/products?category=business-software" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <h4 className="text-xs font-bold text-text-main">Business Software</h4>
-                                </Link>
-                                <Link href="/products?category=ai-products" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <h4 className="text-xs font-bold text-text-main">AI Products</h4>
-                                </Link>
-                                <Link href="/products?category=cloud-products" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <h4 className="text-xs font-bold text-text-main">Cloud Products</h4>
-                                </Link>
-                                <Link href="/products?category=digital-marketplace" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                    <h4 className="text-xs font-bold text-text-main">Digital Marketplace</h4>
-                                </Link>
+                            <div className="space-y-1">
+                                {productHierarchy.map((mainCat) => (
+                                    <Link 
+                                        key={mainCat.slug}
+                                        href={`/products/${mainCat.slug}`}
+                                        className="w-full text-left p-3 rounded-xl transition-all duration-200 flex items-center justify-between group hover:bg-glass-bg border border-transparent"
+                                        onClick={() => setActiveDropdown(null)}
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-brand-blue/20 bg-brand-blue/10`}>
+                                                <Layers className={`w-4 h-4 text-brand-blue`} />
+                                            </div>
+                                            <span className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors">
+                                                {mainCat.name}
+                                            </span>
+                                        </div>
+                                        <ChevronRight className="w-4 h-4 text-text-gray/50 group-hover:text-brand-blue transition-colors" />
+                                    </Link>
+                                ))}
                             </div>
                         </div>
 
-                        {/* Col 2 & 3: Featured Products */}
-                        <div className="md:col-span-2 space-y-4">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Featured Products
-                            </span>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                {productsItems.map((item, idx) => (
-                                    <Link key={idx} href={`/products/${item.slug}`} className="group p-4 bg-glass-bg/40 border border-glass-border rounded-xl flex flex-col justify-between hover:bg-glass-bg transition-all h-full min-h-[140px]">
-                                        <div className="space-y-1.5">
-                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors">
-                                                {item.name}
+                        {/* Right Pane: Subcategories */}
+                        <div className="w-full md:w-2/3 flex flex-col">
+                            <div className="flex items-center justify-between mb-4 shrink-0">
+                                <div className="space-y-1">
+                                    <h3 className="text-lg font-black text-text-main">
+                                        Explore Products
+                                    </h3>
+                                    <p className="text-xs text-text-gray font-medium">
+                                        Discover our comprehensive suite of digital products.
+                                    </p>
+                                </div>
+                                <Link 
+                                    href="/products" 
+                                    className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 bg-brand-blue/10 px-3 py-1.5 rounded-full transition-colors"
+                                    onClick={() => setActiveDropdown(null)}
+                                >
+                                    Explore All <ArrowUpRight className="w-3.5 h-3.5" />
+                                </Link>
+                            </div>
+                            
+                            {/* We just list all subcategories from all main categories (or we could make it hover-based, but PDF says "Mega Menu hanya menampilkan kategori utama dan subkategori") */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[350px] overflow-y-auto overscroll-contain pr-2 custom-scrollbar content-start">
+                                {productHierarchy.flatMap(main => main.children || []).map((subCat) => (
+                                    <Link 
+                                        key={subCat.slug}
+                                        href={`/products/${productHierarchy.find(m => m.children?.some(c => c.slug === subCat.slug))?.slug}/${subCat.slug}`}
+                                        onClick={() => setActiveDropdown(null)}
+                                        className="group p-3 rounded-xl border border-transparent hover:border-glass-border hover:bg-glass-bg transition-all flex flex-col gap-2"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <SubServiceIcon slug={subCat.slug} fallbackCategoryIcon="layers" className="w-4 h-4 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
+                                            <h4 className="text-[13px] font-extrabold text-text-main group-hover:text-brand-blue transition-colors leading-tight">
+                                                {subCat.name}
                                             </h4>
-                                            <p className="text-[11px] text-text-gray font-medium leading-relaxed line-clamp-2">
-                                                {item.description}
-                                            </p>
                                         </div>
-                                        <span className="text-[10px] font-bold text-brand-blue group-hover:translate-x-0.5 transition-transform flex items-center gap-1 mt-3">
-                                            View Product <ArrowUpRight className="w-3 h-3" />
-                                        </span>
                                     </Link>
                                 ))}
                             </div>
                         </div>
                     </div>
                 )}
-
+                
                 {/* 3. Academy Mega-Menu Panel */}
                 {activeDropdown === 'academy' && (
                     <div 
@@ -907,15 +929,15 @@ export default function Navbar() {
                                     <Link href="/products" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold hover:text-brand-blue-dark py-1 mb-2 border-b border-glass-border/40 pb-2">
                                         Lihat Semua Produk ➔
                                     </Link>
-                                    {productsItems.map((item, idx) => (
-                                        <Link key={`mp-${idx}`} href={`/products/${item.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                            {item.name}
+                                    {productHierarchy.map((mainCat, idx) => (
+                                        <Link key={`mpp-${idx}`} href={`/products/${mainCat.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                            {mainCat.name}
                                         </Link>
                                     ))}
                                 </div>
                             )}
                         </div>
-
+                        
                         {/* Mobile Academy Accordion */}
                         <div className="border-b border-glass-border/40 py-1.5">
                             <button

@@ -92,6 +92,10 @@ export interface CompanySetting {
     mission_en?: Array<{ text: string }>;
 }
 
+
+export interface CategoryHierarchy extends Category {
+    children?: (Category & { products_count?: number })[];
+}
 export interface Category {
     id: number;
     name: string;
@@ -304,6 +308,9 @@ export const api = {
             services.filter(s => s.category?.slug === categorySlug)
         ),
     
+    
+    getProductHierarchy: (): Promise<CategoryHierarchy[]> => fetchAPI('/products/hierarchy'),
+    getProductsBySubcategory: (slug: string): Promise<{ subcategory: CategoryHierarchy, products: Product[] }> => fetchAPI(`/products/subcategory/${slug}`),
     getProducts: (category?: string): Promise<Product[]> => {
         const query = category ? `?category=${category}` : '';
         return fetchAPI(`/products${query}`);

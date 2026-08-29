@@ -1,4 +1,7 @@
-import React from 'react';
+import sys
+
+def modify():
+    content = """import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import SpotlightCard from '../../components/SpotlightCard';
@@ -157,3 +160,10 @@ export default async function ProductsHubPage() {
         </div>
     );
 }
+"""
+    with open('app/products/page.tsx', 'w', encoding='utf-8') as f:
+        f.write(content)
+        
+    print("Rewrote app/products/page.tsx")
+
+modify()

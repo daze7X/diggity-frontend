@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { api, Product } from '../../../lib/api';
-import { getLocaleServer } from '../../../lib/locale-server';
-import SpotlightCard from '../../../components/SpotlightCard';
-import ProductPurchaseCTA from '../../../components/ProductPurchaseCTA';
+import { api, Product } from '../../../../../lib/api';
+import { getLocaleServer } from '../../../../../lib/locale-server';
+import SpotlightCard from '../../../../../components/SpotlightCard';
+import ProductPurchaseCTA from '../../../../../components/ProductPurchaseCTA';
 import { 
     ArrowLeft, 
     Check, 
@@ -22,7 +22,7 @@ import {
 export const revalidate = 60; // Cache data for 60 seconds (ISR)
 
 interface Props {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ main: string; sub: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

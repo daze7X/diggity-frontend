@@ -6,6 +6,7 @@ import {
     Search, MousePointerClick, Share2, Music, Store, ShoppingBag, FileText, Star, Mail, TrendingUp,
     Cloud, CloudLightning, Activity, Server, Shield, ShieldAlert, CheckCircle, Headphones,
     Lightbulb, Briefcase, Zap, Compass, UserPlus, Users, Code, Cpu, Layers, HelpCircle
+    Wallet, Package, CheckSquare, Layout, FolderOpen, Coins
 } from 'lucide-react';
 
 const slugIconMap: Record<string, any> = {
@@ -79,6 +80,22 @@ const slugIconMap: Record<string, any> = {
     'it-headhunting': UserPlus,
     'it-outsourcing': Users,
 };
+
+
+    // Products
+    'website-commerce': Store,
+    'sales': TrendingUp,
+    'finance': Wallet,
+    'inventory-manufacturing': Package,
+    'human-resources': Users,
+    'marketing': Megaphone,
+    'services': Briefcase,
+    'productivity': CheckSquare,
+    'graphics': Palette,
+    'design-templates': Layout,
+    '3d': Box,
+    'web': Code2,
+    'resources': FolderOpen,
 
 export default function SubServiceIcon({ slug, fallbackCategoryIcon, className = "w-4 h-4" }: { slug: string, fallbackCategoryIcon?: string, className?: string }) {
     const Icon = slugIconMap[slug];

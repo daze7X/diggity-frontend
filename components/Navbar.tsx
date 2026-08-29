@@ -23,6 +23,8 @@ import {
     UserCheck,
     Briefcase,
     Info
+    ChevronRight,
+    ArrowUpRight,
 } from 'lucide-react';
 import SubServiceIcon from './SubServiceIcon';
 import SearchOverlay from './SearchOverlay';

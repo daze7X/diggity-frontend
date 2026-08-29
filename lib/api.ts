@@ -46,6 +46,7 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
     const res = await fetch(`${API_URL}${endpoint}`, {
         headers,
         ...options,
+        next: { revalidate: options?.next?.revalidate ?? 60 }
     });
 
     if (!res.ok) {

@@ -54,7 +54,7 @@ export default async function MainCategoryPage({ params }: { params: { main: str
                             <Link href={`/products/${mainCat.slug}/${sub.slug}`} className="block h-full group">
                                 <SpotlightCard className="h-full p-6 flex flex-col gap-4 border border-glass-border bg-glass-bg transition-all hover:bg-glass-bg/80 hover:border-brand-blue/30 group-hover:-translate-y-1">
                                     <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                        <SubServiceIcon slug={sub.slug} fallbackCategoryIcon="layers" className="w-5 h-5 text-brand-blue" />
+                                        <SubServiceIcon slug={sub.slug || ""} fallbackCategoryIcon="layers" className="w-5 h-5 text-brand-blue" />
                                     </div>
                                     <div className="space-y-1.5 flex-1">
                                         <h3 className="text-lg font-extrabold text-text-main group-hover:text-brand-blue transition-colors">

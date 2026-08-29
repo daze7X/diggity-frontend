@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import SpotlightCard from '../../components/SpotlightCard';
 import ScrollReveal from '../../components/ScrollReveal';
-import { api } from '../../lib/api';
+import { api, CategoryHierarchy } from '../../lib/api';
 import { getLocaleServer } from '../../lib/locale-server';
 import { Layers, MonitorSmartphone, ArrowRight, ArrowUpRight } from 'lucide-react';
 import FaqAccordion from '../../components/FaqAccordion';
@@ -18,7 +18,7 @@ export const revalidate = 60;
 export default async function ProductsHubPage() {
     const locale = await getLocaleServer();
 
-    let hierarchy: any[] = [];
+    let hierarchy: CategoryHierarchy[] = [];
     let faqs: any[] = [];
     try {
         const [hierRes, faqsRes] = await Promise.all([
@@ -96,7 +96,7 @@ export default async function ProductsHubPage() {
                                     </div>
                                     
                                     <div className="mt-auto pt-6 flex flex-wrap gap-2">
-                                        {cat.children?.slice(0, 4).map(sub => (
+                                        {cat.children?.slice(0, 4).map((sub: any) => (
                                             <span key={sub.slug} className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-glass-bg border border-glass-border text-text-muted">
                                                 {sub.name}
                                             </span>

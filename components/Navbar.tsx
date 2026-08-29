@@ -22,7 +22,7 @@ import {
     Users,
     UserCheck,
     Briefcase,
-    Info
+    Info,
     ChevronRight,
     ArrowUpRight,
 } from 'lucide-react';

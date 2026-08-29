@@ -311,7 +311,7 @@ export const api = {
         ),
     
     
-    getProductHierarchy: (): Promise<CategoryHierarchy[]> => fetchAPI('/products/hierarchy'),
+    getProductHierarchy: (): Promise<CategoryHierarchy[]> => fetchAPI('/products/hierarchy?v=2', { cache: 'no-store' }),
     getProductsBySubcategory: (slug: string): Promise<{ subcategory: CategoryHierarchy, products: Product[] }> => fetchAPI(`/products/subcategory/${slug}`),
     getProducts: (category?: string): Promise<Product[]> => {
         const query = category ? `?category=${category}` : '';

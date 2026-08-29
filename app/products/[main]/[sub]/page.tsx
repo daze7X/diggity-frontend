@@ -36,9 +36,9 @@ export default async function SubCategoryPage({ params }: { params: { main: stri
                 <nav className="flex text-xs font-semibold text-text-muted space-x-2">
                     <Link href="/products" className="hover:text-brand-blue transition-colors">Products</Link>
                     <span>/</span>
-                    <Link href={`/products/${params.main}`} className="hover:text-brand-blue transition-colors">{subcategory.parent.name}</Link>
+                    <Link href={`/products/${params.main}`} className="hover:text-brand-blue transition-colors">{subcategory?.parent?.name}</Link>
                     <span>/</span>
-                    <span className="text-brand-blue">{subcategory.name}</span>
+                    <span className="text-brand-blue">{subcategory?.name}</span>
                 </nav>
             </div>
 
@@ -47,10 +47,10 @@ export default async function SubCategoryPage({ params }: { params: { main: stri
                 <div className="max-w-3xl space-y-4">
                     <ScrollReveal>
                         <div className="w-16 h-16 rounded-2xl bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center mb-6">
-                            <SubServiceIcon slug={subcategory.slug} fallbackCategoryIcon="layers" className="w-8 h-8 text-brand-blue" />
+                            <SubServiceIcon slug={subcategory?.slug || ""} fallbackCategoryIcon="layers" className="w-8 h-8 text-brand-blue" />
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black text-text-main tracking-tight leading-[1.1]">
-                            {subcategory.name}
+                            {subcategory?.name}
                         </h1>
                     </ScrollReveal>
                 </div>

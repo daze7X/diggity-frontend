@@ -79,8 +79,6 @@ const slugIconMap: Record<string, any> = {
     // Talent
     'it-headhunting': UserPlus,
     'it-outsourcing': Users,
-};
-
 
     // Products
     'website-commerce': Store,
@@ -96,6 +94,8 @@ const slugIconMap: Record<string, any> = {
     '3d': Box,
     'web': Code2,
     'resources': FolderOpen,
+};
+
 
 export default function SubServiceIcon({ slug, fallbackCategoryIcon, className = "w-4 h-4" }: { slug: string, fallbackCategoryIcon?: string, className?: string }) {
     const Icon = slugIconMap[slug];

@@ -204,13 +204,7 @@ export default function Navbar() {
         { name: 'IT Talent & Workforce', slug: 'it-talent-workforce', icon: 'users', description: 'Provision and management of IT talent (Headhunting & Outsourcing).' }
     ];
 
-    const fallbackProducts = [
-        { name: 'Diggity ERP & CRM', slug: 'diggity-erp', icon: 'server', description: 'B2B SaaS accounting, inventory, and payroll.', categorySlug: 'product' },
-        { name: 'Diggity AI Agent', slug: 'diggity-ai-agent', icon: 'cpu', description: 'Automated chat assistants and customer lead capture.', categorySlug: 'product' },
-        { name: 'Sleek Dashboard UI Kit', slug: 'sleek-dashboard-ui-kit', icon: 'layers', description: 'UI kits, templates, and digital assets.', categorySlug: 'product' }
-    ];
-
-    const productsItems = products.length > 0 ? products.slice(0, 3).map(p => ({ name: p.name, slug: p.slug, icon: p.is_popular ? 'server' : 'cpu', description: p.description || '', categorySlug: 'product' })) : fallbackProducts;
+    
 
     return (
         <nav

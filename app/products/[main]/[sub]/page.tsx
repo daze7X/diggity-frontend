@@ -10,7 +10,8 @@ import SubServiceIcon from '../../../../components/SubServiceIcon';
 
 export const revalidate = 60;
 
-export default async function SubCategoryPage({ params }: { params: { main: string, sub: string } }) {
+export default async function SubCategoryPage({ params }: { params: Promise<{ main: string, sub: string }> }) {
+    const { main, sub } = await params;
     const locale = await getLocaleServer();
     
     let subcategory = null;

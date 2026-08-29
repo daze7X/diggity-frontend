@@ -95,6 +95,7 @@ export interface CompanySetting {
 
 export interface CategoryHierarchy extends Category {
     children?: (Category & { products_count?: number })[];
+    parent?: Category;
 }
 export interface Category {
     id: number;

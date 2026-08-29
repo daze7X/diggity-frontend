@@ -65,12 +65,12 @@ export default function Navbar() {
             });
 
         // Fetch products
-        api.getProducts()
+        api.getProductHierarchy()
             .then((data) => {
-                setProducts(data || []);
+                setProductHierarchy(data || []);
             })
             .catch((err) => {
-                console.error('Failed to load products in navbar:', err);
+                console.error('Failed to load product hierarchy in navbar:', err);
             });
     }, []);
 

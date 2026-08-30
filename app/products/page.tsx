@@ -33,7 +33,7 @@ export default async function ProductsHubPage() {
         const [hierRes, faqsRes, settingsRes, testimonialsRes] = await Promise.all([
             api.getProductHierarchy(),
             api.getFaqs(),
-            api.getSettings(),
+            api.getCompanySettings(),
             api.getTestimonials(),
         ]);
         hierarchy = hierRes || [];

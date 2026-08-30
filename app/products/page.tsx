@@ -1,17 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Metadata } from 'next';
 import SpotlightCard from '../../components/SpotlightCard';
 import ScrollReveal from '../../components/ScrollReveal';
 import { api, CategoryHierarchy } from '../../lib/api';
 import { getLocaleServer } from '../../lib/locale-server';
-import { Layers, MonitorSmartphone, ArrowRight, Building2, Hexagon, Triangle, Circle, Briefcase, PlayCircle } from 'lucide-react';
+import { 
+    Layers, MonitorSmartphone, ArrowRight, Building2, Hexagon, 
+    Triangle, Circle, Briefcase, CheckCircle2, Star,
+    ShieldCheck, Zap, Headphones, Puzzle, Quote
+} from 'lucide-react';
 import SubServiceIcon from '../../components/SubServiceIcon';
 import FaqAccordion from '../../components/FaqAccordion';
 
 export const metadata: Metadata = {
     title: 'Products Hub - Diggity Agency',
-    description: 'Jelajahi berbagai katalog produk perangkat lunak bisnis dan aset digital marketplace dari Diggity.',
+    description: 'Solusi pengelolaan digital dan aset perangkat lunak terbaik untuk mempercepat bisnis Anda.',
 };
 
 export const revalidate = 60;
@@ -33,51 +38,84 @@ export default async function ProductsHubPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#FAFAFA] pt-28 pb-20 selection:bg-brand-blue/20">
-            {/* 1. MARKETING HERO SECTION (Landing Page Style) */}
-            <div className="relative max-w-5xl mx-auto px-6 pt-12 pb-24 text-center space-y-8">
-                {/* Subtle top badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold uppercase tracking-wider mb-4">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
-                    </span>
-                    {locale === 'en' ? 'Diggity Ecosystem 2.0' : 'Ekosistem Diggity 2.0'}
-                </div>
-                
-                <h1 className="text-4xl md:text-6xl font-black text-text-main tracking-tight leading-[1.1] max-w-4xl mx-auto">
-                    {locale === 'en' 
-                        ? 'One Digital Ecosystem to Accelerate Your Growth.' 
-                        : 'Satu Ekosistem Digital untuk Akselerasi Bisnis Anda.'}
-                </h1>
-                
-                <p className="text-lg md:text-xl text-text-gray font-medium max-w-2xl mx-auto leading-relaxed">
-                    {locale === 'en'
-                        ? 'Explore our enterprise-grade business software and marketplace assets. Designed to transform your workflow from end to end.'
-                        : 'Jelajahi rangkaian perangkat lunak bisnis dan aset digital marketplace kami. Dirancang khusus untuk mentransformasi alur kerja Anda dari hulu ke hilir.'}
-                </p>
+        <div className="min-h-screen bg-white pt-24 pb-20 selection:bg-brand-blue/20 text-text-main">
+            
+            {/* 1. HERO SECTION (Mekari Style - Left/Right) */}
+            <div className="max-w-7xl mx-auto px-6 pt-12 pb-16 lg:pb-24">
+                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    
+                    {/* Left: Copy & CTA */}
+                    <div className="w-full lg:w-1/2 flex flex-col items-start text-left space-y-6">
+                        <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight leading-[1.15]">
+                            Solusi ekosistem <span className="text-brand-blue">digital terbaik</span> untuk akselerasi bisnis Anda
+                        </h1>
+                        <p className="text-lg text-text-gray font-medium leading-relaxed max-w-lg">
+                            Kelola seluruh aspek operasional, pengembangan teknologi, hingga aset kreatif perusahaan Anda dalam satu platform terintegrasi.
+                        </p>
+                        
+                        {/* Bullet Points */}
+                        <div className="flex flex-col gap-3 py-2">
+                            <div className="flex items-center gap-3">
+                                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                                <span className="text-sm font-bold text-text-main">Sistem terintegrasi untuk seluruh divisi</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                                <span className="text-sm font-bold text-text-main">Keamanan data standar enterprise ISO</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                                <span className="text-sm font-bold text-text-main">Skalabilitas tanpa batas seiring pertumbuhan</span>
+                            </div>
+                        </div>
 
-                {/* Primary & Secondary CTA */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
-                    <Link href="/contact" className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-blue text-white font-bold text-[15px] hover:bg-brand-blue-dark hover:shadow-lg hover:shadow-brand-blue/20 transition-all group">
-                        {locale === 'en' ? 'Schedule a Demo' : 'Jadwalkan Demo Gratis'}
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                    <a href="#catalog" className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white text-text-main border border-glass-border font-bold text-[15px] hover:bg-gray-50 hover:shadow-sm transition-all group">
-                        <PlayCircle className="w-4 h-4 mr-2 text-text-gray group-hover:text-brand-blue transition-colors" />
-                        {locale === 'en' ? 'View Catalog' : 'Lihat Katalog Produk'}
-                    </a>
+                        {/* CTA Buttons */}
+                        <div className="flex flex-wrap items-center gap-4 pt-4">
+                            <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-brand-blue-dark transition-all shadow-lg shadow-brand-blue/20">
+                                Jadwalkan Demo
+                            </Link>
+                            <a href="#catalog" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white text-brand-blue border border-brand-blue/30 font-bold text-sm hover:bg-brand-blue/5 transition-all">
+                                Lihat Produk
+                            </a>
+                        </div>
+
+                        {/* Ratings */}
+                        <div className="pt-6 flex flex-col gap-2">
+                            <div className="flex items-center gap-1 text-amber-400">
+                                <Star className="w-5 h-5 fill-current" />
+                                <Star className="w-5 h-5 fill-current" />
+                                <Star className="w-5 h-5 fill-current" />
+                                <Star className="w-5 h-5 fill-current" />
+                                <Star className="w-5 h-5 fill-current" />
+                            </div>
+                            <p className="text-xs font-bold text-text-gray uppercase tracking-widest">Gartner & G2 Top Rated</p>
+                        </div>
+                    </div>
+                    
+                    {/* Right: Hero Image */}
+                    <div className="w-full lg:w-1/2 relative">
+                        <div className="absolute inset-0 bg-brand-blue/5 blur-3xl rounded-full transform scale-110" />
+                        <div className="relative rounded-3xl overflow-hidden border border-glass-border shadow-2xl bg-white p-2">
+                            <Image 
+                                src="/images/saas_hero.jpg" 
+                                alt="Diggity Dashboard 3D Illustration" 
+                                width={800} 
+                                height={600} 
+                                className="w-full h-auto rounded-2xl object-cover"
+                                priority
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* 2. SOCIAL PROOF / TRUST SIGNALS */}
-            <div className="border-y border-glass-border bg-white py-10">
-                <div className="max-w-6xl mx-auto px-6">
-                    <p className="text-center text-xs font-bold text-text-muted uppercase tracking-widest mb-8">
-                        {locale === 'en' ? 'Trusted by innovative companies' : 'Dipercaya oleh perusahaan inovatif terkemuka'}
+            {/* 2. CLIENT LOGOS */}
+            <div className="border-y border-glass-border bg-gray-50/50 py-8">
+                <div className="max-w-7xl mx-auto px-6">
+                    <p className="text-center text-xs font-bold text-text-muted mb-6">
+                        Telah dipercaya oleh +500 klien lintas industri
                     </p>
                     <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale">
-                        {/* Dummy Client Logos using Lucide as placeholders */}
                         <div className="flex items-center gap-2"><Hexagon className="w-6 h-6"/> <span className="font-black text-xl tracking-tighter">HEXA</span></div>
                         <div className="flex items-center gap-2"><Building2 className="w-6 h-6"/> <span className="font-black text-xl tracking-tighter">CORP</span></div>
                         <div className="flex items-center gap-2"><Triangle className="w-6 h-6"/> <span className="font-black text-xl tracking-tighter">VERTEX</span></div>
@@ -87,111 +125,184 @@ export default async function ProductsHubPage() {
                 </div>
             </div>
 
-            {/* 3. CLEAN ENTERPRISE CATALOG SECTION */}
-            <div id="catalog" className="max-w-5xl mx-auto px-6 py-24 space-y-24">
-                {hierarchy.map((cat, i) => (
-                    <ScrollReveal key={cat.slug} animation="fade-up" delay={i * 100}>
-                        <div className="flex flex-col md:flex-row gap-12 md:gap-16 pt-16 border-t border-glass-border first:border-0 first:pt-0">
-                            
-                            {/* Left: Meta Info */}
-                            <div className="w-full md:w-1/3 shrink-0 space-y-5">
-                                <div className="w-12 h-12 rounded-xl bg-white border border-glass-border shadow-sm flex items-center justify-center">
-                                    {cat.slug === 'business-software' ? (
-                                        <Layers className="w-6 h-6 text-brand-blue" strokeWidth={1.5} />
-                                    ) : (
-                                        <MonitorSmartphone className="w-6 h-6 text-brand-blue" strokeWidth={1.5} />
-                                    )}
-                                </div>
-                                <div>
-                                    <h2 className="text-2xl font-black text-text-main tracking-tight mb-3">
-                                        {cat.name}
-                                    </h2>
-                                    <p className="text-sm text-text-gray font-medium leading-relaxed">
-                                        {cat.slug === 'business-software' 
-                                            ? (locale === 'en' ? 'A complete suite of tools to manage and scale your business operations from end to end.' : 'Rangkaian alat lengkap untuk mengelola dan mengembangkan operasi bisnis Anda dari hulu ke hilir.')
-                                            : cat.slug === 'digital-marketplace'
-                                            ? (locale === 'en' ? 'Premium digital assets, templates, and resources for creators and developers.' : 'Aset digital premium, templat, dan sumber daya siap pakai untuk kreator dan developer.')
-                                            : (locale === 'en' ? 'Innovative solutions tailored for modern business challenges.' : 'Solusi inovatif yang disesuaikan untuk tantangan bisnis modern.')
-                                        }
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            {/* Right: Clean List / Grid */}
-                            <div className="w-full md:w-2/3">
-                                {cat.children && cat.children.length > 0 ? (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8">
-                                        {cat.children.map((sub: any) => (
-                                            <Link 
-                                                key={sub.slug} 
-                                                href={`/products/${cat.slug}/${sub.slug}`} 
-                                                className="group flex items-start gap-4 p-4 -ml-4 rounded-2xl hover:bg-white hover:shadow-sm hover:border-glass-border border border-transparent transition-all"
-                                            >
-                                                <div className="mt-0.5 p-2.5 rounded-lg bg-gray-100 group-hover:bg-brand-blue/10 transition-colors shrink-0">
-                                                    <SubServiceIcon slug={sub.slug} fallbackCategoryIcon="layers" className="w-5 h-5 text-text-gray group-hover:text-brand-blue transition-colors" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-[15px] font-bold text-text-main group-hover:text-brand-blue transition-colors mb-1.5 leading-tight">
-                                                        {sub.name}
-                                                    </h4>
-                                                    <p className="text-[13px] text-text-muted font-medium">
-                                                        {sub.products_count || 0} {locale === 'en' ? 'Products' : 'Produk'}
-                                                    </p>
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="flex items-center gap-3 mt-4">
-                                        <span className="px-3 py-1.5 rounded-full bg-white border border-glass-border text-[11px] font-bold text-text-gray tracking-wider uppercase">
-                                            {locale === 'en' ? 'Coming Soon' : 'Segera Hadir'}
-                                        </span>
-                                        <span className="text-sm text-text-muted font-medium">
-                                            {locale === 'en' ? 'Features in development' : 'Modul sedang dalam pengembangan'}
-                                        </span>
-                                    </div>
-                                )}
-                            </div>
-
-                        </div>
-                    </ScrollReveal>
-                ))}
+            {/* 3. WHY CHOOSE US */}
+            <div className="max-w-7xl mx-auto px-6 py-24">
+                <div className="text-left mb-12">
+                    <h2 className="text-3xl lg:text-4xl font-black tracking-tight mb-4">Mengapa memilih Diggity Ecosystem</h2>
+                    <p className="text-text-gray font-medium text-lg max-w-2xl">Kami tidak sekadar menjual software, kami memberikan infrastruktur berkelanjutan untuk masa depan perusahaan Anda.</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="p-8 rounded-3xl bg-gray-50 border border-glass-border hover:shadow-lg transition-shadow duration-300">
+                        <ShieldCheck className="w-10 h-10 text-brand-blue mb-6" />
+                        <h3 className="text-lg font-bold mb-3">Keamanan Enterprise</h3>
+                        <p className="text-sm text-text-gray font-medium leading-relaxed">Seluruh data Anda dilindungi dengan enkripsi end-to-end dan standar kepatuhan internasional ISO 27001.</p>
+                    </div>
+                    <div className="p-8 rounded-3xl bg-gray-50 border border-glass-border hover:shadow-lg transition-shadow duration-300">
+                        <Puzzle className="w-10 h-10 text-brand-blue mb-6" />
+                        <h3 className="text-lg font-bold mb-3">Integrasi Tanpa Batas</h3>
+                        <p className="text-sm text-text-gray font-medium leading-relaxed">Semua produk kami dirancang untuk saling berbicara lewat API terbuka, mencegah silo data pada bisnis Anda.</p>
+                    </div>
+                    <div className="p-8 rounded-3xl bg-gray-50 border border-glass-border hover:shadow-lg transition-shadow duration-300">
+                        <Zap className="w-10 h-10 text-brand-blue mb-6" />
+                        <h3 className="text-lg font-bold mb-3">Lebih Cepat & Akurat</h3>
+                        <p className="text-sm text-text-gray font-medium leading-relaxed">Otomatisasi proses repetitif menggunakan AI, menghemat waktu operasional hingga 70% setiap harinya.</p>
+                    </div>
+                    <div className="p-8 rounded-3xl bg-gray-50 border border-glass-border hover:shadow-lg transition-shadow duration-300">
+                        <Headphones className="w-10 h-10 text-brand-blue mb-6" />
+                        <h3 className="text-lg font-bold mb-3">Dukungan Premium 24/7</h3>
+                        <p className="text-sm text-text-gray font-medium leading-relaxed">Tim ahli kami siap mendampingi Anda dari proses implementasi hingga maintenance bergaransi penuh.</p>
+                    </div>
+                </div>
             </div>
 
-            {/* 4. FAQ Section */}
-            {faqs.length > 0 && (
-                <div className="max-w-4xl mx-auto px-6 py-20 border-t border-glass-border/50">
-                    <div className="text-center space-y-4 mb-12">
-                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">{locale === 'en' ? 'Support' : 'Bantuan'}</span>
-                        <h3 className="text-3xl font-black text-text-main tracking-tight">Frequently Asked Questions</h3>
+            {/* 4. THE PRODUCTS CATALOG (Clean Minimalist Accordion/List Style) */}
+            <div id="catalog" className="bg-gray-50/50 border-y border-glass-border py-24">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <h2 className="text-3xl lg:text-4xl font-black tracking-tight">Solusi terbaik untuk setiap aspek operasional bisnis</h2>
+                        <p className="text-text-gray font-medium text-lg">Jelajahi modul dan produk spesifik kami yang dirancang untuk mengatasi tantangan di setiap divisi perusahaan.</p>
                     </div>
-                    <div className="text-left bg-white p-8 md:p-10 rounded-3xl border border-glass-border shadow-sm">
-                        <FaqAccordion faqs={faqs} />
+
+                    <div className="space-y-8">
+                        {hierarchy.map((cat, i) => (
+                            <ScrollReveal key={cat.slug} animation="fade-up" delay={i * 100}>
+                                <div className="bg-white rounded-3xl border border-glass-border p-8 md:p-12 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex flex-col lg:flex-row gap-12">
+                                        
+                                        {/* Left Side: Meta Info */}
+                                        <div className="w-full lg:w-1/3 shrink-0">
+                                            <div className="flex items-center gap-4 mb-6">
+                                                <div className="w-12 h-12 rounded-xl bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center">
+                                                    {cat.slug === 'business-software' ? <Layers className="w-6 h-6 text-brand-blue" /> : <MonitorSmartphone className="w-6 h-6 text-brand-blue" />}
+                                                </div>
+                                                <h3 className="text-2xl font-black tracking-tight">{cat.name}</h3>
+                                            </div>
+                                            <p className="text-text-gray font-medium text-sm leading-relaxed mb-6">
+                                                {cat.slug === 'business-software' 
+                                                    ? 'Rangkaian alat lengkap untuk mengelola dan mengembangkan operasi bisnis Anda dari hulu ke hilir. Tersedia untuk HR, Keuangan, Inventaris, hingga Penjualan.'
+                                                    : cat.slug === 'digital-marketplace'
+                                                    ? 'Aset digital premium, templat desain, aset 3D, dan sumber daya siap pakai untuk memangkas waktu produksi kreator dan developer Anda.'
+                                                    : 'Solusi inovatif masa depan yang disesuaikan untuk mengatasi hambatan skalabilitas secara efisien.'}
+                                            </p>
+                                            <Link href={`/products/${cat.slug}`} className="inline-flex items-center text-sm font-bold text-brand-blue hover:text-brand-blue-dark">
+                                                Pelajari lebih lanjut <ArrowRight className="w-4 h-4 ml-1.5" />
+                                            </Link>
+                                        </div>
+
+                                        {/* Right Side: Product Grid */}
+                                        <div className="w-full lg:w-2/3 lg:border-l lg:border-glass-border lg:pl-12">
+                                            {cat.children && cat.children.length > 0 ? (
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                    {cat.children.map((sub: any) => (
+                                                        <Link 
+                                                            key={sub.slug} 
+                                                            href={`/products/${cat.slug}/${sub.slug}`} 
+                                                            className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-brand-blue/5 border border-transparent hover:border-brand-blue/20 transition-all"
+                                                        >
+                                                            <div className="flex items-center gap-4">
+                                                                <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-glass-border flex items-center justify-center shrink-0">
+                                                                    <SubServiceIcon slug={sub.slug} fallbackCategoryIcon="layers" className="w-5 h-5 text-text-gray group-hover:text-brand-blue transition-colors" />
+                                                                </div>
+                                                                <div>
+                                                                    <h4 className="text-[14px] font-bold text-text-main group-hover:text-brand-blue transition-colors">{sub.name}</h4>
+                                                                    <p className="text-[12px] text-text-muted mt-0.5">{sub.products_count || 0} Produk Spesifik</p>
+                                                                </div>
+                                                            </div>
+                                                            <ArrowRight className="w-4 h-4 text-brand-blue opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <div className="h-full w-full flex flex-col items-center justify-center p-8 text-center rounded-2xl border-2 border-dashed border-glass-border bg-gray-50/50">
+                                                    <span className="px-4 py-1.5 rounded-full bg-white shadow-sm border border-glass-border text-xs font-bold text-text-gray tracking-widest uppercase mb-3">
+                                                        Segera Hadir
+                                                    </span>
+                                                    <p className="text-sm text-text-gray font-medium">Modul-modul canggih sedang diracik oleh tim R&D kami.</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* 5. TESTIMONIALS */}
+            <div className="max-w-7xl mx-auto px-6 py-24">
+                <div className="flex flex-col lg:flex-row gap-16 items-center">
+                    <div className="w-full lg:w-1/3">
+                        <h2 className="text-3xl lg:text-4xl font-black tracking-tight mb-4">Apa kata pengguna tentang solusi Diggity</h2>
+                        <p className="text-text-gray font-medium mb-8">Ratusan perusahaan telah membuktikan efisiensi operasional sejak berpindah ke ekosistem terpadu kami.</p>
+                        <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-brand-blue-dark transition-all">
+                            Baca Studi Kasus
+                        </Link>
+                    </div>
+                    <div className="w-full lg:w-2/3">
+                        <div className="p-10 md:p-12 rounded-3xl bg-brand-blue/5 border border-brand-blue/10 relative">
+                            <Quote className="absolute top-8 left-8 w-12 h-12 text-brand-blue/20" />
+                            <div className="relative z-10">
+                                <p className="text-xl md:text-2xl font-bold leading-relaxed text-text-main mb-8">
+                                    "Salah satu keuntungan terbesar menggunakan Diggity adalah sistemnya yang saling terkoneksi antar divisi. Dulu kami sangat pusing menyatukan laporan dari aplikasi HR, Sales, dan Finance yang berbeda-beda. Sejak migrasi ke Diggity, produktivitas tim kami melesat 40%!"
+                                </p>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white font-black text-lg">
+                                        B
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-text-main">Budi Santoso</h4>
+                                        <p className="text-sm text-text-gray font-medium">Director of Operations, Vertex Corp</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* 6. FAQ Section */}
+            {faqs.length > 0 && (
+                <div className="bg-gray-50/50 border-t border-glass-border">
+                    <div className="max-w-4xl mx-auto px-6 py-24">
+                        <div className="text-center space-y-4 mb-12">
+                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Bantuan</span>
+                            <h3 className="text-3xl font-black text-text-main tracking-tight">FAQ Seputar Produk Kami</h3>
+                        </div>
+                        <div className="text-left bg-white p-8 md:p-10 rounded-3xl border border-glass-border shadow-sm">
+                            <FaqAccordion faqs={faqs} />
+                        </div>
                     </div>
                 </div>
             )}
             
-            {/* 5. Final CTA */}
-            <div className="max-w-4xl mx-auto px-6 pb-12">
-                <SpotlightCard className="p-12 text-center space-y-8 border border-glass-border bg-white rounded-[2rem] shadow-sm">
-                    <div className="max-w-lg mx-auto space-y-3">
-                        <h4 className="text-2xl md:text-3xl font-black text-text-main tracking-tight">
-                            {locale === 'en' ? 'Ready to transform your business?' : 'Siap mentransformasi bisnis Anda?'}
+            {/* 7. Bottom CTA */}
+            <div className="max-w-7xl mx-auto px-6 pb-12 pt-12">
+                <div className="p-12 md:p-16 text-center space-y-8 bg-brand-blue rounded-[2.5rem] shadow-xl relative overflow-hidden">
+                    {/* Decorative blobs */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2" />
+                    
+                    <div className="relative z-10 max-w-2xl mx-auto space-y-4">
+                        <h4 className="text-3xl md:text-4xl font-black text-white tracking-tight">
+                            Bebaskan potensi bisnis Anda bersama Diggity
                         </h4>
-                        <p className="text-base text-text-gray font-medium leading-relaxed">
-                            {locale === 'en' ? 'Talk to our experts and discover how Diggity can help you achieve your goals faster.' : 'Diskusikan kebutuhan Anda dengan ahli kami dan wujudkan arsitektur digital impian Anda.'}
+                        <p className="text-lg text-white/80 font-medium leading-relaxed">
+                            Mulai perjalanan transformasi digital Anda hari ini. Hubungi tim konsultan kami untuk menemukan solusi paling tepat.
                         </p>
                     </div>
-                    <div>
+                    <div className="relative z-10">
                         <Link
                             href="/contact"
-                            className="inline-flex items-center justify-center px-8 py-4 text-[15px] font-bold text-white bg-text-main hover:bg-black rounded-xl transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5"
+                            className="inline-flex items-center justify-center px-8 py-4 text-[15px] font-bold text-brand-blue bg-white hover:bg-gray-50 rounded-xl transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5"
                         >
-                            {locale === 'en' ? 'Contact Sales' : 'Hubungi Tim Konsultan'}
+                            Jadwalkan Demo Sekarang
                         </Link>
                     </div>
-                </SpotlightCard>
+                </div>
             </div>
+            
         </div>
     );
 }

@@ -25,8 +25,6 @@ import SubServiceIcon from '../../../../../components/SubServiceIcon';
 
 export const revalidate = 60;
 
-export const revalidate = 60; // Cache data for 60 seconds (ISR)
-
 interface Props {
     params: Promise<{ main: string; sub: string; slug: string }>;
 }
@@ -48,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetail({ params }: Props) {
     const locale = await getLocaleServer();
-    const { slug } = await params;
+    const { main, sub, slug } = await params;
     let product: Product | null = null;
     let relatedProducts: Product[] = [];
 
@@ -62,6 +60,33 @@ export default async function ProductDetail({ params }: Props) {
 
     if (!product) {
         return (
+            <div className="pt-48 pb-20 text-center space-y-4 min-h-screen">
+                <h1 className="text-2xl font-bold text-text-main">{locale === 'en' ? 'Product Not Found' : 'Produk Tidak Ditemukan'}</h1>
+                <Link href="/products" className="text-brand-blue hover:underline">
+                    {locale === 'en' ? 'Back to Product Catalog' : 'Kembali ke Katalog Produk'}
+                </Link>
+            </div>
+        );
+    }
+
+    const formatPrice = (price: number, period: string) => {
+        const formatted = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+        }).format(price);
+
+        if (period === 'one_time') {
+            return locale === 'en' ? `${formatted} (One-time)` : `${formatted} (Sekali Bayar)`;
+        } else if (period === 'monthly') {
+            return locale === 'en' ? `${formatted} / month` : `${formatted} / bulan`;
+        } else if (period === 'yearly') {
+            return locale === 'en' ? `${formatted} / year` : `${formatted} / tahun`;
+        }
+        return `${formatted} / ${period}`;
+    };
+
+    return (
         <div className="min-h-screen relative pb-20 selection:bg-brand-blue/20">
             {/* 1. HERO HEADER (Enterprise Style) */}
             <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-32 px-6 overflow-hidden">
@@ -181,7 +206,7 @@ export default async function ProductDetail({ params }: Props) {
                                         {locale === 'en' ? 'Investment' : 'Investasi'}
                                     </span>
                                     <div className="text-4xl font-black text-brand-blue tracking-tight">
-                                        {formatPrice(product.price, product.billing_period)}
+                                        {formatPrice(Number(product.price), product.billing_period)}
                                     </div>
                                 </div>
 

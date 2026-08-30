@@ -254,6 +254,9 @@ export interface Course {
     meta_title?: string;
     meta_description?: string;
     category?: Category;
+    rating?: number | string;
+    duration?: string;
+    level?: string;
     modules?: Module[];
     seo_meta?: SeoMeta;
 }

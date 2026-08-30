@@ -126,15 +126,17 @@ export default async function ProductsHubPage() {
                         <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue to-cyan-500 blur-2xl opacity-40 animate-morph-blob-fast scale-105 pointer-events-none" />
                         
                         {/* Main Image Blob */}
-                        <div className="absolute inset-0 border-2 border-white/20 shadow-[0_0_80px_rgba(0,0,0,0.3)] overflow-hidden animate-morph-blob relative group">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/30 to-transparent z-10 opacity-70 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" />
-                            <Image 
-                                src="/images/saas_hero.jpg" 
-                                alt="Diggity Dashboard 3D Illustration" 
-                                fill
-                                className="object-cover scale-110 group-hover:scale-100 transition-transform duration-700" 
-                                priority
-                            />
+                        <div className="absolute inset-0 border-2 border-white/20 shadow-[0_0_80px_rgba(0,0,0,0.3)] overflow-hidden animate-morph-blob group z-10">
+                            <div className="w-full h-full relative rounded-[inherit] overflow-hidden">
+                                <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/30 to-transparent z-10 opacity-70 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" />
+                                <Image 
+                                    src="/images/saas_hero.jpg" 
+                                    alt="Diggity Dashboard 3D Illustration" 
+                                    fill
+                                    className="object-cover scale-110 group-hover:scale-100 transition-transform duration-700" 
+                                    priority
+                                />
+                            </div>
                         </div>
 
                         {/* Floating Elements acting as satellites for Products */}
@@ -153,7 +155,7 @@ export default async function ProductsHubPage() {
 
             {/* MAIN CONTENT AREA (Overlapping the hero) */}
             <div className="max-w-7xl mx-auto px-0 md:px-6 relative z-20 -mt-16">
-                <div className="bg-white dark:bg-brand-bg border border-glass-border shadow-2xl rounded-t-3xl md:rounded-3xl overflow-hidden flex flex-col">
+                <div className="bg-gray-50 dark:bg-brand-bg border border-glass-border shadow-2xl rounded-t-3xl md:rounded-3xl overflow-hidden flex flex-col">
                     
 {/* 2. CLIENT LOGOS (Dynamic Marquee) */}
             <div className="border-y border-glass-border bg-gray-50/50 dark:bg-brand-bg/50 py-8 overflow-hidden">
@@ -237,7 +239,7 @@ export default async function ProductsHubPage() {
             </div>
 
             {/* 4. THE PRODUCTS CATALOG (Clean Minimalist Accordion/List Style) */}
-            <div id="catalog" className="bg-gray-50/50 dark:bg-transparent border-y border-glass-border py-24">
+            <div id="catalog" className="bg-white dark:bg-transparent border-y border-glass-border py-24">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
                         <h2 className="text-3xl lg:text-4xl font-black tracking-tight">Solusi terbaik untuk setiap aspek operasional bisnis</h2>
@@ -326,7 +328,7 @@ export default async function ProductsHubPage() {
 
             {/* 6. FAQ Section */}
             {faqs.length > 0 && (
-                <div className="bg-gray-50/50 dark:bg-transparent border-t border-glass-border">
+                <div className="bg-white dark:bg-transparent border-t border-glass-border">
                     <div className="max-w-4xl mx-auto px-6 py-24">
                         <div className="text-center space-y-4 mb-12">
                             <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Bantuan</span>

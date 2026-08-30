@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { api, Course, Faq } from '../../lib/api';
-import { BookOpen, Clock, Award, Check, Sparkles, GraduationCap, Building, MonitorPlay, Book, ArrowLeft, ArrowRight, Users, PlayCircle, Briefcase } from 'lucide-react';
+import { BookOpen, Clock, Award, Check, Sparkles, GraduationCap, Building, MonitorPlay, Book, ArrowLeft, ArrowRight, Users, PlayCircle, Briefcase, Star } from 'lucide-react';
 import FaqAccordion from '../../components/FaqAccordion';
 import SpotlightCard from '../../components/SpotlightCard';
 import ScrollReveal from '../../components/ScrollReveal';

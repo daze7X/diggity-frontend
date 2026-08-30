@@ -254,31 +254,56 @@ export default async function SolutionsPage() {
                         </div>
                     </div>
                     
-                    {/* Right Illustration */}
-                    <div className="hidden lg:block relative w-full max-w-lg">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-white/20 rounded-[3rem] transform rotate-3 scale-105 border border-white/10 backdrop-blur-sm" />
-                        <div className="relative bg-white/10 border border-white/20 backdrop-blur-md rounded-[3rem] p-8 shadow-2xl overflow-hidden aspect-square flex items-center justify-center group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-brand-blue to-indigo-600 opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-                            <div className="relative z-10 w-48 h-48 bg-white/10 border border-white/20 rounded-full flex items-center justify-center animate-spin-slow" style={{ animationDuration: '20s' }}>
-                                <div className="w-32 h-32 bg-white/10 border border-white/20 rounded-full flex items-center justify-center animate-reverse-spin" style={{ animationDuration: '15s' }}>
-                                    <Target className="w-12 h-12 text-white" />
+                    {/* Right Illustration - Morphing Water Blob */}
+                    <div className="hidden lg:block relative w-full max-w-lg aspect-square">
+                        <style dangerouslySetInnerHTML={{__html: `
+                            @keyframes morphBlob {
+                                0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+                                50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+                                100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+                            }
+                            .animate-morph-blob {
+                                animation: morphBlob 12s ease-in-out infinite;
+                            }
+                            .animate-morph-blob-fast {
+                                animation: morphBlob 8s ease-in-out infinite reverse;
+                            }
+                        `}} />
+                        
+                        {/* Glowing backdrop matching the blob */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue to-violet-500 blur-2xl opacity-40 animate-morph-blob-fast scale-105 pointer-events-none" />
+                        
+                        {/* Main Image Blob */}
+                        <div className="absolute inset-0 border-2 border-white/20 shadow-[0_0_80px_rgba(0,0,0,0.3)] overflow-hidden animate-morph-blob relative group">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/30 to-transparent z-10 opacity-70 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img 
+                                src="/images/saas_hero.jpg" 
+                                alt="Digital Solutions Ecosystem"
+                                className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700" 
+                            />
+                            {/* Center abstract icon instead of target */}
+                            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                                <div className="w-24 h-24 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.2)] animate-float">
+                                    <Target className="w-10 h-10 text-white" />
                                 </div>
                             </div>
-                            
-                            {/* Floating elements */}
-                            <div className="absolute top-1/4 left-1/4 w-12 h-12 bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl flex items-center justify-center animate-float" style={{ animationDelay: '0s' }}>
-                                <Code2 className="w-5 h-5 text-white" />
-                            </div>
-                            <div className="absolute bottom-1/3 right-1/4 w-14 h-14 bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl flex items-center justify-center animate-float" style={{ animationDelay: '1s' }}>
-                                <Cloud className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="absolute top-1/3 right-1/3 w-10 h-10 bg-emerald-500/40 backdrop-blur-lg border border-emerald-500/50 rounded-full flex items-center justify-center animate-float" style={{ animationDelay: '2s' }}>
-                                <ShieldCheck className="w-4 h-4 text-white" />
-                            </div>
+                        </div>
+
+                        {/* Floating Elements acting as satellites */}
+                        <div className="absolute top-10 -left-6 w-14 h-14 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '0s' }}>
+                            <Code2 className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="absolute bottom-12 -right-4 w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-[2rem] flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '1.5s' }}>
+                            <Cloud className="w-7 h-7 text-white" />
+                        </div>
+                        <div className="absolute -top-4 right-16 w-12 h-12 bg-emerald-500/30 backdrop-blur-xl border border-emerald-500/40 rounded-full flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '3s' }}>
+                            <ShieldCheck className="w-5 h-5 text-white" />
                         </div>
                     </div>
                 </div>
             </div>
+
 
             {/* 2. MAIN CONTENT AREA (Overlapping the hero) */}
             <div className="max-w-7xl mx-auto px-6 relative z-20 -mt-16 space-y-16">

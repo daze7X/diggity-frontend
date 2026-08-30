@@ -99,7 +99,7 @@ export default async function ProductDetail({ params }: Props) {
                         <nav className="flex items-center flex-wrap text-[11px] font-bold text-white/60 uppercase tracking-widest space-x-2">
                             <Link href="/products" className="hover:text-white transition-colors">Products</Link>
                             <ChevronRight className="w-3 h-3" />
-                            <Link href={`/products#catalog`} className="hover:text-white transition-colors">{product.category?.parent?.name || main}</Link>
+                            <Link href={`/products#catalog`} className="hover:text-white transition-colors">{(product.category as any)?.parent?.name || main}</Link>
                             <ChevronRight className="w-3 h-3" />
                             <Link href={`/products/${main}/${sub}`} className="hover:text-white transition-colors">{product.category?.name || sub}</Link>
                             <ChevronRight className="w-3 h-3" />

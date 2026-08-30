@@ -337,7 +337,7 @@ export default async function AcademyPage({ searchParams }: PageProps) {
                                                 <div className="relative aspect-video rounded-xl overflow-hidden mb-5">
                                                     <div className="absolute inset-0 bg-brand-blue/10 mix-blend-multiply dark:mix-blend-overlay group-hover:bg-transparent transition-colors duration-300 z-10" />
                                                     <Image
-                                                        src={course.image_url || '/images/placeholder.jpg'}
+                                                        src={course.image || '/images/placeholder.jpg'}
                                                         alt={course.title}
                                                         fill
                                                         className="object-cover transition-transform duration-500 group-hover:scale-110"

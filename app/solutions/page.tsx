@@ -282,12 +282,7 @@ export default async function SolutionsPage() {
                                 alt="Digital Solutions Ecosystem"
                                 className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700" 
                             />
-                            {/* Center abstract icon instead of target */}
-                            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-                                <div className="w-24 h-24 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.2)] animate-float">
-                                    <Target className="w-10 h-10 text-white" />
-                                </div>
-                            </div>
+
                         </div>
 
                         {/* Floating Elements acting as satellites */}

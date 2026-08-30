@@ -45,7 +45,7 @@ export default async function ProductsHubPage() {
     }
 
     return (
-        <div className="min-h-screen bg-white pt-24 pb-20 selection:bg-brand-blue/20 text-text-main">
+        <div className="min-h-screen bg-white dark:bg-brand-bg pt-24 pb-20 selection:bg-brand-blue/20 text-text-main">
             
             {/* 1. HERO SECTION (Mekari Style - Left/Right) */}
             <div className="max-w-7xl mx-auto px-6 pt-12 pb-16 lg:pb-24">
@@ -81,7 +81,7 @@ export default async function ProductsHubPage() {
                             <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-brand-blue-dark transition-all shadow-lg shadow-brand-blue/20">
                                 Jadwalkan Demo
                             </Link>
-                            <a href="#catalog" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white text-brand-blue border border-brand-blue/30 font-bold text-sm hover:bg-brand-blue/5 transition-all">
+                            <a href="#catalog" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white dark:bg-transparent text-brand-blue border border-brand-blue/30 font-bold text-sm hover:bg-brand-blue/5 transition-all">
                                 Lihat Produk
                             </a>
                         </div>
@@ -102,7 +102,7 @@ export default async function ProductsHubPage() {
                     {/* Right: Hero Image */}
                     <div className="w-full lg:w-1/2 relative">
                         <div className="absolute inset-0 bg-brand-blue/5 blur-3xl rounded-full transform scale-110" />
-                        <div className="relative rounded-3xl overflow-hidden border border-glass-border shadow-2xl bg-white p-2">
+                        <div className="relative rounded-3xl overflow-hidden border border-glass-border shadow-2xl bg-white dark:bg-glass-bg p-2">
                             <Image 
                                 src="/images/saas_hero.jpg" 
                                 alt="Diggity Dashboard 3D Illustration" 
@@ -117,15 +117,15 @@ export default async function ProductsHubPage() {
             </div>
 
             {/* 2. CLIENT LOGOS (Dynamic Marquee) */}
-            <div className="border-y border-glass-border bg-gray-50/50 py-8 overflow-hidden">
+            <div className="border-y border-glass-border bg-gray-50/50 dark:bg-brand-bg/50 py-8 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6">
                     <p className="text-center text-xs font-bold text-text-muted mb-6 uppercase tracking-widest">
                         {locale === 'en' ? 'Trusted by forward-thinking businesses and organizations' : 'Telah dipercaya oleh +500 klien lintas industri'}
                     </p>
                     
                     <div className="relative flex">
-                        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none" />
-                        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none" />
+                        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-gray-50 dark:from-brand-bg to-transparent z-10 pointer-events-none" />
+                        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-gray-50 dark:from-brand-bg to-transparent z-10 pointer-events-none" />
                         
                         <div className="animate-marquee flex items-center space-x-16 shrink-0 pr-16">
                             {settings && settings.partner_logos && settings.partner_logos.length > 0 ? (
@@ -174,22 +174,22 @@ export default async function ProductsHubPage() {
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div className="p-8 rounded-3xl bg-gray-50 border border-glass-border hover:shadow-lg transition-shadow duration-300">
+                    <div className="p-8 rounded-3xl bg-gray-50 dark:bg-glass-bg border border-glass-border hover:shadow-lg transition-shadow duration-300">
                         <ShieldCheck className="w-10 h-10 text-brand-blue mb-6" />
                         <h3 className="text-lg font-bold mb-3">Keamanan Enterprise</h3>
                         <p className="text-sm text-text-gray font-medium leading-relaxed">Seluruh data Anda dilindungi dengan enkripsi end-to-end dan standar kepatuhan internasional ISO 27001.</p>
                     </div>
-                    <div className="p-8 rounded-3xl bg-gray-50 border border-glass-border hover:shadow-lg transition-shadow duration-300">
+                    <div className="p-8 rounded-3xl bg-gray-50 dark:bg-glass-bg border border-glass-border hover:shadow-lg transition-shadow duration-300">
                         <Puzzle className="w-10 h-10 text-brand-blue mb-6" />
                         <h3 className="text-lg font-bold mb-3">Integrasi Tanpa Batas</h3>
                         <p className="text-sm text-text-gray font-medium leading-relaxed">Semua produk kami dirancang untuk saling berbicara lewat API terbuka, mencegah silo data pada bisnis Anda.</p>
                     </div>
-                    <div className="p-8 rounded-3xl bg-gray-50 border border-glass-border hover:shadow-lg transition-shadow duration-300">
+                    <div className="p-8 rounded-3xl bg-gray-50 dark:bg-glass-bg border border-glass-border hover:shadow-lg transition-shadow duration-300">
                         <Zap className="w-10 h-10 text-brand-blue mb-6" />
                         <h3 className="text-lg font-bold mb-3">Lebih Cepat & Akurat</h3>
                         <p className="text-sm text-text-gray font-medium leading-relaxed">Otomatisasi proses repetitif menggunakan AI, menghemat waktu operasional hingga 70% setiap harinya.</p>
                     </div>
-                    <div className="p-8 rounded-3xl bg-gray-50 border border-glass-border hover:shadow-lg transition-shadow duration-300">
+                    <div className="p-8 rounded-3xl bg-gray-50 dark:bg-glass-bg border border-glass-border hover:shadow-lg transition-shadow duration-300">
                         <Headphones className="w-10 h-10 text-brand-blue mb-6" />
                         <h3 className="text-lg font-bold mb-3">Dukungan Premium 24/7</h3>
                         <p className="text-sm text-text-gray font-medium leading-relaxed">Tim ahli kami siap mendampingi Anda dari proses implementasi hingga maintenance bergaransi penuh.</p>
@@ -198,7 +198,7 @@ export default async function ProductsHubPage() {
             </div>
 
             {/* 4. THE PRODUCTS CATALOG (Clean Minimalist Accordion/List Style) */}
-            <div id="catalog" className="bg-gray-50/50 border-y border-glass-border py-24">
+            <div id="catalog" className="bg-gray-50/50 dark:bg-transparent border-y border-glass-border py-24">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
                         <h2 className="text-3xl lg:text-4xl font-black tracking-tight">Solusi terbaik untuk setiap aspek operasional bisnis</h2>
@@ -208,7 +208,7 @@ export default async function ProductsHubPage() {
                     <div className="space-y-8">
                         {hierarchy.map((cat, i) => (
                             <ScrollReveal key={cat.slug} animation="fade-up" delay={i * 100}>
-                                <div className="bg-white rounded-3xl border border-glass-border p-8 md:p-12 shadow-sm hover:shadow-md transition-shadow">
+                                <div className="bg-white dark:bg-glass-bg rounded-3xl border border-glass-border p-8 md:p-12 shadow-sm hover:shadow-md transition-shadow">
                                     <div className="flex flex-col lg:flex-row gap-12">
                                         
                                         {/* Left Side: Meta Info */}
@@ -239,10 +239,10 @@ export default async function ProductsHubPage() {
                                                         <Link 
                                                             key={sub.slug} 
                                                             href={`/products/${cat.slug}/${sub.slug}`} 
-                                                            className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-brand-blue/5 border border-transparent hover:border-brand-blue/20 transition-all"
+                                                            className="group flex items-center justify-between p-4 rounded-2xl bg-gray-50 dark:bg-brand-bg/80 hover:bg-brand-blue/5 dark:hover:bg-brand-blue/10 border border-transparent hover:border-brand-blue/20 transition-all"
                                                         >
                                                             <div className="flex items-center gap-4">
-                                                                <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-glass-border flex items-center justify-center shrink-0">
+                                                                <div className="w-10 h-10 rounded-xl bg-white dark:bg-transparent shadow-sm border border-glass-border flex items-center justify-center shrink-0">
                                                                     <SubServiceIcon slug={sub.slug} fallbackCategoryIcon="layers" className="w-5 h-5 text-text-gray group-hover:text-brand-blue transition-colors" />
                                                                 </div>
                                                                 <div>
@@ -255,8 +255,8 @@ export default async function ProductsHubPage() {
                                                     ))}
                                                 </div>
                                             ) : (
-                                                <div className="h-full w-full flex flex-col items-center justify-center p-8 text-center rounded-2xl border-2 border-dashed border-glass-border bg-gray-50/50">
-                                                    <span className="px-4 py-1.5 rounded-full bg-white shadow-sm border border-glass-border text-xs font-bold text-text-gray tracking-widest uppercase mb-3">
+                                                <div className="h-full w-full flex flex-col items-center justify-center p-8 text-center rounded-2xl border-2 border-dashed border-glass-border bg-gray-50/50 dark:bg-transparent">
+                                                    <span className="px-4 py-1.5 rounded-full bg-white dark:bg-transparent shadow-sm border border-glass-border text-xs font-bold text-text-gray tracking-widest uppercase mb-3">
                                                         Segera Hadir
                                                     </span>
                                                     <p className="text-sm text-text-gray font-medium">Modul-modul canggih sedang diracik oleh tim R&D kami.</p>
@@ -287,13 +287,13 @@ export default async function ProductsHubPage() {
 
             {/* 6. FAQ Section */}
             {faqs.length > 0 && (
-                <div className="bg-gray-50/50 border-t border-glass-border">
+                <div className="bg-gray-50/50 dark:bg-transparent border-t border-glass-border">
                     <div className="max-w-4xl mx-auto px-6 py-24">
                         <div className="text-center space-y-4 mb-12">
                             <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Bantuan</span>
                             <h3 className="text-3xl font-black text-text-main tracking-tight">FAQ Seputar Produk Kami</h3>
                         </div>
-                        <div className="text-left bg-white p-8 md:p-10 rounded-3xl border border-glass-border shadow-sm">
+                        <div className="text-left bg-white dark:bg-glass-bg p-8 md:p-10 rounded-3xl border border-glass-border shadow-sm">
                             <FaqAccordion faqs={faqs} />
                         </div>
                     </div>
@@ -318,7 +318,7 @@ export default async function ProductsHubPage() {
                     <div className="relative z-10">
                         <Link
                             href="/contact"
-                            className="inline-flex items-center justify-center px-8 py-4 text-[15px] font-bold text-brand-blue bg-white hover:bg-gray-50 rounded-xl transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5"
+                            className="inline-flex items-center justify-center px-8 py-4 text-[15px] font-bold text-brand-blue bg-white hover:bg-gray-50 dark:bg-brand-bg dark:hover:bg-glass-bg dark:text-white rounded-xl transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5"
                         >
                             Jadwalkan Demo Sekarang
                         </Link>

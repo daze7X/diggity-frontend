@@ -45,43 +45,50 @@ export default async function ProductsHubPage() {
     }
 
     return (
-        <div className="min-h-screen relative pt-24 pb-20 selection:bg-brand-blue/20 text-text-main">
+        <div className="min-h-screen relative pb-20 selection:bg-brand-blue/20">
             
-            {/* 1. HERO SECTION (Mekari Style - Left/Right) */}
-            <div className="max-w-7xl mx-auto px-6 pt-12 pb-16 lg:pb-24">
-                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            {/* 1. HERO HEADER (Enterprise Style) */}
+            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-32 px-6 overflow-hidden">
+                {/* Glowing orbs */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-black/20 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none" />
+                
+                {/* Grid Pattern */}
+                <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none" />
+
+                <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
                     
                     {/* Left: Copy & CTA */}
                     <div className="w-full lg:w-1/2 flex flex-col items-start text-left space-y-6">
-                        <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight leading-[1.15]">
-                            Solusi ekosistem <span className="text-brand-blue">digital terbaik</span> untuk akselerasi bisnis Anda
+                        <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.15]">
+                            Solusi ekosistem <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">digital terbaik</span> untuk akselerasi bisnis
                         </h1>
-                        <p className="text-lg text-text-gray font-medium leading-relaxed max-w-lg">
+                        <p className="text-lg text-white/80 font-medium leading-relaxed max-w-lg">
                             Kelola seluruh aspek operasional, pengembangan teknologi, hingga aset kreatif perusahaan Anda dalam satu platform terintegrasi.
                         </p>
                         
                         {/* Bullet Points */}
                         <div className="flex flex-col gap-3 py-2">
                             <div className="flex items-center gap-3">
-                                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-                                <span className="text-sm font-bold text-text-main">Sistem terintegrasi untuk seluruh divisi</span>
+                                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                                <span className="text-sm font-bold text-white">Sistem terintegrasi untuk seluruh divisi</span>
                             </div>
                             <div className="flex items-center gap-3">
-                                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-                                <span className="text-sm font-bold text-text-main">Keamanan data standar enterprise ISO</span>
+                                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                                <span className="text-sm font-bold text-white">Keamanan data standar enterprise ISO</span>
                             </div>
                             <div className="flex items-center gap-3">
-                                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-                                <span className="text-sm font-bold text-text-main">Skalabilitas tanpa batas seiring pertumbuhan</span>
+                                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                                <span className="text-sm font-bold text-white">Skalabilitas tanpa batas seiring pertumbuhan</span>
                             </div>
                         </div>
 
                         {/* CTA Buttons */}
                         <div className="flex flex-wrap items-center gap-4 pt-4">
-                            <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-brand-blue-dark transition-all shadow-lg shadow-brand-blue/20">
+                            <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white text-brand-blue font-bold text-sm hover:bg-gray-50 transition-all shadow-lg shadow-white/10 hover:-translate-y-0.5">
                                 Jadwalkan Demo
                             </Link>
-                            <a href="#catalog" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white dark:bg-transparent text-brand-blue border border-brand-blue/30 font-bold text-sm hover:bg-brand-blue/5 transition-all">
+                            <a href="#catalog" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-blue/50 text-white border border-white/20 font-bold text-sm hover:bg-brand-blue/70 transition-all backdrop-blur-md">
                                 Lihat Produk
                             </a>
                         </div>
@@ -95,12 +102,12 @@ export default async function ProductsHubPage() {
                                 <Star className="w-5 h-5 fill-current" />
                                 <Star className="w-5 h-5 fill-current" />
                             </div>
-                            <p className="text-xs font-bold text-text-gray uppercase tracking-widest">Gartner & G2 Top Rated</p>
+                            <p className="text-xs font-bold text-white/60 uppercase tracking-widest">Gartner & G2 Top Rated</p>
                         </div>
                     </div>
                     
-{/* Right: Hero Image - Morphing Organic Blob */}
-                    <div className="w-full lg:w-1/2 relative group px-6 aspect-square">
+                    {/* Right Illustration - Morphing Water Blob */}
+                    <div className="w-full lg:w-1/2 relative group px-6 aspect-square hidden lg:block">
                         <style dangerouslySetInnerHTML={{__html: `
                             @keyframes morphBlob {
                                 0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
@@ -115,34 +122,40 @@ export default async function ProductsHubPage() {
                             }
                         `}} />
                         
-                        {/* Glowing backdrop orbs */}
-                        <div className="absolute top-10 right-10 w-64 h-64 bg-brand-blue/30 blur-[80px] rounded-full group-hover:bg-brand-blue/50 transition-all duration-700 pointer-events-none" />
-                        <div className="absolute bottom-10 left-10 w-64 h-64 bg-emerald-500/20 blur-[80px] rounded-full group-hover:bg-emerald-500/40 transition-all duration-700 pointer-events-none" />
+                        {/* Glowing backdrop matching the blob */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue to-cyan-500 blur-2xl opacity-40 animate-morph-blob-fast scale-105 pointer-events-none" />
                         
-                        {/* Abstract Wireframe/Border behind the image */}
-                        <div 
-                            className="absolute inset-0 border-2 border-brand-blue/20 dark:border-glass-border translate-x-4 translate-y-4 transition-transform duration-700 group-hover:translate-x-6 group-hover:translate-y-6 animate-morph-blob-fast pointer-events-none"
-                        />
-                        
-                        {/* The actual Image Container with Morphing Blob Shape */}
-                        <div 
-                            className="absolute inset-0 bg-white/40 dark:bg-glass-bg/40 backdrop-blur-md border border-glass-border shadow-2xl p-3 overflow-hidden transition-all duration-700 group-hover:scale-[1.02] animate-morph-blob z-10"
-                        >
-                            <div className="w-full h-full relative rounded-[inherit] overflow-hidden">
-                                <Image 
-                                    src="/images/saas_hero.jpg" 
-                                    alt="Diggity Dashboard 3D Illustration" 
-                                    fill
-                                    className="object-cover opacity-90 group-hover:opacity-100 transition-transform duration-700 group-hover:scale-105"
-                                    priority
-                                />
-                            </div>
+                        {/* Main Image Blob */}
+                        <div className="absolute inset-0 border-2 border-white/20 shadow-[0_0_80px_rgba(0,0,0,0.3)] overflow-hidden animate-morph-blob relative group">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/30 to-transparent z-10 opacity-70 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" />
+                            <Image 
+                                src="/images/saas_hero.jpg" 
+                                alt="Diggity Dashboard 3D Illustration" 
+                                fill
+                                className="object-cover scale-110 group-hover:scale-100 transition-transform duration-700" 
+                                priority
+                            />
+                        </div>
+
+                        {/* Floating Elements acting as satellites for Products */}
+                        <div className="absolute top-10 -left-6 w-14 h-14 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '0s' }}>
+                            <MonitorSmartphone className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="absolute bottom-12 -right-4 w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-[2rem] flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '1.5s' }}>
+                            <ShieldCheck className="w-7 h-7 text-white" />
+                        </div>
+                        <div className="absolute -top-4 right-16 w-12 h-12 bg-emerald-500/30 backdrop-blur-xl border border-emerald-500/40 rounded-full flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '3s' }}>
+                            <Layers className="w-5 h-5 text-white" />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* 2. CLIENT LOGOS (Dynamic Marquee) */}
+            {/* MAIN CONTENT AREA (Overlapping the hero) */}
+            <div className="max-w-7xl mx-auto px-0 md:px-6 relative z-20 -mt-16">
+                <div className="bg-white dark:bg-brand-bg border border-glass-border shadow-2xl rounded-t-3xl md:rounded-3xl overflow-hidden flex flex-col">
+                    
+{/* 2. CLIENT LOGOS (Dynamic Marquee) */}
             <div className="border-y border-glass-border bg-gray-50/50 dark:bg-brand-bg/50 py-8 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6">
                     <p className="text-center text-xs font-bold text-text-muted mb-6 uppercase tracking-widest">
@@ -352,6 +365,9 @@ export default async function ProductsHubPage() {
                 </div>
             </div>
             
+
+                </div>
+            </div>
         </div>
     );
 }

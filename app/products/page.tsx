@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import SubServiceIcon from '../../components/SubServiceIcon';
 import FaqAccordion from '../../components/FaqAccordion';
+import HomeTestimonials from '../../components/HomeTestimonials'; from '../../components/FaqAccordion';
 
 export const metadata: Metadata = {
     title: 'Products Hub - Diggity Agency',
@@ -26,13 +27,19 @@ export default async function ProductsHubPage() {
 
     let hierarchy: CategoryHierarchy[] = [];
     let faqs: any[] = [];
+    let settings: any = null;
+    let testimonials: any[] = [];
     try {
-        const [hierRes, faqsRes] = await Promise.all([
+        const [hierRes, faqsRes, settingsRes, testimonialsRes] = await Promise.all([
             api.getProductHierarchy(),
             api.getFaqs(),
+            api.getSettings(),
+            api.getTestimonials(),
         ]);
         hierarchy = hierRes || [];
         faqs = faqsRes || [];
+        settings = settingsRes || null;
+        testimonials = testimonialsRes || [];
     } catch {
         // Fallback
     }
@@ -109,18 +116,52 @@ export default async function ProductsHubPage() {
                 </div>
             </div>
 
-            {/* 2. CLIENT LOGOS */}
-            <div className="border-y border-glass-border bg-gray-50/50 py-8">
+            {/* 2. CLIENT LOGOS (Dynamic Marquee) */}
+            <div className="border-y border-glass-border bg-gray-50/50 py-8 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6">
-                    <p className="text-center text-xs font-bold text-text-muted mb-6">
-                        Telah dipercaya oleh +500 klien lintas industri
+                    <p className="text-center text-xs font-bold text-text-muted mb-6 uppercase tracking-widest">
+                        {locale === 'en' ? 'Trusted by forward-thinking businesses and organizations' : 'Telah dipercaya oleh +500 klien lintas industri'}
                     </p>
-                    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale">
-                        <div className="flex items-center gap-2"><Hexagon className="w-6 h-6"/> <span className="font-black text-xl tracking-tighter">HEXA</span></div>
-                        <div className="flex items-center gap-2"><Building2 className="w-6 h-6"/> <span className="font-black text-xl tracking-tighter">CORP</span></div>
-                        <div className="flex items-center gap-2"><Triangle className="w-6 h-6"/> <span className="font-black text-xl tracking-tighter">VERTEX</span></div>
-                        <div className="flex items-center gap-2"><Circle className="w-6 h-6"/> <span className="font-black text-xl tracking-tighter">O-TECH</span></div>
-                        <div className="flex items-center gap-2"><Briefcase className="w-6 h-6"/> <span className="font-black text-xl tracking-tighter">WORKLY</span></div>
+                    
+                    <div className="relative flex">
+                        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none" />
+                        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none" />
+                        
+                        <div className="animate-marquee flex items-center space-x-16 shrink-0 pr-16">
+                            {settings && settings.partner_logos && settings.partner_logos.length > 0 ? (
+                                (() => {
+                                    const logos = settings.partner_logos;
+                                    const minItems = 16;
+                                    const repeatCount = Math.ceil(minItems / logos.length);
+                                    const duplicatedLogos = Array(repeatCount).fill(logos).flat();
+                                    const finalLogos = [...duplicatedLogos, ...duplicatedLogos];
+                                    
+                                    return finalLogos.map((logo: string, idx: number) => {
+                                        const isFilePath = logo.includes('/') || logo.includes('.') || logo.startsWith('http');
+                                        return (
+                                            <div key={idx} className="flex items-center justify-center h-10 w-32 relative shrink-0 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                                                {isFilePath ? (
+                                                    <Image
+                                                        src={logo.startsWith('http') ? logo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${logo}`}
+                                                        alt="Partner Logo"
+                                                        fill
+                                                        className="object-contain"
+                                                    />
+                                                ) : (
+                                                    <span className="font-black text-lg text-text-main tracking-widest">{logo.toUpperCase()}</span>
+                                                )}
+                                            </div>
+                                        );
+                                    });
+                                })()
+                            ) : (
+                                ['GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON'].map((logo, idx) => (
+                                    <div key={idx} className="flex items-center justify-center h-10 w-32 relative shrink-0 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                                        <span className="font-black text-lg text-text-main tracking-widest">{logo}</span>
+                                    </div>
+                                ))
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -232,34 +273,16 @@ export default async function ProductsHubPage() {
 
             {/* 5. TESTIMONIALS */}
             <div className="max-w-7xl mx-auto px-6 py-24">
-                <div className="flex flex-col lg:flex-row gap-16 items-center">
-                    <div className="w-full lg:w-1/3">
-                        <h2 className="text-3xl lg:text-4xl font-black tracking-tight mb-4">Apa kata pengguna tentang solusi Diggity</h2>
-                        <p className="text-text-gray font-medium mb-8">Ratusan perusahaan telah membuktikan efisiensi operasional sejak berpindah ke ekosistem terpadu kami.</p>
-                        <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-brand-blue-dark transition-all">
-                            Baca Studi Kasus
-                        </Link>
-                    </div>
-                    <div className="w-full lg:w-2/3">
-                        <div className="p-10 md:p-12 rounded-3xl bg-brand-blue/5 border border-brand-blue/10 relative">
-                            <Quote className="absolute top-8 left-8 w-12 h-12 text-brand-blue/20" />
-                            <div className="relative z-10">
-                                <p className="text-xl md:text-2xl font-bold leading-relaxed text-text-main mb-8">
-                                    "Salah satu keuntungan terbesar menggunakan Diggity adalah sistemnya yang saling terkoneksi antar divisi. Dulu kami sangat pusing menyatukan laporan dari aplikasi HR, Sales, dan Finance yang berbeda-beda. Sejak migrasi ke Diggity, produktivitas tim kami melesat 40%!"
-                                </p>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-brand-blue flex items-center justify-center text-white font-black text-lg">
-                                        B
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-text-main">Budi Santoso</h4>
-                                        <p className="text-sm text-text-gray font-medium">Director of Operations, Vertex Corp</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="text-center space-y-4 mb-16">
+                    <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
+                        {locale === 'en' ? 'Client Validation' : 'Validasi Klien'}
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
+                        {locale === 'en' ? 'What our users say' : 'Apa kata pengguna tentang Diggity'}
+                    </h2>
                 </div>
+                
+                <HomeTestimonials testimonials={testimonials} locale={locale} />
             </div>
 
             {/* 6. FAQ Section */}

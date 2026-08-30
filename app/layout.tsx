@@ -138,7 +138,8 @@ export default async function RootLayout({
             <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
-            <WhatsAppButton />
+            <BackToTop />
+              <WhatsAppButton />
           </LanguageProvider>
         </AuthProvider>
       </body>

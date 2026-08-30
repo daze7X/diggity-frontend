@@ -564,7 +564,7 @@ export default function Navbar() {
                     <div 
                         onMouseEnter={() => handleMouseEnter('products')}
                         onMouseLeave={handleMouseLeave}
-                        className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[900px] max-w-[95vw] bg-white dark:bg-brand-bg border border-glass-border rounded-3xl p-8 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                        className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[900px] max-w-[95vw] bg-white/95 dark:bg-brand-bg/95 backdrop-blur-2xl border border-glass-border rounded-3xl p-8 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                     >
                         <div className="flex flex-col md:flex-row gap-8">
                             {/* Column 1: Business Software (Wide, 2 columns of items) */}

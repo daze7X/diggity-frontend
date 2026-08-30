@@ -1,12 +1,15 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '../../../../lib/api';
 import { getLocaleServer } from '../../../../lib/locale-server';
 import ScrollReveal from '../../../../components/ScrollReveal';
 import SpotlightCard from '../../../../components/SpotlightCard';
 import { ArrowRight, CheckCircle2, ChevronRight, LayoutGrid } from 'lucide-react';
 import SubServiceIcon from '../../../../components/SubServiceIcon';
+import HomeTestimonials from '../../../../components/HomeTestimonials';
+import FaqAccordion from '../../../../components/FaqAccordion';
 
 export const revalidate = 60;
 
@@ -16,11 +19,22 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
     
     let subcategory: any = null;
     let products: any[] = [];
+    let settings: any = null;
+    let testimonials: any[] = [];
+    let faqs: any[] = [];
     
     try {
-        const res = await api.getProductsBySubcategory(sub);
+        const [res, settingsRes, testiRes, faqRes] = await Promise.all([
+            api.getProductsBySubcategory(sub),
+            api.getCompanySettings(),
+            api.getTestimonials(),
+            api.getFaqs()
+        ]);
         subcategory = res.subcategory;
         products = res.products;
+        settings = settingsRes;
+        testimonials = testiRes;
+        faqs = faqRes;
     } catch {
         notFound();
     }
@@ -35,13 +49,11 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
             
             {/* 1. HERO HEADER (Enterprise Style) */}
             <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
-                {/* Decorative background elements */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/20 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2" />
                 
                 <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
                     <div className="max-w-2xl space-y-6">
-                        {/* Breadcrumbs (Light) */}
                         <nav className="flex items-center text-[11px] font-bold text-white/60 uppercase tracking-widest space-x-2">
                             <Link href="/products" className="hover:text-white transition-colors">Products</Link>
                             <ChevronRight className="w-3 h-3" />
@@ -75,8 +87,58 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                 </div>
             </div>
 
+            {/* 1.5 CLIENT LOGOS (Dynamic Marquee) */}
+            <div className="border-b border-glass-border bg-gray-50/50 dark:bg-brand-bg/50 py-8 overflow-hidden relative z-10">
+                <div className="max-w-7xl mx-auto px-6">
+                    <p className="text-center text-xs font-bold text-text-muted mb-6 uppercase tracking-widest">
+                        {locale === 'en' ? 'Trusted by forward-thinking businesses' : 'Telah dipercaya oleh +500 klien lintas industri'}
+                    </p>
+                    
+                    <div className="relative flex">
+                        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-gray-50 dark:from-brand-bg to-transparent z-10 pointer-events-none" />
+                        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-gray-50 dark:from-brand-bg to-transparent z-10 pointer-events-none" />
+                        
+                        <div className="animate-marquee flex items-center space-x-16 shrink-0 pr-16">
+                            {settings && settings.partner_logos && settings.partner_logos.length > 0 ? (
+                                (() => {
+                                    const logos = settings.partner_logos;
+                                    const minItems = 16;
+                                    const repeatCount = Math.ceil(minItems / logos.length);
+                                    const duplicatedLogos = Array(repeatCount).fill(logos).flat();
+                                    const finalLogos = [...duplicatedLogos, ...duplicatedLogos];
+                                    
+                                    return finalLogos.map((logo: string, idx: number) => {
+                                        const isFilePath = logo.includes('/') || logo.includes('.') || logo.startsWith('http');
+                                        return (
+                                            <div key={idx} className="flex items-center justify-center h-10 w-32 relative shrink-0 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                                                {isFilePath ? (
+                                                    <Image
+                                                        src={logo.startsWith('http') ? logo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${logo}`}
+                                                        alt="Partner Logo"
+                                                        fill
+                                                        className="object-contain"
+                                                    />
+                                                ) : (
+                                                    <span className="font-black text-lg text-text-main tracking-widest">{logo.toUpperCase()}</span>
+                                                )}
+                                            </div>
+                                        );
+                                    });
+                                })()
+                            ) : (
+                                ['GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON', 'GOOGLE', 'STRIPE', 'MICROSOFT', 'META', 'AMAZON'].map((logo, idx) => (
+                                    <div key={idx} className="flex items-center justify-center h-10 w-32 relative shrink-0 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                                        <span className="font-black text-lg text-text-main tracking-widest">{logo}</span>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* 2. PRODUCTS GRID SECTION */}
-            <div className="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
+            <div className="max-w-7xl mx-auto px-6 py-20 relative z-20">
                 <div className="bg-white dark:bg-glass-bg rounded-3xl p-8 md:p-12 border border-glass-border shadow-xl">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                         <div>
@@ -95,7 +157,7 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                                 <SpotlightCard className="h-full flex flex-col border border-glass-border bg-gray-50 dark:bg-brand-bg hover:bg-white dark:hover:bg-glass-bg transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group rounded-2xl overflow-hidden">
                                     <div className="p-6 md:p-8 flex-1 flex flex-col">
                                         <div className="flex items-start justify-between gap-4 mb-4">
-                                            <div className="w-12 h-12 rounded-xl bg-white shadow-sm border border-glass-border flex items-center justify-center shrink-0 group-hover:border-brand-blue/30 group-hover:bg-brand-blue/5 transition-colors">
+                                            <div className="w-12 h-12 rounded-xl bg-white dark:bg-brand-bg/50 shadow-sm border border-glass-border flex items-center justify-center shrink-0 group-hover:border-brand-blue/30 group-hover:bg-brand-blue/5 transition-colors">
                                                 <SubServiceIcon slug={product.slug} fallbackCategoryIcon="layers" className="w-6 h-6 text-brand-blue" />
                                             </div>
                                             <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
@@ -111,7 +173,6 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                                             {product.description || `Solusi profesional ${product.name} dari Diggity.`}
                                         </p>
 
-                                        {/* Mock feature points to make it look robust */}
                                         <div className="space-y-2 mt-auto">
                                             <div className="flex items-center gap-2">
                                                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
@@ -138,7 +199,7 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                         ))}
                         
                         {products.length === 0 && (
-                            <div className="col-span-full text-center py-20 border-2 border-dashed border-glass-border rounded-2xl bg-brand-bg">
+                            <div className="col-span-full text-center py-20 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50">
                                 <p className="text-text-muted font-bold tracking-widest uppercase">Segera Hadir</p>
                                 <p className="text-sm text-text-gray mt-2">Belum ada modul yang dirilis pada kategori ini.</p>
                             </div>
@@ -147,12 +208,44 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                 </div>
             </div>
 
-            {/* 3. BOTTOM INFO */}
-            <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-                <div className="inline-block p-8 rounded-3xl bg-brand-blue/5 border border-brand-blue/10 max-w-2xl mx-auto">
-                    <h4 className="text-xl font-bold text-text-main mb-3">Tidak menemukan modul yang Anda cari?</h4>
-                    <p className="text-sm text-text-gray font-medium mb-6">Kami menyediakan kustomisasi pengembangan perangkat lunak (Custom Development) yang disesuaikan 100% dengan proses bisnis unik Anda.</p>
-                    <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-brand-blue-dark transition-all">
+            {/* 3. TESTIMONIALS */}
+            {testimonials && testimonials.length > 0 && (
+                <div className="max-w-7xl mx-auto px-6 py-12 relative z-20">
+                    <div className="text-center space-y-4 mb-12">
+                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
+                            {locale === 'en' ? 'Client Validation' : 'Validasi Klien'}
+                        </span>
+                        <h2 className="text-3xl font-extrabold text-text-main tracking-tight">
+                            {locale === 'en' ? `What they say about ${subcategory?.name}` : `Kata mereka tentang modul ${subcategory?.name}`}
+                        </h2>
+                    </div>
+                    <HomeTestimonials testimonials={testimonials} locale={locale} />
+                </div>
+            )}
+
+            {/* 4. FAQ SECTION */}
+            {faqs && faqs.length > 0 && (
+                <div className="bg-gray-50/50 dark:bg-transparent border-y border-glass-border mt-12 mb-12 relative z-10">
+                    <div className="max-w-4xl mx-auto px-6 py-20">
+                        <div className="text-center space-y-4 mb-12">
+                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">FAQ</span>
+                            <h2 className="text-3xl font-black text-text-main tracking-tight">
+                                {locale === 'en' ? 'Frequently Asked Questions' : 'Pertanyaan Seputar Produk'}
+                            </h2>
+                        </div>
+                        <div className="text-left bg-white dark:bg-glass-bg p-8 md:p-10 rounded-3xl border border-glass-border shadow-sm">
+                            <FaqAccordion faqs={faqs} />
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* 5. BOTTOM INFO */}
+            <div className="max-w-7xl mx-auto px-6 py-12 text-center relative z-20">
+                <div className="inline-block p-10 rounded-3xl bg-brand-blue/5 border border-brand-blue/10 max-w-2xl mx-auto">
+                    <h4 className="text-2xl font-black text-text-main mb-4">Tidak menemukan modul yang Anda cari?</h4>
+                    <p className="text-sm text-text-gray font-medium mb-8 leading-relaxed">Kami menyediakan kustomisasi pengembangan perangkat lunak (Custom Development) yang disesuaikan 100% dengan proses bisnis unik Anda. Diskusikan dengan tim ahil kami.</p>
+                    <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-brand-blue-dark transition-all hover:shadow-lg hover:-translate-y-0.5">
                         Konsultasi Kebutuhan Custom
                     </Link>
                 </div>

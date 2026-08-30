@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import SubServiceIcon from '../../components/SubServiceIcon';
 import FaqAccordion from '../../components/FaqAccordion';
-import HomeTestimonials from '../../components/HomeTestimonials'; from '../../components/FaqAccordion';
+import HomeTestimonials from '../../components/HomeTestimonials';
 
 export const metadata: Metadata = {
     title: 'Products Hub - Diggity Agency',

@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InteractiveSpotlight from "../components/InteractiveSpotlight";
 import WhatsAppButton from "../components/WhatsAppButton";
+import BackToTop from "../components/BackToTop";
 import { api } from "../lib/api";
 import Script from "next/script";
 import AnalyticsTracker from "../components/AnalyticsTracker";

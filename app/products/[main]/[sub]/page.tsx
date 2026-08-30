@@ -31,7 +31,7 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
     }
 
     return (
-        <div className="min-h-screen bg-brand-bg pb-20 selection:bg-brand-blue/20">
+        <div className="min-h-screen relative pb-20 selection:bg-brand-blue/20">
             
             {/* 1. HERO HEADER (Enterprise Style) */}
             <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">

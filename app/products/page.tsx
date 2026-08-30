@@ -45,7 +45,7 @@ export default async function ProductsHubPage() {
     }
 
     return (
-        <div className="min-h-screen bg-white dark:bg-brand-bg pt-24 pb-20 selection:bg-brand-blue/20 text-text-main">
+        <div className="min-h-screen relative pt-24 pb-20 selection:bg-brand-blue/20 text-text-main">
             
             {/* 1. HERO SECTION (Mekari Style - Left/Right) */}
             <div className="max-w-7xl mx-auto px-6 pt-12 pb-16 lg:pb-24">

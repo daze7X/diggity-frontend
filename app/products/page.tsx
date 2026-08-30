@@ -129,16 +129,7 @@ export default async function ProductsHubPage() {
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 transform -translate-x-full group-hover:translate-x-full pointer-events-none" />
                         </div>
                         
-                        {/* Floating Tech Badge (Floating parallax effect) */}
-                        <div className="absolute bottom-12 -left-6 bg-white dark:bg-[#0a0f1c] border border-glass-border shadow-xl rounded-2xl p-4 flex items-center gap-4 transition-transform duration-700 hover:scale-105 z-20">
-                            <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                                <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
-                            </div>
-                            <div>
-                                <p className="text-[10px] text-text-gray font-bold uppercase tracking-wider">System Status</p>
-                                <p className="text-sm font-black text-text-main">100% Optimized</p>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

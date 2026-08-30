@@ -31,10 +31,10 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
     }
 
     return (
-        <div className="min-h-screen bg-gray-50/50 pb-20 selection:bg-brand-blue/20">
+        <div className="min-h-screen bg-brand-bg pb-20 selection:bg-brand-blue/20">
             
             {/* 1. HERO HEADER (Enterprise Style) */}
-            <div className="bg-brand-blue relative pt-32 pb-24 px-6 overflow-hidden">
+            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
                 {/* Decorative background elements */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/20 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2" />
@@ -77,7 +77,7 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
 
             {/* 2. PRODUCTS GRID SECTION */}
             <div className="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
-                <div className="bg-white rounded-3xl p-8 md:p-12 border border-glass-border shadow-xl">
+                <div className="bg-white dark:bg-glass-bg rounded-3xl p-8 md:p-12 border border-glass-border shadow-xl">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                         <div>
                             <h2 className="text-2xl font-black text-text-main tracking-tight mb-2">Katalog Modul {subcategory?.name}</h2>
@@ -92,13 +92,13 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {products.map((product: any, i: number) => (
                             <ScrollReveal key={product.slug} animation="fade-up" delay={i * 50}>
-                                <SpotlightCard className="h-full flex flex-col border border-glass-border bg-gray-50 hover:bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group rounded-2xl overflow-hidden">
+                                <SpotlightCard className="h-full flex flex-col border border-glass-border bg-gray-50 dark:bg-brand-bg hover:bg-white dark:hover:bg-glass-bg transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group rounded-2xl overflow-hidden">
                                     <div className="p-6 md:p-8 flex-1 flex flex-col">
                                         <div className="flex items-start justify-between gap-4 mb-4">
                                             <div className="w-12 h-12 rounded-xl bg-white shadow-sm border border-glass-border flex items-center justify-center shrink-0 group-hover:border-brand-blue/30 group-hover:bg-brand-blue/5 transition-colors">
                                                 <SubServiceIcon slug={product.slug} fallbackCategoryIcon="layers" className="w-6 h-6 text-brand-blue" />
                                             </div>
-                                            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                            <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
                                                 <ArrowRight className="w-4 h-4 text-text-gray group-hover:text-white transition-colors" />
                                             </div>
                                         </div>
@@ -124,7 +124,7 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                                         </div>
                                     </div>
                                     
-                                    <div className="px-6 py-4 bg-white border-t border-glass-border group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors">
+                                    <div className="px-6 py-4 bg-white dark:bg-brand-bg border-t border-glass-border group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors">
                                         <Link
                                             href={`/products/${main}/${sub}/${product.slug}`}
                                             className="flex items-center justify-between w-full text-sm font-bold text-text-main group-hover:text-white transition-colors"
@@ -138,7 +138,7 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                         ))}
                         
                         {products.length === 0 && (
-                            <div className="col-span-full text-center py-20 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50">
+                            <div className="col-span-full text-center py-20 border-2 border-dashed border-glass-border rounded-2xl bg-brand-bg">
                                 <p className="text-text-muted font-bold tracking-widest uppercase">Segera Hadir</p>
                                 <p className="text-sm text-text-gray mt-2">Belum ada modul yang dirilis pada kategori ini.</p>
                             </div>

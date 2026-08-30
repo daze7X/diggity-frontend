@@ -211,8 +211,8 @@ export default function Navbar() {
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                 scrolled || activeDropdown
-                    ? 'bg-brand-bg/85 backdrop-blur-md border-b border-glass-border py-4'
-                    : 'bg-transparent py-6'
+                    ? 'bg-brand-bg/95 backdrop-blur-md border-b border-glass-border py-4'
+                    : 'bg-brand-bg/70 backdrop-blur-md border-b border-glass-border py-4'
             }`}
         >
             <div className="max-w-7xl mx-auto px-6 md:px-8 relative">
@@ -564,7 +564,7 @@ export default function Navbar() {
                     <div 
                         onMouseEnter={() => handleMouseEnter('products')}
                         onMouseLeave={handleMouseLeave}
-                        className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[900px] max-w-[95vw] bg-white border border-glass-border rounded-3xl p-8 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                        className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[900px] max-w-[95vw] bg-white dark:bg-brand-bg border border-glass-border rounded-3xl p-8 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                     >
                         <div className="flex flex-col md:flex-row gap-8">
                             {/* Column 1: Business Software (Wide, 2 columns of items) */}

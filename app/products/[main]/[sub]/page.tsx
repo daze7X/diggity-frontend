@@ -78,12 +78,12 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                         </p>
                     </div>
 
-                    <div className="hidden md:flex shrink-0 relative items-center justify-center w-72 h-72">
+                    <div className="flex shrink-0 relative items-center justify-center w-48 h-48 md:w-72 md:h-72 mt-8 md:mt-0 self-center md:self-auto">
                         {/* Glowing Pulse Aura */}
                         <div className="absolute inset-0 bg-brand-blue/30 blur-3xl rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
                         
                         {/* Morphing Blob & Levitation */}
-                        <div className="relative w-64 h-64 flex items-center justify-center animate-float">
+                        <div className="relative w-40 h-40 md:w-64 md:h-64 flex items-center justify-center animate-float">
                             {/* The morphing shape */}
                             <div 
                                 className="absolute inset-0 bg-white/10 border border-white/20 backdrop-blur-md shadow-2xl overflow-hidden animate-morph-blob" 
@@ -97,7 +97,7 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                                 <SubServiceIcon 
                                     slug={subcategory?.slug || ""} 
                                     fallbackCategoryIcon="layers" 
-                                    className="w-28 h-28 text-white/80" 
+                                    className="w-16 h-16 md:w-28 md:h-28 text-white/80" 
                                 />
                             </div>
                         </div>

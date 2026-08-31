@@ -51,17 +51,14 @@ export default function PortfolioList({ portfolios, categories }: PortfolioListP
             </div>
 
             {/* Portfolios Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPortfolios.length > 0 ? (
                     filteredPortfolios.map((portfolio, index) => {
-                        const isWide = index % 3 === 0;
                         return (
                             <Link
                                 key={portfolio.id}
                                 href={`/portfolio/${portfolio.slug}`}
-                                className={`block text-left group ${
-                                    isWide ? 'md:col-span-2' : 'md:col-span-1'
-                                }`}
+                                className="block text-left group"
                             >
                                 <SpotlightCard className="flex flex-col h-full border border-glass-border transition-all duration-300 hover:scale-[1.01] hover:border-brand-blue/30">
                                     <div className="relative aspect-[16/10] bg-neutral-950/10 dark:bg-neutral-950/40 flex items-center justify-center border-b border-glass-border overflow-hidden">

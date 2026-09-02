@@ -549,8 +549,8 @@ export default async function About() {
                                                     <span className={`text-2xl font-black ${tc.text} leading-none`}>{item.year}</span>
                                                 </div>
                                                 <div className="space-y-1 flex-1">
-                                                    <h4 className="text-base font-extrabold text-text-main">{item.title}</h4>
-                                                    <p className="text-sm text-text-gray leading-relaxed font-medium">{item.desc}</p>
+                                                    <h4 className="text-base font-extrabold text-text-main">{locale === 'en' ? (item.title_en || item.title) : item.title}</h4>
+                                                    <p className="text-sm text-text-gray leading-relaxed font-medium">{locale === 'en' ? (item.desc_en || item.desc) : item.desc}</p>
                                                 </div>
                                             </SpotlightCard>
                                         </div>

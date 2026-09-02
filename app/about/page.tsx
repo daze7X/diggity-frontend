@@ -297,7 +297,8 @@ export default async function About() {
                     {/* Download Company Profile Button */}
                     <div className="flex justify-center -mt-4">
                         <a
-                            href="/company-profile-diggity.pdf"
+                            href={settings?.company_profile_pdf ? `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${settings.company_profile_pdf}` : "/company-profile-diggity.pdf"}
+                            target="_blank" rel="noopener noreferrer"
                             download
                             className="inline-flex items-center gap-2 px-8 py-4 bg-brand-blue text-white rounded-2xl hover:bg-brand-blue-dark shadow-xl shadow-brand-blue/20 hover:shadow-brand-blue/40 text-sm font-bold transition-all transform hover:-translate-y-1"
                         >
@@ -565,3 +566,4 @@ export default async function About() {
         </div>
     );
 }
+

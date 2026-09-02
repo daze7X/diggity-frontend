@@ -85,8 +85,12 @@ export interface CompanySetting {
     philosophy_grow?: string;
     philosophy_scale?: string;
     philosophy_empower?: string;
+    philosophy_build_en?: string;
+    philosophy_grow_en?: string;
+    philosophy_scale_en?: string;
+    philosophy_empower_en?: string;
     partner_logos?: string[];
-    history_timeline?: Array<{ year: string; title: string; desc: string }>;
+    history_timeline?: Array<{ year: string; title: string; desc: string; title_en?: string; desc_en?: string }>;
     vision_id?: string;
     vision_en?: string;
     mission_id?: Array<{ text: string }>;

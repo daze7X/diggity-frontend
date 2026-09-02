@@ -99,7 +99,6 @@ export default async function JobConnectPage({ searchParams }: Props) {
                             </Link>
                         </div>
                     </div>
-                </div>
 
                 {/* ========================================================
                     TAB 1: CAREERS & TALENT REGISTRY (B2C)
@@ -381,4 +380,5 @@ export default async function JobConnectPage({ searchParams }: Props) {
         </div>
     );
 }
+
 

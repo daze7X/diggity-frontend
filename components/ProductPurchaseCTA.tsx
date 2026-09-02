@@ -71,6 +71,11 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
             });
 
             if (res.success) {
+                if (res.is_free) {
+                    router.push('/dashboard/orders?payment=success');
+                    return;
+                }
+                
                 const snapToken = res.snap_token;
                 const redirectUrl = res.redirect_url;
 

@@ -67,6 +67,11 @@ export default function EnrollmentCTA({ courseId, courseSlug, price, title }: Pr
             });
 
             if (res.success) {
+                if (res.is_free) {
+                    router.push('/dashboard/academy');
+                    return;
+                }
+                
                 const snapToken = res.snap_token;
                 const redirectUrl = res.redirect_url;
 

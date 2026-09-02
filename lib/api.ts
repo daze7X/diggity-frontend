@@ -21,6 +21,8 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
     const token = getCookie('token');
     const authHeader: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
     const locale = await getLocale();
+    const separator = endpoint.includes('?') ? '&' : '?';
+    const localizedEndpoint = `${endpoint}${separator}locale=${locale}`;
 
     const headers: Record<string, string> = {
         'Content-Type': 'application/json',
@@ -43,7 +45,7 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
         }
     }
 
-    const res = await fetch(`${API_URL}${endpoint}`, {
+    const res = await fetch(`${API_URL}${localizedEndpoint}`, {
         headers,
         ...options,
         next: { revalidate: options?.next?.revalidate ?? 60 }

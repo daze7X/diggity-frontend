@@ -25,6 +25,7 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
     const [hasLicense, setHasLicense] = useState(false);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
+    const [toastMessage, setToastMessage] = useState<string | null>(null);
 
     useEffect(() => {
         const checkLicenseStatus = async () => {
@@ -88,20 +89,20 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
                             router.push('/dashboard/orders?payment=pending');
                         },
                         onError: () => {
-                            alert(language === 'en' ? 'Payment failed.' : 'Pembayaran gagal.');
+                            setToastMessage(language === 'en' ? 'Payment failed.' : 'Pembayaran gagal.');
                         },
                         onClose: () => {
-                            alert(language === 'en' ? 'You closed the payment popup before completing the transaction.' : 'Anda menutup popup pembayaran sebelum menyelesaikan transaksi.');
+                            setToastMessage(language === 'en' ? 'You closed the payment popup before completing the transaction.' : 'Anda menutup popup pembayaran sebelum menyelesaikan transaksi.');
                         },
                     });
                 } else {
                     window.location.href = redirectUrl;
                 }
             } else {
-                alert(res.message || (language === 'en' ? 'Failed to process order.' : 'Gagal memproses pesanan.'));
+                setToastMessage(res.message || (language === 'en' ? 'Failed to process order.' : 'Gagal memproses pesanan.'));
             }
         } catch (err: any) {
-            alert(err.message || (language === 'en' ? 'System error occurred during checkout.' : 'Terjadi kesalahan sistem saat checkout.'));
+            setToastMessage(err.message || (language === 'en' ? 'System error occurred during checkout.' : 'Terjadi kesalahan sistem saat checkout.'));
         } finally {
             setSubmitting(false);
         }
@@ -138,15 +139,22 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
     }
 
     return (
-        <button
-            onClick={handleCheckout}
-            disabled={submitting}
-            className={`flex items-center justify-center gap-1.5 w-full py-4 text-center text-sm font-bold text-white rounded-xl transition-all shadow-md cursor-pointer ${
-                hasLicense
-                    ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/15'
-                    : 'bg-brand-blue hover:bg-brand-blue-dark shadow-brand-blue/15'
-            }`}
-        >
+        <div className="flex flex-col gap-3">
+            {toastMessage && (
+                <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs font-semibold flex items-start justify-between gap-2 shadow-sm animate-in fade-in slide-in-from-top-2">
+                    <span className="mt-0.5">{toastMessage}</span>
+                    <button onClick={() => setToastMessage(null)} className="text-red-400 hover:text-red-500 p-1 bg-red-500/10 hover:bg-red-500/20 rounded-md transition-colors shrink-0">✕</button>
+                </div>
+            )}
+            <button
+                onClick={handleCheckout}
+                disabled={submitting}
+                className={`flex items-center justify-center gap-1.5 w-full py-4 text-center text-sm font-bold text-white rounded-xl transition-all shadow-md cursor-pointer ${
+                    hasLicense
+                        ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/15'
+                        : 'bg-brand-blue hover:bg-brand-blue-dark shadow-brand-blue/15'
+                }`}
+            >
             {submitting ? (
                 <>
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -164,5 +172,6 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
                 </>
             )}
         </button>
+        </div>
     );
 }

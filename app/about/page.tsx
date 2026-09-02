@@ -140,7 +140,7 @@ export default async function About() {
             accentBorder: 'border-t-blue-500',
             accentText: 'text-blue-600 dark:text-blue-400',
             accentBg: 'bg-blue-500/10',
-            desc: settings?.philosophy_build || (locale === 'en'
+            desc: (locale === 'en' ? settings?.philosophy_build_en : settings?.philosophy_build) || settings?.philosophy_build || (locale === 'en'
                 ? 'Designing high-performance software products (web/mobile).'
                 : 'Merancang produk software (web/mobile) berkinerja tinggi.'),
         },
@@ -151,7 +151,7 @@ export default async function About() {
             accentBorder: 'border-t-emerald-500',
             accentText: 'text-emerald-600 dark:text-emerald-400',
             accentBg: 'bg-emerald-500/10',
-            desc: settings?.philosophy_grow || (locale === 'en'
+            desc: (locale === 'en' ? settings?.philosophy_grow_en : settings?.philosophy_grow) || settings?.philosophy_grow || (locale === 'en'
                 ? 'Driving market growth through SEO, advertising, and social media marketing.'
                 : 'Mendorong pertumbuhan pasar melalui SEO, periklanan, dan marketing media sosial.'),
         },
@@ -162,7 +162,7 @@ export default async function About() {
             accentBorder: 'border-t-amber-500',
             accentText: 'text-amber-600 dark:text-amber-400',
             accentBg: 'bg-amber-500/10',
-            desc: settings?.philosophy_scale || (locale === 'en'
+            desc: (locale === 'en' ? settings?.philosophy_scale_en : settings?.philosophy_scale) || settings?.philosophy_scale || (locale === 'en'
                 ? 'Ensuring cloud hosting infrastructure reliability and stable system capacity.'
                 : 'Menjamin keandalan infrastruktur cloud server dan kapasitas sistem yang stabil.'),
         },
@@ -173,7 +173,7 @@ export default async function About() {
             accentBorder: 'border-t-violet-500',
             accentText: 'text-violet-600 dark:text-violet-400',
             accentBg: 'bg-violet-500/10',
-            desc: settings?.philosophy_empower || (locale === 'en'
+            desc: (locale === 'en' ? settings?.philosophy_empower_en : settings?.philosophy_empower) || settings?.philosophy_empower || (locale === 'en'
                 ? 'Empowering your team through digital skills training and transfer.'
                 : 'Memberdayakan tim Anda melalui pelatihan dan transfer keahlian digital.'),
         },

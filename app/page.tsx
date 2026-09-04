@@ -93,65 +93,91 @@ export default async function Home() {
     ];
 
     return (
-        <div className="relative">
-            {/* 01. Hero Section */}
-            <section className="relative pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
-                {/* Dynamic Background SVGs */}
-                <div className="absolute inset-0 pointer-events-none -z-10 select-none overflow-hidden">
-                    {/* Light Mode Background */}
-                    <Image
-                        src="/images/hero-bg-light.svg"
-                        alt="Hero Background Light"
-                        fill
-                        priority
-                        className="block dark:hidden object-cover object-center opacity-45"
-                    />
-                    {/* Dark Mode Background */}
+        <div className="min-h-screen relative pb-20 selection:bg-brand-blue/20">
+            {/* 1. HERO HEADER (Enterprise Style) */}
+            <div className="bg-brand-blue dark:bg-brand-bg relative pt-36 pb-48 px-6 overflow-hidden">
+                {/* Glowing orbs */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-black/20 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none" />
+                
+                {/* Dynamic Wave Background */}
+                <div className="absolute inset-0 pointer-events-none z-0 select-none overflow-hidden [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]">
                     <Image
                         src="/images/hero-bg-dark.svg"
-                        alt="Hero Background Dark"
+                        alt="Hero Wave Background"
                         fill
                         priority
-                        className="hidden dark:block object-cover object-center opacity-25"
+                        className="object-cover object-top opacity-20 mix-blend-overlay"
                     />
                 </div>
 
-                {/* Center Radial Glow Spotlight */}
-                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-blue/8 dark:bg-brand-blue/5 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" style={{ animationDuration: '6s' }} />
+                                {/* SVG Filter for Gooey Effect */}
+                <svg className="absolute hidden">
+                    <defs>
+                        <filter id="goo" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
+                            <feColorMatrix in="blur" mode="matrix" values="
+                                1 0 0 0 0
+                                0 1 0 0 0
+                                0 0 1 0 0
+                                0 0 0 22 -9" result="goo" />
+                            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                        </filter>
+                    </defs>
+                </svg>
 
-                <div className="max-w-7xl mx-auto px-6 md:px-8 text-center space-y-8">
-                    <h1 className="text-4xl md:text-7xl font-black tracking-tight text-text-main leading-tight max-w-4xl mx-auto">
-                        Build. Grow. Scale.<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue via-blue-600 to-blue-500 dark:from-brand-blue dark:via-blue-400 dark:to-blue-300">
-                            Empower.
-                        </span>
-                    </h1>
+                {/* Lava Lamp Chamber with Gooey Filter (True Metaballs) */}
+                <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block opacity-40 mix-blend-screen transform-gpu overflow-hidden" style={{ filter: "url('#goo')", willChange: "filter, transform" }}>
+                    
+                    {/* LEFT FLANK CLUSTER */}
+                    <div className="absolute -left-32 top-1/4 w-96 h-96 bg-blue-600 rounded-full animate-morph-blob mix-blend-screen" />
+                    <div className="absolute -left-10 top-1/3 w-72 h-72 bg-indigo-500 rounded-full animate-gooey-1 mix-blend-screen" />
 
-                    <p className="text-lg md:text-xl text-text-gray max-w-3xl mx-auto font-medium leading-relaxed">
-                        {locale === 'en' 
-                            ? 'We build digital solutions, grow businesses through technology, and empower communities through continuous learning.'
-                            : 'Kami membangun solusi digital, mengembangkan bisnis melalui teknologi, dan memberdayakan masyarakat melalui pembelajaran berkelanjutan.'}
-                    </p>
+                    {/* RIGHT FLANK CLUSTER */}
+                    <div className="absolute -right-32 bottom-1/4 w-96 h-96 bg-purple-600 rounded-full animate-morph-blob-fast mix-blend-screen" />
+                    <div className="absolute -right-10 bottom-1/3 w-64 h-64 bg-cyan-500 rounded-full animate-gooey-2 mix-blend-screen" />
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                        <Link
-                            href="/about"
-                            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-colors shadow-lg shadow-brand-blue/15 cursor-pointer"
-                        >
-                            {locale === 'en' ? 'Explore Diggity' : 'Jelajahi Diggity'}
-                        </Link>
-                        <Link
-                            href="#contact"
-                            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-bold text-text-main bg-glass-bg border border-glass-border rounded-xl hover:border-brand-blue/40 transition-colors cursor-pointer"
-                        >
-                            {locale === 'en' ? 'Talk to Our Team' : 'Hubungi Tim Kami'}
-                            <ArrowRight className="ml-2 w-4.5 h-4.5" />
-                        </Link>
-                    </div>
+                </div>
 
-                    {/* 02. Trusted By Section (Client Logos Marquee) */}
+                <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
+                    
+
+
+                    <ScrollReveal animation="fade-up" className="max-w-3xl relative z-10 space-y-6">
+                        <div className="inline-flex items-center space-x-2 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full mb-4">
+                            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                            <span className="text-[10px] font-bold text-white uppercase tracking-widest">{locale === 'en' ? 'Digital Technology Company' : 'Perusahaan Teknologi Digital'}</span>
+                        </div>
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
+                            {locale === 'en' ? 'Build. Grow. Scale.' : 'Bangun. Tumbuhkan. Skalakan.'}
+                            <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-indigo-200">
+                                {locale === 'en' ? 'Your Digital Vision' : 'Visi Digital Anda'}
+                            </span>
+                        </h1>
+                        <p className="text-lg md:text-xl text-blue-100/80 font-medium max-w-2xl mx-auto">
+                            {locale === 'en'
+                                ? 'We build integrated digital architectures, optimize search rankings, and systematically engineer sales conversions.'
+                                : 'Kami membangun arsitektur digital terintegrasi, mengoptimalkan peringkat pencarian, dan merekayasa konversi penjualan secara sistematis.'}
+                        </p>
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                            <Link href="/solutions" className="w-full sm:w-auto px-8 py-4 bg-white text-brand-blue font-bold rounded-full hover:bg-gray-50 transition-all hover:-translate-y-1 shadow-lg shadow-white/20">
+                                {locale === 'en' ? 'Explore Solutions' : 'Jelajahi Solusi'}
+                            </Link>
+                            <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-all hover:-translate-y-1">
+                                {locale === 'en' ? 'Consult with Us' : 'Konsultasi Sekarang'}
+                            </Link>
+                        </div>
+                    </ScrollReveal>
+                </div>
+
+            </div>
+
+            {/* 2. OVERLAPPING CONTENT (-mt-24) */}
+            <div className="max-w-7xl mx-auto px-6 relative z-20 -mt-24 space-y-24">
+                {/* 02. Trusted By Section (Client Logos Marquee) */}
                     <ScrollReveal animation="fade-up" delay={200} className="pt-16 max-w-5xl mx-auto">
-                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-text-muted mb-6">
+                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-white/80 mb-6">
                             {locale === 'en' ? 'Trusted by forward-thinking businesses and organizations' : 'Dipercaya oleh berbagai bisnis, organisasi, dan institusi'}
                         </p>
 
@@ -198,11 +224,6 @@ export default async function Home() {
                             </div>
                         </div>
                     </ScrollReveal>
-                </div>
-
-                {/* Gradient fade-out overlay */}
-                <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-brand-bg via-brand-bg/85 to-transparent pointer-events-none z-10" />
-            </section>
 
             {/* 03. What We Do Section */}
             <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
@@ -818,6 +839,8 @@ export default async function Home() {
                     </div>
                 </div>
             </section>
+
+            </div>
 
             {/* 15. Final CTA & Contact Section */}
             <section id="contact" className="py-20 border-t border-glass-border">

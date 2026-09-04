@@ -227,13 +227,81 @@ body::before {
 }
 
 @keyframes morphBlob {
-    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(0, 0) scale(1) rotate(0deg); }
+    25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate(25px, -35px) scale(1.05) rotate(15deg); }
+    50% { border-radius: 70% 30% 40% 60% / 40% 70% 60% 30%; transform: translate(-20px, 25px) scale(0.95) rotate(-10deg); }
+    75% { border-radius: 40% 70% 60% 30% / 70% 40% 30% 60%; transform: translate(35px, 15px) scale(1.1) rotate(20deg); }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(0, 0) scale(1) rotate(0deg); }
 }
+
+@keyframes morphBlobFast {
+    0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0, 0) scale(1) rotate(0deg); }
+    33% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: translate(-30px, 20px) scale(1.1) rotate(-15deg); }
+    66% { border-radius: 50% 50% 60% 40% / 50% 40% 60% 60%; transform: translate(20px, -20px) scale(0.9) rotate(10deg); }
+    100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
 .animate-morph-blob {
-    animation: morphBlob 12s ease-in-out infinite;
+    animation: morphBlob 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 .animate-morph-blob-fast {
-    animation: morphBlob 8s ease-in-out infinite reverse;
+    animation: morphBlobFast 12s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+}
+
+
+@keyframes gooeyMove1 {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(300px, 100px) scale(1.2); }
+    66% { transform: translate(-100px, 200px) scale(0.8); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes gooeyMove2 {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(-300px, -150px) scale(0.9); }
+    66% { transform: translate(-50px, -250px) scale(1.1); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes gooeyMove3 {
+    0% { transform: translate(0px, 0px) scale(1); }
+    25% { transform: translate(250px, -150px) scale(1.3); }
+    50% { transform: translate(300px, 150px) scale(0.9); }
+    75% { transform: translate(-250px, 100px) scale(1.1); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-gooey-1 {
+    animation: morphBlob 15s ease-in-out infinite, gooeyMove1 20s ease-in-out infinite;
+}
+.animate-gooey-2 {
+    animation: morphBlobFast 12s ease-in-out infinite reverse, gooeyMove2 18s ease-in-out infinite;
+}
+.animate-gooey-3 {
+    animation: morphBlob 18s ease-in-out infinite, gooeyMove3 22s ease-in-out infinite;
+}
+
+
+/* AGGRESSIVE PLASMA ANIMATIONS */
+@keyframes plasmaCore {
+    0% { transform: scale(1) translate(0, 0) rotate(0deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+    50% { transform: scale(1.3) translate(-80px, 50px) rotate(180deg); border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+    100% { transform: scale(1) translate(0, 0) rotate(360deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+}
+
+@keyframes plasmaSplit1 {
+    0% { transform: translate(0, 0) scale(1) scaleX(1); }
+    20% { transform: translate(-400px, -300px) scale(0.6) scaleX(1.8); }
+    40% { transform: translate(-600px, 200px) scale(0.4) scaleX(1); }
+    60% { transform: translate(300px, -400px) scale(0.9) scaleX(2.5); }
+    80% { transform: translate(500px, 300px) scale(0.5) scaleX(1.3); }
+    100% { transform: translate(0, 0) scale(1) scaleX(1); }
+}
+
+@keyframes plasmaSplit2 {
+    0% { transform: translate(0, 0) scale(1) scaleY(1); }
+    25% { transform: translate(500px, 400px) scale(0.7) scaleY(2.2); }
+    50% { transform: translate(-300px, 500px) scale(0.4) scaleY(1); }
+    75% { transform: translate(-500px, -200px) scale(1.1) scaleY(1.6); }
+    100% { transform: translate(0, 0) scale(1) scaleY(1); }
 }

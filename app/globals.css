@@ -305,3 +305,28 @@ body::before {
     75% { transform: translate(-500px, -200px) scale(1.1) scaleY(1.6); }
     100% { transform: translate(0, 0) scale(1) scaleY(1); }
 }
+
+/* Global Custom Scrollbar (Thin, Square, Blue) */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-track {
+    background: #020617;
+}
+::-webkit-scrollbar-thumb {
+    background: #2563eb; /* brand-blue */
+    border-radius: 0px; /* Square edges */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #1e40af; /* darker blue on hover */
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #60a5fa;
+}

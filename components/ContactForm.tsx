@@ -1,5 +1,7 @@
 'use client';
 
+import { useLanguage } from '../context/LanguageContext';
+
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { api } from '../lib/api';
@@ -7,12 +9,14 @@ import { executeRecaptcha } from '../lib/recaptcha';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
 function ContactFormContent() {
+    const { language, t } = useLanguage();
+    const isEn = language === 'en';
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         company: '',
-        service: 'Layanan Teknologi/Marketing',
+        service: isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing',
         message: '',
     });
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -23,24 +27,30 @@ function ContactFormContent() {
         'Produk Digital',
         'Pelatihan IT',
     ];
+    const servicesListEn = [
+        'Technology/Marketing Services',
+        'Digital Products',
+        'IT Training',
+    ];
+    const activeServicesList = isEn ? servicesListEn : servicesList;
 
     const searchParams = useSearchParams();
     const packageParam = searchParams.get('package');
 
     useEffect(() => {
         if (packageParam) {
-            let selectedService = 'Layanan Teknologi/Marketing';
+            let selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
             let prefilledMessage = '';
 
             if (packageParam === 'starter-pack') {
-                selectedService = 'Layanan Teknologi/Marketing';
-                prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Starter Pack" (1 Landing Page). Mohon hubungi saya.';
+                selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
+                prefilledMessage = isEn ? 'Hello Diggity, I am interested in consulting about the "Starter Pack" package. Please contact me.' : 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Starter Pack" (1 Landing Page). Mohon hubungi saya.';
             } else if (packageParam === 'business-pro') {
-                selectedService = 'Layanan Teknologi/Marketing';
-                prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Business Pro" (Hingga 5 Halaman + CMS). Mohon hubungi saya.';
+                selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
+                prefilledMessage = isEn ? 'Hello Diggity, I am interested in consulting about the "Business Pro" package. Please contact me.' : 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Business Pro" (Hingga 5 Halaman + CMS). Mohon hubungi saya.';
             } else if (packageParam === 'enterprise-custom') {
-                selectedService = 'Layanan Teknologi/Marketing';
-                prefilledMessage = 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Enterprise Custom" (Aplikasi Web/ERP/Mobile Kustom). Mohon hubungi saya.';
+                selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
+                prefilledMessage = isEn ? 'Hello Diggity, I am interested in consulting about the "Enterprise Custom" package. Please contact me.' : 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Enterprise Custom" (Aplikasi Web/ERP/Mobile Kustom). Mohon hubungi saya.';
             }
 
             setFormData((prev) => ({
@@ -66,13 +76,13 @@ function ContactFormContent() {
                 email: '',
                 phone: '',
                 company: '',
-                service: 'Layanan Teknologi/Marketing',
+                service: isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing',
                 message: '',
             });
-            setMessage('Pesan Anda berhasil terkirim! Tim kami akan segera menghubungi Anda.');
+            setMessage(isEn ? 'Your message has been sent successfully! Our team will contact you shortly.' : 'Pesan Anda berhasil terkirim! Tim kami akan segera menghubungi Anda.');
         } catch (err: any) {
             setStatus('error');
-            setMessage(err.message || 'Gagal mengirim pesan. Silakan coba kembali.');
+            setMessage(err.message || (isEn ? 'Failed to send message. Please try again.' : 'Gagal mengirim pesan. Silakan coba kembali.'));
         }
     };
 
@@ -104,7 +114,7 @@ function ContactFormContent() {
                             {/* Name */}
                             <div className="space-y-1">
                                 <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                    Nama Lengkap <span className="text-brand-blue">*</span>
+                                    {isEn ? 'Full Name' : 'Nama Lengkap'} <span className="text-brand-blue">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -119,7 +129,7 @@ function ContactFormContent() {
                             {/* Email */}
                             <div className="space-y-1">
                                 <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                    Email Bisnis <span className="text-brand-blue">*</span>
+                                    {isEn ? 'Business Email' : 'Email Bisnis'} <span className="text-brand-blue">*</span>
                                 </label>
                                 <input
                                     type="email"
@@ -136,7 +146,7 @@ function ContactFormContent() {
                             {/* Phone */}
                             <div className="space-y-1">
                                 <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                    No. WhatsApp <span className="text-brand-blue">*</span>
+                                    {isEn ? 'WhatsApp Number' : 'No. WhatsApp'} <span className="text-brand-blue">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -151,7 +161,7 @@ function ContactFormContent() {
                             {/* Company */}
                             <div className="space-y-1">
                                 <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                    Nama Perusahaan <span className="text-brand-blue">*</span>
+                                    {isEn ? 'Company Name' : 'Nama Perusahaan'} <span className="text-brand-blue">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -167,7 +177,7 @@ function ContactFormContent() {
                         {/* Service Selection */}
                         <div className="space-y-1">
                             <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                Pilih Kebutuhan <span className="text-brand-blue">*</span>
+                                {isEn ? 'Select Service' : 'Pilih Kebutuhan'} <span className="text-brand-blue">*</span>
                             </label>
                             <select
                                 value={formData.service}
@@ -175,7 +185,7 @@ function ContactFormContent() {
                                 className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-lg focus:border-brand-blue focus:outline-none text-sm text-text-main"
                                 style={{ background: 'var(--input-bg)' }}
                             >
-                                {servicesList.map((service) => (
+                                {activeServicesList.map((service) => (
                                     <option key={service} value={service} className="bg-brand-bg text-text-main">
                                         {service}
                                     </option>
@@ -186,7 +196,7 @@ function ContactFormContent() {
                         {/* Message */}
                         <div className="space-y-1">
                             <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                Detail Kebutuhan Proyek <span className="text-brand-blue">*</span>
+                                {isEn ? 'Project Details' : 'Detail Kebutuhan Proyek'} <span className="text-brand-blue">*</span>
                             </label>
                             <textarea
                                 required
@@ -233,3 +243,4 @@ export default function ContactForm() {
         </Suspense>
     );
 }
+

@@ -157,7 +157,7 @@ export default async function AcademyPage({ searchParams }: PageProps) {
                 <div className="absolute inset-0 [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none" style={{ backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
 
                 <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
-                    <div className="max-w-2xl space-y-8 text-center lg:text-left">
+                    <div className="max-w-2xl space-y-8 text-center lg:text-left lg:-mt-12">
                         
                         <h1 className="text-5xl lg:text-7xl font-black text-white tracking-tighter leading-[1.05]">
                             {locale === 'en' ? (

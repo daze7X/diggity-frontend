@@ -46,10 +46,6 @@ export default async function ContactPage() {
                     </div>
 
                     <ScrollReveal animation="fade-up" className="max-w-2xl relative z-10">
-                        <div className="inline-flex items-center space-x-2 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full mb-6">
-                            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                            <span className="text-[10px] font-bold text-white uppercase tracking-widest">{locale === 'en' ? 'Get In Touch' : 'Hubungi Kami'}</span>
-                        </div>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight leading-[1.1]">
                             {locale === 'en' ? 'Let\'s Discuss Your' : 'Diskusikan Proyek'}
                             <br />

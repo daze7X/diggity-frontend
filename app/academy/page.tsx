@@ -158,12 +158,6 @@ export default async function AcademyPage({ searchParams }: PageProps) {
 
                 <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
                     <div className="max-w-2xl space-y-8 text-center lg:text-left">
-                        <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                            <span className="text-xs font-bold text-white uppercase tracking-widest">
-                                {locale === 'en' ? 'Professional Training' : 'Pelatihan Profesional'}
-                            </span>
-                        </div>
                         
                         <h1 className="text-5xl lg:text-7xl font-black text-white tracking-tighter leading-[1.05]">
                             {locale === 'en' ? (

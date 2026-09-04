@@ -163,10 +163,6 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                             <h2 className="text-2xl font-black text-text-main tracking-tight mb-2">Katalog Modul {subcategory?.name}</h2>
                             <p className="text-text-gray font-medium text-sm">Pilih produk spesifik di bawah ini untuk melihat detail fitur dan spesifikasi lengkapnya.</p>
                         </div>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue/5 border border-brand-blue/10 rounded-full">
-                            <span className="w-2 h-2 rounded-full bg-brand-blue animate-pulse" />
-                            <span className="text-xs font-bold text-brand-blue tracking-wide">{products.length} Produk Tersedia</span>
-                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -18,6 +18,7 @@ import {
     Tag,
     Clock,
     ChevronRight,
+    ChevronDown,
     LayoutGrid,
     CheckCircle2
 } from 'lucide-react';
@@ -87,11 +88,15 @@ export default async function ProductDetail({ params }: Props) {
     };
 
     return (
-        <div className="min-h-screen relative pb-20 selection:bg-brand-blue/20">
+        <div className="min-h-screen bg-bg-canvas flex flex-col relative overflow-hidden pb-20">
+            {/* Background Base */}
+            <div className="absolute inset-0 bg-bg-canvas -z-10" />
+
             {/* 1. HERO HEADER (Enterprise Style) */}
-            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-32 px-6 overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/20 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
+            <div className="bg-brand-blue dark:bg-bg-canvas dark:border-b dark:border-glass-border relative pt-32 pb-32 px-6 overflow-hidden">
+                {/* Abstract Blobs (Hidden in Dark Mode) */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none dark:hidden" />
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/20 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none dark:hidden" />
                 
                 <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
                     <div className="max-w-3xl space-y-6">
@@ -187,6 +192,110 @@ export default async function ProductDetail({ params }: Props) {
                                 </div>
                             )}
                         </div>
+
+                        {/* Benefits Card */}
+                        {product.benefits && product.benefits.length > 0 && (
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                    {locale === 'en' ? 'Benefits' : 'Keuntungan'}
+                                </h2>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {product.benefits.map((benefit, i) => (
+                                        <div key={i} className="flex items-center space-x-3 p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-500/5 border border-emerald-100 dark:border-emerald-500/10">
+                                            <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                                                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                                            </div>
+                                            <span className="text-sm font-medium text-text-main">{benefit}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Use Cases Card */}
+                        {product.use_cases && product.use_cases.length > 0 && (
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                    {locale === 'en' ? 'Use Cases' : 'Kasus Penggunaan'}
+                                </h2>
+                                <div className="flex flex-wrap gap-3">
+                                    {product.use_cases.map((useCase, i) => (
+                                        <span key={i} className="px-4 py-2 text-sm font-semibold text-brand-blue bg-brand-blue/10 border border-brand-blue/20 rounded-full">
+                                            {useCase}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Specifications Card */}
+                        {product.specifications && Object.keys(product.specifications).length > 0 && (
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                    {locale === 'en' ? 'Specifications' : 'Spesifikasi'}
+                                </h2>
+                                <div className="divide-y divide-glass-border border border-glass-border rounded-2xl overflow-hidden bg-gray-50/50 dark:bg-brand-bg/50">
+                                    {Object.entries(product.specifications).map(([key, value], i) => {
+                                        let displayKey = key;
+                                        let displayValue = value;
+                                        // Defensive check if the value is an object {key, value} (e.g. from an array)
+                                        if (typeof value === 'object' && value !== null && 'key' in value && 'value' in value) {
+                                            displayKey = (value as any).key;
+                                            displayValue = (value as any).value;
+                                        }
+                                        return (
+                                            <div key={i} className="flex flex-col sm:flex-row sm:items-center p-4 hover:bg-white dark:hover:bg-glass-bg transition-colors">
+                                                <div className="sm:w-1/3 font-bold text-sm text-text-main mb-1 sm:mb-0">
+                                                    {displayKey}
+                                                </div>
+                                                <div className="sm:w-2/3 text-sm text-text-muted">
+                                                    {displayValue as string}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Integrations Card */}
+                        {product.integrations && product.integrations.length > 0 && (
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                    {locale === 'en' ? 'Integrations' : 'Integrasi'}
+                                </h2>
+                                <div className="flex flex-wrap gap-4">
+                                    {product.integrations.map((integration, i) => (
+                                        <div key={i} className="flex items-center gap-2 px-4 py-3 rounded-xl bg-gray-50/50 dark:bg-brand-bg/50 border border-glass-border font-medium text-sm text-text-main hover:border-brand-blue/30 transition-colors">
+                                            <Layers className="w-4 h-4 text-brand-blue" />
+                                            {integration}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* FAQ Card */}
+                        {product.faq && product.faq.length > 0 && (
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                    {locale === 'en' ? 'Frequently Asked Questions' : 'Pertanyaan Umum (FAQ)'}
+                                </h2>
+                                <div className="space-y-4">
+                                    {product.faq.map((item, i) => (
+                                        <details key={i} className="group border border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50 overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                                            <summary className="flex items-center justify-between cursor-pointer p-5 font-bold text-sm text-text-main hover:text-brand-blue transition-colors">
+                                                <span>{item.question}</span>
+                                                <ChevronDown className="w-5 h-5 text-text-muted group-open:rotate-180 transition-transform duration-300" />
+                                            </summary>
+                                            <div className="p-5 pt-0 text-sm text-text-muted leading-relaxed border-t border-glass-border/50 bg-white/50 dark:bg-glass-bg/50">
+                                                {item.answer}
+                                            </div>
+                                        </details>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Gallery Card */}
                         {product.gallery && product.gallery.length > 0 && (

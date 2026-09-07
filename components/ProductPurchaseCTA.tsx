@@ -108,6 +108,26 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
         }
     };
 
+    const handleDownload = async () => {
+        if (!user) {
+            router.push(`/login?redirect=/products/${productSlug}`);
+            return;
+        }
+
+        setSubmitting(true);
+        setToastMessage(null);
+        try {
+            const ext = filePath?.split('.').pop() || 'zip';
+            const safeName = name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            await api.downloadProduct(productId, safeName + '.' + ext);
+            setToastMessage('Download berhasil dimulai.');
+        } catch (err: any) {
+            setToastMessage(err.message || 'Gagal mengunduh file. Pastikan Anda memiliki akses.');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     const isDigitalDownload = billingPeriod === 'one_time' && filePath;
 
     if (!isDigitalDownload) {
@@ -143,14 +163,14 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
             {toastMessage && (
                 <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs font-semibold flex items-start justify-between gap-2 shadow-sm animate-in fade-in slide-in-from-top-2">
                     <span className="mt-0.5">{toastMessage}</span>
-                    <button onClick={() => setToastMessage(null)} className="text-red-400 hover:text-red-500 p-1 bg-red-500/10 hover:bg-red-500/20 rounded-md transition-colors shrink-0">✕</button>
+                    <button onClick={() => setToastMessage(null)} className="text-red-400 hover:text-red-500 p-1 bg-red-500/10 hover:bg-red-500/20 rounded-md transition-colors shrink-0">?</button>
                 </div>
             )}
             <button
-                onClick={handleCheckout}
+                onClick={price === 0 || hasLicense ? handleDownload : handleCheckout}
                 disabled={submitting}
                 className={`flex items-center justify-center gap-1.5 w-full py-4 text-center text-sm font-bold text-white rounded-xl transition-all shadow-md cursor-pointer ${
-                    hasLicense
+                    hasLicense || price === 0
                         ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/15'
                         : 'bg-brand-blue hover:bg-brand-blue-dark shadow-brand-blue/15'
                 }`}
@@ -158,12 +178,17 @@ export default function ProductPurchaseCTA({ productId, productSlug, price, name
             {submitting ? (
                 <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Menghubungkan ke Midtrans...</span>
+                    <span>Memproses...</span>
                 </>
             ) : hasLicense ? (
                 <>
                     <Download className="w-4 h-4" />
                     <span>Unduh File & Lisensi Saya</span>
+                </>
+            ) : price === 0 ? (
+                <>
+                    <Download className="w-4 h-4" />
+                    <span>Unduh Gratis</span>
                 </>
             ) : (
                 <>

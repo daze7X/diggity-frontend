@@ -589,8 +589,8 @@ export default function Navbar() {
                                                         {sub.name}
                                                     </h4>
                                                     <p className="text-[11px] text-text-gray font-medium leading-snug">
-                                                        {sub.products_count || 0} Produk
-                                                    </p>
+                                                        {sub.products_count || 0} Sub Kategori
+                                                      </p>
                                                 </div>
                                             </Link>
                                         ))}
@@ -623,8 +623,8 @@ export default function Navbar() {
                                                         {sub.name}
                                                     </h4>
                                                     <p className="text-[11px] text-text-gray font-medium leading-snug">
-                                                        {sub.products_count || 0} Produk
-                                                    </p>
+                                                        {sub.products_count || 0} Sub Kategori
+                                                      </p>
                                                 </div>
                                             </Link>
                                         ))}
@@ -633,14 +633,7 @@ export default function Navbar() {
                             ))}
                         </div>
                         
-                        <div className="mt-8 pt-4 border-t border-glass-border flex justify-between items-center">
-                             <span className="text-xs font-medium text-text-gray">
-                                Dapatkan free trial 14 hari untuk semua modul.
-                             </span>
-                             <Link href="/products" onClick={() => setActiveDropdown(null)} className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark transition-colors flex items-center">
-                                 Jelajahi Semua Produk <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
-                             </Link>
-                        </div>
+                        
                     </div>
                 )}
                 
@@ -929,15 +922,39 @@ export default function Navbar() {
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'products' ? 'rotate-180' : ''}`} />
                             </button>
                             {mobileExpanded === 'products' && (
-                                <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/products" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold hover:text-brand-blue-dark py-1 mb-2 border-b border-glass-border/40 pb-2">
-                                        Lihat Semua Produk ➔
-                                    </Link>
-                                    {productHierarchy.map((mainCat, idx) => (
-                                        <Link key={`mpp-${idx}`} href={`/products/${mainCat.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                            {mainCat.name}
-                                        </Link>
-                                    ))}
+                                <div className="mt-3 pl-4 space-y-4 text-sm animate-in fade-in duration-200">
+                                                                        {[...productHierarchy].sort((a, b) => {
+                                        const aIsComingSoon = ['ai-products', 'cloud-products'].includes(a.slug || '');
+                                        const bIsComingSoon = ['ai-products', 'cloud-products'].includes(b.slug || '');
+                                        if (aIsComingSoon && !bIsComingSoon) return 1;
+                                        if (!aIsComingSoon && bIsComingSoon) return -1;
+                                        return 0;
+                                    }).map((mainCat, idx) => {
+                                        const isComingSoon = ['ai-products', 'cloud-products'].includes(mainCat.slug || '');
+                                        return (
+                                            <div key={`mpp-${idx}`} className="space-y-2">
+                                                {isComingSoon ? (
+                                                    <div className="flex items-center gap-2 pt-2">
+                                                        <span className="block text-text-gray font-bold text-xs uppercase tracking-widest">{mainCat.name}</span>
+                                                        <span className="px-2 py-0.5 bg-glass-bg border border-glass-border text-[9px] font-bold text-text-muted rounded-full">Coming Soon</span>
+                                                    </div>
+                                                ) : (
+                                                    <Link href={`/products/${mainCat.slug}`} onClick={() => setIsOpen(false)} className="block text-text-main font-bold text-xs uppercase tracking-widest pt-2">
+                                                        {mainCat.name}
+                                                    </Link>
+                                                )}
+                                                {!isComingSoon && mainCat.children && (
+                                                    <div className="pl-3 border-l border-glass-border/40 space-y-2">
+                                                        {mainCat.children.map(sub => (
+                                                            <Link key={sub.slug} href={`/products/${mainCat.slug}/${sub.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                                                {sub.name}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             )}
                         </div>

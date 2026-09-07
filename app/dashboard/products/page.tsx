@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ShieldAlert, Download, Copy, Check, ShieldCheck, Sparkles, Key, Lock } from 'lucide-react';
+import { ShieldAlert, Download, Copy, Check, ShieldCheck, Sparkles, Key, Lock, Loader2 } from 'lucide-react';
+import { api } from '../../../lib/api';
 import SpotlightCard from '../../../components/SpotlightCard';
 import { useLanguage } from '../../../context/LanguageContext';
 
@@ -12,7 +13,9 @@ interface UserProductLicense {
     status: string;
     activated_at: string | null;
     expires_at: string | null;
+    product_id: number;
     product?: {
+        id: number;
         name: string;
         description: string;
         file_path: string | null;
@@ -28,6 +31,20 @@ export default function UserProducts() {
     const [licenses, setLicenses] = useState<UserProductLicense[]>([]);
     const [loading, setLoading] = useState(true);
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+    const [downloadingId, setDownloadingId] = useState<number | null>(null);
+
+    const handleDownload = async (productId: number, filePath: string | null, productName: string) => {
+        try {
+            setDownloadingId(productId);
+            const ext = filePath?.split('.').pop() || 'zip';
+            const safeName = productName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            await api.downloadProduct(productId, `${safeName}.${ext}`);
+        } catch (err: any) {
+            alert(err.message || 'Gagal mengunduh file.');
+        } finally {
+            setDownloadingId(null);
+        }
+    };
 
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
@@ -146,14 +163,19 @@ export default function UserProducts() {
 
                                     {/* Right Side: Direct download action button */}
                                     <div className="shrink-0 w-full md:w-auto text-right">
-                                        {product?.file_path && !isExpired ? (
-                                            <a
-                                                href={`${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${product.file_path}`}
-                                                download
-                                                className="flex items-center justify-center gap-1.5 px-6 py-3 bg-emerald-500 text-white hover:bg-emerald-600 rounded-xl text-xs md:text-sm font-bold transition-all shadow-md shadow-emerald-500/15 w-full md:w-auto cursor-pointer"
+                                                                                {product?.file_path && !isExpired ? (
+                                            <button
+                                                onClick={() => handleDownload(product.id, product.file_path, product.name)}
+                                                disabled={downloadingId === product.id}
+                                                className="flex items-center justify-center gap-1.5 px-6 py-3 bg-emerald-500 text-white hover:bg-emerald-600 rounded-xl text-xs md:text-sm font-bold transition-all shadow-md shadow-emerald-500/15 w-full md:w-auto cursor-pointer disabled:opacity-50"
                                             >
-                                                <Download className="w-4 h-4" /> {locale === 'en' ? 'Download Software File' : 'Unduh Berkas Software'}
-                                            </a>
+                                                {downloadingId === product.id ? (
+                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                ) : (
+                                                    <Download className="w-4 h-4" />
+                                                )}
+                                                {locale === 'en' ? 'Download Software File' : 'Unduh Berkas Software'}
+                                            </button>
                                         ) : (
                                             <button
                                                 disabled

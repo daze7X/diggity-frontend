@@ -10,28 +10,57 @@ import { ArrowRight, CheckCircle2, ChevronRight, LayoutGrid } from 'lucide-react
 import SubServiceIcon from '../../../../components/SubServiceIcon';
 import HomeTestimonials from '../../../../components/HomeTestimonials';
 import FaqAccordion from '../../../../components/FaqAccordion';
+import ProductCard from '../../../../components/products/ProductCard';
 
 export const revalidate = 60;
 
-export default async function SubCategoryPage({ params }: { params: Promise<{ main: string, sub: string }> }) {
+export default async function SubCategoryPage({ 
+    params, 
+    searchParams 
+}: { 
+    params: Promise<{ main: string, sub: string }>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
     const { main, sub } = await params;
+    const resolvedParams = await searchParams;
     const locale = await getLocaleServer();
     
-    let subcategory: any = null;
+        let subcategory: any = null;
     let products: any[] = [];
     let settings: any = null;
     let testimonials: any[] = [];
     let faqs: any[] = [];
+    let pagination: any = null;
     
+    // Parse filters for digital marketplace
+    const search = typeof resolvedParams.search === 'string' ? resolvedParams.search : undefined;
+    const filter = typeof resolvedParams.filter === 'string' ? resolvedParams.filter : undefined;
+    const sort = typeof resolvedParams.sort === 'string' ? resolvedParams.sort : undefined;
+    const page = typeof resolvedParams.page === 'string' ? parseInt(resolvedParams.page) : 1;
+
+        // Helper to safely build query strings
+    const buildQuery = (updates: Record<string, string>) => {
+        const params = new URLSearchParams();
+        Object.entries(resolvedParams).forEach(([k, v]) => {
+            if (typeof v === 'string') params.set(k, v);
+        });
+        Object.entries(updates).forEach(([k, v]) => {
+            if (v === null) params.delete(k);
+            else params.set(k, v);
+        });
+        return params.toString();
+    };
+
     try {
         const [res, settingsRes, testiRes, faqRes] = await Promise.all([
-            api.getProductsBySubcategory(sub),
+            api.getProductsBySubcategory(sub, { search, filter, sort, page }),
             api.getCompanySettings(),
             api.getTestimonials(),
             api.getFaqs()
         ]);
         subcategory = res.subcategory;
         products = res.products;
+        pagination = pagination;
         settings = settingsRes;
         testimonials = testiRes;
         faqs = faqRes;
@@ -45,12 +74,15 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
     }
 
     return (
-        <div className="min-h-screen relative pb-20 selection:bg-brand-blue/20">
-            
-            {/* 1. HERO HEADER (Enterprise Style) */}
-            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
-                <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/20 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2" />
+        <div className="min-h-screen bg-bg-canvas flex flex-col relative overflow-hidden">
+            {/* Background Base */}
+            <div className="absolute inset-0 bg-bg-canvas -z-10" />
+
+            {/* HERO SECTION */}
+            <div className="bg-brand-blue dark:bg-bg-canvas dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+                {/* Abstract Blobs (Hidden in Dark Mode for cleaner look) */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 dark:hidden" />
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/20 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2 dark:hidden" />
                 
                 <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
                     <div className="max-w-2xl space-y-6">
@@ -165,57 +197,119 @@ export default async function SubCategoryPage({ params }: { params: Promise<{ ma
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                                                                {main === 'digital-marketplace' && (
+                        <div className="mb-8 space-y-4">
+                            {/* Search Form */}
+                            <form action={`/products/${main}/${sub}`} method="GET" className="relative flex w-full md:w-1/2">
+                                {filter && <input type="hidden" name="filter" value={filter} />}
+                                {sort && <input type="hidden" name="sort" value={sort} />}
+                                <input 
+                                    type="text" 
+                                    name="search" 
+                                    defaultValue={search || ''} 
+                                    placeholder="Search products..." 
+                                    className="w-full pl-4 pr-12 py-3 bg-glass-bg border border-glass-border rounded-xl focus:outline-none focus:border-brand-blue/50 text-text-main placeholder:text-text-muted"
+                                />
+                                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-brand-blue text-white rounded-lg hover:bg-brand-blue-dark">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                </button>
+                            </form>
+
+                                                        <div className="flex flex-col md:flex-row items-center justify-between pb-4 border-b border-glass-border gap-4">
+                                <div className="flex flex-wrap gap-2">
+                                    <Link href={`/products/${main}/${sub}?${buildQuery({ filter: null as any, page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-full transition-colors ${!filter ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>All Products</Link>
+                                    <Link href={`/products/${main}/${sub}?${buildQuery({ filter: 'free', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-full transition-colors ${filter === 'free' ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>Free</Link>
+                                    <Link href={`/products/${main}/${sub}?${buildQuery({ filter: 'paid', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-full transition-colors ${filter === 'paid' ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>Paid</Link>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-sm font-medium text-text-muted shrink-0">Sort:</span>
+                                    <div className="flex gap-1 overflow-x-auto pb-1 md:pb-0">
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'latest', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${(!sort || sort === 'latest') ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Latest</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'oldest', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${sort === 'oldest' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Oldest</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'popular', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${sort === 'popular' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Most Popular</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'price_asc', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${sort === 'price_asc' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Price: Low to High</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'price_desc', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${sort === 'price_desc' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Price: High to Low</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {products.map((product: any, i: number) => (
                             <ScrollReveal key={product.slug} animation="fade-up" delay={i * 50}>
-                                <SpotlightCard className="h-full border border-glass-border bg-gray-50 dark:bg-brand-bg hover:bg-white dark:hover:bg-glass-bg transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group rounded-2xl overflow-hidden">
-                                    <Link href={`/products/${main}/${sub}/${product.slug}`} className="flex flex-col h-full w-full outline-none">
-                                        <div className="p-6 md:p-8 flex-1 flex flex-col">
-                                            <div className="flex items-start justify-between gap-4 mb-4">
-                                                <div className="w-12 h-12 rounded-xl bg-white dark:bg-brand-bg/50 shadow-sm border border-glass-border flex items-center justify-center shrink-0 group-hover:border-brand-blue/30 group-hover:bg-brand-blue/5 transition-colors">
-                                                    <SubServiceIcon slug={product.slug} fallbackCategoryIcon="layers" className="w-6 h-6 text-brand-blue" />
+                                {main === 'digital-marketplace' ? (
+                                    <div className="h-full">
+                                        <ProductCard product={product} />
+                                    </div>
+                                ) : (
+                                    <SpotlightCard className="h-full border border-glass-border bg-gray-50 dark:bg-brand-bg hover:bg-white dark:hover:bg-glass-bg transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group rounded-2xl overflow-hidden">
+                                        <Link href={`/products/${main}/${sub}/${product.slug}`} className="flex flex-col h-full w-full outline-none">
+                                            <div className="p-6 md:p-8 flex-1 flex flex-col">
+                                                <div className="flex items-start justify-between gap-4 mb-4">
+                                                    <div className="w-12 h-12 rounded-xl bg-white dark:bg-brand-bg/50 shadow-sm border border-glass-border flex items-center justify-center shrink-0 group-hover:border-brand-blue/30 group-hover:bg-brand-blue/5 transition-colors">
+                                                        <SubServiceIcon slug={product.slug} fallbackCategoryIcon="layers" className="w-6 h-6 text-brand-blue" />
+                                                    </div>
+                                                    <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                                        <ArrowRight className="w-4 h-4 text-text-gray group-hover:text-white transition-colors" />
+                                                    </div>
                                                 </div>
-                                                <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                                    <ArrowRight className="w-4 h-4 text-text-gray group-hover:text-white transition-colors" />
-                                                </div>
-                                            </div>
-                                            
-                                            <h3 className="text-xl font-extrabold text-text-main leading-tight group-hover:text-brand-blue transition-colors mb-3">
-                                                {product.name}
-                                            </h3>
-                                            
-                                            <p className="text-sm text-text-gray font-medium leading-relaxed line-clamp-3 mb-6 flex-1">
-                                                {product.description || `Solusi profesional ${product.name} dari Diggity.`}
-                                            </p>
+                                                
+                                                <h3 className="text-xl font-extrabold text-text-main leading-tight group-hover:text-brand-blue transition-colors mb-3">
+                                                    {product.name}
+                                                </h3>
+                                                
+                                                <p className="text-sm text-text-gray font-medium leading-relaxed line-clamp-3 mb-6 flex-1">
+                                                    {product.description || `Solusi profesional ${product.name} dari Diggity.`}
+                                                </p>
 
-                                            <div className="space-y-2 mt-auto">
-                                                <div className="flex items-center gap-2">
-                                                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                                                    <span className="text-xs font-semibold text-text-main">Enterprise Ready</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                                                    <span className="text-xs font-semibold text-text-main">Scalable Architecture</span>
+                                                <div className="space-y-2 mt-auto">
+                                                    <div className="flex items-center gap-2">
+                                                        <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                                                        <span className="text-xs font-semibold text-text-main">Enterprise Ready</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                                                        <span className="text-xs font-semibold text-text-main">Scalable Architecture</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        
-                                        <div className="px-6 py-4 bg-white dark:bg-brand-bg border-t border-glass-border group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors flex items-center justify-between w-full text-sm font-bold text-text-main group-hover:text-white">
-                                            <span>{locale === 'en' ? 'Explore Features' : 'Eksplorasi Fitur'}</span> 
-                                            <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                                        </div>
-                                    </Link>
-                                </SpotlightCard>
+                                            
+                                            <div className="px-6 py-4 bg-white dark:bg-brand-bg border-t border-glass-border group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors flex items-center justify-between w-full text-sm font-bold text-text-main group-hover:text-white">
+                                                <span>{locale === 'en' ? 'Explore Features' : 'Eksplorasi Fitur'}</span> 
+                                                <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                            </div>
+                                        </Link>
+                                    </SpotlightCard>
+                                )}
                             </ScrollReveal>
                         ))}
-                        
-                        {products.length === 0 && (
+                                                {products.length === 0 && (
                             <div className="col-span-full text-center py-20 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50">
-                                <p className="text-text-muted font-bold tracking-widest uppercase">Segera Hadir</p>
-                                <p className="text-sm text-text-gray mt-2">Belum ada modul yang dirilis pada kategori ini.</p>
+                                <p className="text-text-muted font-bold tracking-widest uppercase">No Products Found</p>
+                                <p className="text-sm text-text-gray mt-2">Coba ubah filter atau kata kunci pencarian Anda.</p>
                             </div>
                         )}
                     </div>
+                    
+                    {/* Pagination */}
+                                        {pagination && pagination.last_page > 1 && (
+                        <div className="flex justify-center mt-12 gap-2">
+                            {pagination.current_page > 1 && (
+                                <Link href={`/products/${main}/${sub}?${buildQuery({ page: (pagination.current_page - 1).toString() })}`} className="px-4 py-2 border border-glass-border rounded-lg bg-glass-bg text-text-main font-bold hover:bg-glass-border">
+                                    Prev
+                                </Link>
+                            )}
+                            <div className="px-4 py-2 border border-glass-border rounded-lg bg-white dark:bg-glass-bg text-text-main font-bold">
+                                {pagination.current_page} / {pagination.last_page}
+                            </div>
+                            {pagination.current_page < pagination.last_page && (
+                                <Link href={`/products/${main}/${sub}?${buildQuery({ page: (pagination.current_page + 1).toString() })}`} className="px-4 py-2 border border-glass-border rounded-lg bg-glass-bg text-text-main font-bold hover:bg-glass-border">
+                                    Next
+                                </Link>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
 

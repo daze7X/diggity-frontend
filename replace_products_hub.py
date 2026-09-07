@@ -1,4 +1,6 @@
-import React from 'react';
+path = r"D:\SEMESTER 6\PKL\diggity-frontend\app\products\page.tsx"
+
+content = """import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { getLocaleServer } from '../../lib/locale-server';
@@ -16,7 +18,9 @@ export default async function ProductsHubPage() {
     return (
         <div className="min-h-screen bg-bg-canvas flex flex-col">
             {/* HERO SECTION */}
-            <div className="bg-brand-blue dark:bg-bg-canvas dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+            <div className="bg-brand-blue relative pt-32 pb-24 px-6 overflow-hidden">
+                <div className="absolute inset-0 [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none" style={{ backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
+                
                 <div className="max-w-4xl mx-auto relative z-10 text-center space-y-6">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
                         {locale === 'en' ? 'Diggity Product Ecosystem' : 'Ekosistem Produk Diggity'}
@@ -28,8 +32,8 @@ export default async function ProductsHubPage() {
                     </p>
                 </div>
 
-                {/* Soft Blue Bleed Downwards (Hidden in Dark Mode) */}
-                <div className="w-full h-24 bg-gradient-to-b from-brand-blue to-transparent dark:hidden pointer-events-none -mb-24 absolute bottom-0 left-0 right-0 z-0" />
+                {/* Soft Blue Bleed Downwards */}
+                <div className="w-full h-24 bg-gradient-to-b from-brand-blue to-transparent pointer-events-none -mb-24 absolute bottom-0 left-0 right-0 z-0" />
             </div>
 
             {/* PRODUCT HUB CARDS */}
@@ -91,3 +95,8 @@ export default async function ProductsHubPage() {
         </div>
     );
 }
+"""
+
+with open(path, "w", encoding="utf-8") as f:
+    f.write(content)
+print("Successfully replaced /products/page.tsx for Task 2.")

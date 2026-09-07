@@ -219,6 +219,11 @@ export interface Product {
     file_path?: string;
     is_active: boolean;
     is_popular: boolean;
+    benefits?: string[];
+    use_cases?: string[];
+    specifications?: Record<string, any>;
+    integrations?: string[];
+    faq?: any[];
     category?: Category;
     seo_meta?: SeoMeta;
 }
@@ -420,6 +425,37 @@ export const api = {
 
     getUserCourses: (): Promise<any> => fetchAPI('/user/courses'),
     getUserProducts: (): Promise<any> => fetchAPI('/user/products'),
+        downloadProduct: async (id: number, filename: string): Promise<void> => {
+        const token = getCookie('token');
+        const headers: Record<string, string> = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+        const res = await fetch(`${API_BASE}/products/${id}/download`, {
+            method: 'GET',
+            headers
+        });
+
+        if (!res.ok) {
+            let errorMessage = 'Gagal mengunduh file.';
+            try {
+                const data = await res.json();
+                if (data.message) errorMessage = data.message;
+            } catch (e) {}
+            throw new Error(errorMessage);
+        }
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename || 'download';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    },
+
     checkout: (data: { purchasable_type: 'product' | 'course'; purchasable_id: number }): Promise<any> => fetchAPI('/checkout', {
         method: 'POST',
         body: JSON.stringify(data),

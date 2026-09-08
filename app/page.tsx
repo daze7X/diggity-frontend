@@ -69,12 +69,12 @@ export default async function Home() {
     try {
         // Fetch data concurrently from Laravel API
         const [servicesRes, portfoliosRes, testimonialsRes, settingsRes, productsRes, blogsRes] = await Promise.all([
-            api.getServices(),
-            api.getPortfolios(),
-            api.getTestimonials(),
-            api.getCompanySettings(),
-            api.getProducts(),
-            api.getInsights(),
+            api.getServices().catch(() => []),
+            api.getPortfolios().catch(() => []),
+            api.getTestimonials().catch(() => []),
+            api.getCompanySettings().catch(() => null),
+            api.getProducts().catch(() => []),
+            api.getInsights().catch(() => []),
         ]);
         services = servicesRes;
         portfolios = portfoliosRes;

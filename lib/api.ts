@@ -379,11 +379,11 @@ export const api = {
     },
     getCourseBySlug: (slug: string): Promise<Course> => fetchAPI(`/academy/${slug}`),
     
-    getInsights: (): Promise<Blog[]> => fetchAPI('/insights'),
-    getInsightBySlug: (slug: string): Promise<Blog> => fetchAPI(`/insights/${slug}`),
+    getInsights: (): Promise<Blog[]> => fetchAPI('/blogs'),
+    getInsightBySlug: (slug: string): Promise<Blog> => fetchAPI(`/blogs/${slug}`),
     
-    getJobConnect: (): Promise<Career[]> => fetchAPI('/job-connect'),
-    getJobConnectBySlug: (slug: string): Promise<Career> => fetchAPI(`/job-connect/${slug}`),
+    getJobConnect: (): Promise<Career[]> => fetchAPI('/careers'),
+    getJobConnectBySlug: (slug: string): Promise<Career> => fetchAPI(`/careers/${slug}`),
     
     submitTalentProfile: (data: {
         name: string;

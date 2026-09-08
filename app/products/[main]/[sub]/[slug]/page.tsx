@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { api, Product } from '../../../../../lib/api';
 import { getLocaleServer } from '../../../../../lib/locale-server';
 import SpotlightCard from '../../../../../components/SpotlightCard';
-import ProductPurchaseCTA from '../../../../../components/ProductPurchaseCTA';
+import ProductPricingWidget from '../../../../../components/ProductPricingWidget';
 import { 
     ArrowLeft, 
     Check, 
@@ -327,51 +327,7 @@ export default async function ProductDetail({ params }: Props) {
                     {/* Right Column: Sticky Pricing & Action */}
                     <div className="lg:col-span-1 space-y-6 lg:sticky lg:top-32">
                         <SpotlightCard className="p-8 border border-glass-border bg-white dark:bg-glass-bg rounded-3xl shadow-2xl">
-                            <div className="space-y-8">
-                                <div>
-                                    <span className="text-[11px] font-black text-text-muted uppercase tracking-widest block mb-2">
-                                        {locale === 'en' ? 'Investment' : 'Investasi'}
-                                    </span>
-                                    <div className="text-4xl font-black text-brand-blue tracking-tight">
-                                        {formatPrice(Number(product.price), product.billing_period)}
-                                    </div>
-                                </div>
-
-                                <div className="space-y-4 pt-4 border-t border-glass-border">
-                                    <div className="flex items-start space-x-3 text-sm text-text-gray font-medium">
-                                        <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
-                                            <Shield className="w-3.5 h-3.5 text-emerald-500" />
-                                        </div>
-                                        <div>
-                                            <span className="font-bold text-text-main block">{locale === 'en' ? 'Warranty Support' : 'Dukungan Garansi'}</span>
-                                            <span className="text-xs">{locale === 'en' ? 'Technical support & bug fixes included.' : 'Dukungan teknis & garansi perbaikan bug.'}</span>
-                                        </div>
-                                    </div>
-
-                                    {product.license_info && (
-                                        <div className="flex items-start space-x-3 text-sm text-text-gray font-medium">
-                                            <div className="w-6 h-6 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0">
-                                                <Info className="w-3.5 h-3.5 text-brand-blue" />
-                                            </div>
-                                            <div>
-                                                <span className="font-bold text-text-main block">{locale === 'en' ? 'Product License' : 'Lisensi Produk'}</span>
-                                                <span className="text-xs">{product.license_info}</span>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="pt-4 border-t border-glass-border">
-                                    <ProductPurchaseCTA
-                                        productId={product.id}
-                                        productSlug={product.slug}
-                                        price={Number(product.price)}
-                                        name={product.name}
-                                        billingPeriod={product.billing_period}
-                                        filePath={product.file_path || null}
-                                    />
-                                </div>
-                            </div>
+                            <React.Suspense fallback={<div className="animate-pulse h-[300px] bg-slate-100 dark:bg-slate-800 rounded-xl"></div>}><ProductPricingWidget product={product} locale={locale} /></React.Suspense>
                         </SpotlightCard>
 
                         {/* Related Products */}

@@ -205,6 +205,7 @@ export interface Pricing {
     features: string[];
     is_popular: boolean;
     discount_percentage?: number;
+    original_price?: number;
     sale_price?: number;
     pricing_label?: string;
     cta_text?: string;
@@ -497,7 +498,7 @@ export const api = {
 
 
 
-    checkout: (data: { purchasable_type: 'product' | 'course'; purchasable_id: number }): Promise<any> => fetchAPI('/checkout', {
+    checkout: (data: { purchasable_type: 'product' | 'course'; purchasable_id: number; pricing_id?: number }): Promise<any> => fetchAPI('/checkout', {
         method: 'POST',
         body: JSON.stringify(data),
     })

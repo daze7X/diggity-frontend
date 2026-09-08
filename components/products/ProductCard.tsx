@@ -5,10 +5,18 @@ import { Product } from '../../lib/api';
 
 interface Props {
     product: Product;
+    locale?: string;
 }
 
-export default function ProductCard({ product }: Props) {
+export default function ProductCard({ product, locale = 'id' }: Props) {
     const isFree = Number(product.price) === 0;
+
+    const formatPrice = (price: number) => {
+        if (locale === 'en') {
+            return `Rp ${Number(price).toLocaleString('en-US')}`;
+        }
+        return `Rp ${Number(price).toLocaleString('id-ID')}`;
+    };
     
     return (
         <Link href={`/products/${(product.category as any)?.parent?.slug || 'digital-marketplace'}/${product.category?.slug}/${product.slug}`} className="group block h-full">
@@ -28,7 +36,7 @@ export default function ProductCard({ product }: Props) {
                     )}
                     {isFree && (
                         <div className="absolute top-3 right-3 px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
-                            Free
+                            {locale === 'en' ? 'Free' : 'Gratis'}
                         </div>
                     )}
                 </div>
@@ -41,7 +49,10 @@ export default function ProductCard({ product }: Props) {
                     </h3>
                     <div className="mt-auto pt-4 border-t border-glass-border/50 flex items-center justify-between">
                         <span className={`font-black ${isFree ? 'text-green-500' : 'text-text-main'}`}>
-                            {isFree ? 'Gratis' : `Rp ${Number(product.price).toLocaleString('id-ID')}`}
+                            {isFree
+                                ? (locale === 'en' ? 'Free' : 'Gratis')
+                                : formatPrice(Number(product.price))
+                            }
                         </span>
                     </div>
                 </div>

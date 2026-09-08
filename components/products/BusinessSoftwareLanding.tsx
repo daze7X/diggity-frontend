@@ -6,12 +6,14 @@ import SpotlightCard from '../SpotlightCard';
 import SubServiceIcon from '../SubServiceIcon';
 import { ArrowRight, CheckCircle2, ChevronDown } from 'lucide-react';
 import { api } from '../../lib/api';
+import { getLocaleServer } from '../../lib/locale-server';
 
 interface Props {
     mainCat: CategoryHierarchy;
 }
 
 export default async function BusinessSoftwareLanding({ mainCat }: Props) {
+    const locale = await getLocaleServer();
     const featured = await api.getProducts({ category: mainCat.slug, is_popular: true, limit: 2 }).catch(() => []);
     
     return (
@@ -42,8 +44,8 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
             {/* CATEGORIES SECTION */}
             <div className="max-w-6xl mx-auto px-6 py-24 relative z-10">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl font-black text-text-main">Kategori Solusi</h2>
-                    <p className="text-text-gray mt-3 font-medium">Pilih modul yang paling sesuai dengan kebutuhan divisi Anda.</p>
+                    <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Solution Categories' : 'Kategori Solusi'}</h2>
+                    <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? "Choose the module that best suits your team's needs." : 'Pilih modul yang paling sesuai dengan kebutuhan divisi Anda.'}</p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -59,11 +61,11 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                                             {sub.name}
                                         </h3>
                                         <p className="text-sm text-text-gray font-medium">
-                                            {sub.products_count || 0} Produk
+                                            {sub.products_count || 0} {locale === 'en' ? 'Products' : 'Produk'}
                                         </p>
                                     </div>
                                     <div className="mt-4 pt-4 border-t border-glass-border/50 flex items-center justify-between text-xs font-bold text-text-muted group-hover:text-brand-blue transition-colors">
-                                        Lihat Solusi
+                                        {locale === 'en' ? 'View Solutions' : 'Lihat Solusi'}
                                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                     </div>
                                 </SpotlightCard>
@@ -90,7 +92,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                                     <div>
                                         <h3 className="text-xl font-bold text-text-main mb-2">{product.name}</h3>
                                         <p className="text-sm text-text-gray mb-4 line-clamp-2">{product.description}</p>
-                                        <Link href={`/products/business-software/${product.category?.slug}/${product.slug}`} className="text-xs font-bold text-brand-blue flex items-center hover:underline">Pelajari Lebih Lanjut <ArrowRight className="w-3 h-3 ml-1" /></Link>
+                                        <Link href={`/products/business-software/${product.category?.slug}/${product.slug}`} className="text-xs font-bold text-brand-blue flex items-center hover:underline">{locale === 'en' ? 'Learn More' : 'Pelajari Lebih Lanjut'} <ArrowRight className="w-3 h-3 ml-1" /></Link>
                                     </div>
                                 </SpotlightCard>
                             ))}
@@ -138,7 +140,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Akses 1 Modul Dasar</li>
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Maksimal 5 User</li>
                         </ul>
-                        <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">Coba Gratis</Link>
+                        <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">{locale === 'en' ? 'Try Free' : 'Coba Gratis'}</Link>
                     </SpotlightCard>
                     <SpotlightCard className="p-8 border-2 border-brand-blue bg-glass-bg flex flex-col relative transform md:-translate-y-4 shadow-xl shadow-brand-blue/10">
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Paling Populer</div>
@@ -150,7 +152,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Unlimited Users (Tiers)</li>
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Prioritas Support</li>
                         </ul>
-                        <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">Lihat Harga</Link>
+                        <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">{locale === 'en' ? 'View Pricing' : 'Lihat Harga'}</Link>
                     </SpotlightCard>
                     <SpotlightCard className="p-8 border border-glass-border bg-glass-bg flex flex-col">
                         <h3 className="text-xl font-bold text-text-main">Enterprise</h3>

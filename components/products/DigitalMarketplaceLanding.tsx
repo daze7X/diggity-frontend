@@ -6,12 +6,14 @@ import SpotlightCard from '../SpotlightCard';
 import SubServiceIcon from '../SubServiceIcon';
 import ProductCard from './ProductCard';
 import { Search, ArrowRight, Star, Clock, Zap, Crown } from 'lucide-react';
+import { getLocaleServer } from '../../lib/locale-server';
 
 interface Props {
     mainCat: CategoryHierarchy;
 }
 
 export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
+    const locale = await getLocaleServer();
     // Fetch products in parallel for different merchandising sections
     const [featured, latest, free, premium] = await Promise.all([
         api.getProducts({ category: mainCat.slug, is_popular: true, limit: 4 }).catch(() => []),
@@ -91,7 +93,7 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {featured.map(product => (
-                                <ProductCard key={product.id} product={product} />
+                                <ProductCard key={product.id} product={product} locale={locale} />
                             ))}
                         </div>
                     </section>
@@ -111,7 +113,7 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {latest.map(product => (
-                                <ProductCard key={product.id} product={product} />
+                                <ProductCard key={product.id} product={product} locale={locale} />
                             ))}
                         </div>
                     </section>
@@ -124,13 +126,13 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
                             <div className="flex items-center justify-between mb-6 border-b border-glass-border pb-4">
                                 <div className="flex items-center gap-2">
                                     <Zap className="w-5 h-5 text-green-500" />
-                                    <h2 className="text-xl font-bold text-text-main">Aset Gratis (Freebies)</h2>
+                                    <h2 className="text-xl font-bold text-text-main">{locale === 'en' ? 'Free Assets (Freebies)' : 'Aset Gratis (Freebies)'}</h2>
                                 </div>
                                 <Link href="#" className="text-xs font-bold text-brand-blue hover:underline">Lihat Semua</Link>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {free.slice(0, 2).map(product => (
-                                    <ProductCard key={product.id} product={product} />
+                                    <ProductCard key={product.id} product={product} locale={locale} />
                                 ))}
                             </div>
                         </section>
@@ -148,7 +150,7 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {premium.slice(0, 2).map(product => (
-                                    <ProductCard key={product.id} product={product} />
+                                    <ProductCard key={product.id} product={product} locale={locale} />
                                 ))}
                             </div>
                         </section>

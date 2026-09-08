@@ -142,10 +142,10 @@ export default function ProductPricingWidget({ product, locale }: Props) {
                     window.location.href = redirectUrl;
                 }
             } else {
-                setToastMessage(res.message || 'Gagal memproses pesanan.');
+                setToastMessage(res.message || (locale === 'en' ? 'Failed to process order.' : 'Gagal memproses pesanan.'));
             }
         } catch (err: any) {
-            setToastMessage(err.message || 'Terjadi kesalahan sistem.');
+            setToastMessage(err.message || (locale === 'en' ? 'A system error occurred.' : 'Terjadi kesalahan sistem.'));
         } finally {
             setSubmitting(false);
         }
@@ -164,9 +164,9 @@ export default function ProductPricingWidget({ product, locale }: Props) {
             const ext = product.file_path?.split('.').pop() || 'zip';
             const safeName = product.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
             await api.downloadProduct(product.id, safeName + '.' + ext);
-            setToastMessage('Download berhasil dimulai.');
+            setToastMessage(locale === 'en' ? 'Download started.' : 'Download berhasil dimulai.');
         } catch (err: any) {
-            setToastMessage(err.message || 'Gagal mengunduh file.');
+            setToastMessage(err.message || (locale === 'en' ? 'Download failed.' : 'Gagal mengunduh file.'));
         } finally {
             setSubmitting(false);
         }
@@ -181,7 +181,7 @@ export default function ProductPricingWidget({ product, locale }: Props) {
             return (
                 <button disabled className="w-full py-4 bg-slate-700/30 text-text-muted border border-glass-border rounded-xl text-sm font-bold flex items-center justify-center gap-1.5">
                     <Loader2 className="w-4 h-4 animate-spin text-brand-blue" />
-                    <span>Memeriksa Kepemilikan...</span>
+                    <span>{locale === 'en' ? 'Checking License...' : 'Memeriksa Kepemilikan...'}</span>
                 </button>
             );
         }
@@ -198,17 +198,17 @@ export default function ProductPricingWidget({ product, locale }: Props) {
             const whatsappMsg = `Halo Diggity, saya tertarik dengan produk ${product.name}.`;
             return (
                 <a href={`https://wa.me/6285157303035?text=${encodeURIComponent(whatsappMsg)}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 w-full py-4 text-center text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark rounded-xl transition-all shadow-md">
-                    Minta Demo Layanan <ArrowUpRight className="w-4 h-4" />
+                    {locale === 'en' ? 'Request Demo' : 'Minta Demo Layanan'} <ArrowUpRight className="w-4 h-4" />
                 </a>
             );
         }
 
         let btnClass = 'bg-brand-blue hover:bg-brand-blue-dark shadow-brand-blue/15';
-        let btnText = selectedPricing?.cta_text || (isFree ? 'Unduh Gratis' : 'Beli & Unduh Instan');
+        let btnText = selectedPricing?.cta_text || (isFree ? (locale === 'en' ? 'Download Free' : 'Unduh Gratis') : (locale === 'en' ? 'Buy & Download' : 'Beli & Unduh Instan'));
         
         if (hasLicense || isFree) {
             btnClass = 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/15';
-            btnText = hasLicense ? 'Unduh File & Lisensi Saya' : btnText;
+            btnText = hasLicense ? (locale === 'en' ? 'My Files & License' : 'Unduh File & Lisensi Saya') : btnText;
         }
 
         if (selectedPricing?.is_free_trial) {
@@ -222,7 +222,7 @@ export default function ProductPricingWidget({ product, locale }: Props) {
                 className={`flex items-center justify-center gap-1.5 w-full py-4 text-center text-sm font-bold text-white rounded-xl transition-all shadow-md cursor-pointer ${btnClass}`}
             >
                 {submitting ? (
-                    <><Loader2 className="w-4 h-4 animate-spin" /><span>Memproses...</span></>
+                    <><Loader2 className="w-4 h-4 animate-spin" /><span>{locale === 'en' ? 'Processing...' : 'Memproses...'}</span></>
                 ) : (
                     <><Download className="w-4 h-4" /><span>{btnText}</span></>
                 )}
@@ -295,7 +295,7 @@ export default function ProductPricingWidget({ product, locale }: Props) {
             <div className="space-y-4 pt-4 border-t border-glass-border">
                 {selectedPricing && selectedPricing.features && selectedPricing.features.length > 0 ? (
                     <div className="space-y-2 mb-4">
-                        <span className="font-bold text-text-main block text-sm mb-3">Included in {selectedPricing.name}:</span>
+                        <span className="font-bold text-text-main block text-sm mb-3">{locale === 'en' ? `Included in ${selectedPricing.name}:` : `Termasuk dalam ${selectedPricing.name}:`}</span>
                         {selectedPricing.features.map((feat, idx) => (
                             <div key={idx} className="flex items-start gap-2 text-xs text-text-gray">
                                 <CheckCircle className="w-3.5 h-3.5 text-brand-blue shrink-0 mt-0.5" />

@@ -240,7 +240,7 @@ export default async function SubCategoryPage({
                             <ScrollReveal key={product.slug} animation="fade-up" delay={i * 50}>
                                 {main === 'digital-marketplace' ? (
                                     <div className="h-full">
-                                        <ProductCard product={product} />
+                                        <ProductCard product={product} locale={locale} />
                                     </div>
                                 ) : (
                                     <SpotlightCard className="h-full border border-glass-border bg-gray-50 dark:bg-brand-bg hover:bg-white dark:hover:bg-glass-bg transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group rounded-2xl overflow-hidden">

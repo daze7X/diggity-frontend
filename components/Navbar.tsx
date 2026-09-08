@@ -589,7 +589,7 @@ export default function Navbar() {
                                                         {sub.name}
                                                     </h4>
                                                     <p className="text-[11px] text-text-gray font-medium leading-snug">
-                                                        {sub.products_count || 0} Sub Kategori
+                                                        {sub.products_count || 0} {language === 'en' ? 'Subcategories' : 'Sub Kategori'}
                                                       </p>
                                                 </div>
                                             </Link>
@@ -623,7 +623,7 @@ export default function Navbar() {
                                                         {sub.name}
                                                     </h4>
                                                     <p className="text-[11px] text-text-gray font-medium leading-snug">
-                                                        {sub.products_count || 0} Sub Kategori
+                                                        {sub.products_count || 0} {language === 'en' ? 'Subcategories' : 'Sub Kategori'}
                                                       </p>
                                                 </div>
                                             </Link>

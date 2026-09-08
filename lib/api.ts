@@ -195,12 +195,24 @@ export interface Faq {
 
 export interface Pricing {
     id: number;
+    product_id?: number;
+    pricing_type?: 'subscription' | 'one_time' | 'bundle' | 'custom';
     name: string;
-    price: number;
+    price: string;
+    numeric_price?: number;
     period: string;
     description?: string;
     features: string[];
     is_popular: boolean;
+    discount_percentage?: number;
+    sale_price?: number;
+    pricing_label?: string;
+    cta_text?: string;
+    license_type?: string;
+    is_free_trial?: boolean;
+    is_enterprise?: boolean;
+    contact_sales?: boolean;
+    pricing_status?: 'active' | 'draft' | 'promotional' | 'deprecated' | 'archived';
 }
 
 export interface Product {
@@ -226,6 +238,7 @@ export interface Product {
     faq?: any[];
     category?: Category;
     seo_meta?: SeoMeta;
+    pricings?: Pricing[];
 }
 
 export interface Lesson {

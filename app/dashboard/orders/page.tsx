@@ -9,11 +9,12 @@ interface OrderItem {
     id: number;
     purchasable_type: string;
     price: string;
-    product?: {
-        name: string;
+    purchasable?: {
+        name?: string;
+        title?: string;
     };
-    course?: {
-        title: string;
+    pricing?: {
+        name: string;
     };
 }
 
@@ -108,10 +109,17 @@ export default function UserOrders() {
                                     {/* Items List */}
                                     <div className="space-y-2">
                                         {order.items?.map((item) => {
-                                            const itemName = item.product?.name || item.course?.title || (locale === 'en' ? 'Digital Product' : 'Produk Digital');
+                                            const itemName = item.purchasable?.name || item.purchasable?.title || (locale === 'en' ? 'Digital Product' : 'Produk Digital');
                                             return (
                                                 <div key={item.id} className="flex justify-between items-center text-xs md:text-sm text-text-gray font-medium">
-                                                    <span>{itemName}</span>
+                                                    <span className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                                                        <span>{itemName}</span>
+                                                        {item.pricing && (
+                                                            <span className="inline-block px-2 py-0.5 bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-bold rounded uppercase tracking-wider w-fit">
+                                                                {item.pricing.name}
+                                                            </span>
+                                                        )}
+                                                    </span>
                                                     <span>{formatPrice(item.price)}</span>
                                                 </div>
                                             );

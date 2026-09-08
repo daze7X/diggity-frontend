@@ -18,9 +18,15 @@ interface UserProductLicense {
         id: number;
         name: string;
         description: string;
+        slug: string;
         file_path: string | null;
+        gallery?: string[];
         version: string;
         category?: {
+            slug: string;
+            parent?: {
+                slug: string;
+            }
             name: string;
         };
     };
@@ -107,7 +113,13 @@ export default function UserProducts() {
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                                     
                                     {/* Left Side: Product Info */}
-                                    <div className="space-y-3.5 text-left max-w-xl">
+                                    <div className="flex gap-4 items-start max-w-xl">
+                                        {product?.gallery && product.gallery.length > 0 && (
+                                            <div className="hidden sm:block w-24 h-24 shrink-0 bg-neutral-900 rounded-xl overflow-hidden border border-glass-border">
+                                                <img src={product.gallery[0].replace('public/', '/storage/')} alt={product.name} className="w-full h-full object-cover" />
+                                            </div>
+                                        )}
+                                        <div className="space-y-3.5 text-left flex-1">
                                         <div className="space-y-2">
                                             {product?.category && (
                                                 <span className="inline-block px-2.5 py-0.5 bg-brand-blue/5 border border-brand-blue/15 text-brand-blue text-[10px] font-bold rounded-md uppercase tracking-wider">
@@ -122,9 +134,8 @@ export default function UserProducts() {
                                                     {product.description}
                                                 </p>
                                             )}
-                                        </div>
-
-                                        {/* License Key Box */}
+                                        </div></div>
+                                    {/* License Key Box */}
                                         <div className="flex flex-col sm:flex-row gap-3 pt-2">
                                             <div className="flex items-center space-x-2 px-3 py-2 bg-neutral-950/10 dark:bg-neutral-950/30 border border-glass-border rounded-xl">
                                                 <Key className="w-4 h-4 text-brand-blue shrink-0" />

@@ -142,18 +142,22 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                         </ul>
                         <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">{locale === 'en' ? 'Try Free' : 'Coba Gratis'}</Link>
                     </SpotlightCard>
-                    <SpotlightCard className="p-8 border-2 border-brand-blue bg-glass-bg flex flex-col relative transform md:-translate-y-4 shadow-xl shadow-brand-blue/10">
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Paling Populer</div>
-                        <h3 className="text-xl font-bold text-text-main">Professional</h3>
-                        <p className="text-text-gray text-sm mt-2 mb-6">Untuk perusahaan menengah</p>
-                        <div className="text-4xl font-black text-text-main mb-6 flex items-end gap-1">Berbayar <span className="text-sm font-medium text-text-gray mb-1">/ bulan</span></div>
-                        <ul className="space-y-3 mb-8 flex-1">
-                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Akses Semua Modul Pro</li>
-                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Unlimited Users (Tiers)</li>
-                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Prioritas Support</li>
-                        </ul>
-                        <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">{locale === 'en' ? 'View Pricing' : 'Lihat Harga'}</Link>
-                    </SpotlightCard>
+                    <div className="flex flex-col items-center transform md:-translate-y-4 w-full">
+                        <div className="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 shrink-0">
+                            {locale === 'en' ? 'Most Popular' : 'Paling Populer'}
+                        </div>
+                        <SpotlightCard className="p-8 border-2 border-brand-blue bg-glass-bg flex flex-col w-full shadow-xl shadow-brand-blue/10">
+                            <h3 className="text-xl font-bold text-text-main">Professional</h3>
+                            <p className="text-text-gray text-sm mt-2 mb-6">Untuk perusahaan menengah</p>
+                            <div className="text-4xl font-black text-text-main mb-6 flex items-end gap-1">Berbayar <span className="text-sm font-medium text-text-gray mb-1">/ bulan</span></div>
+                            <ul className="space-y-3 mb-8 flex-1">
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Akses Semua Modul Pro</li>
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Unlimited Users (Tiers)</li>
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Prioritas Support</li>
+                            </ul>
+                            <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">{locale === 'en' ? 'View Pricing' : 'Lihat Harga'}</Link>
+                        </SpotlightCard>
+                    </div>
                     <SpotlightCard className="p-8 border border-glass-border bg-glass-bg flex flex-col">
                         <h3 className="text-xl font-bold text-text-main">Enterprise</h3>
                         <p className="text-text-gray text-sm mt-2 mb-6">Solusi kustom untuk korporat</p>

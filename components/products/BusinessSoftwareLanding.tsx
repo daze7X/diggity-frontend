@@ -19,7 +19,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
     return (
         <div className="min-h-screen bg-bg-canvas relative overflow-hidden">
             {/* HERO SECTION */}
-            <div className="bg-brand-blue dark:bg-bg-canvas dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
                 <div className="max-w-4xl mx-auto relative z-10 text-center space-y-6">
                     <ScrollReveal>
                         <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-[1.1]">
@@ -155,7 +155,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Unlimited Users (Tiers)</li>
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Prioritas Support</li>
                             </ul>
-                            <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">{locale === 'en' ? 'View Pricing' : 'Lihat Harga'}</Link>
+                            <Link href="#pricing" className="w-full py-3 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">{locale === 'en' ? 'View Pricing' : 'Lihat Harga'}</Link>
                         </SpotlightCard>
                     </div>
                     <SpotlightCard className="p-8 border border-glass-border bg-glass-bg flex flex-col">

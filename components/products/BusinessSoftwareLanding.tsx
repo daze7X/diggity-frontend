@@ -143,15 +143,15 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
                     {/* Starter */}
-                    <SpotlightCard className="p-8 border border-glass-border bg-glass-bg flex flex-col">
+                    <SpotlightCard className="p-10 border border-glass-border bg-glass-bg flex flex-col">
                         <h3 className="text-xl font-bold text-text-main">Starter</h3>
-                        <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'Perfect for small teams' : 'Cocok untuk tim kecil'}</p>
-                        <div className="text-4xl font-black text-text-main mb-6">Free</div>
-                        <ul className="space-y-3 mb-8 flex-1">
+                        <p className="text-text-gray text-sm mt-2 mb-8">{locale === 'en' ? 'Perfect for small teams' : 'Cocok untuk tim kecil'}</p>
+                        <div className="text-4xl font-black text-text-main mb-8">Free</div>
+                        <ul className="space-y-4 mb-10 flex-1">
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Access 1 Core Module' : 'Akses 1 Modul Dasar'}</li>
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Up to 5 Users' : 'Maksimal 5 User'}</li>
                         </ul>
-                        <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">{locale === 'en' ? 'Try Free' : 'Coba Gratis'}</Link>
+                        <Link href="/register" className="w-full py-4 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">{locale === 'en' ? 'Try Free' : 'Coba Gratis'}</Link>
                     </SpotlightCard>
 
                     {/* Professional — badge in normal flow above the card */}
@@ -159,32 +159,32 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                         <div className="bg-brand-blue text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-3 shrink-0">
                             {locale === 'en' ? 'Most Popular' : 'Paling Populer'}
                         </div>
-                        <SpotlightCard className="p-8 border-2 border-brand-blue bg-glass-bg flex flex-col w-full shadow-xl shadow-brand-blue/10">
+                        <SpotlightCard className="p-10 border-2 border-brand-blue bg-glass-bg flex flex-col w-full shadow-xl shadow-brand-blue/10">
                             <h3 className="text-xl font-bold text-text-main">Professional</h3>
-                            <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'For mid-size businesses' : 'Untuk perusahaan menengah'}</p>
-                            <div className="text-4xl font-black text-text-main mb-6 flex items-end gap-1">
+                            <p className="text-text-gray text-sm mt-2 mb-8">{locale === 'en' ? 'For mid-size businesses' : 'Untuk perusahaan menengah'}</p>
+                            <div className="text-4xl font-black text-text-main mb-8 flex items-end gap-1">
                                 {locale === 'en' ? 'Paid' : 'Berbayar'} <span className="text-sm font-medium text-text-gray mb-1">{locale === 'en' ? '/ month' : '/ bulan'}</span>
                             </div>
-                            <ul className="space-y-3 mb-8 flex-1">
+                            <ul className="space-y-4 mb-10 flex-1">
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'All Pro Modules Included' : 'Akses Semua Modul Pro'}</li>
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Unlimited Users (Tiers)</li>
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Priority Support' : 'Prioritas Support'}</li>
                             </ul>
-                            <Link href="#pricing" className="w-full py-3 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">{locale === 'en' ? 'View Pricing' : 'Lihat Harga'}</Link>
+                            <Link href="#pricing" className="w-full py-4 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">{locale === 'en' ? 'View Pricing' : 'Lihat Harga'}</Link>
                         </SpotlightCard>
                     </div>
 
                     {/* Enterprise */}
-                    <SpotlightCard className="p-8 border border-glass-border bg-glass-bg flex flex-col">
+                    <SpotlightCard className="p-10 border border-glass-border bg-glass-bg flex flex-col">
                         <h3 className="text-xl font-bold text-text-main">Enterprise</h3>
-                        <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'Custom solutions for corporations' : 'Solusi kustom untuk korporat'}</p>
-                        <div className="text-4xl font-black text-text-main mb-6">Custom</div>
-                        <ul className="space-y-3 mb-8 flex-1">
+                        <p className="text-text-gray text-sm mt-2 mb-8">{locale === 'en' ? 'Custom solutions for corporations' : 'Solusi kustom untuk korporat'}</p>
+                        <div className="text-4xl font-black text-text-main mb-8">Custom</div>
+                        <ul className="space-y-4 mb-10 flex-1">
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Full Modules & Customization' : 'Modul & Kustomisasi Penuh'}</li>
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Dedicated Account Manager</li>
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />On-Premise / Private Cloud</li>
                         </ul>
-                        <Link href="/contact" className="w-full py-3 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">{locale === 'en' ? 'Contact Sales' : 'Hubungi Sales'}</Link>
+                        <Link href="/contact" className="w-full py-4 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">{locale === 'en' ? 'Contact Sales' : 'Hubungi Sales'}</Link>
                     </SpotlightCard>
                 </div>
             </div>

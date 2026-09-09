@@ -4,7 +4,7 @@ import { CategoryHierarchy } from '../../lib/api';
 import ScrollReveal from '../ScrollReveal';
 import SpotlightCard from '../SpotlightCard';
 import SubServiceIcon from '../SubServiceIcon';
-import { ArrowRight, CheckCircle2, ChevronDown } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { api } from '../../lib/api';
 import { getLocaleServer } from '../../lib/locale-server';
 
@@ -15,11 +15,17 @@ interface Props {
 export default async function BusinessSoftwareLanding({ mainCat }: Props) {
     const locale = await getLocaleServer();
     const featured = await api.getProducts({ category: mainCat.slug, is_popular: true, limit: 2 }).catch(() => []);
-    
+
     return (
         <div className="min-h-screen bg-bg-canvas relative overflow-hidden">
             {/* HERO SECTION */}
             <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+                {/* Glowing orbs — same visual language as Career hero */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-black/20 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none" />
+                {/* Subtle grid pattern */}
+                <div className="absolute inset-0 opacity-20 pointer-events-none [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" style={{ backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
+
                 <div className="max-w-4xl mx-auto relative z-10 text-center space-y-6">
                     <ScrollReveal>
                         <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-[1.1]">
@@ -28,12 +34,14 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                     </ScrollReveal>
                     <ScrollReveal delay={100}>
                         <p className="text-lg text-white/80 font-medium leading-relaxed max-w-2xl mx-auto">
-                            Rangkaian aplikasi bisnis terintegrasi yang dirancang untuk membantu perusahaan mengelola proses bisnis secara end-to-end.
+                            {locale === 'en'
+                                ? 'A fully integrated suite of business applications designed to help enterprises manage end-to-end business processes.'
+                                : 'Rangkaian aplikasi bisnis terintegrasi yang dirancang untuk membantu perusahaan mengelola proses bisnis secara end-to-end.'}
                         </p>
                     </ScrollReveal>
                     <ScrollReveal delay={200} className="pt-4">
                         <Link href="#pricing" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-blue font-bold rounded-full hover:bg-glass-bg transition-all transform hover:scale-105 shadow-xl">
-                            Mulai Free Trial <ArrowRight className="w-5 h-5" />
+                            {locale === 'en' ? 'Start Free Trial' : 'Mulai Free Trial'} <ArrowRight className="w-5 h-5" />
                         </Link>
                     </ScrollReveal>
                 </div>
@@ -47,7 +55,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                     <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Solution Categories' : 'Kategori Solusi'}</h2>
                     <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? "Choose the module that best suits your team's needs." : 'Pilih modul yang paling sesuai dengan kebutuhan divisi Anda.'}</p>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {mainCat.children?.map((sub, i) => (
                         <ScrollReveal key={sub.slug} animation="fade-up" delay={i * 50}>
@@ -73,15 +81,15 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                         </ScrollReveal>
                     ))}
                 </div>
-                        </div>
+            </div>
 
-                        {/* FEATURED PRODUCTS SECTION */}
+            {/* FEATURED PRODUCTS SECTION */}
             {featured.length > 0 && (
                 <div className="bg-glass-bg border-y border-glass-border py-24">
                     <div className="max-w-6xl mx-auto px-6">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-black text-text-main">Solusi Populer</h2>
-                            <p className="text-text-gray mt-3 font-medium">Modul yang paling sering digunakan oleh klien enterprise kami.</p>
+                            <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Popular Solutions' : 'Solusi Populer'}</h2>
+                            <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? 'The most widely used modules by our enterprise clients.' : 'Modul yang paling sering digunakan oleh klien enterprise kami.'}</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {featured.map(product => (
@@ -99,75 +107,84 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                         </div>
                     </div>
                 </div>
-            )}{/* BENEFITS SECTION */}
+            )}
+
+            {/* BENEFITS SECTION */}
             <div className="bg-glass-bg border-y border-glass-border py-24">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-black text-text-main">Kenapa Memilih Ekosistem Kami?</h2>
+                        <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Why Choose Our Ecosystem?' : 'Kenapa Memilih Ekosistem Kami?'}</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="p-6 bg-bg-canvas rounded-2xl border border-glass-border">
                             <CheckCircle2 className="w-10 h-10 text-brand-blue mb-4" />
-                            <h3 className="text-xl font-bold text-text-main mb-2">Terintegrasi Penuh</h3>
-                            <p className="text-text-gray text-sm leading-relaxed">Semua modul saling berkomunikasi, menghilangkan silo data antar departemen.</p>
+                            <h3 className="text-xl font-bold text-text-main mb-2">{locale === 'en' ? 'Fully Integrated' : 'Terintegrasi Penuh'}</h3>
+                            <p className="text-text-gray text-sm leading-relaxed">{locale === 'en' ? 'All modules communicate seamlessly, eliminating data silos across departments.' : 'Semua modul saling berkomunikasi, menghilangkan silo data antar departemen.'}</p>
                         </div>
                         <div className="p-6 bg-bg-canvas rounded-2xl border border-glass-border">
                             <CheckCircle2 className="w-10 h-10 text-brand-blue mb-4" />
-                            <h3 className="text-xl font-bold text-text-main mb-2">Skalabilitas Tinggi</h3>
-                            <p className="text-text-gray text-sm leading-relaxed">Dirancang untuk tumbuh bersama bisnis Anda, dari skala menengah hingga enterprise.</p>
+                            <h3 className="text-xl font-bold text-text-main mb-2">{locale === 'en' ? 'High Scalability' : 'Skalabilitas Tinggi'}</h3>
+                            <p className="text-text-gray text-sm leading-relaxed">{locale === 'en' ? 'Designed to grow with your business, from mid-market to enterprise scale.' : 'Dirancang untuk tumbuh bersama bisnis Anda, dari skala menengah hingga enterprise.'}</p>
                         </div>
                         <div className="p-6 bg-bg-canvas rounded-2xl border border-glass-border">
                             <CheckCircle2 className="w-10 h-10 text-brand-blue mb-4" />
-                            <h3 className="text-xl font-bold text-text-main mb-2">Keamanan Standar Industri</h3>
-                            <p className="text-text-gray text-sm leading-relaxed">Data perusahaan Anda dilindungi dengan enkripsi tingkat lanjut dan akses berbasis peran.</p>
+                            <h3 className="text-xl font-bold text-text-main mb-2">{locale === 'en' ? 'Industry-Grade Security' : 'Keamanan Standar Industri'}</h3>
+                            <p className="text-text-gray text-sm leading-relaxed">{locale === 'en' ? 'Your data is protected with advanced encryption and role-based access control.' : 'Data perusahaan Anda dilindungi dengan enkripsi tingkat lanjut dan akses berbasis peran.'}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* PRICING OVERVIEW SECTION */}
-            <div id="pricing" className="max-w-6xl mx-auto px-6 py-24">
+            <div id="pricing" className="max-w-5xl mx-auto px-6 py-24">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl font-black text-text-main">Paket Berlangganan Fleksibel</h2>
-                    <p className="text-text-gray mt-3 font-medium">Mulai dengan gratis, upgrade seiring pertumbuhan bisnis Anda.</p>
+                    <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Flexible Subscription Plans' : 'Paket Berlangganan Fleksibel'}</h2>
+                    <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? 'Start free, upgrade as your business grows.' : 'Mulai dengan gratis, upgrade seiring pertumbuhan bisnis Anda.'}</p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+                    {/* Starter */}
                     <SpotlightCard className="p-8 border border-glass-border bg-glass-bg flex flex-col">
                         <h3 className="text-xl font-bold text-text-main">Starter</h3>
-                        <p className="text-text-gray text-sm mt-2 mb-6">Cocok untuk tim kecil</p>
+                        <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'Perfect for small teams' : 'Cocok untuk tim kecil'}</p>
                         <div className="text-4xl font-black text-text-main mb-6">Free</div>
                         <ul className="space-y-3 mb-8 flex-1">
-                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Akses 1 Modul Dasar</li>
-                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Maksimal 5 User</li>
+                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Access 1 Core Module' : 'Akses 1 Modul Dasar'}</li>
+                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Up to 5 Users' : 'Maksimal 5 User'}</li>
                         </ul>
                         <Link href="/register" className="w-full py-3 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">{locale === 'en' ? 'Try Free' : 'Coba Gratis'}</Link>
                     </SpotlightCard>
+
+                    {/* Professional — badge in normal flow above the card */}
                     <div className="flex flex-col items-center transform md:-translate-y-4 w-full">
-                        <div className="bg-brand-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 shrink-0">
+                        <div className="bg-brand-blue text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-3 shrink-0">
                             {locale === 'en' ? 'Most Popular' : 'Paling Populer'}
                         </div>
                         <SpotlightCard className="p-8 border-2 border-brand-blue bg-glass-bg flex flex-col w-full shadow-xl shadow-brand-blue/10">
                             <h3 className="text-xl font-bold text-text-main">Professional</h3>
-                            <p className="text-text-gray text-sm mt-2 mb-6">Untuk perusahaan menengah</p>
-                            <div className="text-4xl font-black text-text-main mb-6 flex items-end gap-1">Berbayar <span className="text-sm font-medium text-text-gray mb-1">/ bulan</span></div>
+                            <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'For mid-size businesses' : 'Untuk perusahaan menengah'}</p>
+                            <div className="text-4xl font-black text-text-main mb-6 flex items-end gap-1">
+                                {locale === 'en' ? 'Paid' : 'Berbayar'} <span className="text-sm font-medium text-text-gray mb-1">{locale === 'en' ? '/ month' : '/ bulan'}</span>
+                            </div>
                             <ul className="space-y-3 mb-8 flex-1">
-                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Akses Semua Modul Pro</li>
-                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Unlimited Users (Tiers)</li>
-                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Prioritas Support</li>
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'All Pro Modules Included' : 'Akses Semua Modul Pro'}</li>
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Unlimited Users (Tiers)</li>
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Priority Support' : 'Prioritas Support'}</li>
                             </ul>
                             <Link href="#pricing" className="w-full py-3 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-colors">{locale === 'en' ? 'View Pricing' : 'Lihat Harga'}</Link>
                         </SpotlightCard>
                     </div>
+
+                    {/* Enterprise */}
                     <SpotlightCard className="p-8 border border-glass-border bg-glass-bg flex flex-col">
                         <h3 className="text-xl font-bold text-text-main">Enterprise</h3>
-                        <p className="text-text-gray text-sm mt-2 mb-6">Solusi kustom untuk korporat</p>
+                        <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'Custom solutions for corporations' : 'Solusi kustom untuk korporat'}</p>
                         <div className="text-4xl font-black text-text-main mb-6">Custom</div>
                         <ul className="space-y-3 mb-8 flex-1">
-                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Modul & Kustomisasi Penuh</li>
-                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> Dedicated Account Manager</li>
-                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" /> On-Premise / Private Cloud</li>
+                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Full Modules & Customization' : 'Modul & Kustomisasi Penuh'}</li>
+                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Dedicated Account Manager</li>
+                            <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />On-Premise / Private Cloud</li>
                         </ul>
-                        <Link href="/contact" className="w-full py-3 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">Hubungi Sales</Link>
+                        <Link href="/contact" className="w-full py-3 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-colors">{locale === 'en' ? 'Contact Sales' : 'Hubungi Sales'}</Link>
                     </SpotlightCard>
                 </div>
             </div>
@@ -176,20 +193,20 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
             <div className="bg-glass-bg border-t border-glass-border py-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-black text-text-main">FAQ Business Software</h2>
+                        <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Business Software FAQ' : 'FAQ Business Software'}</h2>
                     </div>
                     <div className="space-y-4">
                         <div className="p-6 bg-bg-canvas border border-glass-border rounded-2xl">
-                            <h3 className="font-bold text-text-main mb-2">Apakah saya bisa berlangganan modul tertentu saja?</h3>
-                            <p className="text-sm text-text-gray leading-relaxed">Ya, arsitektur modular kami memungkinkan Anda untuk hanya berlangganan modul yang Anda butuhkan (misalnya hanya HR dan Finance) dan menambah modul lain di masa mendatang.</p>
+                            <h3 className="font-bold text-text-main mb-2">{locale === 'en' ? 'Can I subscribe to specific modules only?' : 'Apakah saya bisa berlangganan modul tertentu saja?'}</h3>
+                            <p className="text-sm text-text-gray leading-relaxed">{locale === 'en' ? 'Yes. Our modular architecture lets you subscribe only to the modules you need (e.g. HR and Finance only) and add more modules as your business grows.' : 'Ya, arsitektur modular kami memungkinkan Anda untuk hanya berlangganan modul yang Anda butuhkan (misalnya hanya HR dan Finance) dan menambah modul lain di masa mendatang.'}</p>
                         </div>
                         <div className="p-6 bg-bg-canvas border border-glass-border rounded-2xl">
-                            <h3 className="font-bold text-text-main mb-2">Bagaimana dengan keamanan data perusahaan?</h3>
-                            <p className="text-sm text-text-gray leading-relaxed">Kami menggunakan enkripsi AES-256 untuk data at rest dan TLS 1.3 untuk data in transit. Server berlokasi di data center Tier-3 terpercaya dengan sertifikasi ISO 27001.</p>
+                            <h3 className="font-bold text-text-main mb-2">{locale === 'en' ? "How is my company's data secured?" : 'Bagaimana dengan keamanan data perusahaan?'}</h3>
+                            <p className="text-sm text-text-gray leading-relaxed">{locale === 'en' ? 'We use AES-256 encryption for data at rest and TLS 1.3 for data in transit. Servers are hosted in Tier-3 data centers with ISO 27001 certification.' : 'Kami menggunakan enkripsi AES-256 untuk data at rest dan TLS 1.3 untuk data in transit. Server berlokasi di data center Tier-3 terpercaya dengan sertifikasi ISO 27001.'}</p>
                         </div>
                         <div className="p-6 bg-bg-canvas border border-glass-border rounded-2xl">
-                            <h3 className="font-bold text-text-main mb-2">Apakah tersedia masa percobaan gratis?</h3>
-                            <p className="text-sm text-text-gray leading-relaxed">Tentu. Kami menyediakan Free Trial 14 hari penuh untuk mengevaluasi semua fitur premium kami tanpa memerlukan kartu kredit.</p>
+                            <h3 className="font-bold text-text-main mb-2">{locale === 'en' ? 'Is a free trial available?' : 'Apakah tersedia masa percobaan gratis?'}</h3>
+                            <p className="text-sm text-text-gray leading-relaxed">{locale === 'en' ? 'Absolutely. We offer a full 14-day free trial to evaluate all premium features — no credit card required.' : 'Tentu. Kami menyediakan Free Trial 14 hari penuh untuk mengevaluasi semua fitur premium kami tanpa memerlukan kartu kredit.'}</p>
                         </div>
                     </div>
                 </div>

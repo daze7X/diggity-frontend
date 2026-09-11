@@ -2,8 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { getLocaleServer } from '../../lib/locale-server';
+import { api } from '../../lib/api';
 import ScrollReveal from '../../components/ScrollReveal';
-import { Layers, MonitorSmartphone, ArrowRight } from 'lucide-react';
+import { Layers, MonitorSmartphone, ArrowRight, Bot, Cloud } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'Product Hub - Diggity',
@@ -12,11 +13,15 @@ export const metadata: Metadata = {
 
 export default async function ProductsHubPage() {
     const locale = await getLocaleServer();
+    const hierarchy = await api.getProductHierarchy().catch(() => []);
+    
+    const bsCount = hierarchy.find(c => c.slug === 'business-software')?.children?.length || 8;
+    const dmCount = hierarchy.find(c => c.slug === 'digital-marketplace')?.children?.length || 5;
 
     return (
         <div className="min-h-screen bg-bg-canvas flex flex-col">
             {/* HERO SECTION */}
-            <div className="bg-brand-blue dark:bg-bg-canvas dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
                 <div className="max-w-4xl mx-auto relative z-10 text-center space-y-6">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
                         {locale === 'en' ? 'Diggity Product Ecosystem' : 'Ekosistem Produk Diggity'}
@@ -42,16 +47,22 @@ export default async function ProductsHubPage() {
                                 <div className="h-full bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/30 rounded-3xl p-10 lg:p-12 shadow-xl hover:shadow-brand-blue/5 transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none group-hover:bg-brand-blue/10 transition-colors" />
                                     
-                                    <div className="w-20 h-20 rounded-2xl bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-brand-blue/10 transition-all duration-300">
+                                    <div className="w-20 h-20 rounded-2xl bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-blue/10 transition-all duration-300">
                                         <Layers className="w-10 h-10 text-brand-blue" strokeWidth={1.5} />
                                     </div>
                                     
-                                    <h3 className="text-3xl font-black text-text-main tracking-tight mb-4 group-hover:text-brand-blue transition-colors">
+                                    <h3 className="text-3xl font-black text-text-main tracking-tight mb-2 group-hover:text-brand-blue transition-colors">
                                         Business Software
                                     </h3>
                                     
+                                    <p className="text-sm font-bold text-brand-blue mb-4">
+                                        ({bsCount}) {locale === 'en' ? 'Subcategories' : 'Sub Kategori'}
+                                    </p>
+                                    
                                     <p className="text-base text-text-gray font-medium leading-relaxed mb-10 flex-1">
-                                        Kumpulan aplikasi bisnis terintegrasi untuk mendukung berbagai proses operasional perusahaan.
+                                        {locale === 'en' 
+                                            ? 'An integrated suite of business applications to support various enterprise operations.'
+                                            : 'Kumpulan aplikasi bisnis terintegrasi untuk mendukung berbagai proses operasional perusahaan.'}
                                     </p>
                                     
                                     <div className="inline-flex items-center gap-2 text-sm font-bold text-brand-blue bg-brand-blue/5 px-6 py-3 rounded-full group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
@@ -67,16 +78,22 @@ export default async function ProductsHubPage() {
                                 <div className="h-full bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/30 rounded-3xl p-10 lg:p-12 shadow-xl hover:shadow-brand-blue/5 transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none group-hover:bg-brand-blue/10 transition-colors" />
                                     
-                                    <div className="w-20 h-20 rounded-2xl bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-brand-blue/10 transition-all duration-300">
+                                    <div className="w-20 h-20 rounded-2xl bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-blue/10 transition-all duration-300">
                                         <MonitorSmartphone className="w-10 h-10 text-brand-blue" strokeWidth={1.5} />
                                     </div>
                                     
-                                    <h3 className="text-3xl font-black text-text-main tracking-tight mb-4 group-hover:text-brand-blue transition-colors">
+                                    <h3 className="text-3xl font-black text-text-main tracking-tight mb-2 group-hover:text-brand-blue transition-colors">
                                         Digital Marketplace
                                     </h3>
+
+                                    <p className="text-sm font-bold text-brand-blue mb-4">
+                                        ({dmCount}) {locale === 'en' ? 'Subcategories' : 'Sub Kategori'}
+                                    </p>
                                     
                                     <p className="text-base text-text-gray font-medium leading-relaxed mb-10 flex-1">
-                                        Kumpulan produk dan aset digital siap pakai untuk kebutuhan design, development, content, dan bisnis.
+                                        {locale === 'en'
+                                            ? 'A collection of premium digital assets and ready-to-use products for design, development, and business needs.'
+                                            : 'Kumpulan produk dan aset digital siap pakai untuk kebutuhan design, development, content, dan bisnis.'}
                                     </p>
                                     
                                     <div className="inline-flex items-center gap-2 text-sm font-bold text-brand-blue bg-brand-blue/5 px-6 py-3 rounded-full group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
@@ -84,6 +101,52 @@ export default async function ProductsHubPage() {
                                     </div>
                                 </div>
                             </Link>
+                        </ScrollReveal>
+
+                        {/* AI Products Card (Coming Soon) */}
+                        <ScrollReveal animation="fade-up" delay={300}>
+                            <div className="h-full bg-gray-50/50 dark:bg-glass-bg/50 border border-dashed border-glass-border rounded-3xl p-10 lg:p-12 flex flex-col items-center text-center relative overflow-hidden grayscale-[0.5] opacity-80 cursor-not-allowed">
+                                <div className="w-20 h-20 rounded-2xl bg-gray-200 dark:bg-white/5 flex items-center justify-center mb-6">
+                                    <Bot className="w-10 h-10 text-text-muted" strokeWidth={1.5} />
+                                </div>
+                                
+                                <h3 className="text-3xl font-black text-text-muted tracking-tight mb-4">
+                                    AI Products
+                                </h3>
+                                
+                                <p className="text-base text-text-muted font-medium leading-relaxed mb-10 flex-1">
+                                    {locale === 'en' 
+                                        ? 'Next-generation artificial intelligence tools and models.'
+                                        : 'Alat dan model kecerdasan buatan generasi berikutnya.'}
+                                </p>
+                                
+                                <div className="inline-flex items-center justify-center text-xs font-black uppercase tracking-widest text-text-muted bg-gray-200 dark:bg-white/10 px-6 py-2 rounded-full">
+                                    {locale === 'en' ? 'Coming Soon' : 'Segera Hadir'}
+                                </div>
+                            </div>
+                        </ScrollReveal>
+
+                        {/* Cloud Products Card (Coming Soon) */}
+                        <ScrollReveal animation="fade-up" delay={400}>
+                            <div className="h-full bg-gray-50/50 dark:bg-glass-bg/50 border border-dashed border-glass-border rounded-3xl p-10 lg:p-12 flex flex-col items-center text-center relative overflow-hidden grayscale-[0.5] opacity-80 cursor-not-allowed">
+                                <div className="w-20 h-20 rounded-2xl bg-gray-200 dark:bg-white/5 flex items-center justify-center mb-6">
+                                    <Cloud className="w-10 h-10 text-text-muted" strokeWidth={1.5} />
+                                </div>
+                                
+                                <h3 className="text-3xl font-black text-text-muted tracking-tight mb-4">
+                                    Cloud Products
+                                </h3>
+                                
+                                <p className="text-base text-text-muted font-medium leading-relaxed mb-10 flex-1">
+                                    {locale === 'en' 
+                                        ? 'Scalable cloud infrastructure and hosting solutions.'
+                                        : 'Infrastruktur cloud dan solusi hosting yang skalabel.'}
+                                </p>
+                                
+                                <div className="inline-flex items-center justify-center text-xs font-black uppercase tracking-widest text-text-muted bg-gray-200 dark:bg-white/10 px-6 py-2 rounded-full">
+                                    {locale === 'en' ? 'Coming Soon' : 'Segera Hadir'}
+                                </div>
+                            </div>
                         </ScrollReveal>
                     </div>
                 </div>

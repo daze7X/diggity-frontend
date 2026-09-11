@@ -79,7 +79,7 @@ export default async function SubCategoryPage({
             <div className="absolute inset-0 bg-bg-canvas -z-10" />
 
             {/* HERO SECTION */}
-            <div className="bg-brand-blue dark:bg-bg-canvas dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
                 {/* Abstract Blobs (Hidden in Dark Mode for cleaner look) */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 dark:hidden" />
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/20 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2 dark:hidden" />

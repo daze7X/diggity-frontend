@@ -25,7 +25,7 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
     return (
         <div className="min-h-screen bg-bg-canvas relative overflow-hidden">
             {/* HERO SECTION WITH SEARCH */}
-            <div className="bg-brand-blue dark:bg-bg-canvas dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
                 <div className="max-w-4xl mx-auto relative z-10 text-center space-y-8">
                     <ScrollReveal>
                         <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-[1.1]">

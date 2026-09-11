@@ -2,13 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { KeyRound, Mail, ArrowRight, Loader2, Sparkles, ShieldCheck } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 
 export default function LoginPage() {
+    return (
+        <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin text-brand-blue" /></div>}>
+            <LoginForm />
+        </React.Suspense>
+    );
+}
+
+function LoginForm() {
     const { user, login, loading } = useAuth();
     const { language: locale } = useLanguage();
     const router = useRouter();
@@ -18,11 +26,14 @@ export default function LoginPage() {
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [errorMessage, setErrorMessage] = useState('');
 
+    const searchParams = useSearchParams();
+    const redirectUrl = searchParams.get('redirect') || '/dashboard';
+
     useEffect(() => {
         if (!loading && user) {
-            router.push('/dashboard');
+            router.push(redirectUrl);
         }
-    }, [user, loading, router]);
+    }, [user, loading, router, redirectUrl]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,7 +42,7 @@ export default function LoginPage() {
 
         try {
             await login(email, password);
-            router.push('/dashboard');
+            router.push(redirectUrl);
         } catch (err: any) {
             console.error('Login error:', err);
             setStatus('error');
@@ -102,10 +113,10 @@ export default function LoginPage() {
                             <div className="space-y-1.5">
                                 <div className="flex items-center justify-between">
                                     <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                                        {locale === 'en' ? 'Password' : 'Kata Sandi'}
+                                        Password
                                     </label>
-                                    <Link href="/contact?forgot-password" className="text-[11px] font-bold text-brand-blue hover:text-brand-blue-dark transition-colors">
-                                        {locale === 'en' ? 'Forgot password?' : 'Lupa kata sandi?'}
+                                    <Link href="/forgot-password" className="text-[11px] font-bold text-brand-blue hover:text-brand-blue/80 transition-colors">
+                                        {locale === 'en' ? 'Forgot password?' : 'Lupa password?'}
                                     </Link>
                                 </div>
                                 <div className="relative">
@@ -123,33 +134,31 @@ export default function LoginPage() {
                                 </div>
                             </div>
 
-                            <div className="pt-2">
-                                <button
-                                    type="submit"
-                                    disabled={status === 'loading'}
-                                    className="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-lg shadow-brand-blue/20 text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue transition-all disabled:opacity-50 disabled:cursor-not-allowed group cursor-pointer"
-                                >
-                                    {status === 'loading' ? (
-                                        <Loader2 className="w-5 h-5 animate-spin" />
-                                    ) : (
-                                        <>
-                                            {locale === 'en' ? 'Login Securely' : 'Masuk dengan Aman'}
-                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                        </>
-                                    )}
-                                </button>
-                            </div>
+                            <button
+                                type="submit"
+                                disabled={status === 'loading'}
+                                className="group w-full flex items-center justify-center gap-2 py-3 px-4 bg-brand-blue hover:bg-brand-blue/90 text-white text-sm font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-blue/20"
+                            >
+                                {status === 'loading' ? (
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                ) : (
+                                    <>
+                                        {locale === 'en' ? 'Login Securely' : 'Masuk Aman'}
+                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    </>
+                                )}
+                            </button>
                         </form>
                     </div>
 
-                    {/* Footer link */}
-                    <div className="text-center text-xs text-text-gray font-medium pt-2 border-t border-glass-border/40">
-                        {locale === 'en' ? 'Don\'t have an account?' : 'Belum punya akun?'} {' '}
-                        <Link href="/register" className="text-brand-blue font-bold hover:underline inline-flex items-center gap-0.5">
-                            {locale === 'en' ? 'Register Now' : 'Daftar Sekarang'} <Sparkles className="w-3 h-3" />
-                        </Link>
+                    <div className="text-center">
+                        <p className="text-sm text-text-gray font-medium">
+                            {locale === 'en' ? "Don't have an account? " : "Belum punya akun? "}
+                            <Link href="/register" className="text-brand-blue font-bold hover:underline">
+                                {locale === 'en' ? 'Create Account' : 'Daftar Sekarang'}
+                            </Link>
+                        </p>
                     </div>
-
                 </SpotlightCard>
             </div>
         </div>

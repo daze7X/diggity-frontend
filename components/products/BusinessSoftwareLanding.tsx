@@ -14,7 +14,8 @@ interface Props {
 
 export default async function BusinessSoftwareLanding({ mainCat }: Props) {
     const locale = await getLocaleServer();
-    const featured = await api.getProducts({ category: mainCat.slug, is_popular: true, limit: 2 }).catch(() => []);
+    const freeProducts = await api.getProducts({ category: mainCat.slug, filter: 'free', limit: 4 }).catch(() => []);
+    const paidProducts = await api.getProducts({ category: mainCat.slug, filter: 'paid', limit: 4 }).catch(() => []);
 
     return (
         <div className="min-h-screen bg-bg-canvas relative overflow-hidden">
@@ -40,7 +41,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                         </p>
                     </ScrollReveal>
                     <ScrollReveal delay={200} className="pt-4">
-                        <Link href="#pricing" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-blue font-bold rounded-full hover:bg-glass-bg transition-all transform hover:scale-105 shadow-xl">
+                        <Link href="#free-products" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-blue font-bold rounded-full hover:bg-glass-bg transition-all transform hover:scale-105 shadow-xl">
                             {locale === 'en' ? 'Start Free Trial' : 'Mulai Free Trial'} <ArrowRight className="w-5 h-5" />
                         </Link>
                     </ScrollReveal>
@@ -83,17 +84,44 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                 </div>
             </div>
 
-            {/* FEATURED PRODUCTS SECTION */}
-            {featured.length > 0 && (
-                <div className="bg-glass-bg border-y border-glass-border py-24">
+            
+            {/* FREE PRODUCTS SECTION */}
+            {freeProducts.length > 0 && (
+                <div id="free-products" className="bg-glass-bg border-y border-glass-border py-24 scroll-mt-24">
                     <div className="max-w-6xl mx-auto px-6">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Popular Solutions' : 'Solusi Populer'}</h2>
-                            <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? 'The most widely used modules by our enterprise clients.' : 'Modul yang paling sering digunakan oleh klien enterprise kami.'}</p>
+                            <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Free Business Modules' : 'Modul Bisnis Gratis'}</h2>
+                            <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? 'Start optimizing your operations today with zero cost.' : 'Mulai optimasi operasional Anda hari ini tanpa biaya.'}</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {featured.map(product => (
+                            {freeProducts.map(product => (
                                 <SpotlightCard key={product.id} className="p-8 border border-glass-border bg-bg-canvas flex items-start gap-6">
+                                    <div className="w-16 h-16 rounded-2xl bg-brand-blue/10 flex items-center justify-center shrink-0">
+                                        <SubServiceIcon slug={product.slug || ""} fallbackCategoryIcon="layers" className="w-8 h-8 text-brand-blue" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-text-main mb-2">{product.name}</h3>
+                                        <p className="text-sm text-text-gray mb-4 line-clamp-2">{product.description}</p>
+                                        <Link href={`/products/business-software/${product.category?.slug}/${product.slug}`} className="text-xs font-bold text-brand-blue flex items-center hover:underline">{locale === 'en' ? 'Learn More' : 'Pelajari Lebih Lanjut'} <ArrowRight className="w-3 h-3 ml-1" /></Link>
+                                    </div>
+                                </SpotlightCard>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* PAID PRODUCTS SECTION */}
+            {paidProducts.length > 0 && (
+                <div id="paid-products" className="bg-bg-canvas border-b border-glass-border py-24 scroll-mt-24">
+                    <div className="max-w-6xl mx-auto px-6">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Premium Business Solutions' : 'Solusi Bisnis Premium'}</h2>
+                            <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? 'Enterprise-grade modules designed for scalability and high performance.' : 'Modul skala enterprise yang dirancang untuk skalabilitas dan performa tinggi.'}</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {paidProducts.map(product => (
+                                <SpotlightCard key={product.id} className="p-8 border border-glass-border bg-glass-bg flex items-start gap-6">
                                     <div className="w-16 h-16 rounded-2xl bg-brand-blue/10 flex items-center justify-center shrink-0">
                                         <SubServiceIcon slug={product.slug || ""} fallbackCategoryIcon="layers" className="w-8 h-8 text-brand-blue" />
                                     </div>
@@ -151,7 +179,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Access 1 Core Module' : 'Akses 1 Modul Dasar'}</li>
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Up to 5 Users' : 'Maksimal 5 User'}</li>
                         </ul>
-                        <Link href="/register" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 hover:shadow-md active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'Try Free' : 'Coba Gratis'}</Link>
+                        <Link href="#free-products" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 hover:shadow-md active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'View Free Products' : 'Lihat Produk Gratis'}</Link>
                     </SpotlightCard>
 
                     {/* Professional — badge absolutely positioned, does NOT affect card layout */}
@@ -170,7 +198,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Unlimited Users (Tiers)</li>
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Priority Support' : 'Prioritas Support'}</li>
                             </ul>
-                            <Link href="#categories" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark hover:shadow-lg hover:shadow-brand-blue/25 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'View Products' : 'Lihat Produk'}</Link>
+                            <Link href="#paid-products" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark hover:shadow-lg hover:shadow-brand-blue/25 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'View Paid Products' : 'Lihat Produk Berbayar'}</Link>
                         </SpotlightCard>
                     </div>
 

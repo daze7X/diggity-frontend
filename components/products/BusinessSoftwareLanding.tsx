@@ -50,7 +50,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
             </div>
 
             {/* CATEGORIES SECTION */}
-            <div className="max-w-6xl mx-auto px-6 py-24 relative z-10">
+            <div id="categories" className="max-w-6xl mx-auto px-6 py-24 relative z-10">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Solution Categories' : 'Kategori Solusi'}</h2>
                     <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? "Choose the module that best suits your team's needs." : 'Pilih modul yang paling sesuai dengan kebutuhan divisi Anda.'}</p>
@@ -170,7 +170,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Unlimited Users (Tiers)</li>
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Priority Support' : 'Prioritas Support'}</li>
                             </ul>
-                            <Link href="/products/business-software" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark hover:shadow-lg hover:shadow-brand-blue/25 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'View Products' : 'Lihat Produk'}</Link>
+                            <Link href="#categories" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark hover:shadow-lg hover:shadow-brand-blue/25 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'View Products' : 'Lihat Produk'}</Link>
                         </SpotlightCard>
                     </div>
 

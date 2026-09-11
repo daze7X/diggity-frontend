@@ -179,7 +179,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Access 1 Core Module' : 'Akses 1 Modul Dasar'}</li>
                             <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Up to 5 Users' : 'Maksimal 5 User'}</li>
                         </ul>
-                        <Link href="#free-products" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 hover:shadow-md active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'View Free Products' : 'Lihat Produk Gratis'}</Link>
+                        <Link href="/register" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 hover:shadow-md active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'Create Free Account' : 'Buat Akun Gratis'}</Link>
                     </SpotlightCard>
 
                     {/* Professional — badge absolutely positioned, does NOT affect card layout */}
@@ -198,7 +198,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Unlimited Users (Tiers)</li>
                                 <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Priority Support' : 'Prioritas Support'}</li>
                             </ul>
-                            <Link href="#paid-products" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark hover:shadow-lg hover:shadow-brand-blue/25 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'View Paid Products' : 'Lihat Produk Berbayar'}</Link>
+                            <Link href="/register" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark hover:shadow-lg hover:shadow-brand-blue/25 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 transition-all duration-200">{locale === 'en' ? 'Get Started' : 'Mulai Berlangganan'}</Link>
                         </SpotlightCard>
                     </div>
 

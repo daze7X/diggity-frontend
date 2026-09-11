@@ -154,7 +154,7 @@ function LoginForm() {
                     <div className="text-center">
                         <p className="text-sm text-text-gray font-medium">
                             {locale === 'en' ? "Don't have an account? " : "Belum punya akun? "}
-                            <Link href="/register" className="text-brand-blue font-bold hover:underline">
+                            <Link href={redirectUrl !== '/dashboard' ? `/register?redirect=${encodeURIComponent(redirectUrl)}` : '/register'} className="text-brand-blue font-bold hover:underline">
                                 {locale === 'en' ? 'Create Account' : 'Daftar Sekarang'}
                             </Link>
                         </p>

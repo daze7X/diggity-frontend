@@ -2,13 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { User, Mail, KeyRound, ArrowRight, Loader2, Sparkles, UserPlus } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 
 export default function RegisterPage() {
+    return (
+        <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin text-brand-blue" /></div>}>
+            <RegisterForm />
+        </React.Suspense>
+    );
+}
+
+function RegisterForm() {
     const { user, register, loading } = useAuth();
     const { language: locale } = useLanguage();
     const router = useRouter();
@@ -20,11 +28,14 @@ export default function RegisterPage() {
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [errorMessage, setErrorMessage] = useState('');
 
+    const searchParams = useSearchParams();
+    const redirectUrl = searchParams.get('redirect') || '/dashboard';
+
     useEffect(() => {
         if (!loading && user) {
-            router.push('/dashboard');
+            router.push(redirectUrl);
         }
-    }, [user, loading, router]);
+    }, [user, loading, router, redirectUrl]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,7 +51,7 @@ export default function RegisterPage() {
         try {
             await register(name, email, password, passwordConfirmation);
             setStatus('success');
-            router.push('/dashboard');
+            router.push(redirectUrl);
         } catch (err: any) {
             console.error('Registration error:', err);
             setStatus('error');
@@ -181,7 +192,7 @@ export default function RegisterPage() {
                     {/* Footer link */}
                     <div className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400 font-medium">
                         {locale === 'en' ? 'Already have an account?' : 'Sudah punya akun?'} {' '}
-                        <Link href="/login" className="font-bold text-brand-blue hover:text-brand-blue-dark transition-colors">
+                        <Link href={redirectUrl !== '/dashboard' ? `/login?redirect=${encodeURIComponent(redirectUrl)}` : '/login'} className="font-bold text-brand-blue hover:text-brand-blue-dark transition-colors">
                             {locale === 'en' ? 'Sign in' : 'Masuk di sini'}
                         </Link>
                     </div>

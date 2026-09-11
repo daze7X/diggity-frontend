@@ -25,7 +25,7 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Footer() {
-    const { t } = useLanguage();
+    const { t, language: locale } = useLanguage();
     const [settings, setSettings] = useState<CompanySetting>({
         name: 'Diggity Agency',
         email: 'hello@diggity.com',
@@ -155,7 +155,7 @@ export default function Footer() {
                             Newsletter
                         </h4>
                         <p className="text-sm text-slate-400 leading-relaxed">
-                            Dapatkan update wawasan teknologi dan digital marketing terbaik langsung ke inbox Anda.
+                            {locale === 'en' ? 'Get the latest tech and digital marketing insights delivered straight to your inbox.' : 'Dapatkan update wawasan teknologi dan digital marketing terbaik langsung ke inbox Anda.'}
                         </p>
                         <form onSubmit={handleSubscribe} className="relative">
                             <input
@@ -163,7 +163,7 @@ export default function Footer() {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Alamat email Anda"
+                                placeholder={locale === 'en' ? 'Your email address' : 'Alamat email Anda'}
                                 className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:border-brand-blue focus:outline-none text-sm text-slate-200 placeholder-slate-600"
                             />
                             <button
@@ -185,7 +185,7 @@ export default function Footer() {
                         )}
                         <div className="pt-2 text-left">
                             <Link href="/unsubscribe" className="text-xs text-slate-500 hover:text-slate-300 transition-colors underline">
-                                Berhenti berlangganan?
+                                {locale === 'en' ? 'Unsubscribe?' : 'Berhenti berlangganan?'}
                             </Link>
                         </div>
                     </div>

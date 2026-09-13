@@ -26,6 +26,25 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
         <div className="min-h-screen bg-bg-canvas relative overflow-hidden">
             {/* HERO SECTION WITH SEARCH */}
             <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+                {/* SVG Filter for Gooey Effect */}
+                <svg className="hidden">
+                    <defs>
+                        <filter id="goo" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="25" result="blur" />
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo" />
+                            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                        </filter>
+                    </defs>
+                </svg>
+
+                {/* Animated Background Blobs */}
+                <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block opacity-40 mix-blend-screen transform-gpu overflow-hidden" style={{ filter: "url('#goo')", willChange: "filter, transform" }}>
+                    <div className="absolute -left-32 top-1/4 w-96 h-96 bg-blue-600 rounded-full animate-morph-blob mix-blend-screen" />
+                    <div className="absolute -left-10 top-1/3 w-72 h-72 bg-indigo-500 rounded-full animate-gooey-1 mix-blend-screen" />
+                    <div className="absolute -right-32 bottom-1/4 w-96 h-96 bg-purple-600 rounded-full animate-morph-blob-fast mix-blend-screen" />
+                    <div className="absolute -right-10 bottom-1/3 w-64 h-64 bg-cyan-500 rounded-full animate-gooey-2 mix-blend-screen" />
+                </div>
+
                 <div className="max-w-4xl mx-auto relative z-10 text-center space-y-8">
                     <ScrollReveal>
                         <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-[1.1]">

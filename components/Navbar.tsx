@@ -258,7 +258,7 @@ export default function Navbar() {
                                         : 'text-text-gray'
                                 }`}
                             >
-                                <span>Solutions</span>
+                                <span>{t('nav.solutions')}</span>
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
                             </Link>
                         </div>
@@ -275,7 +275,7 @@ export default function Navbar() {
                                     isActive('/products') ? 'text-brand-blue' : 'text-text-gray'
                                 }`}
                             >
-                                <span>Products</span>
+                                <span>{t('nav.products')}</span>
                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
                             </Link>
                         </div>
@@ -892,7 +892,7 @@ export default function Navbar() {
                                 className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
                             >
                                 <span className={isActive('/solutions') || isActive('/job-connect/headhunting') || isActive('/job-connect/outsourcing') ? 'text-brand-blue' : ''}>
-                                    Solutions
+                                    {t('nav.solutions')}
                                 </span>
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'solutions' ? 'rotate-180' : ''}`} />
                             </button>
@@ -917,7 +917,7 @@ export default function Navbar() {
                                 className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
                             >
                                 <span className={isActive('/products') ? 'text-brand-blue' : ''}>
-                                    Products
+                                    {t('nav.products')}
                                 </span>
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'products' ? 'rotate-180' : ''}`} />
                             </button>

@@ -15,7 +15,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const dictionaries = {
     id: {
         'nav.home': 'Beranda',
-        'nav.about': 'Tentang Kami',
+        'nav.about': 'Tentang',
         'nav.solutions': 'Solusi',
         'nav.products': 'Produk',
         'nav.product_solution': 'Produk & Solusi',

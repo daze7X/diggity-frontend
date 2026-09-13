@@ -192,8 +192,8 @@ export default async function SubCategoryPage({
                 <div className="bg-white dark:bg-glass-bg rounded-3xl p-8 md:p-12 border border-glass-border shadow-xl">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                         <div>
-                            <h2 className="text-2xl font-black text-text-main tracking-tight mb-2">Katalog Modul {subcategory?.name}</h2>
-                            <p className="text-text-gray font-medium text-sm">Pilih produk spesifik di bawah ini untuk melihat detail fitur dan spesifikasi lengkapnya.</p>
+                            <h2 className="text-2xl font-black text-text-main tracking-tight mb-2">{locale === 'en' ? `Module Catalog ${subcategory?.name}` : `Katalog Modul ${subcategory?.name}`}</h2>
+                            <p className="text-text-gray font-medium text-sm">{locale === 'en' ? 'Select a specific product below to view its full features and specifications.' : 'Pilih produk spesifik di bawah ini untuk melihat detail fitur dan spesifikasi lengkapnya.'}</p>
                         </div>
                     </div>
 
@@ -285,9 +285,19 @@ export default async function SubCategoryPage({
                             </ScrollReveal>
                         ))}
                                                 {products.length === 0 && (
-                            <div className="col-span-full text-center py-20 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50">
-                                <p className="text-text-muted font-bold tracking-widest uppercase">No Products Found</p>
-                                <p className="text-sm text-text-gray mt-2">Coba ubah filter atau kata kunci pencarian Anda.</p>
+                            <div className="col-span-full flex flex-col items-center justify-center py-24 px-6 border border-glass-border rounded-3xl bg-glass-bg/50 backdrop-blur-sm relative overflow-hidden group">
+                                <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/5 to-transparent opacity-50 pointer-events-none transition-opacity duration-500 group-hover:opacity-100"></div>
+                                <div className="w-20 h-20 mb-6 rounded-full bg-brand-primary/10 flex items-center justify-center border border-brand-primary/20 shadow-[0_0_30px_rgba(24,115,232,0.15)] transition-transform duration-500 group-hover:scale-110">
+                                    <svg className="w-10 h-10 text-brand-primary opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-black text-text-main mb-2 tracking-tight uppercase">
+                                    {locale === 'en' ? 'NO PRODUCTS FOUND' : 'PRODUK TIDAK DITEMUKAN'}
+                                </h3>
+                                <p className="text-text-gray text-center text-sm font-medium max-w-md">
+                                    {locale === 'en' ? 'Try changing your filters or search keywords.' : 'Coba ubah filter atau kata kunci pencarian Anda.'}
+                                </p>
                             </div>
                         )}
                     </div>

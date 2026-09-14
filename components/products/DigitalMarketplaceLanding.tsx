@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Form from 'next/form';
 import { api, CategoryHierarchy } from '../../lib/api';
 import ScrollReveal from '../ScrollReveal';
 import SpotlightCard from '../SpotlightCard';
@@ -53,7 +54,7 @@ export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }
 
                     {/* Search Bar */}
                     <ScrollReveal delay={200} className="max-w-2xl mx-auto pt-6">
-                        <form action="/products/digital-marketplace" method="GET" className="flex items-center bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 rounded-full p-2 focus-within:ring-2 focus-within:ring-brand-blue transition-all shadow-2xl">
+                        <Form action="/products/digital-marketplace" className="flex items-center bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 rounded-full p-2 focus-within:ring-2 focus-within:ring-brand-blue transition-all shadow-2xl">
                             <div className="pl-4 pr-2 text-white/60">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -66,7 +67,7 @@ export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }
                             <button className="px-8 py-3 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold rounded-full transition-colors shadow-lg shadow-brand-blue/30 whitespace-nowrap">
                                 {locale === 'en' ? 'Search' : 'Cari'}
                             </button>
-                        </form>
+                        </Form>
                     </ScrollReveal>
                 </div>
             </div>

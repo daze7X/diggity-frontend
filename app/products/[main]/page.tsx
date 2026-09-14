@@ -6,8 +6,10 @@ import DigitalMarketplaceLanding from '../../../components/products/DigitalMarke
 
 export const revalidate = 60;
 
-export default async function MainCategoryPage({ params }: { params: Promise<{ main: string }> }) {
+export default async function MainCategoryPage({ params, searchParams }: { params: Promise<{ main: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     const { main } = await params;
+    const sp = await searchParams;
+    const searchQuery = typeof sp.q === 'string' ? sp.q : '';
     const hierarchy = await api.getProductHierarchy().catch(() => []);
     
     const mainCat = hierarchy.find(c => c.slug === main);
@@ -21,7 +23,7 @@ export default async function MainCategoryPage({ params }: { params: Promise<{ m
     }
 
     if (mainCat.slug === 'digital-marketplace') {
-        return <DigitalMarketplaceLanding mainCat={mainCat} />;
+        return <DigitalMarketplaceLanding mainCat={mainCat} searchQuery={searchQuery} />;
     }
 
     // Fallback for other categories (if any exist in the future)

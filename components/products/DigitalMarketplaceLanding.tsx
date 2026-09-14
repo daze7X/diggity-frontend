@@ -12,9 +12,11 @@ interface Props {
     mainCat: CategoryHierarchy;
 }
 
-export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
+interface DMLandingProps extends Props { searchQuery?: string; }
+export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }: DMLandingProps) {
     const locale = await getLocaleServer();
     // Fetch products in parallel for different merchandising sections
+    const searchResults = searchQuery ? await api.getProducts({ category: mainCat.slug, search: searchQuery }).catch(() => []) : [];
     const [featured, latest, free, premium] = await Promise.all([
         api.getProducts({ category: mainCat.slug, is_popular: true, limit: 4 }).catch(() => []),
         api.getProducts({ category: mainCat.slug, sort: 'latest', limit: 4 }).catch(() => []),
@@ -51,21 +53,20 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
 
                     {/* Search Bar */}
                     <ScrollReveal delay={200} className="max-w-2xl mx-auto pt-6">
-                        <div className="flex items-center bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 rounded-full p-2 focus-within:ring-2 focus-within:ring-brand-blue transition-all shadow-2xl">
+                        <form action="/products/digital-marketplace" method="GET" className="flex items-center bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 rounded-full p-2 focus-within:ring-2 focus-within:ring-brand-blue transition-all shadow-2xl">
                             <div className="pl-4 pr-2 text-white/60">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
                             <input 
-                                type="text" 
-                                placeholder={locale === 'en' ? "Search website templates, UI kits, 3D assets..." : "Cari template website, UI kit, aset 3D..."}
+                                type="text" name="q" defaultValue={searchQuery} placeholder={locale === 'en' ? "Search website templates, UI kits, 3D assets..." : "Cari template website, UI kit, aset 3D..."}
                                 className="flex-1 bg-transparent border-none outline-none text-white placeholder-white/50 text-sm md:text-base py-3"
                             />
                             <button className="px-8 py-3 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold rounded-full transition-colors shadow-lg shadow-brand-blue/30 whitespace-nowrap">
                                 {locale === 'en' ? 'Search' : 'Cari'}
                             </button>
-                        </div>
+                        </form>
                     </ScrollReveal>
                 </div>
             </div>
@@ -89,8 +90,34 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
                 </div>
             </div>
 
+                        {/* SEARCH RESULTS SECTION */}
+            {searchQuery && (
+                <div className="max-w-7xl mx-auto px-6 py-12">
+                    <div className="mb-8">
+                        <h2 className="text-2xl font-black text-text-main">
+                            {locale === 'en' ? 'Search Results for' : 'Hasil Pencarian untuk'} "{searchQuery}"
+                        </h2>
+                        <p className="text-text-gray mt-2">{searchResults.length} {locale === 'en' ? 'assets found' : 'aset ditemukan'}</p>
+                    </div>
+                    {searchResults.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {searchResults.map(product => (
+                                <ProductCard key={product.id} product={product} locale={locale} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-24 bg-glass-bg border border-glass-border rounded-3xl">
+                            <h3 className="text-xl font-bold text-text-main mb-2">Oops, tidak ada hasil</h3>
+                            <p className="text-text-gray">Coba gunakan kata kunci lain.</p>
+                        </div>
+                    )}
+                </div>
+            )}
+
             {/* MERCHANDISING SECTIONS */}
             <div className="max-w-7xl mx-auto px-6 pb-24 space-y-24">
+                {!searchQuery && (
+                    <>
                 
                 {/* FEATURED ASSETS */}
                 {featured.length > 0 && (
@@ -169,6 +196,8 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
                         </section>
                     )}
                 </div>
+                    </>
+                )}
             </div>
 
             {/* FAQ SECTION */}

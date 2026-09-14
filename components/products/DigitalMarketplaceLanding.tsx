@@ -17,7 +17,8 @@ interface DMLandingProps extends Props { searchQuery?: string; }
 export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }: DMLandingProps) {
     const locale = await getLocaleServer();
     // Fetch products in parallel for different merchandising sections
-    const searchResults = searchQuery ? await api.getProducts({ category: mainCat.slug, search: searchQuery }).catch(() => []) : [];
+    const searchResultsRaw = searchQuery ? await api.getProducts({ search: searchQuery }).catch(() => []) : [];
+    const searchResults = searchResultsRaw.filter(p => p.category?.id === mainCat.id || (p.category as any)?.parent_id === mainCat.id || p.category?.slug === mainCat.slug);
     const [featured, latest, free, premium] = await Promise.all([
         api.getProducts({ category: mainCat.slug, is_popular: true, limit: 4 }).catch(() => []),
         api.getProducts({ category: mainCat.slug, sort: 'latest', limit: 4 }).catch(() => []),

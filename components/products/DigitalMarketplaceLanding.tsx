@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import Form from 'next/form';
 import { api, CategoryHierarchy } from '../../lib/api';
 import ScrollReveal from '../ScrollReveal';
 import SpotlightCard from '../SpotlightCard';
 import SubServiceIcon from '../SubServiceIcon';
 import ProductCard from './ProductCard';
+import MarketplaceSearchBar from './MarketplaceSearchBar';
 import { Search, ArrowRight, Star, Clock, Zap, Crown } from 'lucide-react';
 import { getLocaleServer } from '../../lib/locale-server';
 
@@ -54,20 +54,7 @@ export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }
 
                     {/* Search Bar */}
                     <ScrollReveal delay={200} className="max-w-2xl mx-auto pt-6">
-                        <Form action="/products/digital-marketplace" className="flex items-center bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 rounded-full p-2 focus-within:ring-2 focus-within:ring-brand-blue transition-all shadow-2xl">
-                            <div className="pl-4 pr-2 text-white/60">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                            <input 
-                                type="text" name="q" defaultValue={searchQuery} placeholder={locale === 'en' ? "Search website templates, UI kits, 3D assets..." : "Cari template website, UI kit, aset 3D..."}
-                                className="flex-1 bg-transparent border-none outline-none text-white placeholder-white/50 text-sm md:text-base py-3"
-                            />
-                            <button className="px-8 py-3 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold rounded-full transition-colors shadow-lg shadow-brand-blue/30 whitespace-nowrap">
-                                {locale === 'en' ? 'Search' : 'Cari'}
-                            </button>
-                        </Form>
+                        <MarketplaceSearchBar locale={locale} initialQuery={searchQuery} />
                     </ScrollReveal>
                 </div>
             </div>
@@ -93,7 +80,7 @@ export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }
 
                         {/* SEARCH RESULTS SECTION */}
             {searchQuery && (
-                <div className="max-w-7xl mx-auto px-6 py-12">
+                <div id="search-results-section" className="max-w-7xl mx-auto px-6 py-12 scroll-mt-24">
                     <div className="mb-8">
                         <h2 className="text-2xl font-black text-text-main">
                             {locale === 'en' ? 'Search Results for' : 'Hasil Pencarian untuk'} "{searchQuery}"

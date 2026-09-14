@@ -331,8 +331,8 @@ export default async function SubCategoryPage({
                     let price = '';
                     let isOneTime = false;
                     
-                    if (mainCat?.slug === 'business-software') {
-                        switch (subcategory?.slug) {
+                    if (main === 'business-software') {
+                        switch (sub) {
                             case 'website-commerce': suiteName = 'Website Suite'; price = 'Rp699.000/bulan'; break;
                             case 'sales': suiteName = 'Sales Suite'; price = 'Rp799.000/bulan'; break;
                             case 'finance': suiteName = 'Finance Suite'; price = 'Rp699.000/bulan'; break;
@@ -342,9 +342,9 @@ export default async function SubCategoryPage({
                             case 'services': suiteName = 'Services Suite'; price = 'Rp699.000/bulan'; break;
                             case 'productivity': suiteName = 'Productivity Suite'; price = 'Rp499.000/bulan'; break;
                         }
-                    } else if (mainCat?.slug === 'digital-marketplace') {
+                    } else if (main === 'digital-marketplace') {
                         isOneTime = true;
-                        switch (subcategory?.slug) {
+                        switch (sub) {
                             case 'graphics': suiteName = 'Graphics Bundle'; price = 'Rp49.000 – Rp149.000'; break;
                             case 'design-templates': suiteName = 'Design Bundle'; price = 'Rp75.000 – Rp299.000'; break;
                             case '3d': suiteName = '3D Bundle'; price = 'Rp149.000 – Rp499.000'; break;

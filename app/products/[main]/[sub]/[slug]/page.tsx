@@ -392,7 +392,7 @@ export default async function ProductDetail({ params }: Props) {
                                     {product.pricings && product.pricings.length > 0 ? (
                                         <>
                                             <span className="text-3xl">Rp {new Intl.NumberFormat('id-ID').format(Number(product.pricings[0].price || 0))}</span>
-                                            <span className="text-sm font-medium text-text-gray mb-1">/{product.pricings[0].billing_period === 'monthly' ? 'bulan' : 'tahun'}</span>
+                                            <span className="text-sm font-medium text-text-gray mb-1">/{product.pricings[0].period === 'monthly' ? 'bulan' : 'tahun'}</span>
                                         </>
                                     ) : (
                                         <>

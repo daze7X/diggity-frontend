@@ -60,7 +60,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                         </p>
                     </ScrollReveal>
                     <ScrollReveal delay={200} className="pt-4">
-                        <Link href="#free-products" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-blue font-bold rounded-full hover:bg-glass-bg transition-all transform hover:scale-105 shadow-xl">
+                        <Link href="/register" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-blue font-bold rounded-full hover:bg-glass-bg transition-all transform hover:scale-105 shadow-xl">
                             {locale === 'en' ? 'Start Free Trial' : 'Mulai Free Trial'} <ArrowRight className="w-5 h-5" />
                         </Link>
                     </ScrollReveal>

@@ -26,19 +26,10 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
         <div className="min-h-screen bg-bg-canvas relative overflow-hidden">
             {/* HERO SECTION - SHAYNA KIT STYLE */}
             <div className="bg-brand-blue dark:bg-brand-bg relative pt-32 pb-32 px-6 overflow-hidden border-b border-glass-border">
-                {/* SVG Filter for Gooey Effect */}
-                <svg className="hidden">
-                    <defs>
-                        <filter id="goo" x="-50%" y="-50%" width="200%" height="200%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="25" result="blur" />
-                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo" />
-                            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-                        </filter>
-                    </defs>
-                </svg>
+                
 
                 {/* Animated Background Blobs (Huge Purple/Blue Orbs) */}
-                <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block opacity-60 mix-blend-screen transform-gpu overflow-hidden" style={{ filter: "url('#goo')", willChange: "filter, transform" }}>
+                <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block opacity-60 mix-blend-screen transform-gpu overflow-hidden" style={{ willChange: "transform" }}>
                     <div className="absolute left-0 top-0 w-[800px] h-[800px] bg-blue-600 rounded-full animate-morph-blob mix-blend-screen -translate-x-1/2 -translate-y-1/4 opacity-50" />
                     <div className="absolute right-0 bottom-0 w-[600px] h-[600px] bg-purple-600 rounded-full animate-morph-blob-fast mix-blend-screen translate-x-1/3 translate-y-1/4 opacity-50" />
                 </div>

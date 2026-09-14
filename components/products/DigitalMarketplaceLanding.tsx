@@ -6,6 +6,7 @@ import SpotlightCard from '../SpotlightCard';
 import SubServiceIcon from '../SubServiceIcon';
 import ProductCard from './ProductCard';
 import MarketplaceSearchBar from './MarketplaceSearchBar';
+import MarketplaceSearchResults from './MarketplaceSearchResults';
 import { Search, ArrowRight, Star, Clock, Zap, Crown } from 'lucide-react';
 import { getLocaleServer } from '../../lib/locale-server';
 
@@ -109,7 +110,7 @@ export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }
                         <h2 className="text-2xl font-black text-text-main">
                             {locale === 'en' ? 'Search Results for' : 'Hasil Pencarian untuk'} "{searchQuery}"
                         </h2>
-                        <p className="text-text-gray mt-2">{finalSearchResults.length} {locale === 'en' ? 'assets found' : 'aset ditemukan'}</p>
+                        
                     </div>
                     {finalSearchResults.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -17,8 +17,31 @@ interface DMLandingProps extends Props { searchQuery?: string; }
 export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }: DMLandingProps) {
     const locale = await getLocaleServer();
     // Fetch products in parallel for different merchandising sections
-    const searchResultsRaw = searchQuery ? await api.getProducts({ search: searchQuery }).catch(() => []) : [];
-    const searchResults = searchResultsRaw.filter(p => p.category?.id === mainCat.id || (p.category as any)?.parent_id === mainCat.id || p.category?.slug === mainCat.slug);
+    
+    let searchResultsRaw: any[] = [];
+    if (searchQuery) {
+        // Try the global search which is proven to work in production
+        const globalRes = await api.searchGlobal(searchQuery).catch(() => null);
+        if (globalRes && (globalRes as any).products) {
+            searchResultsRaw = (globalRes as any).products;
+        } else {
+            // Fallback
+            searchResultsRaw = await api.getProducts({ search: searchQuery }).catch(() => []);
+        }
+    }
+    const childIds = mainCat.children?.map(c => c.id) || [];
+    const searchResults = searchResultsRaw.filter((p: any) => 
+        p.category?.id === mainCat.id || 
+        childIds.includes(p.category?.id) || 
+        p.category?.slug === mainCat.slug
+    );
+    // As a final safety net, if backend ignored the search param, filter locally too:
+    const lowerQuery = (searchQuery || '').toLowerCase();
+    const finalSearchResults = searchResults.filter((p: any) => 
+        p.name.toLowerCase().includes(lowerQuery) || 
+        (p.description && p.description.toLowerCase().includes(lowerQuery))
+    );
+
     const [featured, latest, free, premium] = await Promise.all([
         api.getProducts({ category: mainCat.slug, is_popular: true, limit: 4 }).catch(() => []),
         api.getProducts({ category: mainCat.slug, sort: 'latest', limit: 4 }).catch(() => []),
@@ -86,11 +109,11 @@ export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }
                         <h2 className="text-2xl font-black text-text-main">
                             {locale === 'en' ? 'Search Results for' : 'Hasil Pencarian untuk'} "{searchQuery}"
                         </h2>
-                        <p className="text-text-gray mt-2">{searchResults.length} {locale === 'en' ? 'assets found' : 'aset ditemukan'}</p>
+                        <p className="text-text-gray mt-2">{finalSearchResults.length} {locale === 'en' ? 'assets found' : 'aset ditemukan'}</p>
                     </div>
-                    {searchResults.length > 0 ? (
+                    {finalSearchResults.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {searchResults.map(product => (
+                            {finalSearchResults.map(product => (
                                 <ProductCard key={product.id} product={product} locale={locale} />
                             ))}
                         </div>

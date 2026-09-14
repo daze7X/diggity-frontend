@@ -26,19 +26,29 @@ function ContactFormContent() {
         'Layanan Teknologi/Marketing',
         'Produk Digital',
         'Pelatihan IT',
+        'Berlangganan Produk / Bundle',
     ];
     const servicesListEn = [
         'Technology/Marketing Services',
         'Digital Products',
         'IT Training',
+        'Product / Bundle Subscription',
     ];
     const activeServicesList = isEn ? servicesListEn : servicesList;
 
     const searchParams = useSearchParams();
     const packageParam = searchParams.get('package');
+    const bundleParam = searchParams.get('bundle');
 
     useEffect(() => {
-        if (packageParam) {
+        if (bundleParam) {
+            const bundleTitle = bundleParam.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            setFormData(prev => ({
+                ...prev,
+                service: isEn ? 'Product / Bundle Subscription' : 'Berlangganan Produk / Bundle',
+                message: isEn ? `Hello Diggity, I am interested in subscribing to the "${bundleTitle}" bundle. Please contact me.` : `Halo Diggity, saya tertarik untuk berlangganan "${bundleTitle}". Mohon hubungi saya.`
+            }));
+        } else if (packageParam) {
             let selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
             let prefilledMessage = '';
 
@@ -129,14 +139,14 @@ function ContactFormContent() {
                             {/* Email */}
                             <div className="space-y-1">
                                 <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                    {isEn ? 'Business Email' : 'Email Bisnis'} <span className="text-brand-blue">*</span>
+                                    {isEn ? 'Email Address' : 'Email (Aktif)'} <span className="text-brand-blue">*</span>
                                 </label>
                                 <input
                                     type="email"
                                     required
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    placeholder="nama@perusahaan.com"
+                                    placeholder={isEn ? "name@example.com" : "nama@gmail.com"}
                                     className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-lg focus:border-brand-blue focus:outline-none text-sm text-text-main placeholder-text-muted"
                                 />
                             </div>
@@ -161,14 +171,14 @@ function ContactFormContent() {
                             {/* Company */}
                             <div className="space-y-1">
                                 <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                    {isEn ? 'Company Name' : 'Nama Perusahaan'} <span className="text-brand-blue">*</span>
+                                    {isEn ? 'Business / Company Name' : 'Nama Bisnis / Usaha'} <span className="text-brand-blue">*</span>
                                 </label>
                                 <input
                                     type="text"
                                     required
                                     value={formData.company}
                                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                    placeholder="PT Contoh Sukses"
+                                    placeholder={isEn ? "My Awesome Store" : "Toko Berkah / PT Sukses"}
                                     className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-lg focus:border-brand-blue focus:outline-none text-sm text-text-main placeholder-text-muted"
                                 />
                             </div>

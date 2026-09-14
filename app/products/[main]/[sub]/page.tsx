@@ -369,7 +369,7 @@ export default async function SubCategoryPage({
                             <div className="relative z-10 flex flex-col items-center md:items-end shrink-0">
                                 <div className="text-white/80 text-sm font-medium mb-1">{locale === 'en' ? 'Starting from' : 'Mulai dari'}</div>
                                 <div className="text-3xl md:text-4xl font-black text-white mb-4">{price}</div>
-                                <Link href="/contact" className="px-8 py-3.5 bg-white text-brand-blue hover:bg-gray-100 font-bold text-sm rounded-xl transition-all shadow-lg active:scale-95 whitespace-nowrap">
+                                <Link href={`/contact?bundle=${suiteName.toLowerCase().replace(/ /g, '-')}`} className="px-8 py-3.5 bg-white text-brand-blue hover:bg-gray-100 font-bold text-sm rounded-xl transition-all shadow-lg active:scale-95 whitespace-nowrap">
                                     {isOneTime ? (locale === 'en' ? 'Buy Bundle' : 'Beli Bundle') : (locale === 'en' ? 'Subscribe Now' : 'Mulai Berlangganan')}
                                 </Link>
                             </div>

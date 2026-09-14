@@ -24,8 +24,8 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
 
     return (
         <div className="min-h-screen bg-bg-canvas relative overflow-hidden">
-            {/* HERO SECTION WITH SEARCH */}
-            <div className="bg-brand-blue dark:bg-brand-bg dark:border-b dark:border-glass-border relative pt-32 pb-24 px-6 overflow-hidden">
+            {/* HERO SECTION - SHAYNA KIT STYLE */}
+            <div className="bg-brand-blue dark:bg-brand-bg relative pt-32 pb-32 px-6 overflow-hidden border-b border-glass-border">
                 {/* SVG Filter for Gooey Effect */}
                 <svg className="hidden">
                     <defs>
@@ -37,57 +37,60 @@ export default async function DigitalMarketplaceLanding({ mainCat }: Props) {
                     </defs>
                 </svg>
 
-                {/* Animated Background Blobs */}
-                <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block opacity-40 mix-blend-screen transform-gpu overflow-hidden" style={{ filter: "url('#goo')", willChange: "filter, transform" }}>
-                    <div className="absolute -left-32 top-1/4 w-96 h-96 bg-blue-600 rounded-full animate-morph-blob mix-blend-screen" />
-                    <div className="absolute -left-10 top-1/3 w-72 h-72 bg-indigo-500 rounded-full animate-gooey-1 mix-blend-screen" />
-                    <div className="absolute -right-32 bottom-1/4 w-96 h-96 bg-purple-600 rounded-full animate-morph-blob-fast mix-blend-screen" />
-                    <div className="absolute -right-10 bottom-1/3 w-64 h-64 bg-cyan-500 rounded-full animate-gooey-2 mix-blend-screen" />
+                {/* Animated Background Blobs (Huge Purple/Blue Orbs) */}
+                <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block opacity-60 mix-blend-screen transform-gpu overflow-hidden" style={{ filter: "url('#goo')", willChange: "filter, transform" }}>
+                    <div className="absolute left-0 top-0 w-[800px] h-[800px] bg-blue-600 rounded-full animate-morph-blob mix-blend-screen -translate-x-1/2 -translate-y-1/4 opacity-50" />
+                    <div className="absolute right-0 bottom-0 w-[600px] h-[600px] bg-purple-600 rounded-full animate-morph-blob-fast mix-blend-screen translate-x-1/3 translate-y-1/4 opacity-50" />
                 </div>
 
-                <div className="max-w-4xl mx-auto relative z-10 text-center space-y-8">
+                <div className="max-w-4xl mx-auto relative z-10 text-center space-y-8 mt-10">
                     <ScrollReveal>
-                        <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-[1.1]">
+                        <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.1]">
                             Digital Marketplace
                         </h1>
                     </ScrollReveal>
+                    
                     <ScrollReveal delay={100}>
                         <p className="text-lg text-white/80 font-medium leading-relaxed max-w-2xl mx-auto">
-                            Katalog aset digital premium siap pakai untuk mempercepat project desain, pengembangan web, dan kebutuhan konten Anda.
+                            {locale === 'en'
+                                ? 'Premium digital asset catalog ready to use to accelerate your design projects, web development, and content needs.'
+                                : 'Katalog aset digital premium siap pakai untuk mempercepat project desain, pengembangan web, dan kebutuhan konten Anda.'}
                         </p>
                     </ScrollReveal>
-                    <ScrollReveal delay={200} className="pt-4 max-w-2xl mx-auto">
-                        <div className="relative group">
-                            <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                                <Search className="w-6 h-6 text-text-muted group-focus-within:text-brand-blue transition-colors" />
+
+                    {/* Search Bar */}
+                    <ScrollReveal delay={200} className="max-w-2xl mx-auto pt-6">
+                        <div className="flex items-center bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 rounded-full p-2 focus-within:ring-2 focus-within:ring-brand-blue transition-all shadow-2xl">
+                            <div className="pl-4 pr-2 text-white/60">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
                             </div>
                             <input 
                                 type="text" 
-                                placeholder="Cari template website, UI kit, aset 3D..." 
-                                className="w-full py-5 pl-14 pr-6 bg-white dark:bg-glass-bg border-2 border-transparent dark:border-glass-border rounded-full shadow-2xl focus:outline-none focus:border-brand-blue/50 text-text-main placeholder:text-text-muted text-lg transition-all"
+                                placeholder={locale === 'en' ? "Search website templates, UI kits, 3D assets..." : "Cari template website, UI kit, aset 3D..."}
+                                className="flex-1 bg-transparent border-none outline-none text-white placeholder-white/50 text-sm md:text-base py-3"
                             />
-                            <button className="absolute inset-y-2 right-2 px-6 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold rounded-full transition-colors">
-                                Cari
+                            <button className="px-8 py-3 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold rounded-full transition-colors shadow-lg shadow-brand-blue/30 whitespace-nowrap">
+                                {locale === 'en' ? 'Search' : 'Cari'}
                             </button>
                         </div>
                     </ScrollReveal>
                 </div>
-                {/* Soft Blue Bleed Downwards (Hidden in Dark Mode) */}
-                <div className="w-full h-24 bg-gradient-to-b from-brand-blue to-transparent dark:hidden pointer-events-none -mb-24 absolute bottom-0 left-0 right-0 z-0" />
             </div>
 
-            {/* CATEGORIES GRID */}
-            <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-                <div className="flex flex-wrap gap-4 justify-center">
+            {/* QUICK CATEGORY CARDS (Overlapping Hero) */}
+            <div className="max-w-7xl mx-auto px-6 relative z-20 -mt-16 mb-24">
+                <div className="flex flex-wrap lg:flex-nowrap gap-4 justify-center">
                     {mainCat.children?.map((sub, i) => (
-                        <ScrollReveal key={sub.slug} animation="fade-up" delay={i * 50}>
-                            <Link href={`/products/digital-marketplace/${sub.slug}`} className="group flex items-center gap-3 px-6 py-4 bg-glass-bg border border-glass-border rounded-2xl hover:border-brand-blue/30 hover:bg-glass-bg/80 transition-all hover:-translate-y-1">
-                                <div className="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <SubServiceIcon slug={sub.slug || ""} fallbackCategoryIcon="image" className="w-5 h-5 text-brand-blue" />
+                        <ScrollReveal key={sub.slug} animation="fade-up" delay={i * 50} className="w-full sm:w-[calc(50%-0.5rem)] lg:w-auto lg:flex-1">
+                            <Link href={`/products/digital-marketplace/${sub.slug}`} className="group flex flex-col items-center text-center gap-3 px-4 py-6 bg-glass-bg border border-glass-border rounded-3xl hover:border-brand-blue/40 transition-all hover:-translate-y-2 hover:shadow-xl shadow-md h-full backdrop-blur-md">
+                                <div className="w-12 h-12 rounded-2xl bg-brand-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <SubServiceIcon slug={sub.slug || ""} fallbackCategoryIcon="image" className="w-6 h-6 text-brand-blue" />
                                 </div>
-                                <div className="text-left">
-                                    <h3 className="font-bold text-text-main group-hover:text-brand-blue transition-colors text-sm">{sub.name}</h3>
-                                    <p className="text-[11px] text-text-gray font-medium">{sub.products_count || 0} Aset</p>
+                                <div>
+                                    <h3 className="font-bold text-text-main group-hover:text-brand-blue transition-colors text-sm mb-1">{sub.name}</h3>
+                                    <p className="text-[11px] text-text-muted font-bold tracking-wider uppercase bg-brand-blue/5 px-2 py-0.5 rounded-full inline-block">{sub.products_count || 0} Aset</p>
                                 </div>
                             </Link>
                         </ScrollReveal>

@@ -359,6 +359,71 @@ export default async function ProductDetail({ params }: Props) {
                     </div>
                 </div>
             </div>
+
+            {/* 2.5 PRICING OVERVIEW SECTION (Business Software Only) */}
+            {main === 'business-software' && (
+                <div id="pricing" className="max-w-5xl mx-auto px-6 py-24">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Flexible Subscription Plans' : 'Paket Berlangganan Fleksibel'}</h2>
+                        <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? 'Start free, upgrade as your business grows.' : 'Mulai dengan gratis, upgrade seiring pertumbuhan bisnis Anda.'}</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+                        {/* Starter */}
+                        <SpotlightCard className="h-full p-10 border border-glass-border bg-glass-bg flex flex-col">
+                            <h3 className="text-xl font-bold text-text-main">Starter</h3>
+                            <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'Perfect for small teams' : 'Cocok untuk tim kecil'}</p>
+                            <div className="text-4xl font-black text-text-main mb-6">Free</div>
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Access 1 Core Module' : 'Akses 1 Modul Dasar'}</li>
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Up to 5 Users' : 'Maksimal 5 User'}</li>
+                            </ul>
+                            <Link href="/register" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 hover:shadow-md transition-all duration-200">{locale === 'en' ? 'Create Free Account' : 'Buat Akun Gratis'}</Link>
+                        </SpotlightCard>
+
+                        {/* Professional */}
+                        <div className="relative h-full">
+                            <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider whitespace-nowrap z-10">
+                                {locale === 'en' ? 'Most Popular' : 'Paling Populer'}
+                            </div>
+                            <SpotlightCard className="h-full p-10 border-2 border-brand-blue bg-glass-bg flex flex-col shadow-xl shadow-brand-blue/10">
+                                <h3 className="text-xl font-bold text-text-main">Professional</h3>
+                                <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'For mid-size businesses' : 'Untuk perusahaan menengah'}</p>
+                                <div className="text-4xl font-black text-text-main mb-6 flex items-end gap-1">
+                                    {product.pricings && product.pricings.length > 0 ? (
+                                        <>
+                                            <span className="text-3xl">Rp {new Intl.NumberFormat('id-ID').format(Number(product.pricings[0].price || 0))}</span>
+                                            <span className="text-sm font-medium text-text-gray mb-1">/{product.pricings[0].billing_period === 'monthly' ? 'bulan' : 'tahun'}</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            Contact Sales
+                                        </>
+                                    )}
+                                </div>
+                                <ul className="space-y-3 mb-6">
+                                    <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'All Pro Modules Included' : 'Akses Semua Modul Pro'}</li>
+                                    <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Unlimited Users (Tiers)</li>
+                                    <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Priority Support' : 'Prioritas Support'}</li>
+                                </ul>
+                                <Link href="/register" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue text-white font-bold text-center hover:bg-brand-blue-dark transition-all duration-200">{locale === 'en' ? 'Get Started' : 'Mulai Berlangganan'}</Link>
+                            </SpotlightCard>
+                        </div>
+
+                        {/* Enterprise */}
+                        <SpotlightCard className="h-full p-10 border border-glass-border bg-glass-bg flex flex-col">
+                            <h3 className="text-xl font-bold text-text-main">Enterprise</h3>
+                            <p className="text-text-gray text-sm mt-2 mb-6">{locale === 'en' ? 'Custom solutions for corporations' : 'Solusi kustom untuk korporat'}</p>
+                            <div className="text-4xl font-black text-text-main mb-6">Custom</div>
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />{locale === 'en' ? 'Full Modules & Customization' : 'Modul & Kustomisasi Penuh'}</li>
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />Dedicated Account Manager</li>
+                                <li className="flex gap-2 text-sm text-text-gray"><CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />On-Premise / Private Cloud</li>
+                            </ul>
+                            <Link href="/contact" className="mt-auto block w-full py-4 rounded-xl bg-brand-blue/10 text-brand-blue font-bold text-center hover:bg-brand-blue/20 transition-all duration-200">{locale === 'en' ? 'Contact Sales' : 'Hubungi Sales'}</Link>
+                        </SpotlightCard>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

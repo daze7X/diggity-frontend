@@ -323,6 +323,61 @@ export default async function SubCategoryPage({
                 </div>
             </div>
 
+
+            {/* 2.5 BUNDLE PRICING SECTION */}
+            <div className="max-w-4xl mx-auto px-6 py-8 relative z-20">
+                {(() => {
+                    let suiteName = '';
+                    let price = '';
+                    let isOneTime = false;
+                    
+                    if (mainCat?.slug === 'business-software') {
+                        switch (subcategory?.slug) {
+                            case 'website-commerce': suiteName = 'Website Suite'; price = 'Rp699.000/bulan'; break;
+                            case 'sales': suiteName = 'Sales Suite'; price = 'Rp799.000/bulan'; break;
+                            case 'finance': suiteName = 'Finance Suite'; price = 'Rp699.000/bulan'; break;
+                            case 'inventory-manufacturing': suiteName = 'Manufacturing Suite'; price = 'Rp1.499.000/bulan'; break;
+                            case 'human-resources': suiteName = 'HR Suite'; price = 'Rp599.000/bulan'; break;
+                            case 'marketing': suiteName = 'Marketing Suite'; price = 'Rp799.000/bulan'; break;
+                            case 'services': suiteName = 'Services Suite'; price = 'Rp699.000/bulan'; break;
+                            case 'productivity': suiteName = 'Productivity Suite'; price = 'Rp499.000/bulan'; break;
+                        }
+                    } else if (mainCat?.slug === 'digital-marketplace') {
+                        isOneTime = true;
+                        switch (subcategory?.slug) {
+                            case 'graphics': suiteName = 'Graphics Bundle'; price = 'Rp49.000 – Rp149.000'; break;
+                            case 'design-templates': suiteName = 'Design Bundle'; price = 'Rp75.000 – Rp299.000'; break;
+                            case '3d': suiteName = '3D Bundle'; price = 'Rp149.000 – Rp499.000'; break;
+                            case 'web': suiteName = 'Web Bundle'; price = 'Rp399.000 – Rp999.000'; break;
+                            case 'resources': suiteName = 'Resource Bundle'; price = 'Rp99.000 – Rp499.000'; break;
+                        }
+                    }
+
+                    if (!suiteName) return null;
+
+                    return (
+                        <div className="bg-brand-blue dark:bg-brand-bg border border-brand-blue/30 dark:border-glass-border rounded-3xl p-8 md:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
+                            {/* Decorative background element */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+                            
+                            <div className="relative z-10 text-center md:text-left">
+                                <span className="text-[11px] font-bold text-white/70 uppercase tracking-widest block mb-2">Recommended Bundle</span>
+                                <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-2">{suiteName}</h3>
+                                <p className="text-sm font-medium text-white/80">{locale === 'en' ? 'Get all tools in this category at a better value.' : 'Dapatkan seluruh produk dalam kategori ini dengan harga lebih hemat.'}</p>
+                            </div>
+                            
+                            <div className="relative z-10 flex flex-col items-center md:items-end shrink-0">
+                                <div className="text-white/80 text-sm font-medium mb-1">{locale === 'en' ? 'Starting from' : 'Mulai dari'}</div>
+                                <div className="text-3xl md:text-4xl font-black text-white mb-4">{price}</div>
+                                <Link href="/contact" className="px-8 py-3.5 bg-white text-brand-blue hover:bg-gray-100 font-bold text-sm rounded-xl transition-all shadow-lg active:scale-95 whitespace-nowrap">
+                                    {isOneTime ? (locale === 'en' ? 'Buy Bundle' : 'Beli Bundle') : (locale === 'en' ? 'Subscribe Now' : 'Mulai Berlangganan')}
+                                </Link>
+                            </div>
+                        </div>
+                    );
+                })()}
+            </div>
+
             {/* 3. TESTIMONIALS */}
             {testimonials && testimonials.length > 0 && (
                 <div className="max-w-7xl mx-auto px-6 py-12 relative z-20">

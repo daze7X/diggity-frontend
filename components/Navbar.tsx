@@ -559,84 +559,36 @@ export default function Navbar() {
                     </div>
                 )}
 
-                {/* 2. Products Mega-Menu Panel (Mekari-style Tab UI) */}
+                {/* 2. Products Mega-Menu Panel (Simple Links) */}
                 {activeDropdown === 'products' && (
                     <div 
                         onMouseEnter={() => handleMouseEnter('products')}
                         onMouseLeave={handleMouseLeave}
-                        className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[900px] max-w-[95vw] bg-white/95 dark:bg-brand-bg/95 backdrop-blur-2xl border border-glass-border rounded-3xl p-8 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                        className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[600px] max-w-[95vw] bg-white/95 dark:bg-[#0a0a0f]/95 backdrop-blur-2xl border border-glass-border rounded-xl p-4 shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                     >
-                        <div className="flex flex-col md:flex-row gap-8">
-                            {/* Column 1: Business Software (Wide, 2 columns of items) */}
-                            {productHierarchy.filter(m => m.slug === 'business-software').map(mainCat => (
-                                <div key={mainCat.slug} className="flex-[2]">
-                                    <span className="text-[11px] font-bold text-text-gray uppercase tracking-widest block border-b border-glass-border pb-3 mb-5">
-                                        {mainCat.name}
-                                    </span>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-                                        {mainCat.children?.map(sub => (
-                                            <Link 
-                                                key={sub.slug}
-                                                href={`/products/${mainCat.slug}/${sub.slug}`}
-                                                className="group flex items-start gap-3 p-2 -ml-2 rounded-lg hover:bg-brand-blue/5 transition-colors"
-                                                onClick={() => setActiveDropdown(null)}
-                                            >
-                                                <div className="mt-0.5 w-6 h-6 flex items-center justify-center shrink-0">
-                                                    <SubServiceIcon slug={sub.slug || ""} fallbackCategoryIcon="layers" className="w-5 h-5 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-[13px] font-bold text-text-main group-hover:text-brand-blue transition-colors leading-none mb-1.5">
-                                                        {sub.name}
-                                                    </h4>
-                                                    <p className="text-[11px] text-text-gray font-medium leading-snug">
-                                                        {sub.products_count || 0} {language === 'en' ? 'Subcategories' : 'Sub Kategori'}
-                                                      </p>
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-
-                            {/* Separator */}
-                            <div className="w-[1px] bg-glass-border shrink-0 hidden md:block"></div>
-
-                            {/* Column 2: Digital Marketplace (Narrow, 1 column of items) */}
-                            {productHierarchy.filter(m => m.slug === 'digital-marketplace').map(mainCat => (
-                                <div key={mainCat.slug} className="flex-1">
-                                    <span className="text-[11px] font-bold text-text-gray uppercase tracking-widest block border-b border-glass-border pb-3 mb-5">
-                                        {mainCat.name}
-                                    </span>
-                                    <div className="flex flex-col gap-y-4">
-                                        {mainCat.children?.map(sub => (
-                                            <Link 
-                                                key={sub.slug}
-                                                href={`/products/${mainCat.slug}/${sub.slug}`}
-                                                className="group flex items-start gap-3 p-2 -ml-2 rounded-lg hover:bg-brand-blue/5 transition-colors"
-                                                onClick={() => setActiveDropdown(null)}
-                                            >
-                                                <div className="mt-0.5 w-6 h-6 flex items-center justify-center shrink-0">
-                                                    <SubServiceIcon slug={sub.slug || ""} fallbackCategoryIcon="layers" className="w-5 h-5 text-brand-blue/70 group-hover:text-brand-blue transition-colors" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-[13px] font-bold text-text-main group-hover:text-brand-blue transition-colors leading-none mb-1.5">
-                                                        {sub.name}
-                                                    </h4>
-                                                    <p className="text-[11px] text-text-gray font-medium leading-snug">
-                                                        {sub.products_count || 0} {language === 'en' ? 'Subcategories' : 'Sub Kategori'}
-                                                      </p>
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
+                        <div className="grid grid-cols-2 gap-4">
+                            <Link 
+                                href="/products/business-software" 
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center justify-center p-6 rounded-lg hover:bg-brand-blue/10 dark:hover:bg-brand-blue/20 transition-colors border border-transparent hover:border-brand-blue/30"
+                            >
+                                <span className="text-[13px] font-bold text-text-main group-hover:text-brand-blue uppercase tracking-widest">
+                                    Business Software
+                                </span>
+                            </Link>
+                            <Link 
+                                href="/products/digital-marketplace" 
+                                onClick={() => setActiveDropdown(null)}
+                                className="group flex items-center justify-center p-6 rounded-lg hover:bg-brand-blue/10 dark:hover:bg-brand-blue/20 transition-colors border border-transparent hover:border-brand-blue/30 border-l border-glass-border"
+                            >
+                                <span className="text-[13px] font-bold text-text-main group-hover:text-brand-blue uppercase tracking-widest">
+                                    Digital Marketplace
+                                </span>
+                            </Link>
                         </div>
-                        
-                        
                     </div>
                 )}
-                
+
                 {/* 3. Academy Mega-Menu Panel */}
                 {activeDropdown === 'academy' && (
                     <div 
@@ -922,39 +874,13 @@ export default function Navbar() {
                                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'products' ? 'rotate-180' : ''}`} />
                             </button>
                             {mobileExpanded === 'products' && (
-                                <div className="mt-3 pl-4 space-y-4 text-sm animate-in fade-in duration-200">
-                                                                        {[...productHierarchy].sort((a, b) => {
-                                        const aIsComingSoon = ['ai-products', 'cloud-products'].includes(a.slug || '');
-                                        const bIsComingSoon = ['ai-products', 'cloud-products'].includes(b.slug || '');
-                                        if (aIsComingSoon && !bIsComingSoon) return 1;
-                                        if (!aIsComingSoon && bIsComingSoon) return -1;
-                                        return 0;
-                                    }).map((mainCat, idx) => {
-                                        const isComingSoon = ['ai-products', 'cloud-products'].includes(mainCat.slug || '');
-                                        return (
-                                            <div key={`mpp-${idx}`} className="space-y-2">
-                                                {isComingSoon ? (
-                                                    <div className="flex items-center gap-2 pt-2">
-                                                        <span className="block text-text-gray font-bold text-xs uppercase tracking-widest">{mainCat.name}</span>
-                                                        <span className="px-2 py-0.5 bg-glass-bg border border-glass-border text-[9px] font-bold text-text-muted rounded-full">Coming Soon</span>
-                                                    </div>
-                                                ) : (
-                                                    <Link href={`/products/${mainCat.slug}`} onClick={() => setIsOpen(false)} className="block text-text-main font-bold text-xs uppercase tracking-widest pt-2">
-                                                        {mainCat.name}
-                                                    </Link>
-                                                )}
-                                                {!isComingSoon && mainCat.children && (
-                                                    <div className="pl-3 border-l border-glass-border/40 space-y-2">
-                                                        {mainCat.children.map(sub => (
-                                                            <Link key={sub.slug} href={`/products/${mainCat.slug}/${sub.slug}`} onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                                                {sub.name}
-                                                            </Link>
-                                                        ))}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        );
-                                    })}
+                                <div className="mt-3 pl-4 space-y-4 text-sm animate-in fade-in duration-200 pb-2">
+                                    <Link href="/products/business-software" onClick={() => setIsOpen(false)} className="block text-text-main font-bold text-xs uppercase tracking-widest hover:text-brand-blue transition-colors">
+                                        Business Software
+                                    </Link>
+                                    <Link href="/products/digital-marketplace" onClick={() => setIsOpen(false)} className="block text-text-main font-bold text-xs uppercase tracking-widest hover:text-brand-blue transition-colors">
+                                        Digital Marketplace
+                                    </Link>
                                 </div>
                             )}
                         </div>

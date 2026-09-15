@@ -356,7 +356,7 @@ export const api = {
         }
         return fetchAPI(`/products/subcategory/${slug}${qs}`);
     },
-    getProducts: (params?: { category?: string; is_popular?: boolean; limit?: number; search?: string; filter?: string; sort?: string; }): Promise<Product[]> => {
+    getProducts: async (params?: { category?: string; is_popular?: boolean; limit?: number; search?: string; filter?: string; sort?: string; }): Promise<Product[]> => {
         let qs = '';
         if (params) {
             const searchParams = new URLSearchParams();
@@ -369,7 +369,8 @@ export const api = {
             const qsStr = searchParams.toString();
             if (qsStr) qs = '?' + qsStr;
         }
-        return fetchAPI(`/products${qs}`);
+        const res = await fetchAPI(`/products${qs}`);
+        return res.products || res.data || res || [];
     },
     getProductBySlug: (slug: string): Promise<Product> => fetchAPI(`/products/${slug}`),
     

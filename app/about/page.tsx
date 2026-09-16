@@ -53,12 +53,12 @@ export default async function About() {
     }
 
     const defaultTimeline = locale === 'en' ? [
-        { year: '2018', title: 'Founding Year', desc: 'Diggity was founded as a provider of simple website development services and blog content writing.' },
+        { year: '2019', title: 'Founding Year', desc: 'Diggity was founded as a provider of simple website development services and blog content writing.' },
         { year: '2020', title: 'Division Restructuring', desc: 'Formed specialized App Builder Squad and Brand Growth Division for results-focused services.' },
         { year: '2022', title: 'Cloud Services Expansion', desc: 'Launched premium cloud hosting infrastructure, VPS servers, and business email integration for corporate clients.' },
         { year: '2024', title: 'Digital Lab Launch', desc: 'Pioneered Digital Skill Lab to facilitate bootcamps and digital training for corporate groups.' },
     ] : [
-        { year: '2018', title: 'Awal Mula Pendirian', desc: 'Diggity didirikan sebagai penyedia jasa pembuatan website sederhana dan penulisan konten blog.' },
+        { year: '2019', title: 'Awal Mula Pendirian', desc: 'Diggity didirikan sebagai penyedia jasa pembuatan website sederhana dan penulisan konten blog.' },
         { year: '2020', title: 'Restrukturisasi Divisi', desc: 'Membentuk divisi khusus App Builder Squad dan Brand Growth Division untuk layanan yang lebih berfokus pada hasil.' },
         { year: '2022', title: 'Ekspansi Cloud Services', desc: 'Meluncurkan infrastruktur cloud hosting premium, server VPS, dan integrasi email bisnis untuk klien korporat.' },
         { year: '2024', title: 'Peluncuran Digital Lab', desc: 'Merintis Digital Skill Lab untuk memfasilitasi bootcamp dan pelatihan digital bagi kalangan perusahaan.' },
@@ -247,7 +247,7 @@ export default async function About() {
     ];
 
     const stats = [
-        { label: locale === 'en' ? 'Founded' : 'Berdiri', value: '2018', icon: Building2 },
+        { label: locale === 'en' ? 'Founded' : 'Berdiri', value: '2019', icon: Building2 },
         { label: locale === 'en' ? 'Projects' : 'Proyek', value: '200+', icon: Briefcase },
         { label: locale === 'en' ? 'Clients' : 'Klien', value: '50+', icon: Users },
         { label: locale === 'en' ? 'Rating' : 'Rating', value: '4.9★', icon: Star },
@@ -336,7 +336,7 @@ export default async function About() {
                     <SpotlightCard className="p-8 md:p-12 relative overflow-hidden">
                         {/* Decorative large text */}
                         <span className="absolute right-8 top-4 text-[120px] font-black text-brand-blue/5 select-none leading-none pointer-events-none hidden md:block">
-                            2018
+                            2019
                         </span>
                         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div className="space-y-3">
@@ -353,8 +353,8 @@ export default async function About() {
                             <div className="space-y-3">
                                 <p className="text-text-gray leading-relaxed text-sm md:text-base">
                                     {locale === 'en'
-                                        ? (settings?.history_text_en || 'Established in 2018 in Tangerang, Diggity was born from a vision to deliver global-standard digital solutions for local businesses. We believe in structured growth frameworks to help businesses build technical foundations, dominate markets, scale capacity, and train internal capabilities.')
-                                        : (settings?.history_text_id || 'Didirikan pada tahun 2018 di Tangerang, Diggity lahir dari visi untuk memberikan solusi digital berkualitas global bagi bisnis lokal. Kami meyakini filosofi pertumbuhan terstruktur untuk membantu bisnis membangun fondasi teknis, mendominasi pasar, menskalakan kapasitas, dan melatih kemandirian internal.')}
+                                        ? (settings?.history_text_en || 'Established in 2019 in Tangerang, Diggity was born from a vision to deliver global-standard digital solutions for local businesses. We believe in structured growth frameworks to help businesses build technical foundations, dominate markets, scale capacity, and train internal capabilities.')
+                                        : (settings?.history_text_id || 'Didirikan pada tahun 2019 di Tangerang, Diggity lahir dari visi untuk memberikan solusi digital berkualitas global bagi bisnis lokal. Kami meyakini filosofi pertumbuhan terstruktur untuk membantu bisnis membangun fondasi teknis, mendominasi pasar, menskalakan kapasitas, dan melatih kemandirian internal.')}
                                 </p>
                                 <p className="text-xs font-semibold text-text-muted">Sleman, Yogyakarta • Est. 2019</p>
                             </div>

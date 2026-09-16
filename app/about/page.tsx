@@ -64,7 +64,7 @@ export default async function About() {
         { year: '2024', title: 'Peluncuran Digital Lab', desc: 'Merintis Digital Skill Lab untuk memfasilitasi bootcamp dan pelatihan digital bagi kalangan perusahaan.' },
     ];
 
-    const values = locale === 'en' ? [
+    const defaultValuesEn = [
         {
             icon: Compass,
             title: 'Boundless Innovation',
@@ -97,7 +97,9 @@ export default async function About() {
             iconColor: 'text-violet-600 dark:text-violet-400',
             iconBg: 'bg-violet-500/10',
         },
-    ] : [
+    ];
+
+    const defaultValuesId = [
         {
             icon: Compass,
             title: 'Inovasi Tanpa Batas',
@@ -131,6 +133,27 @@ export default async function About() {
             iconBg: 'bg-violet-500/10',
         },
     ];
+
+    const valueStyles = [
+        { gradient: 'from-blue-500/20 to-indigo-500/10', iconColor: 'text-blue-600 dark:text-blue-400', iconBg: 'bg-blue-500/10' },
+        { gradient: 'from-emerald-500/20 to-teal-500/10', iconColor: 'text-emerald-600 dark:text-emerald-400', iconBg: 'bg-emerald-500/10' },
+        { gradient: 'from-amber-500/20 to-orange-500/10', iconColor: 'text-amber-600 dark:text-amber-400', iconBg: 'bg-amber-500/10' },
+        { gradient: 'from-violet-500/20 to-purple-500/10', iconColor: 'text-violet-600 dark:text-violet-400', iconBg: 'bg-violet-500/10' }
+    ];
+
+    const lucideIcons: any = { Compass, ShieldCheck, Award, Users, FileText, Code, TrendingUp, Server, GraduationCap, Building2, Briefcase, Star, Zap };
+
+    const values = settings?.company_values && settings.company_values.length > 0
+        ? settings.company_values.map((v, i) => {
+            const style = valueStyles[i % valueStyles.length];
+            return {
+                icon: lucideIcons[v.icon] || Star,
+                title: locale === 'en' ? (v.title_en || v.title) : v.title,
+                desc: locale === 'en' ? (v.desc_en || v.desc) : v.desc,
+                ...style
+            };
+        })
+        : (locale === 'en' ? defaultValuesEn : defaultValuesId);
 
     const pillars = [
         {

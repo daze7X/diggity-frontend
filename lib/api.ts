@@ -97,6 +97,7 @@ export interface CompanySetting {
     vision_en?: string;
     mission_id?: Array<{ text: string }>;
     mission_en?: Array<{ text: string }>;
+    company_values?: Array<{ icon: string; title: string; title_en?: string; desc: string; desc_en?: string }>;
 }
 
 
@@ -307,7 +308,7 @@ export interface SearchResults {
 }
 
 export const api = {
-    getCompanySettings: (): Promise<CompanySetting> => fetchAPI('/company-settings'),
+    getCompanySettings: (): Promise<CompanySetting> => fetchAPI('/company-settings', { cache: 'no-store' }),
     searchGlobal: (query: string): Promise<SearchResults> => fetchAPI(`/search?q=${encodeURIComponent(query)}`),
     
     getServices: (): Promise<Service[]> => fetchAPI('/services'),

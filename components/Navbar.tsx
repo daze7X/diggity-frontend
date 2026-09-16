@@ -570,9 +570,14 @@ export default function Navbar() {
                             {/* Column 1: Business Software (Wide, 2 columns of items) */}
                             {productHierarchy.filter(m => m.slug === 'business-software').map(mainCat => (
                                 <div key={mainCat.slug} className="flex-[2]">
-                                    <span className="text-[11px] font-bold text-text-gray uppercase tracking-widest block border-b border-glass-border pb-3 mb-5">
-                                        {mainCat.name}
-                                    </span>
+                                    <Link 
+                                        href={`/products/${mainCat.slug}`}
+                                        className="flex items-center justify-between text-[11px] font-bold text-text-gray hover:text-brand-blue uppercase tracking-widest border-b border-glass-border pb-3 mb-5 transition-colors group/header"
+                                        onClick={() => setActiveDropdown(null)}
+                                    >
+                                        <span>{mainCat.name}</span>
+                                        <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover/header:opacity-100 group-hover/header:translate-x-0 transition-all text-brand-blue" />
+                                    </Link>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                                         {mainCat.children?.map(sub => (
                                             <Link 
@@ -604,9 +609,14 @@ export default function Navbar() {
                             {/* Column 2: Digital Marketplace (Narrow, 1 column of items) */}
                             {productHierarchy.filter(m => m.slug === 'digital-marketplace').map(mainCat => (
                                 <div key={mainCat.slug} className="flex-1">
-                                    <span className="text-[11px] font-bold text-text-gray uppercase tracking-widest block border-b border-glass-border pb-3 mb-5">
-                                        {mainCat.name}
-                                    </span>
+                                    <Link 
+                                        href={`/products/${mainCat.slug}`}
+                                        className="flex items-center justify-between text-[11px] font-bold text-text-gray hover:text-brand-blue uppercase tracking-widest border-b border-glass-border pb-3 mb-5 transition-colors group/header"
+                                        onClick={() => setActiveDropdown(null)}
+                                    >
+                                        <span>{mainCat.name}</span>
+                                        <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover/header:opacity-100 group-hover/header:translate-x-0 transition-all text-brand-blue" />
+                                    </Link>
                                     <div className="flex flex-col gap-y-4">
                                         {mainCat.children?.map(sub => (
                                             <Link 

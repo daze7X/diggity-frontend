@@ -144,7 +144,7 @@ export default async function About() {
     const lucideIcons: any = { Compass, ShieldCheck, Award, Users, FileText, Code, TrendingUp, Server, GraduationCap, Building2, Briefcase, Star, Zap };
 
     const values = settings?.company_values && settings.company_values.length > 0
-        ? settings.company_values.map((v, i) => {
+        ? settings.company_values.map((v: any, i: number) => {
             const style = valueStyles[i % valueStyles.length];
             return {
                 icon: lucideIcons[v.icon] || Star,

@@ -96,16 +96,15 @@ export default function ProductCard({ product, locale = 'id' }: Props) {
                     {!tags?.length && <div className="mt-auto" />}
 
                     <div className="mt-4 pt-4 border-t border-glass-border/50 flex items-center justify-between">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col justify-center">
                             <span className="text-[10px] text-text-muted font-medium mb-0.5">
                                 {isFree ? (locale === 'en' ? 'Free License' : 'Lisensi Gratis') : (locale === 'en' ? 'Premium License' : 'Lisensi Premium')}
                             </span>
-                            <span className={`font-black ${isFree ? 'text-green-500' : 'text-text-main'}`}>
-                                {isFree
-                                    ? (locale === 'en' ? 'Free' : 'Gratis')
-                                    : formatPrice(Number(product.price))
-                                }
-                            </span>
+                            {!isFree && (
+                                <span className="font-black text-text-main">
+                                    {formatPrice(Number(product.price))}
+                                </span>
+                            )}
                         </div>
                         <div className="flex items-center gap-1.5 text-xs font-bold text-brand-blue group-hover:bg-brand-blue group-hover:text-white px-3 py-1.5 rounded-lg transition-colors">
                             {locale === 'en' ? 'View Product' : 'Lihat Produk'}

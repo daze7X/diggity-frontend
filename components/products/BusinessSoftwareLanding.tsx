@@ -85,7 +85,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                                         </p>
                                     </div>
                                     <div className="mt-4 pt-4 border-t border-glass-border/50 flex items-center justify-between text-xs font-bold text-text-muted group-hover:text-brand-blue transition-colors">
-                                        {locale === 'en' ? 'View Solutions' : 'Lihat Solusi'}
+                                        {locale === 'en' ? 'View Products' : 'Lihat Produk'}
                                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                     </div>
                                 </SpotlightCard>

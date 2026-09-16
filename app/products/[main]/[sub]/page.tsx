@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import CategorySidebar from '@/components/products/CategorySidebar';
 import Image from 'next/image';
 import { api } from '../../../../lib/api';
 import { getLocaleServer } from '../../../../lib/locale-server';
@@ -34,6 +35,7 @@ export default async function SubCategoryPage({
     
     // Parse filters for digital marketplace
     const search = typeof resolvedParams.search === 'string' ? resolvedParams.search : undefined;
+    const types = typeof resolvedParams.types === 'string' ? resolvedParams.types : undefined;
     const filter = typeof resolvedParams.filter === 'string' ? resolvedParams.filter : undefined;
     const sort = typeof resolvedParams.sort === 'string' ? resolvedParams.sort : undefined;
     const page = typeof resolvedParams.page === 'string' ? parseInt(resolvedParams.page) : 1;
@@ -53,7 +55,7 @@ export default async function SubCategoryPage({
 
     try {
         const [res, settingsRes, testiRes, faqRes] = await Promise.all([
-            api.getProductsBySubcategory(sub, { search, filter, sort, page }),
+            api.getProductsBySubcategory(sub, { search, filter, sort, page, types }),
             api.getCompanySettings(),
             api.getTestimonials(),
             api.getFaqs()
@@ -189,11 +191,21 @@ export default async function SubCategoryPage({
 
             {/* 2. PRODUCTS GRID SECTION */}
             <div className="max-w-7xl mx-auto px-6 py-20 relative z-20">
-                <div className="bg-white dark:bg-glass-bg rounded-3xl p-8 md:p-12 border border-glass-border shadow-xl">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div className="flex flex-col lg:flex-row gap-10">
+                    {/* Sidebar for Digital Marketplace */}
+                    {main === 'digital-marketplace' && subcategory?.children && subcategory.children.length > 0 && (
+                        <div className="w-full lg:w-64 shrink-0">
+                            <CategorySidebar childrenCategories={subcategory.children} locale={locale} />
+                        </div>
+                    )}
+                    
+                    {/* Main Content Area */}
+                    <div className="flex-1 min-w-0">
+                        <div className="bg-white dark:bg-glass-bg rounded-3xl p-8 md:p-12 border border-glass-border shadow-xl">
+                    <div className="flex flex-col justify-between gap-8 mb-12">
                         <div>
-                            <h2 className="text-2xl font-black text-text-main tracking-tight mb-2">{locale === 'en' ? `Module Catalog ${subcategory?.name}` : `Katalog Modul ${subcategory?.name}`}</h2>
-                            <p className="text-text-gray font-medium text-sm">{locale === 'en' ? 'Select a specific product below to view its full features and specifications.' : 'Pilih produk spesifik di bawah ini untuk melihat detail fitur dan spesifikasi lengkapnya.'}</p>
+                            <h2 className="text-2xl md:text-3xl font-black text-text-main tracking-tight mb-2">{locale === 'en' ? `Module Catalog ${subcategory?.name}` : `Katalog Modul ${subcategory?.name}`}</h2>
+                            <p className="text-text-gray font-medium text-sm md:text-base max-w-2xl">{locale === 'en' ? 'Select a specific product below to view its full features and specifications.' : 'Pilih produk spesifik di bawah ini untuk melihat detail fitur dan spesifikasi lengkapnya.'}</p>
                         </div>
                     </div>
 
@@ -321,8 +333,9 @@ export default async function SubCategoryPage({
                         </div>
                     )}
                 </div>
+                </div>
+                </div>
             </div>
-
 
             {/* 2.5 BUNDLE PRICING SECTION */}
             <div className="max-w-4xl mx-auto px-6 py-8 relative z-20">

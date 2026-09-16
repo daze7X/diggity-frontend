@@ -53,7 +53,8 @@ export default async function ProductDetail({ params }: Props) {
 
     try {
         product = await api.getProductBySlug(slug);
-        const allProducts = await api.getProducts();
+        const categorySlug = product.category?.slug || sub;
+        const allProducts = await api.getProducts({ category: categorySlug });
         relatedProducts = allProducts.filter((p) => p.slug !== slug).slice(0, 2);
     } catch (error) {
         console.error('Error fetching product detail:', error);

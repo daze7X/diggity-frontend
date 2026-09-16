@@ -342,12 +342,13 @@ export const api = {
     getProductHierarchy: (): Promise<CategoryHierarchy[]> => fetchAPI('/products/hierarchy?v=2', { cache: 'no-store' }),
     getProductsBySubcategory: (
         slug: string, 
-        params?: { filter?: string | null; sort?: string | null; page?: number; search?: string }
+        params?: { filter?: string | null; sort?: string | null; page?: number; search?: string; types?: string | null }
     ): Promise<{ subcategory: CategoryHierarchy, products: Product[], pagination?: any }> => {
         let qs = '';
         if (params) {
             const searchParams = new URLSearchParams();
             if (params.filter) searchParams.set('filter', params.filter);
+            if (params.types) searchParams.set('types', params.types);
             if (params.sort) searchParams.set('sort', params.sort);
             if (params.page) searchParams.set('page', params.page.toString());
             if (params.search) searchParams.set('search', params.search);

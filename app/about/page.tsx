@@ -512,7 +512,7 @@ export default async function About() {
                         })()}
 
                         {/* Remaining 3 cards — stacked */}
-                        {values.slice(1).map((val, i) => {
+                        {values.slice(1).map((val: any, i: number) => {
                             const Icon = val.icon;
                             return (
                                 <ScrollReveal key={i + 1} animation="fade-up" delay={(i + 1) * 80}>

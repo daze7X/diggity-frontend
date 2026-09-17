@@ -247,12 +247,14 @@ export default function ProductPricingWidget({ product, locale }: Props) {
                 )}
                 
                 <div className="text-4xl font-black text-brand-blue tracking-tight flex items-center gap-3">
-                    {selectedPricing?.price && isNaN(Number(selectedPricing.price)) ? (
+                    {isFree ? (
+                        <span>{formatPrice(0, effectivePeriod)}</span>
+                    ) : selectedPricing?.price && isNaN(Number(selectedPricing.price)) ? (
                         <span>{selectedPricing.price}</span>
                     ) : (
                         <span>{formatPrice(effectivePrice, effectivePeriod)}</span>
                     )}
-                    {selectedPricing?.discount_percentage && selectedPricing.discount_percentage > 0 && (
+                    {selectedPricing?.discount_percentage && selectedPricing.discount_percentage > 0 && !isFree && (
                         <span className="text-xs bg-brand-blue/10 text-brand-blue px-2 py-1 rounded-md font-bold">
                             Save {selectedPricing.discount_percentage}%
                         </span>

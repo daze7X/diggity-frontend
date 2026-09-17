@@ -122,31 +122,7 @@ export default async function BusinessSoftwareLanding({ mainCat }: Props) {
                 </div>
             )}
 
-            {/* PAID PRODUCTS SECTION */}
-            {paidProducts.length > 0 && (
-                <div id="paid-products" className="bg-bg-canvas border-b border-glass-border py-24 scroll-mt-24">
-                    <div className="max-w-6xl mx-auto px-6">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-black text-text-main">{locale === 'en' ? 'Premium Business Solutions' : 'Solusi Bisnis Premium'}</h2>
-                            <p className="text-text-gray mt-3 font-medium">{locale === 'en' ? 'Enterprise-grade modules designed for scalability and high performance.' : 'Modul skala enterprise yang dirancang untuk skalabilitas dan performa tinggi.'}</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {paidProducts.map(product => (
-                                <SpotlightCard key={product.id} className="p-8 border border-glass-border bg-glass-bg flex items-start gap-6">
-                                    <div className="w-16 h-16 rounded-2xl bg-brand-blue/10 flex items-center justify-center shrink-0">
-                                        <SubServiceIcon slug={product.slug || ""} fallbackCategoryIcon="layers" className="w-8 h-8 text-brand-blue" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold text-text-main mb-2">{product.name}</h3>
-                                        <p className="text-sm text-text-gray mb-4 line-clamp-2">{product.description}</p>
-                                        <Link href={`/products/business-software/${product.category?.slug}/${product.slug}`} className="text-xs font-bold text-brand-blue flex items-center hover:underline">{locale === 'en' ? 'Learn More' : 'Pelajari Lebih Lanjut'} <ArrowRight className="w-3 h-3 ml-1" /></Link>
-                                    </div>
-                                </SpotlightCard>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
+
 
             {/* BENEFITS SECTION */}
             <div className="bg-glass-bg border-y border-glass-border py-24">

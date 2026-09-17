@@ -95,7 +95,9 @@ export default async function DigitalMarketplaceLanding({ mainCat, searchQuery }
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-text-main group-hover:text-brand-blue transition-colors text-sm mb-1">{sub.name}</h3>
-                                    <p className="text-[11px] text-text-muted font-bold tracking-wider uppercase bg-brand-blue/5 px-2 py-0.5 rounded-full inline-block">{sub.products_count || 0} Aset</p>
+                                    <p className="text-[11px] text-text-muted font-bold tracking-wider uppercase bg-brand-blue/5 px-2 py-0.5 rounded-full inline-block">
+                                        {sub.products_count || 0} Aset
+                                    </p>
                                 </div>
                             </Link>
                         </ScrollReveal>

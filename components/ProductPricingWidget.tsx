@@ -53,7 +53,10 @@ export default function ProductPricingWidget({ product, locale }: Props) {
     let effectivePeriod = product.billing_period;
     let isFree = effectivePrice === 0;
 
-    if (selectedPricing) {
+    // Only override with selectedPricing if the product is NOT free at its core,
+    // OR if we are explicitly choosing a paid package for a freemium model.
+    // Since we removed the package selector, we should stick to the core price if it's free.
+    if (selectedPricing && !isFree) {
         effectivePrice = selectedPricing.sale_price && selectedPricing.sale_price > 0 
             ? Number(selectedPricing.sale_price) 
             : Number(selectedPricing.numeric_price || 0);

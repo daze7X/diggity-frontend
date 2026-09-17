@@ -351,7 +351,7 @@ export default async function ProductDetail({ params }: Props) {
                             product.gallery && product.gallery.length > 0 ? (
                                 <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
                                     <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
-                                        {locale === 'en' ? 'Product Screenshots' : 'Tangkapan Layar Produk'}
+                                        {locale === 'en' ? 'Product Preview' : 'Pratinjau Produk'}
                                     </h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         {product.gallery.map((img, i) => {
@@ -374,10 +374,10 @@ export default async function ProductDetail({ params }: Props) {
                             ) : (
                                 <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
                                     <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
-                                        {locale === 'en' ? 'Product Screenshots' : 'Tangkapan Layar Produk'}
+                                        {locale === 'en' ? 'Product Preview' : 'Pratinjau Produk'}
                                     </h2>
                                     <div className="text-center py-12 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50">
-                                        <p className="text-text-muted font-medium">{locale === 'en' ? 'Screenshots are not added for this product yet.' : 'Tangkapan layar belum ditambahkan untuk produk ini.'}</p>
+                                        <p className="text-text-muted font-medium">{locale === 'en' ? 'Previews are not added for this product yet.' : 'Pratinjau belum ditambahkan untuk produk ini.'}</p>
                                     </div>
                                 </div>
                             )

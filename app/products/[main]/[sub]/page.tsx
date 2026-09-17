@@ -193,61 +193,66 @@ export default async function SubCategoryPage({
             <div className="max-w-7xl mx-auto px-6 py-20 relative z-20">
                 <div className="flex flex-col lg:flex-row gap-10">
                     {/* Sidebar for Digital Marketplace */}
-                    {main === 'digital-marketplace' && subcategory?.children && subcategory.children.length > 0 && (
-                        <div className="w-full lg:w-64 shrink-0">
-                            <CategorySidebar childrenCategories={subcategory.children} locale={locale} />
+                    {main === 'digital-marketplace' && (
+                        <div className="w-full lg:w-64 shrink-0 lg:sticky lg:top-24 self-start space-y-6">
+                            {subcategory?.children && subcategory.children.length > 0 && (
+                                <CategorySidebar childrenCategories={subcategory.children} locale={locale} />
+                            )}
+                            
+                            {/* Filter & Sort Container */}
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-6 space-y-6">
+                                <div>
+                                    <h3 className="font-bold text-text-main text-xs uppercase tracking-widest mb-3">Search</h3>
+                                    <form action={`/products/${main}/${sub}`} method="GET" className="relative flex w-full">
+                                        {filter && <input type="hidden" name="filter" value={filter} />}
+                                        {sort && <input type="hidden" name="sort" value={sort} />}
+                                        <input 
+                                            type="text" 
+                                            name="search" 
+                                            defaultValue={search || ''} 
+                                            placeholder="Search products..." 
+                                            className="w-full pl-4 pr-10 py-2.5 bg-glass-bg border border-glass-border rounded-xl focus:outline-none focus:border-brand-blue/50 text-sm text-text-main placeholder:text-text-muted"
+                                        />
+                                        <button type="submit" className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 bg-brand-blue text-white rounded-lg hover:bg-brand-blue-dark">
+                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div>
+                                    <h3 className="font-bold text-text-main text-xs uppercase tracking-widest mb-3">Filter</h3>
+                                    <div className="flex flex-col gap-1.5">
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ filter: null as any, page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors ${!filter ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>All Products</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ filter: 'free', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors ${filter === 'free' ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>Free</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ filter: 'paid', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors ${filter === 'paid' ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>Paid</Link>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="font-bold text-text-main text-xs uppercase tracking-widest mb-3">Sort</h3>
+                                    <div className="flex flex-col gap-1.5">
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'latest', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors ${(!sort || sort === 'latest') ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Latest</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'oldest', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors ${sort === 'oldest' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Oldest</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'popular', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors ${sort === 'popular' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Most Popular</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'price_asc', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors ${sort === 'price_asc' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Price: Low to High</Link>
+                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'price_desc', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors ${sort === 'price_desc' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Price: High to Low</Link>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )}
                     
                     {/* Main Content Area */}
                     <div className="flex-1 min-w-0">
                         <div className="bg-white dark:bg-glass-bg rounded-3xl p-8 md:p-12 border border-glass-border shadow-xl">
-                    <div className="flex flex-col justify-between gap-8 mb-12">
-                        <div>
-                            <h2 className="text-2xl md:text-3xl font-black text-text-main tracking-tight mb-2">{locale === 'en' ? `Module Catalog ${subcategory?.name}` : `Katalog Modul ${subcategory?.name}`}</h2>
-                            <p className="text-text-gray font-medium text-sm md:text-base max-w-2xl">{locale === 'en' ? 'Select a specific product below to view its full features and specifications.' : 'Pilih produk spesifik di bawah ini untuk melihat detail fitur dan spesifikasi lengkapnya.'}</p>
-                        </div>
-                    </div>
-
-                                                                                {main === 'digital-marketplace' && (
-                        <div className="mb-8 space-y-4">
-                            {/* Search Form */}
-                            <form action={`/products/${main}/${sub}`} method="GET" className="relative flex w-full md:w-1/2">
-                                {filter && <input type="hidden" name="filter" value={filter} />}
-                                {sort && <input type="hidden" name="sort" value={sort} />}
-                                <input 
-                                    type="text" 
-                                    name="search" 
-                                    defaultValue={search || ''} 
-                                    placeholder="Search products..." 
-                                    className="w-full pl-4 pr-12 py-3 bg-glass-bg border border-glass-border rounded-xl focus:outline-none focus:border-brand-blue/50 text-text-main placeholder:text-text-muted"
-                                />
-                                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-brand-blue text-white rounded-lg hover:bg-brand-blue-dark">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                                </button>
-                            </form>
-
-                                                        <div className="flex flex-col md:flex-row items-center justify-between pb-4 border-b border-glass-border gap-4">
-                                <div className="flex flex-wrap gap-2">
-                                    <Link href={`/products/${main}/${sub}?${buildQuery({ filter: null as any, page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-full transition-colors ${!filter ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>All Products</Link>
-                                    <Link href={`/products/${main}/${sub}?${buildQuery({ filter: 'free', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-full transition-colors ${filter === 'free' ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>Free</Link>
-                                    <Link href={`/products/${main}/${sub}?${buildQuery({ filter: 'paid', page: '1' })}`} className={`px-4 py-2 text-sm font-bold rounded-full transition-colors ${filter === 'paid' ? 'bg-brand-blue text-white' : 'bg-glass-bg text-text-gray hover:bg-glass-border'}`}>Paid</Link>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm font-medium text-text-muted shrink-0">Sort:</span>
-                                    <div className="flex gap-1 overflow-x-auto pb-1 md:pb-0">
-                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'latest', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${(!sort || sort === 'latest') ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Latest</Link>
-                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'oldest', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${sort === 'oldest' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Oldest</Link>
-                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'popular', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${sort === 'popular' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Most Popular</Link>
-                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'price_asc', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${sort === 'price_asc' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Price: Low to High</Link>
-                                        <Link href={`/products/${main}/${sub}?${buildQuery({ sort: 'price_desc', page: '1' })}`} className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${sort === 'price_desc' ? 'bg-brand-blue/10 text-brand-blue' : 'text-text-gray hover:bg-glass-bg'}`}>Price: High to Low</Link>
-                                    </div>
+                            <div className="flex flex-col justify-between gap-8 mb-8">
+                                <div>
+                                    <h2 className="text-2xl md:text-3xl font-black text-text-main tracking-tight mb-2">{locale === 'en' ? `Module Catalog ${subcategory?.name}` : `Katalog Modul ${subcategory?.name}`}</h2>
+                                    <p className="text-text-gray font-medium text-sm md:text-base max-w-2xl">{locale === 'en' ? 'Select a specific product below to view its full features and specifications.' : 'Pilih produk spesifik di bawah ini untuk melihat detail fitur dan spesifikasi lengkapnya.'}</p>
                                 </div>
                             </div>
-                        </div>
-                    )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {products.map((product: any, i: number) => (
                             <ScrollReveal key={product.slug} animation="fade-up" delay={i * 50}>
                                 {main === 'digital-marketplace' ? (
@@ -356,14 +361,9 @@ export default async function SubCategoryPage({
                             case 'productivity': suiteName = 'Productivity Suite'; price = 'Rp499.000/bulan'; break;
                         }
                     } else if (main === 'digital-marketplace') {
-                        isOneTime = true;
-                        switch (sub) {
-                            case 'graphics': suiteName = 'Graphics Bundle'; price = 'Rp49.000 – Rp149.000'; break;
-                            case 'design-templates': suiteName = 'Design Bundle'; price = 'Rp75.000 – Rp299.000'; break;
-                            case '3d': suiteName = '3D Bundle'; price = 'Rp149.000 – Rp499.000'; break;
-                            case 'web': suiteName = 'Web Bundle'; price = 'Rp399.000 – Rp999.000'; break;
-                            case 'resources': suiteName = 'Resource Bundle'; price = 'Rp99.000 – Rp499.000'; break;
-                        }
+                        // Manager requested to remove the bundle section for Digital Marketplace.
+                        // Setting suiteName to empty string will cause it to return null below.
+                        suiteName = '';
                     }
 
                     if (!suiteName) return null;
@@ -423,16 +423,7 @@ export default async function SubCategoryPage({
                 </div>
             )}
 
-            {/* 5. BOTTOM INFO */}
-            <div className="max-w-7xl mx-auto px-6 py-12 text-center relative z-20">
-                <div className="inline-block p-10 rounded-3xl bg-brand-blue/5 border border-brand-blue/10 max-w-2xl mx-auto">
-                    <h4 className="text-2xl font-black text-text-main mb-4">Tidak menemukan modul yang Anda cari?</h4>
-                    <p className="text-sm text-text-gray font-medium mb-8 leading-relaxed">Kami menyediakan kustomisasi pengembangan perangkat lunak (Custom Development) yang disesuaikan 100% dengan proses bisnis unik Anda. Diskusikan dengan tim ahil kami.</p>
-                    <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-brand-blue-dark transition-all hover:shadow-lg hover:-translate-y-0.5">
-                        Konsultasi Kebutuhan Custom
-                    </Link>
-                </div>
-            </div>
+
 
         </div>
     );

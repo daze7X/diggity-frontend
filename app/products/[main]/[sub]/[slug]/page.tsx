@@ -170,39 +170,64 @@ export default async function ProductDetail({ params }: Props) {
                     
                     {/* Left Column: Details & Gallery */}
                     <div className="lg:col-span-2 space-y-8">
-                        {/* Gallery Card (Moved from bottom to replace Features) */}
-                        {product.gallery && product.gallery.length > 0 ? (
+                        {/* Top Section depends on main category */}
+                        {main === 'business-software' ? (
                             <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
                                 <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
-                                    {locale === 'en' ? 'Product Assets / Gallery' : 'Aset / Galeri Produk'}
+                                    {locale === 'en' ? 'Key Features & Capabilities' : 'Fitur & Kapabilitas Utama'}
                                 </h2>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    {product.gallery.map((img, i) => {
-                                        const storageUrl = process.env.NEXT_PUBLIC_STORAGE_URL || 'https://yspcisyxfmxguqybhxam.supabase.co/storage/v1/object/public/diggity';
-                                        const imageUrl = img.startsWith('http') ? img : `${storageUrl}/${img}`;
-                                        return (
-                                            <div key={i} className="relative aspect-video rounded-2xl border border-glass-border overflow-hidden bg-gray-100 dark:bg-brand-bg flex items-center justify-center group shadow-md hover:shadow-xl transition-all">
-                                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                <img 
-                                                    src={imageUrl} 
-                                                    alt={`${product!.name} Preview ${i + 1}`} 
-                                                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                                                />
-                                                <div className="absolute inset-0 bg-brand-blue/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                
+                                {product.features && product.features.length > 0 ? (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {product.features.map((feature, i) => (
+                                            <div key={i} className="flex items-start space-x-4 p-4 rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50 border border-glass-border hover:border-brand-blue/30 transition-colors group">
+                                                <div className="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                                    <CheckCircle2 className="w-5 h-5" />
+                                                </div>
+                                                <span className="text-sm text-text-main font-medium leading-relaxed">{feature}</span>
                                             </div>
-                                        );
-                                    })}
-                                </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-center py-12 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50">
+                                        <p className="text-text-muted font-medium">{locale === 'en' ? 'Detailed features are not added for this product yet.' : 'Fitur terperinci belum ditambahkan untuk produk ini.'}</p>
+                                    </div>
+                                )}
                             </div>
                         ) : (
-                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
-                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
-                                    {locale === 'en' ? 'Product Assets / Gallery' : 'Aset / Galeri Produk'}
-                                </h2>
-                                <div className="text-center py-12 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50">
-                                    <p className="text-text-muted font-medium">{locale === 'en' ? 'Assets are not added for this product yet.' : 'Aset belum ditambahkan untuk produk ini.'}</p>
+                            product.gallery && product.gallery.length > 0 ? (
+                                <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                    <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                        {locale === 'en' ? 'Product Assets / Gallery' : 'Aset / Galeri Produk'}
+                                    </h2>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        {product.gallery.map((img, i) => {
+                                            const storageUrl = process.env.NEXT_PUBLIC_STORAGE_URL || 'https://yspcisyxfmxguqybhxam.supabase.co/storage/v1/object/public/diggity';
+                                            const imageUrl = img.startsWith('http') ? img : `${storageUrl}/${img}`;
+                                            return (
+                                                <div key={i} className="relative aspect-video rounded-2xl border border-glass-border overflow-hidden bg-gray-100 dark:bg-brand-bg flex items-center justify-center group shadow-md hover:shadow-xl transition-all">
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img 
+                                                        src={imageUrl} 
+                                                        alt={`${product!.name} Preview ${i + 1}`} 
+                                                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                                                    />
+                                                    <div className="absolute inset-0 bg-brand-blue/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                    <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                        {locale === 'en' ? 'Product Assets / Gallery' : 'Aset / Galeri Produk'}
+                                    </h2>
+                                    <div className="text-center py-12 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50">
+                                        <p className="text-text-muted font-medium">{locale === 'en' ? 'Assets are not added for this product yet.' : 'Aset belum ditambahkan untuk produk ini.'}</p>
+                                    </div>
+                                </div>
+                            )
                         )}
 
                         {/* Description Card */}
@@ -317,6 +342,32 @@ export default async function ProductDetail({ params }: Props) {
                                             </div>
                                         </details>
                                     ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Gallery Card for Business Software (Bottom) */}
+                        {main === 'business-software' && product.gallery && product.gallery.length > 0 && (
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                    {locale === 'en' ? 'Product Screenshots' : 'Tangkapan Layar Produk'}
+                                </h2>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    {product.gallery.map((img, i) => {
+                                        const storageUrl = process.env.NEXT_PUBLIC_STORAGE_URL || 'https://yspcisyxfmxguqybhxam.supabase.co/storage/v1/object/public/diggity';
+                                        const imageUrl = img.startsWith('http') ? img : `${storageUrl}/${img}`;
+                                        return (
+                                            <div key={i} className="relative aspect-video rounded-2xl border border-glass-border overflow-hidden bg-gray-100 dark:bg-brand-bg flex items-center justify-center group shadow-md hover:shadow-xl transition-all">
+                                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                <img 
+                                                    src={imageUrl} 
+                                                    alt={`${product!.name} Preview ${i + 1}`} 
+                                                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                                                />
+                                                <div className="absolute inset-0 bg-brand-blue/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}

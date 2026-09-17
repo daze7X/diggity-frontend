@@ -205,6 +205,18 @@ export default async function ProductDetail({ params }: Props) {
                             </div>
                         )}
 
+                        {/* Description Card */}
+                        {product.description && (
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                    {locale === 'en' ? 'Product Description' : 'Deskripsi Produk'}
+                                </h2>
+                                <div className="text-sm text-text-muted leading-relaxed whitespace-pre-wrap">
+                                    {product.description}
+                                </div>
+                            </div>
+                        )}
+
                         {/* Benefits Card */}
                         {product.benefits && product.benefits.length > 0 && (
                             <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">

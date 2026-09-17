@@ -257,40 +257,24 @@ export default function ProductPricingWidget({ product, locale }: Props) {
                 </div>
             </div>
 
-            {pricings.length > 0 && (
-                <div className="space-y-3 pt-4 border-t border-glass-border">
-                    <span className="text-[11px] font-black text-text-muted uppercase tracking-widest block mb-2">
-                        {locale === 'en' ? 'Select License / Plan' : 'Pilih Paket / Lisensi'}
-                    </span>
-                    <div className="grid grid-cols-1 gap-2">
-                        {pricings.map(pricing => (
-                            <button
-                                key={pricing.id}
-                                onClick={() => setSelectedPricing(pricing)}
-                                className={`flex flex-col text-left p-3 rounded-xl border transition-all ${
-                                    selectedPricing?.id === pricing.id
-                                        ? 'border-brand-blue bg-brand-blue/5'
-                                        : 'border-glass-border bg-transparent hover:border-brand-blue/30'
-                                }`}
-                            >
-                                <div className="flex justify-between items-center w-full">
-                                    <span className={`font-bold text-sm ${selectedPricing?.id === pricing.id ? 'text-brand-blue' : 'text-text-main'}`}>
-                                        {pricing.name}
-                                    </span>
-                                    {pricing.pricing_label && (
-                                        <span className="text-[10px] bg-brand-blue text-white px-2 py-0.5 rounded-full font-bold">
-                                            {pricing.pricing_label}
-                                        </span>
-                                    )}
-                                </div>
-                                {pricing.description && (
-                                    <span className="text-xs text-text-muted mt-1">{pricing.description}</span>
-                                )}
-                            </button>
-                        ))}
-                    </div>
+            <div className="space-y-3 pt-4 border-t border-glass-border">
+                <span className="text-[11px] font-black text-text-muted uppercase tracking-widest block mb-2">
+                    {locale === 'en' ? 'Type' : 'Tipe'}
+                </span>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-glass-border bg-gray-50/50 dark:bg-brand-bg/50">
+                    {Number(effectivePrice) === 0 ? (
+                        <>
+                            <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{locale === 'en' ? 'Free' : 'Gratis'}</span>
+                        </>
+                    ) : (
+                        <>
+                            <div className="w-2 h-2 rounded-full bg-brand-blue" />
+                            <span className="text-xs font-bold text-brand-blue">{locale === 'en' ? 'Premium' : 'Berbayar'}</span>
+                        </>
+                    )}
                 </div>
-            )}
+            </div>
 
             <div className="space-y-4 pt-4 border-t border-glass-border">
                 {selectedPricing && selectedPricing.features && selectedPricing.features.length > 0 ? (
@@ -305,16 +289,6 @@ export default function ProductPricingWidget({ product, locale }: Props) {
                     </div>
                 ) : (
                     <>
-                        <div className="flex items-start space-x-3 text-sm text-text-gray font-medium">
-                            <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
-                                <Shield className="w-3.5 h-3.5 text-emerald-500" />
-                            </div>
-                            <div>
-                                <span className="font-bold text-text-main block">{locale === 'en' ? 'Warranty Support' : 'Dukungan Garansi'}</span>
-                                <span className="text-xs">{locale === 'en' ? 'Technical support & bug fixes included.' : 'Dukungan teknis & garansi perbaikan bug.'}</span>
-                            </div>
-                        </div>
-
                         {product.license_info && (
                             <div className="flex items-start space-x-3 text-sm text-text-gray font-medium">
                                 <div className="w-6 h-6 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0">

@@ -10,6 +10,7 @@ import { useLanguage } from '../context/LanguageContext';
 interface Props {
     product: Product;
     locale: string;
+    mainCategory?: string;
 }
 
 function formatPrice(price: number, period: string) {
@@ -25,7 +26,7 @@ function formatPrice(price: number, period: string) {
     return formatted;
 }
 
-export default function ProductPricingWidget({ product, locale }: Props) {
+export default function ProductPricingWidget({ product, locale, mainCategory }: Props) {
     const { language } = useLanguage();
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
@@ -262,24 +263,26 @@ export default function ProductPricingWidget({ product, locale }: Props) {
                 </div>
             </div>
 
-            <div className="space-y-3 pt-4 border-t border-glass-border">
-                <span className="text-[11px] font-black text-text-muted uppercase tracking-widest block mb-2">
-                    {locale === 'en' ? 'Type' : 'Tipe'}
-                </span>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-glass-border bg-gray-50/50 dark:bg-brand-bg/50">
-                    {Number(effectivePrice) === 0 ? (
-                        <>
-                            <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{locale === 'en' ? 'Free' : 'Gratis'}</span>
-                        </>
-                    ) : (
-                        <>
-                            <div className="w-2 h-2 rounded-full bg-brand-blue" />
-                            <span className="text-xs font-bold text-brand-blue">{locale === 'en' ? 'Premium' : 'Berbayar'}</span>
-                        </>
-                    )}
+            {mainCategory !== 'business-software' && (
+                <div className="space-y-3 pt-4 border-t border-glass-border">
+                    <span className="text-[11px] font-black text-text-muted uppercase tracking-widest block mb-2">
+                        {locale === 'en' ? 'Type' : 'Tipe'}
+                    </span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-glass-border bg-gray-50/50 dark:bg-brand-bg/50">
+                        {Number(effectivePrice) === 0 ? (
+                            <>
+                                <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{locale === 'en' ? 'Free' : 'Gratis'}</span>
+                            </>
+                        ) : (
+                            <>
+                                <div className="w-2 h-2 rounded-full bg-brand-blue" />
+                                <span className="text-xs font-bold text-brand-blue">{locale === 'en' ? 'Premium' : 'Berbayar'}</span>
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
 
             <div className="space-y-4 pt-4 border-t border-glass-border">
                 {selectedPricing && selectedPricing.features && selectedPricing.features.length > 0 ? (

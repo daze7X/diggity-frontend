@@ -278,7 +278,7 @@ export default async function ProductDetail({ params }: Props) {
                         )}
 
                         {/* Specifications Card */}
-                        {product.specifications && Object.keys(product.specifications).length > 0 && (
+                        {main !== 'business-software' && product.specifications && Object.keys(product.specifications).length > 0 && (
                             <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
                                 <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
                                     {locale === 'en' ? 'Specifications' : 'Spesifikasi'}
@@ -377,7 +377,7 @@ export default async function ProductDetail({ params }: Props) {
                     {/* Right Column: Sticky Pricing & Action */}
                     <div className="lg:col-span-1 space-y-6 lg:sticky lg:top-32">
                         <SpotlightCard className="p-8 border border-glass-border bg-white dark:bg-glass-bg rounded-3xl shadow-2xl">
-                            <React.Suspense fallback={<div className="animate-pulse h-[300px] bg-slate-100 dark:bg-slate-800 rounded-xl"></div>}><ProductPricingWidget product={product} locale={locale} /></React.Suspense>
+                            <React.Suspense fallback={<div className="animate-pulse h-[300px] bg-slate-100 dark:bg-slate-800 rounded-xl"></div>}><ProductPricingWidget product={product} locale={locale} mainCategory={main} /></React.Suspense>
                         </SpotlightCard>
 
                         {/* Related Products */}

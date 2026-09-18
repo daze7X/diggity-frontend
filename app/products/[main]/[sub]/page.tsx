@@ -76,7 +76,7 @@ export default async function SubCategoryPage({
     }
 
     return (
-        <div className="min-h-screen bg-bg-canvas flex flex-col relative overflow-hidden">
+        <div className="min-h-screen bg-bg-canvas flex flex-col relative overflow-clip">
             {/* Background Base */}
             <div className="absolute inset-0 bg-bg-canvas -z-10" />
 
@@ -194,7 +194,7 @@ export default async function SubCategoryPage({
                 <div className="flex flex-col lg:flex-row gap-10">
                     {/* Sidebar for Digital Marketplace */}
                     {main === 'digital-marketplace' && (
-                        <div className="w-full lg:w-64 shrink-0 lg:sticky lg:top-24 self-start space-y-6">
+                        <div className="w-full lg:w-64 shrink-0 lg:sticky lg:top-32 self-start space-y-6">
                             {subcategory?.children && subcategory.children.length > 0 && (
                                 <CategorySidebar childrenCategories={subcategory.children} locale={locale} />
                             )}

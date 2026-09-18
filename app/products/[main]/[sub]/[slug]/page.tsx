@@ -324,28 +324,6 @@ export default async function ProductDetail({ params }: Props) {
                             </div>
                         )}
 
-                        {/* FAQ Card */}
-                        {product.faq && product.faq.length > 0 && (
-                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
-                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
-                                    {locale === 'en' ? 'Frequently Asked Questions' : 'Pertanyaan Umum (FAQ)'}
-                                </h2>
-                                <div className="space-y-4">
-                                    {product.faq.map((item, i) => (
-                                        <details key={i} className="group border border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50 overflow-hidden [&_summary::-webkit-details-marker]:hidden">
-                                            <summary className="flex items-center justify-between cursor-pointer p-5 font-bold text-sm text-text-main hover:text-brand-blue transition-colors">
-                                                <span>{item.question}</span>
-                                                <ChevronDown className="w-5 h-5 text-text-muted group-open:rotate-180 transition-transform duration-300" />
-                                            </summary>
-                                            <div className="p-5 pt-0 text-sm text-text-muted leading-relaxed border-t border-glass-border/50 bg-white/50 dark:bg-glass-bg/50">
-                                                {item.answer}
-                                            </div>
-                                        </details>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
                         {/* Gallery Card for Business Software (Bottom) */}
                         {main === 'business-software' && (
                             product.gallery && product.gallery.length > 0 ? (
@@ -381,6 +359,28 @@ export default async function ProductDetail({ params }: Props) {
                                     </div>
                                 </div>
                             )
+                        )}
+
+                        {/* FAQ Card */}
+                        {product.faq && product.faq.length > 0 && (
+                            <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                    {locale === 'en' ? 'Frequently Asked Questions' : 'Pertanyaan Umum (FAQ)'}
+                                </h2>
+                                <div className="space-y-4">
+                                    {product.faq.map((item, i) => (
+                                        <details key={i} className="group border border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50 overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                                            <summary className="flex items-center justify-between cursor-pointer p-5 font-bold text-sm text-text-main hover:text-brand-blue transition-colors">
+                                                <span>{item.question}</span>
+                                                <ChevronDown className="w-5 h-5 text-text-muted group-open:rotate-180 transition-transform duration-300" />
+                                            </summary>
+                                            <div className="p-5 pt-0 text-sm text-text-muted leading-relaxed border-t border-glass-border/50 bg-white/50 dark:bg-glass-bg/50">
+                                                {item.answer}
+                                            </div>
+                                        </details>
+                                    ))}
+                                </div>
+                            </div>
                         )}
 
                     </div>

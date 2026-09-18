@@ -194,7 +194,7 @@ export default async function SubCategoryPage({
                 <div className="flex flex-col lg:flex-row gap-10">
                     {/* Sidebar for Digital Marketplace */}
                     {main === 'digital-marketplace' && (
-                        <div className="w-full lg:w-64 shrink-0 lg:sticky lg:top-32 self-start space-y-6">
+                        <div className="w-full lg:w-64 shrink-0 lg:sticky lg:top-32 self-start space-y-6 max-h-[calc(100vh-10rem)] overflow-y-auto pb-6 pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-glass-border [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-brand-blue/50">
                             {subcategory?.children && subcategory.children.length > 0 && (
                                 <CategorySidebar childrenCategories={subcategory.children} locale={locale} />
                             )}

@@ -230,6 +230,43 @@ export default async function ProductDetail({ params }: Props) {
                             )
                         )}
 
+                        {/* Gallery Card for Business Software */}
+                        {main === 'business-software' && (
+                            product.gallery && product.gallery.length > 0 ? (
+                                <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                    <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                        {locale === 'en' ? 'Product Preview' : 'Pratinjau Produk'}
+                                    </h2>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        {product.gallery.map((img, i) => {
+                                            const storageUrl = process.env.NEXT_PUBLIC_STORAGE_URL || 'https://yspcisyxfmxguqybhxam.supabase.co/storage/v1/object/public/diggity';
+                                            const imageUrl = img.startsWith('http') ? img : `${storageUrl}/${img}`;
+                                            return (
+                                                <div key={i} className="relative aspect-video rounded-2xl border border-glass-border overflow-hidden bg-gray-100 dark:bg-brand-bg flex items-center justify-center group shadow-md hover:shadow-xl transition-all">
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img 
+                                                        src={imageUrl} 
+                                                        alt={`${product!.name} Preview ${i + 1}`} 
+                                                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                                                    />
+                                                    <div className="absolute inset-0 bg-brand-blue/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
+                                    <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
+                                        {locale === 'en' ? 'Product Preview' : 'Pratinjau Produk'}
+                                    </h2>
+                                    <div className="text-center py-12 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50">
+                                        <p className="text-text-muted font-medium">{locale === 'en' ? 'Previews are not added for this product yet.' : 'Pratinjau belum ditambahkan untuk produk ini.'}</p>
+                                    </div>
+                                </div>
+                            )
+                        )}
+
                         {/* Description Card */}
                         {product.description && (
                             <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
@@ -324,42 +361,6 @@ export default async function ProductDetail({ params }: Props) {
                             </div>
                         )}
 
-                        {/* Gallery Card for Business Software (Bottom) */}
-                        {main === 'business-software' && (
-                            product.gallery && product.gallery.length > 0 ? (
-                                <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
-                                    <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
-                                        {locale === 'en' ? 'Product Preview' : 'Pratinjau Produk'}
-                                    </h2>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                        {product.gallery.map((img, i) => {
-                                            const storageUrl = process.env.NEXT_PUBLIC_STORAGE_URL || 'https://yspcisyxfmxguqybhxam.supabase.co/storage/v1/object/public/diggity';
-                                            const imageUrl = img.startsWith('http') ? img : `${storageUrl}/${img}`;
-                                            return (
-                                                <div key={i} className="relative aspect-video rounded-2xl border border-glass-border overflow-hidden bg-gray-100 dark:bg-brand-bg flex items-center justify-center group shadow-md hover:shadow-xl transition-all">
-                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img 
-                                                        src={imageUrl} 
-                                                        alt={`${product!.name} Preview ${i + 1}`} 
-                                                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                                                    />
-                                                    <div className="absolute inset-0 bg-brand-blue/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="bg-white dark:bg-glass-bg border border-glass-border shadow-xl rounded-3xl p-8 md:p-10">
-                                    <h2 className="text-2xl font-black text-text-main tracking-tight mb-8">
-                                        {locale === 'en' ? 'Product Preview' : 'Pratinjau Produk'}
-                                    </h2>
-                                    <div className="text-center py-12 border-2 border-dashed border-glass-border rounded-2xl bg-gray-50/50 dark:bg-brand-bg/50">
-                                        <p className="text-text-muted font-medium">{locale === 'en' ? 'Previews are not added for this product yet.' : 'Pratinjau belum ditambahkan untuk produk ini.'}</p>
-                                    </div>
-                                </div>
-                            )
-                        )}
 
                         {/* FAQ Card */}
                         {product.faq && product.faq.length > 0 && (

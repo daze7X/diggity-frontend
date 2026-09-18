@@ -40,9 +40,9 @@ export default function CategorySidebar({
     if (!childrenCategories || childrenCategories.length === 0) return null;
 
     return (
-        <div className="bg-glass-bg border border-glass-border rounded-3xl p-6 sticky top-32 mb-8">
-            <h3 className="text-lg font-black text-text-main mb-6">
-                {locale === 'en' ? 'Category' : 'Category'}
+        <div className="bg-white dark:bg-glass-bg border border-glass-border rounded-3xl p-6">
+            <h3 className="text-xs uppercase tracking-widest font-black text-text-main mb-6">
+                {locale === 'en' ? 'Category' : 'Kategori'}
             </h3>
             
             <div className="space-y-4">

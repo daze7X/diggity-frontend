@@ -168,7 +168,7 @@ export default async function AcademyPage() {
                 
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-16">
-                        <ScrollReveal animation="fade-right" className="max-w-2xl text-center lg:text-left">
+                        <ScrollReveal animation="slide-right" className="max-w-2xl text-center lg:text-left">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue mb-6">
                                 <span className="text-xs font-bold uppercase tracking-widest">Free Learning</span>
                             </div>
@@ -182,7 +182,7 @@ export default async function AcademyPage() {
                             </p>
                         </ScrollReveal>
                         
-                        <ScrollReveal animation="fade-left" className="shrink-0">
+                        <ScrollReveal animation="slide-left" className="shrink-0">
                             <Link href="#learning-paths" className="px-6 py-3 bg-brand-blue text-white font-bold rounded-xl hover:bg-brand-blue-dark transition-colors inline-flex items-center gap-2 group">
                                 {locale === 'en' ? 'Start for Free' : 'Mulai Gratis'}
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

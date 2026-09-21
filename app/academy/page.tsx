@@ -69,12 +69,32 @@ export default async function AcademyPage() {
                     
                     {/* Visual / Image */}
                     <div className="hidden lg:block relative w-full max-w-lg aspect-square">
-                        <div className="absolute inset-0 bg-white/5 border border-white/10 rounded-full blur-sm animate-pulse"></div>
-                        <div className="absolute inset-4 bg-gradient-to-tr from-blue-500/20 to-white/10 rounded-full backdrop-blur-3xl border border-white/20 flex items-center justify-center overflow-hidden">
-                            <div className="absolute inset-0 bg-[url('/img/pattern.svg')] opacity-30 mix-blend-overlay"></div>
-                            {/* Inner abstract geometric shapes as placeholder for illustration */}
-                            <div className="w-3/4 h-3/4 bg-white/10 rounded-3xl rotate-12 backdrop-blur-md border border-white/20"></div>
-                            <div className="absolute w-1/2 h-1/2 bg-blue-400/20 rounded-full -rotate-12 blur-xl"></div>
+                        <style dangerouslySetInnerHTML={{__html: `
+                            @keyframes morphBlob {
+                                0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+                                50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+                                100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+                            }
+                            .animate-morph-blob {
+                                animation: morphBlob 12s ease-in-out infinite;
+                            }
+                            .animate-morph-blob-fast {
+                                animation: morphBlob 8s ease-in-out infinite reverse;
+                            }
+                        `}} />
+                        
+                        {/* Glowing backdrop matching the blob */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-400 to-cyan-400 blur-2xl opacity-30 animate-morph-blob-fast scale-105 pointer-events-none" />
+                        
+                        {/* Main Image Blob */}
+                        <div className="absolute inset-0 border-2 border-white/20 shadow-[0_0_80px_rgba(0,0,0,0.3)] overflow-hidden animate-morph-blob relative group">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/30 to-transparent z-10 opacity-70 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img 
+                                src="/images/saas_hero.jpg" 
+                                alt="Diggity Academy Training"
+                                className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700" 
+                            />
                         </div>
                     </div>
                 </div>

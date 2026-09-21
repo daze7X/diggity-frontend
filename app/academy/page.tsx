@@ -7,6 +7,7 @@ import ScrollReveal from '../../components/ScrollReveal';
 import SpotlightCard from '../../components/SpotlightCard';
 import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS } from '../../lib/data/academy';
 import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2 } from 'lucide-react';
+import LearningPathTabs from '../../components/academy/LearningPathTabs';
 
 export const metadata: Metadata = {
     title: 'Academy & Training - Diggity',
@@ -237,6 +238,29 @@ export default async function AcademyPage() {
                             </SpotlightCard>
                         </ScrollReveal>
                     </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 4: LEARNING PATH
+            ========================================= */}
+            <section id="learning-paths" className="py-24 px-6 relative z-10 bg-gray-50/50 dark:bg-brand-bg/50 border-y border-glass-border">
+                <div className="max-w-7xl mx-auto">
+                    <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
+                            {locale === 'en' ? 'Choose Your Learning Path' : 'Pilih Jalur Karier & Belajarmu'}
+                        </h2>
+                        <p className="text-lg text-text-gray font-medium">
+                            {locale === 'en' 
+                                ? 'Diggity Academy curriculum is designed to help you build competencies step-by-step, from fundamentals to being ready for the professional world.' 
+                                : 'Kurikulum Diggity Academy dirancang untuk membantu kamu membangun kompetensi secara bertahap, dari fundamental hingga siap menerapkan skill di dunia profesional.'}
+                        </p>
+                    </ScrollReveal>
+
+                    {/* Learning Path Interactive Tabs */}
+                    <ScrollReveal animation="fade-up" delay={100}>
+                        <LearningPathTabs locale={locale} />
+                    </ScrollReveal>
                 </div>
             </section>
 

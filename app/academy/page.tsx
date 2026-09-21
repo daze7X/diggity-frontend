@@ -5,8 +5,8 @@ import { Metadata } from 'next';
 import { getLocaleServer } from '../../lib/locale-server';
 import ScrollReveal from '../../components/ScrollReveal';
 import SpotlightCard from '../../components/SpotlightCard';
-import { ACADEMY_PROGRAMS } from '../../lib/data/academy';
-import { ArrowRight } from 'lucide-react';
+import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS } from '../../lib/data/academy';
+import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'Academy & Training - Diggity',
@@ -115,6 +115,127 @@ export default async function AcademyPage() {
                                 </ScrollReveal>
                             );
                         })}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 3: WHY DIGGITY ACADEMY
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 bg-gray-50/50 dark:bg-brand-bg/50 border-y border-glass-border">
+                <div className="max-w-7xl mx-auto">
+                    <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
+                            {locale === 'en' ? 'More Than Just Classes.' : 'Berbeda dari yang Lain, Belajar di Diggity Lebih dari Sekadar Kelas.'}
+                        </h2>
+                        <p className="text-lg text-text-gray font-medium">
+                            {locale === 'en' 
+                                ? 'We build a learning experience that connects mentors, practice, community, and career development in one ecosystem.' 
+                                : 'Kami membangun pengalaman belajar yang menghubungkan mentor, pembelajaran, praktik, komunitas, dan pengembangan karier dalam satu ekosistem.'}
+                        </p>
+                    </ScrollReveal>
+
+                    {/* Benefits Grid (3x2) */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {ACADEMY_BENEFITS.map((benefit, idx) => {
+                            const Icon = benefit.icon;
+                            return (
+                                <ScrollReveal key={benefit.id} animation="fade-up" delay={idx * 50}>
+                                    <div className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl hover:-translate-y-1 transition-all group shadow-sm hover:shadow-xl hover:shadow-brand-blue/5">
+                                        <div className="w-12 h-12 rounded-2xl bg-brand-blue/10 flex items-center justify-center text-brand-blue mb-6 group-hover:scale-110 transition-transform">
+                                            <Icon className="w-6 h-6" strokeWidth={2} />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-text-main mb-3">
+                                            {locale === 'en' ? benefit.titleEn : benefit.titleId}
+                                        </h3>
+                                        <p className="text-sm text-text-gray leading-relaxed font-medium">
+                                            {locale === 'en' ? benefit.descEn : benefit.descId}
+                                        </p>
+                                    </div>
+                                </ScrollReveal>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 3: FREE LEARNING
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 overflow-hidden">
+                {/* Background decorative blob */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-blue/5 rounded-full blur-[120px] pointer-events-none" />
+                
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-16">
+                        <ScrollReveal animation="fade-right" className="max-w-2xl text-center lg:text-left">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue mb-6">
+                                <span className="text-xs font-bold uppercase tracking-widest">Free Learning</span>
+                            </div>
+                            <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
+                                {locale === 'en' ? 'Strengthen Fundamental Skills, For Free.' : 'Perkuat Fundamental Skills, Gratis.'}
+                            </h2>
+                            <p className="text-lg text-text-gray font-medium">
+                                {locale === 'en' 
+                                    ? 'Start your learning journey at no cost through various free classes and educational materials.' 
+                                    : 'Mulai perjalanan belajar tanpa biaya melalui berbagai kelas dan materi edukasi yang dapat diakses secara gratis.'}
+                            </p>
+                        </ScrollReveal>
+                        
+                        <ScrollReveal animation="fade-left" className="shrink-0">
+                            <Link href="#learning-paths" className="px-6 py-3 bg-brand-blue text-white font-bold rounded-xl hover:bg-brand-blue-dark transition-colors inline-flex items-center gap-2 group">
+                                {locale === 'en' ? 'Start for Free' : 'Mulai Gratis'}
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </ScrollReveal>
+                    </div>
+
+                    {/* Free Content Grid (3 cols) */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Free Courses */}
+                        <ScrollReveal animation="fade-up" delay={0}>
+                            <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30">
+                                <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <BookOpen className="w-7 h-7" strokeWidth={1.5} />
+                                </div>
+                                <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
+                                    {locale === 'en' ? 'Free Courses' : 'Free Courses'}
+                                </h3>
+                                <p className="text-sm text-text-gray font-medium">
+                                    {locale === 'en' ? 'Learn basic programming, design, and business concepts.' : 'Pelajari konsep dasar programming, desain, dan bisnis.'}
+                                </p>
+                            </SpotlightCard>
+                        </ScrollReveal>
+
+                        {/* Free Webinar */}
+                        <ScrollReveal animation="fade-up" delay={100}>
+                            <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30">
+                                <div className="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <PlayCircle className="w-7 h-7" strokeWidth={1.5} />
+                                </div>
+                                <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
+                                    {locale === 'en' ? 'Free Webinar' : 'Free Webinar'}
+                                </h3>
+                                <p className="text-sm text-text-gray font-medium">
+                                    {locale === 'en' ? 'Live sessions with experts discussing industry trends.' : 'Sesi interaktif bersama praktisi membahas tren industri.'}
+                                </p>
+                            </SpotlightCard>
+                        </ScrollReveal>
+
+                        {/* Free E-Books */}
+                        <ScrollReveal animation="fade-up" delay={200}>
+                            <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30">
+                                <div className="w-14 h-14 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Book className="w-7 h-7" strokeWidth={1.5} />
+                                </div>
+                                <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
+                                    {locale === 'en' ? 'Free E-Books' : 'Free E-Books'}
+                                </h3>
+                                <p className="text-sm text-text-gray font-medium">
+                                    {locale === 'en' ? 'Download comprehensive guides and study materials.' : 'Unduh panduan lengkap dan materi pembelajaran digital.'}
+                                </p>
+                            </SpotlightCard>
+                        </ScrollReveal>
                     </div>
                 </div>
             </section>

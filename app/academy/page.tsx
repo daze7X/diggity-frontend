@@ -6,7 +6,7 @@ import { getLocaleServer } from '../../lib/locale-server';
 import ScrollReveal from '../../components/ScrollReveal';
 import SpotlightCard from '../../components/SpotlightCard';
 import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS } from '../../lib/data/academy';
-import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star } from 'lucide-react';
 import LearningPathTabs from '../../components/academy/LearningPathTabs';
 
 export const metadata: Metadata = {
@@ -281,6 +281,126 @@ export default async function AcademyPage() {
                     <ScrollReveal animation="fade-up" delay={100}>
                         <LearningPathTabs locale={locale} />
                     </ScrollReveal>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 5: CORPORATE SOLUTIONS
+            ========================================= */}
+            <section id="corporate-solutions" className="py-24 px-6 relative z-10 overflow-hidden">
+                <div className="max-w-7xl mx-auto">
+                    <div className="bg-brand-blue dark:bg-brand-bg rounded-3xl overflow-hidden relative border border-brand-blue/20 dark:border-glass-border shadow-2xl">
+                        {/* Background Patterns */}
+                        <div className="absolute top-0 right-0 w-full h-full bg-[url('/img/pattern.svg')] opacity-10 pointer-events-none mix-blend-overlay"></div>
+                        <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-400/30 blur-[100px] rounded-full pointer-events-none"></div>
+
+                        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 p-8 lg:p-16 items-center">
+                            <div className="space-y-8">
+                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white backdrop-blur-sm border border-white/20">
+                                    <Building className="w-4 h-4" />
+                                    <span className="text-xs font-bold uppercase tracking-widest">Diggity For Business</span>
+                                </div>
+                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+                                    {locale === 'en' ? 'Empower Your Team with Corporate Training' : 'Tingkatkan Kapasitas Tim dengan Pelatihan Perusahaan'}
+                                </h2>
+                                <p className="text-lg text-white/80 font-medium">
+                                    {locale === 'en' 
+                                        ? 'Customized upskilling and reskilling programs designed to meet your company\'s specific technological needs and business goals.' 
+                                        : 'Program upskilling dan reskilling yang dirancang khusus untuk memenuhi kebutuhan teknologi dan tujuan bisnis perusahaan Anda.'}
+                                </p>
+                                
+                                <ul className="space-y-4 pt-4">
+                                    {[
+                                        { en: 'Customized Curriculum', id: 'Kurikulum yang Disesuaikan' },
+                                        { en: 'Expert Industry Practitioners', id: 'Praktisi Industri Ahli' },
+                                        { en: 'Progress & Performance Tracking', id: 'Pelacakan Progres & Performa' }
+                                    ].map((item, i) => (
+                                        <li key={i} className="flex items-center gap-3 text-white font-medium">
+                                            <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" />
+                                            <span>{locale === 'en' ? item.en : item.id}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <div className="pt-4">
+                                    <Link href="/contact" className="px-8 py-4 bg-white text-brand-blue font-bold rounded-2xl hover:bg-gray-50 transition-all inline-flex items-center gap-2 group">
+                                        {locale === 'en' ? 'Contact Enterprise Team' : 'Hubungi Tim B2B'}
+                                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <div className="relative w-full aspect-square lg:aspect-auto lg:h-[500px] rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src="/images/saas_hero.jpg" alt="Corporate Training" className="w-full h-full object-cover filter brightness-75 hover:brightness-100 transition-all duration-700" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 5: CAREER CONNECTION & HIRING PARTNERS
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 bg-gray-50/50 dark:bg-glass-bg border-y border-glass-border overflow-hidden">
+                <div className="max-w-7xl mx-auto text-center mb-16">
+                    <ScrollReveal animation="fade-up" className="max-w-3xl mx-auto">
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
+                            {locale === 'en' ? 'Your Bridge to a Professional Career' : 'Jembatan Menuju Karier Profesional'}
+                        </h2>
+                        <p className="text-lg text-text-gray font-medium">
+                            {locale === 'en' 
+                                ? 'We do more than teach. Our Career Support helps you land your dream job through our network of hiring partners.' 
+                                : 'Kami tidak hanya mengajar. Career Support kami membantu Anda mendapatkan pekerjaan impian melalui jaringan mitra perusahaan kami.'}
+                        </p>
+                    </ScrollReveal>
+                </div>
+
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+                    {[
+                        { icon: Briefcase, titleEn: 'Job Distribution', titleId: 'Penyaluran Kerja', descEn: 'Direct recommendation to our 50+ hiring partners.', descId: 'Rekomendasi langsung ke 50+ mitra perusahaan kami.' },
+                        { icon: Users, titleEn: 'Interview Simulation', titleId: 'Simulasi Interview', descEn: 'Practice sessions with HR and Technical experts.', descId: 'Sesi latihan interview bersama HR dan pakar teknikal.' },
+                        { icon: Star, titleEn: 'Portfolio Building', titleId: 'Pembuatan Portofolio', descEn: 'Guidance to build a standout professional portfolio.', descId: 'Panduan membangun portofolio profesional yang menonjol.' }
+                    ].map((feature, i) => {
+                        const Icon = feature.icon;
+                        return (
+                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                <div className="p-8 h-full bg-white dark:bg-bg-canvas border border-glass-border rounded-3xl text-center hover:border-brand-blue/30 transition-all hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-brand-blue/5">
+                                    <div className="w-14 h-14 mx-auto rounded-2xl bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-6">
+                                        <Icon className="w-7 h-7" />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-text-main mb-3">{locale === 'en' ? feature.titleEn : feature.titleId}</h3>
+                                    <p className="text-sm text-text-gray font-medium">{locale === 'en' ? feature.descEn : feature.descId}</p>
+                                </div>
+                            </ScrollReveal>
+                        )
+                    })}
+                </div>
+
+                {/* Marquee Hiring Partners */}
+                <div className="max-w-full overflow-hidden relative">
+                    <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-gray-50 dark:from-glass-bg to-transparent z-10 pointer-events-none"></div>
+                    <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-gray-50 dark:from-glass-bg to-transparent z-10 pointer-events-none"></div>
+                    
+                    <div className="flex items-center gap-8 md:gap-16 w-max animate-[marquee_30s_linear_infinite]">
+                        {/* Dummy logos (repeated for infinite scroll effect) */}
+                        {[...Array(2)].map((_, j) => (
+                            <React.Fragment key={j}>
+                                {[1,2,3,4,5,6,7,8].map((i) => (
+                                    <div key={i} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-bg-canvas border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md">
+                                        <span className="text-text-gray font-bold text-lg">Partner {i}</span>
+                                    </div>
+                                ))}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                    
+                    <style dangerouslySetInnerHTML={{__html: `
+                        @keyframes marquee {
+                            0% { transform: translateX(0); }
+                            100% { transform: translateX(-50%); }
+                        }
+                    `}} />
                 </div>
             </section>
 

@@ -6,7 +6,7 @@ import { getLocaleServer } from '../../lib/locale-server';
 import ScrollReveal from '../../components/ScrollReveal';
 import SpotlightCard from '../../components/SpotlightCard';
 import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS } from '../../lib/data/academy';
-import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star } from 'lucide-react';
+import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star, Layers, Award, Rocket, MessageSquare, Globe, Workflow } from 'lucide-react';
 import LearningPathTabs from '../../components/academy/LearningPathTabs';
 import { api } from '../../lib/api';
 
@@ -421,6 +421,110 @@ export default async function AcademyPage() {
                             100% { transform: translateX(-50%); }
                         }
                     `}} />
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 6: LEARNING ECOSYSTEM & COMMUNITY
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 overflow-hidden">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+                    
+                    {/* Left: Ecosystem Timeline */}
+                    <div className="w-full lg:w-1/2 space-y-12">
+                        <ScrollReveal animation="fade-right">
+                            <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-4">
+                                {locale === 'en' ? 'The Complete Learning Ecosystem' : 'Ekosistem Belajar yang Menyeluruh'}
+                            </h2>
+                            <p className="text-lg text-text-gray font-medium">
+                                {locale === 'en' 
+                                    ? 'A proven step-by-step journey designed to transform beginners into industry-ready professionals.' 
+                                    : 'Perjalanan bertahap yang terbukti efektif untuk mengubah pemula menjadi profesional yang siap terjun ke industri.'}
+                            </p>
+                        </ScrollReveal>
+
+                        <div className="relative pl-8 md:pl-0">
+                            {/* Vertical Line */}
+                            <div className="absolute left-[3.3rem] top-4 bottom-4 w-1 bg-gradient-to-b from-brand-blue via-cyan-400 to-purple-500 rounded-full opacity-20 hidden md:block"></div>
+                            <div className="absolute left-[1.3rem] top-4 bottom-4 w-1 bg-gradient-to-b from-brand-blue via-cyan-400 to-purple-500 rounded-full opacity-20 block md:hidden"></div>
+
+                            <div className="space-y-10 relative">
+                                {[
+                                    { icon: BookOpen, titleEn: '1. Learn', titleId: '1. Belajar', descEn: 'Master fundamentals through an industry-standard curriculum.', descId: 'Kuasai fundamental melalui kurikulum standar industri.', color: 'text-blue-500', bg: 'bg-blue-500/10' },
+                                    { icon: Layers, titleEn: '2. Practice', titleId: '2. Praktik', descEn: 'Apply concepts by building real-world projects and portfolios.', descId: 'Terapkan konsep dengan membangun proyek dan portofolio nyata.', color: 'text-cyan-500', bg: 'bg-cyan-500/10' },
+                                    { icon: Users, titleEn: '3. Connect', titleId: '3. Terhubung', descEn: 'Join 1-on-1 mentoring and expand your network in our community.', descId: 'Ikuti sesi mentoring 1-on-1 dan perluas jaringan di komunitas kami.', color: 'text-purple-500', bg: 'bg-purple-500/10' },
+                                    { icon: Award, titleEn: '4. Certify', titleId: '4. Sertifikasi', descEn: 'Validate your skills with official certifications.', descId: 'Validasi kemampuanmu dengan sertifikasi resmi yang diakui.', color: 'text-pink-500', bg: 'bg-pink-500/10' },
+                                    { icon: Rocket, titleEn: '5. Grow', titleId: '5. Berkembang', descEn: 'Land your dream job with the help of our career support team.', descId: 'Dapatkan pekerjaan impian dengan bantuan tim career support kami.', color: 'text-orange-500', bg: 'bg-orange-500/10' },
+                                ].map((step, idx) => {
+                                    const Icon = step.icon;
+                                    return (
+                                        <ScrollReveal key={idx} animation="fade-right" delay={idx * 100} className="relative flex items-start gap-6 md:gap-8 group">
+                                            <div className={`w-12 h-12 md:w-16 md:h-16 shrink-0 rounded-2xl ${step.bg} ${step.color} flex items-center justify-center relative z-10 border border-white dark:border-glass-border shadow-lg group-hover:scale-110 transition-transform bg-white dark:bg-bg-canvas`}>
+                                                <Icon className="w-6 h-6 md:w-8 md:h-8" />
+                                            </div>
+                                            <div className="pt-1 md:pt-3">
+                                                <h3 className="text-xl font-bold text-text-main mb-2">{locale === 'en' ? step.titleEn : step.titleId}</h3>
+                                                <p className="text-text-gray font-medium">{locale === 'en' ? step.descEn : step.descId}</p>
+                                            </div>
+                                        </ScrollReveal>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right: Community Showcase */}
+                    <div className="w-full lg:w-1/2">
+                        <ScrollReveal animation="slide-left" className="h-full">
+                            <SpotlightCard className="p-8 md:p-12 bg-white dark:bg-glass-bg border border-glass-border rounded-[3rem] text-center shadow-xl relative overflow-hidden group h-full flex flex-col justify-center">
+                                {/* Decorative elements inside card */}
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-blue/5 rounded-full blur-[80px] group-hover:bg-brand-blue/10 transition-colors"></div>
+                                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-[80px] group-hover:bg-purple-500/10 transition-colors"></div>
+                                
+                                <div className="relative z-10">
+                                    <div className="w-20 h-20 mx-auto rounded-3xl bg-brand-blue text-white flex items-center justify-center mb-8 shadow-lg shadow-brand-blue/20 rotate-3 group-hover:rotate-12 transition-transform">
+                                        <MessageSquare className="w-10 h-10" />
+                                    </div>
+                                    <h3 className="text-3xl md:text-4xl font-black text-text-main mb-6">
+                                        {locale === 'en' ? 'Join 10,000+ Diggity Learners' : 'Bergabung dengan 10.000+ Pembelajar Lainnya'}
+                                    </h3>
+                                    <p className="text-lg text-text-gray font-medium mb-10 leading-relaxed">
+                                        {locale === 'en' 
+                                            ? 'Our community is the heart of the Diggity Academy. Get exclusive access to study groups, Q&A sessions with mentors, and networking with tech professionals.' 
+                                            : 'Komunitas adalah jantung dari Diggity Academy. Dapatkan akses eksklusif ke grup belajar, sesi tanya jawab dengan mentor, dan jejaring dengan profesional teknologi.'}
+                                    </p>
+
+                                    <div className="grid grid-cols-2 gap-4 mb-10">
+                                        {[
+                                            { icon: Globe, labelEn: 'Exclusive Forums', labelId: 'Forum Eksklusif' },
+                                            { icon: Users, labelEn: 'Study Groups', labelId: 'Grup Belajar' },
+                                            { icon: Workflow, labelEn: 'Networking', labelId: 'Jejaring Karier' },
+                                            { icon: Star, labelEn: 'Events & Tech Talks', labelId: 'Event & Tech Talk' },
+                                        ].map((item, i) => {
+                                            const Icon = item.icon;
+                                            return (
+                                                <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-glass-border text-left hover:border-brand-blue/30 transition-colors">
+                                                    <Icon className="w-5 h-5 text-brand-blue shrink-0" />
+                                                    <span className="font-bold text-text-main text-sm">{locale === 'en' ? item.labelEn : item.labelId}</span>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+
+                                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                        <Link href="#" className="px-8 py-4 bg-indigo-600 text-white font-bold rounded-2xl hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20">
+                                            <MessageSquare className="w-5 h-5" />
+                                            Discord
+                                        </Link>
+                                        <Link href="#" className="px-8 py-4 bg-sky-500 text-white font-bold rounded-2xl hover:bg-sky-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-sky-500/20">
+                                            <Globe className="w-5 h-5" />
+                                            Telegram
+                                        </Link>
+                                    </div>
+                                </div>
+                            </SpotlightCard>
+                        </ScrollReveal>
+                    </div>
                 </div>
             </section>
 

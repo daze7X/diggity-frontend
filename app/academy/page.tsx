@@ -446,7 +446,7 @@ export default async function AcademyPage() {
                     
                     {/* Left: Ecosystem Timeline */}
                     <div className="w-full lg:w-1/2 space-y-12">
-                        <ScrollReveal animation="fade-right">
+                        <ScrollReveal animation="slide-right">
                             <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-4">
                                 {locale === 'en' ? 'The Complete Learning Ecosystem' : 'Ekosistem Belajar yang Menyeluruh'}
                             </h2>
@@ -472,7 +472,7 @@ export default async function AcademyPage() {
                                 ].map((step, idx) => {
                                     const Icon = step.icon;
                                     return (
-                                        <ScrollReveal key={idx} animation="fade-right" delay={idx * 100} className="relative flex items-start gap-6 md:gap-8 group">
+                                        <ScrollReveal key={idx} animation="slide-right" delay={idx * 100} className="relative flex items-start gap-6 md:gap-8 group">
                                             <div className={`w-12 h-12 md:w-16 md:h-16 shrink-0 rounded-2xl ${step.bg} ${step.color} flex items-center justify-center relative z-10 border border-white dark:border-glass-border shadow-lg group-hover:scale-110 transition-transform bg-white dark:bg-bg-canvas`}>
                                                 <Icon className="w-6 h-6 md:w-8 md:h-8" />
                                             </div>

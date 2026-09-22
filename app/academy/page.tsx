@@ -395,24 +395,38 @@ export default async function AcademyPage() {
                     <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-gray-50 dark:from-glass-bg to-transparent z-10 pointer-events-none"></div>
                     
                     <div className="flex items-center gap-8 md:gap-16 w-max animate-[marquee_30s_linear_infinite]">
-                        {[...Array(2)].map((_, j) => (
-                            <React.Fragment key={j}>
-                                {partnerLogos ? (
-                                    partnerLogos.map((logo, i) => (
-                                        <div key={i} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-white/5 border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md overflow-hidden p-3">
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img src={logo} alt={`Partner ${i}`} className="max-w-full max-h-full object-contain" />
+                        {partnerLogos && partnerLogos.length > 0 ? (
+                            (() => {
+                                const minItems = 16;
+                                const repeatCount = Math.ceil(minItems / partnerLogos.length);
+                                const duplicatedLogos = Array(repeatCount).fill(partnerLogos).flat();
+                                const finalLogos = [...duplicatedLogos, ...duplicatedLogos]; // duplicate for seamless loop
+                                
+                                return finalLogos.map((logo: string, idx: number) => {
+                                    const isFilePath = logo.includes('/') || logo.includes('.') || logo.startsWith('http');
+                                    const src = logo.startsWith('http') ? logo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${logo}`;
+                                    return (
+                                        <div key={idx} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-white/5 border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md overflow-hidden p-3 relative shrink-0">
+                                            {isFilePath ? (
+                                                <Image src={src} alt="Partner Logo" fill className="object-contain p-3" />
+                                            ) : (
+                                                <span className="font-black text-lg text-text-main tracking-widest">{logo.toUpperCase()}</span>
+                                            )}
                                         </div>
-                                    ))
-                                ) : (
-                                    [1,2,3,4,5,6,7,8].map((i) => (
-                                        <div key={i} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-white/5 border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md">
+                                    );
+                                });
+                            })()
+                        ) : (
+                            [...Array(2)].map((_, j) => (
+                                <React.Fragment key={j}>
+                                    {[1,2,3,4,5,6,7,8].map((i) => (
+                                        <div key={i} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-white/5 border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md shrink-0">
                                             <span className="text-text-gray font-bold text-lg">Partner {i}</span>
                                         </div>
-                                    ))
-                                )}
-                            </React.Fragment>
-                        ))}
+                                    ))}
+                                </React.Fragment>
+                            ))
+                        )}
                     </div>
                     
                     <style dangerouslySetInnerHTML={{__html: `

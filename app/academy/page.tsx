@@ -8,6 +8,7 @@ import SpotlightCard from '../../components/SpotlightCard';
 import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS } from '../../lib/data/academy';
 import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star } from 'lucide-react';
 import LearningPathTabs from '../../components/academy/LearningPathTabs';
+import { api } from '../../lib/api';
 
 export const metadata: Metadata = {
     title: 'Academy & Training - Diggity',
@@ -18,6 +19,17 @@ export const revalidate = 60;
 
 export default async function AcademyPage() {
     const locale = await getLocaleServer();
+    
+    // Fetch settings for dynamic partner logos
+    let settings = null;
+    try {
+        settings = await api.getCompanySettings();
+    } catch (error) {
+        console.error("Failed to fetch settings:", error);
+    }
+    const partnerLogos = settings?.partner_logos && settings.partner_logos.length > 0 
+        ? settings.partner_logos 
+        : null;
 
     return (
         <div className="min-h-screen bg-bg-canvas relative pb-20 selection:bg-brand-blue/20 flex flex-col overflow-x-hidden">
@@ -365,7 +377,7 @@ export default async function AcademyPage() {
                         const Icon = feature.icon;
                         return (
                             <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
-                                <div className="p-8 h-full bg-white dark:bg-bg-canvas border border-glass-border rounded-3xl text-center hover:border-brand-blue/30 transition-all hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-brand-blue/5">
+                                <div className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl text-center hover:border-brand-blue/30 transition-all hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-brand-blue/5">
                                     <div className="w-14 h-14 mx-auto rounded-2xl bg-brand-blue/10 text-brand-blue flex items-center justify-center mb-6">
                                         <Icon className="w-7 h-7" />
                                     </div>
@@ -383,14 +395,22 @@ export default async function AcademyPage() {
                     <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-gray-50 dark:from-glass-bg to-transparent z-10 pointer-events-none"></div>
                     
                     <div className="flex items-center gap-8 md:gap-16 w-max animate-[marquee_30s_linear_infinite]">
-                        {/* Dummy logos (repeated for infinite scroll effect) */}
                         {[...Array(2)].map((_, j) => (
                             <React.Fragment key={j}>
-                                {[1,2,3,4,5,6,7,8].map((i) => (
-                                    <div key={i} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-bg-canvas border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md">
-                                        <span className="text-text-gray font-bold text-lg">Partner {i}</span>
-                                    </div>
-                                ))}
+                                {partnerLogos ? (
+                                    partnerLogos.map((logo, i) => (
+                                        <div key={i} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-white/5 border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md overflow-hidden p-3">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img src={logo} alt={`Partner ${i}`} className="max-w-full max-h-full object-contain" />
+                                        </div>
+                                    ))
+                                ) : (
+                                    [1,2,3,4,5,6,7,8].map((i) => (
+                                        <div key={i} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-white/5 border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md">
+                                            <span className="text-text-gray font-bold text-lg">Partner {i}</span>
+                                        </div>
+                                    ))
+                                )}
                             </React.Fragment>
                         ))}
                     </div>

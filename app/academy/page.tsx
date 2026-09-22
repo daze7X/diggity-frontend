@@ -405,8 +405,8 @@ export default async function AcademyPage() {
                                 return finalLogos.map((logo: string, idx: number) => {
                                     const isFilePath = logo.includes('/') || logo.includes('.') || logo.startsWith('http');
                                     const src = logo.startsWith('http') ? logo : `${process.env.NEXT_PUBLIC_STORAGE_URL || 'http://127.0.0.1:8000/storage'}/${logo}`;
-                                    return (
-                                        <div key={idx} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-white/5 border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md overflow-hidden p-3 relative shrink-0">
+                                      return (
+                                        <div key={idx} className="flex items-center justify-center h-16 w-40 filter grayscale hover:grayscale-0 transition-all duration-300 opacity-60 dark:opacity-40 hover:opacity-100 cursor-pointer p-3 relative shrink-0">
                                             {isFilePath ? (
                                                 <Image src={src} alt="Partner Logo" fill className="object-contain p-3" />
                                             ) : (
@@ -420,7 +420,7 @@ export default async function AcademyPage() {
                             [...Array(2)].map((_, j) => (
                                 <React.Fragment key={j}>
                                     {[1,2,3,4,5,6,7,8].map((i) => (
-                                        <div key={i} className="flex items-center justify-center h-16 w-40 bg-white dark:bg-white/5 border border-glass-border rounded-xl filter grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 shadow-sm cursor-pointer hover:shadow-md shrink-0">
+                                        <div key={i} className="flex items-center justify-center h-16 w-40 filter grayscale hover:grayscale-0 transition-all duration-300 opacity-60 dark:opacity-40 hover:opacity-100 cursor-pointer shrink-0">
                                             <span className="text-text-gray font-bold text-lg">Partner {i}</span>
                                         </div>
                                     ))}

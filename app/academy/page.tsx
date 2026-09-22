@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { getLocaleServer } from '../../lib/locale-server';
 import ScrollReveal from '../../components/ScrollReveal';
 import SpotlightCard from '../../components/SpotlightCard';
-import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS } from '../../lib/data/academy';
+import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS, ACADEMY_FAQ } from '../../lib/data/academy';
 import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star, Layers, Award, Rocket, MessageSquare, Globe, Workflow } from 'lucide-react';
 import LearningPathTabs from '../../components/academy/LearningPathTabs';
 import { api } from '../../lib/api';
@@ -539,6 +539,135 @@ export default async function AcademyPage() {
                             </SpotlightCard>
                         </ScrollReveal>
                     </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 7: ALUMNI STORIES
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 bg-bg-canvas border-y border-glass-border">
+                <div className="max-w-7xl mx-auto">
+                    <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-4">
+                            {locale === 'en' ? 'Success Stories' : 'Kisah Sukses Alumni'}
+                        </h2>
+                        <p className="text-lg text-text-gray font-medium">
+                            {locale === 'en' 
+                                ? 'See how Diggity Academy has helped them achieve their career goals.' 
+                                : 'Lihat bagaimana Diggity Academy membantu mereka mencapai tujuan kariernya.'}
+                        </p>
+                    </ScrollReveal>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {[
+                            {
+                                name: "Budi Santoso",
+                                role: "AI Engineer @ TechCorp",
+                                quote: locale === 'en' ? "The GenAI curriculum was exactly what I needed. I got hired 2 weeks after graduating!" : "Kurikulum GenAI sangat relevan dengan kebutuhan industri. Saya langsung diterima kerja 2 minggu setelah lulus!",
+                            },
+                            {
+                                name: "Sarah Wijaya",
+                                role: "Data Analyst @ FinTechID",
+                                quote: locale === 'en' ? "The mentors are practitioners who really know their stuff. The portfolio I built was the key to my current job." : "Mentornya praktisi ahli. Portofolio nyata yang saya bangun di sini jadi kunci utama saya diterima kerja.",
+                            },
+                            {
+                                name: "Andi Pratama",
+                                role: "Fullstack Developer @ StartupIndo",
+                                quote: locale === 'en' ? "Coming from a non-IT background, the structured Learning Path made it easy for me to switch careers." : "Meski dari latar belakang non-IT, Learning Path yang terstruktur membuat saya mudah banting setir (switch career).",
+                            }
+                        ].map((alumni, i) => (
+                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                <div className="p-8 bg-white dark:bg-glass-bg border border-glass-border rounded-3xl h-full flex flex-col justify-between hover:-translate-y-1 transition-transform shadow-sm hover:shadow-xl hover:shadow-brand-blue/5">
+                                    <div>
+                                        <div className="flex gap-1 mb-6 text-orange-400">
+                                            {[...Array(5)].map((_, j) => <Star key={j} className="w-5 h-5 fill-current" />)}
+                                        </div>
+                                        <p className="text-text-main font-medium leading-relaxed mb-8 italic">
+                                            "{alumni.quote}"
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue font-bold text-xl">
+                                            {alumni.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-text-main">{alumni.name}</h4>
+                                            <p className="text-sm text-text-gray font-medium">{alumni.role}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 7: FAQ
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 overflow-hidden">
+                <div className="max-w-4xl mx-auto">
+                    <ScrollReveal animation="fade-up" className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-4">
+                            {locale === 'en' ? 'Frequently Asked Questions' : 'Pertanyaan yang Sering Diajukan'}
+                        </h2>
+                    </ScrollReveal>
+
+                    <div className="space-y-4">
+                        {ACADEMY_FAQ.map((faq, idx) => (
+                            <ScrollReveal key={idx} animation="fade-up" delay={idx * 50}>
+                                <details className="group bg-white dark:bg-glass-bg border border-glass-border rounded-2xl [&_summary::-webkit-details-marker]:hidden overflow-hidden transition-all duration-300">
+                                    <summary className="flex cursor-pointer items-center justify-between gap-4 p-6 font-bold text-text-main transition-colors hover:text-brand-blue">
+                                        <span className="text-lg">{locale === 'en' ? faq.questionEn : faq.questionId}</span>
+                                        <span className="shrink-0 rounded-full bg-gray-50 dark:bg-white/5 p-2 transition duration-300 group-open:-rotate-180">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <div className="px-6 pb-6 text-text-gray font-medium leading-relaxed">
+                                        {locale === 'en' ? faq.answerEn : faq.answerId}
+                                    </div>
+                                </details>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 7: FINAL CTA
+            ========================================= */}
+            <section className="pb-24 px-6 relative z-10">
+                <div className="max-w-7xl mx-auto">
+                    <ScrollReveal animation="fade-up">
+                        <div className="bg-gradient-to-br from-brand-blue to-cyan-500 rounded-[3rem] p-10 md:p-20 text-center relative overflow-hidden border border-white/20 shadow-2xl">
+                            {/* Decorative background patterns */}
+                            <div className="absolute inset-0 bg-[url('/img/pattern.svg')] opacity-20 mix-blend-overlay"></div>
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full pointer-events-none"></div>
+                            
+                            <div className="relative z-10 max-w-3xl mx-auto">
+                                <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">
+                                    {locale === 'en' ? 'Ready to Start Your Tech Journey?' : 'Siap Memulai Perjalanan Teknologimu?'}
+                                </h2>
+                                <p className="text-xl text-white/90 font-medium mb-12">
+                                    {locale === 'en' 
+                                        ? 'Join Diggity Academy today and build the skills needed for the jobs of tomorrow.' 
+                                        : 'Bergabunglah dengan Diggity Academy hari ini dan bangun keterampilan yang dibutuhkan untuk masa depan.'}
+                                </p>
+                                
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                    <Link href="#learning-paths" scroll={false} className="px-10 py-5 bg-white text-brand-blue font-black rounded-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-xl shadow-black/10">
+                                        {locale === 'en' ? 'Explore Programs' : 'Eksplorasi Program'}
+                                    </Link>
+                                    <Link href="/contact" className="px-10 py-5 bg-black/20 text-white font-bold rounded-2xl hover:bg-black/30 border border-white/20 backdrop-blur-sm transition-all flex items-center justify-center gap-2">
+                                        {locale === 'en' ? 'Contact for Business' : 'Hubungi Tim B2B'}
+                                        <ArrowRight className="w-5 h-5" />
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollReveal>
                 </div>
             </section>
 

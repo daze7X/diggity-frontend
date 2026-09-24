@@ -8,7 +8,7 @@ import SpotlightCard from '../../../components/SpotlightCard';
 import { 
     ArrowRight, BookOpen, Briefcase, Users, LayoutTemplate, 
     MonitorPlay, FileCode2, MessagesSquare, Trophy, 
-    Target, Code2, Star, Clock, Network, HeadphonesIcon, GraduationCap
+    Target, Code2, Star, Clock, Network, HeadphonesIcon, GraduationCap, CheckCircle2
 } from 'lucide-react';
 
 export default function BootcampLandingPage() {
@@ -492,6 +492,186 @@ export default function BootcampLandingPage() {
                             </ScrollReveal>
                         ))}
                     </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 4: ALUMNI / STUDENT STORIES
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10">
+                <div className="max-w-7xl mx-auto">
+                    <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+                        <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Student Stories</span>
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight">
+                            {locale === 'en' ? 'They Started Here' : 'Mereka Mulai dari Sini'}
+                        </h2>
+                    </ScrollReveal>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[
+                            { quote: 'Materi sangat terstruktur dan mentor benar-benar membimbing sampai paham. Final project-nya sangat membantu saya mendapat pekerjaan baru.', name: 'Rina S.', role: 'Junior Data Analyst', bootcamp: 'Bootcamp Data Analytics' },
+                            { quote: 'Dari nol belajar coding, sekarang bisa bikin full-stack app sendiri. Sangat recommended buat career switcher!', name: 'Dimas A.', role: 'Frontend Developer', bootcamp: 'Bootcamp Full-Stack Web' },
+                            { quote: 'Career support-nya luar biasa! CV saya di-review total dan diajari cara nego gaji saat interview.', name: 'Nadia P.', role: 'UI/UX Designer', bootcamp: 'Bootcamp UI/UX Design' },
+                        ].map((testimonial, i) => (
+                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                <div className="p-8 bg-white dark:bg-glass-bg border border-glass-border rounded-2xl relative shadow-sm hover:shadow-xl transition-shadow h-full flex flex-col justify-between">
+                                    <div>
+                                        <div className="text-5xl font-serif text-brand-blue/20 absolute top-4 left-6">"</div>
+                                        <p className="text-text-gray font-medium italic mb-6 relative z-10 pt-4 leading-relaxed">"{testimonial.quote}"</p>
+                                    </div>
+                                    <div className="flex items-center gap-4 border-t border-glass-border pt-6 mt-auto">
+                                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue font-bold text-lg shrink-0">
+                                            {testimonial.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-text-main">{testimonial.name}</h4>
+                                            <p className="text-xs text-text-gray font-medium">{testimonial.role}</p>
+                                            <p className="text-[10px] font-bold text-brand-blue mt-1 uppercase tracking-wider">{testimonial.bootcamp}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 4: CAREER SUPPORT & LEARNING FORMAT
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 bg-white/50 dark:bg-black/20 border-y border-glass-border">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    {/* Career Support */}
+                    <div>
+                        <ScrollReveal animation="fade-up" className="mb-12">
+                            <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Career Support</span>
+                            <h2 className="text-3xl md:text-4xl font-black text-text-main tracking-tight mb-4">
+                                {locale === 'en' ? 'We Help Prepare Your Next Step' : 'Kami Membantumu Mempersiapkan Langkah Berikutnya'}
+                            </h2>
+                        </ScrollReveal>
+
+                        <div className="space-y-4">
+                            {[
+                                { title: 'CV Review', desc: 'Review CV agar lebih relevan dengan target role.' },
+                                { title: 'Portfolio Review', desc: 'Feedback terhadap project dan portfolio.' },
+                                { title: 'LinkedIn Optimization', desc: 'Membantu membangun professional presence.' },
+                                { title: 'Interview Preparation', desc: 'Simulasi dan persiapan interview.' },
+                                { title: 'Career Consultation', desc: 'Diskusi mengenai career path dan target role.' },
+                                { title: 'Job Opportunity', desc: 'Informasi peluang kerja dari network partner (jika tersedia).' },
+                            ].map((support, i) => (
+                                <ScrollReveal key={i} animation="fade-up" delay={i * 50}>
+                                    <div className="flex gap-4 items-start p-4 rounded-xl bg-white dark:bg-glass-bg border border-glass-border shadow-sm hover:border-brand-blue/30 transition-colors">
+                                        <div className="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+                                            <CheckCircle2 className="w-5 h-5" />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-text-main text-lg mb-1">{support.title}</h4>
+                                            <p className="text-sm text-text-gray font-medium">{support.desc}</p>
+                                        </div>
+                                    </div>
+                                </ScrollReveal>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Learning Format */}
+                    <div>
+                        <ScrollReveal animation="fade-up" className="mb-12">
+                            <span className="text-sm font-bold text-purple-500 uppercase tracking-widest mb-2 block">Learning Format</span>
+                            <h2 className="text-3xl md:text-4xl font-black text-text-main tracking-tight mb-4">
+                                {locale === 'en' ? 'Choose The Way You Learn' : 'Pilih Cara Belajar yang Sesuai dengan Ritmemu'}
+                            </h2>
+                        </ScrollReveal>
+
+                        <div className="space-y-6">
+                            {[
+                                { title: 'Online', desc: 'Belajar dari mana saja dengan sesi live dan learning platform.', icon: MonitorPlay },
+                                { title: 'Offline', desc: 'Belajar langsung tatap muka bersama mentor dan peserta lainnya.', icon: Users },
+                                { title: 'Private / Corporate', desc: 'Program khusus dan eksklusif untuk individu, kelompok, atau perusahaan.', icon: Briefcase },
+                            ].map((format, i) => {
+                                const Icon = format.icon;
+                                return (
+                                    <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                        <div className="p-8 bg-white dark:bg-glass-bg border border-glass-border rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-6 shadow-sm hover:shadow-lg transition-shadow group">
+                                            <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 shrink-0 group-hover:bg-brand-blue/10 group-hover:text-brand-blue transition-colors">
+                                                <Icon className="w-8 h-8" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-xl font-bold text-text-main mb-2">{format.title}</h4>
+                                                <p className="text-sm text-text-gray font-medium">{format.desc}</p>
+                                            </div>
+                                        </div>
+                                    </ScrollReveal>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 4: FAQ & FINAL CTA
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10">
+                <div className="max-w-3xl mx-auto mb-32">
+                    <ScrollReveal animation="fade-up" className="text-center mb-16">
+                        <span className="text-sm font-bold text-text-gray uppercase tracking-widest mb-2 block">FAQ</span>
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight">
+                            Frequently Asked Questions
+                        </h2>
+                    </ScrollReveal>
+
+                    <div className="space-y-4">
+                        {[
+                            'Apakah saya harus punya basic sebelumnya?',
+                            'Siapa yang cocok mengikuti Bootcamp Diggity?',
+                            'Berapa lama durasi bootcamp?',
+                            'Apakah tersedia online dan offline?',
+                            'Apakah bisa mengikuti sambil bekerja/kuliah?',
+                            'Apakah tersedia cicilan atau pembayaran bertahap?'
+                        ].map((q, i) => (
+                            <ScrollReveal key={i} animation="fade-up" delay={i * 50}>
+                                <details className="group p-6 bg-white dark:bg-glass-bg border border-glass-border rounded-2xl cursor-pointer shadow-sm hover:border-brand-blue/50 transition-colors">
+                                    <summary className="font-bold text-lg text-text-main list-none flex justify-between items-center">
+                                        {q}
+                                        <span className="text-brand-blue group-open:rotate-180 transition-transform duration-300">▼</span>
+                                    </summary>
+                                    <p className="text-text-gray mt-4 pt-4 border-t border-glass-border font-medium leading-relaxed">
+                                        Tentu saja! Program kami dirancang agar dapat diakses sesuai dengan ketentuan dari masing-masing jenis program dan level kompetensinya. Untuk informasi lebih spesifik, silakan pilih program yang Anda inginkan dan berkonsultasi langsung dengan tim Diggity Academy.
+                                    </p>
+                                </details>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="max-w-5xl mx-auto">
+                    <ScrollReveal animation="fade-up">
+                        <div className="p-10 md:p-16 rounded-[3rem] bg-gradient-to-br from-brand-blue to-purple-600 text-center relative overflow-hidden shadow-2xl">
+                            {/* Decorative Background Elements */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-black opacity-10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                            
+                            <div className="relative z-10">
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-8">
+                                    {locale === 'en' ? 'Ready to Upgrade Skills and Take the Next Step?' : 'Siap Upgrade Skill dan Mulai Langkah Berikutnya?'}
+                                </h2>
+                                <p className="text-lg md:text-xl text-blue-100 font-medium mb-12 max-w-2xl mx-auto">
+                                    {locale === 'en' 
+                                        ? 'Choose the program that fits your goals or consult with the Diggity Academy team first.' 
+                                        : 'Pilih program yang sesuai dengan tujuanmu atau konsultasikan terlebih dahulu dengan tim Diggity Academy.'}
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                    <Link href="#programs" className="px-8 py-4 bg-white text-brand-blue font-bold rounded-2xl hover:scale-105 transition-transform shadow-xl">
+                                        {locale === 'en' ? 'View All Bootcamps' : 'Lihat Semua Bootcamp'}
+                                    </Link>
+                                    <Link href="/contact" className="px-8 py-4 bg-black/20 text-white border border-white/30 font-bold rounded-2xl hover:bg-black/30 transition-colors backdrop-blur-sm">
+                                        {locale === 'en' ? 'Program Consultation' : 'Konsultasi Program'}
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollReveal>
                 </div>
             </section>
 

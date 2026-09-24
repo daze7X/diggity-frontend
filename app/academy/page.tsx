@@ -370,17 +370,18 @@ export default async function AcademyPage() {
                         </h2>
                         <p className="text-lg text-text-gray font-medium">
                             {locale === 'en' 
-                                ? 'We do more than teach. Our Career Support helps you land your dream job through our network of hiring partners.' 
-                                : 'Kami tidak hanya mengajar. Career Support kami membantu Anda mendapatkan pekerjaan impian melalui jaringan mitra perusahaan kami.'}
+                                ? 'Diggity Academy connects the learning process with industry needs through career support, portfolio development, industry projects, and professional networking.' 
+                                : 'Diggity Academy menghubungkan proses belajar dengan kebutuhan industri melalui career support, portfolio development, industry project, dan networking profesional.'}
                         </p>
                     </ScrollReveal>
                 </div>
 
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
                     {[
-                        { icon: Briefcase, titleEn: 'Job Distribution', titleId: 'Penyaluran Kerja', descEn: 'Direct recommendation to our 50+ hiring partners.', descId: 'Rekomendasi langsung ke 50+ mitra perusahaan kami.' },
-                        { icon: Users, titleEn: 'Interview Simulation', titleId: 'Simulasi Interview', descEn: 'Practice sessions with HR and Technical experts.', descId: 'Sesi latihan interview bersama HR dan pakar teknikal.' },
-                        { icon: Star, titleEn: 'Portfolio Building', titleId: 'Pembuatan Portofolio', descEn: 'Guidance to build a standout professional portfolio.', descId: 'Panduan membangun portofolio profesional yang menonjol.' }
+                        { icon: Users, titleEn: 'Career Preparation', titleId: 'Career Preparation', descEn: 'CV Review, LinkedIn profile optimization, and interview simulation.', descId: 'Review CV, optimasi profil LinkedIn, dan simulasi interview.' },
+                        { icon: Briefcase, titleEn: 'Industry Project', titleId: 'Industry Project', descEn: 'Opportunity to work on real-projects from partner companies.', descId: 'Kesempatan mengerjakan real-project dari perusahaan mitra.' },
+                        { icon: Rocket, titleEn: 'Talent Support', titleId: 'Talent Support', descEn: 'Job placement support (hiring) for selected participants.', descId: 'Dukungan penyaluran kerja (hiring) untuk peserta terpilih.' },
+                        { icon: Network, titleEn: 'Industry Network', titleId: 'Industry Network', descEn: 'Access to professional communities and exclusive events.', descId: 'Akses ke komunitas profesional dan eksklusif event.' }
                     ].map((feature, i) => {
                         const Icon = feature.icon;
                         return (

@@ -650,25 +650,22 @@ export default async function AcademyPage() {
             <section className="pb-24 px-6 relative z-10">
                 <div className="max-w-7xl mx-auto">
                     <ScrollReveal animation="fade-up">
-                        <div className="bg-gradient-to-br from-brand-blue to-cyan-500 rounded-[3rem] p-10 md:p-20 text-center relative overflow-hidden border border-white/20 shadow-2xl">
+                        <div className="bg-gradient-to-br from-brand-blue to-cyan-500 rounded-[3rem] p-10 md:p-14 text-center relative overflow-hidden border border-white/20 shadow-2xl">
                             {/* Decorative background patterns */}
                             <div className="absolute inset-0 bg-[url('/img/pattern.svg')] opacity-20 mix-blend-overlay"></div>
                             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full pointer-events-none"></div>
                             
                             <div className="relative z-10 max-w-3xl mx-auto">
-                                <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">
                                     {locale === 'en' ? 'Ready to Start Your Tech Journey?' : 'Siap Memulai Perjalanan Teknologimu?'}
                                 </h2>
-                                <p className="text-xl text-white/90 font-medium mb-12">
+                                <p className="text-lg md:text-xl text-white/90 font-medium mb-10 max-w-2xl mx-auto">
                                     {locale === 'en' 
                                         ? 'Join Diggity Academy today and build the skills needed for the jobs of tomorrow.' 
                                         : 'Bergabunglah dengan Diggity Academy hari ini dan bangun keterampilan yang dibutuhkan untuk masa depan.'}
                                 </p>
                                 
-                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                    <Link href="#learning-paths" scroll={false} className="px-10 py-5 bg-white text-brand-blue font-black rounded-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-xl shadow-black/10">
-                                        {locale === 'en' ? 'Explore Programs' : 'Eksplorasi Program'}
-                                    </Link>
+                                <div className="flex justify-center">
                                     <Link href="/contact" className="px-10 py-5 bg-black/20 text-white font-bold rounded-2xl hover:bg-black/30 border border-white/20 backdrop-blur-sm transition-all flex items-center justify-center gap-2">
                                         {locale === 'en' ? 'Contact for Business' : 'Hubungi Tim B2B'}
                                         <ArrowRight className="w-5 h-5" />

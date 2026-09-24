@@ -300,7 +300,6 @@ export default function BootcampLandingPage() {
                             ))}
                         </div>
                     )}
-                    </div>
                 </div>
             </section>
 

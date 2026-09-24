@@ -220,9 +220,9 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
                                             <span className="text-lg text-text-gray line-through mb-1">{course.originalPrice}</span>
                                         </div>
 
-                                        <button className="w-full py-4 bg-brand-blue text-white font-black rounded-2xl hover:bg-brand-blue-dark transition-all shadow-lg shadow-brand-blue/20 mb-4">
+                                        <Link href="/contact" className="w-full block text-center py-4 bg-brand-blue text-white font-black rounded-2xl hover:bg-brand-blue-dark transition-all shadow-lg shadow-brand-blue/20 mb-4">
                                             {locale === 'en' ? 'Enroll Now' : 'Daftar Sekarang'}
-                                        </button>
+                                        </Link>
                                         <p className="text-center text-xs text-text-gray font-medium mb-8">
                                             {locale === 'en' ? '30-Day Money-Back Guarantee' : 'Garansi 30 Hari Uang Kembali'}
                                         </p>

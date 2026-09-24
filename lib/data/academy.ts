@@ -1,4 +1,4 @@
-import { BookOpen, MonitorPlay, Award, Building, Users, PlayCircle, Book, CheckCircle2, LayoutGrid, Brain, Code, Palette, Megaphone, Briefcase, Shield, Layers, MessageSquare, Rocket, Clock } from 'lucide-react';
+import { BookOpen, MonitorPlay, Award, Building, Users, PlayCircle, Book, CheckCircle2, LayoutGrid, Brain, Code, Palette, Megaphone, Briefcase, Shield, Layers, MessageSquare, Rocket, Clock, HeartHandshake } from 'lucide-react';
 
 export const ACADEMY_PROGRAMS = [
     {
@@ -49,6 +49,13 @@ export const ACADEMY_PROGRAMS = [
         descriptionEn: 'Access various e-books, digital guides, and learning modules.',
         descriptionId: 'Akses berbagai e-book, panduan digital, dan modul pembelajaran untuk meningkatkan keterampilan.',
         icon: Book,
+    },
+    {
+        id: 'csr',
+        title: 'CSR',
+        descriptionEn: 'Corporate training to improve skills and community economic impact.',
+        descriptionId: 'Pelatihan perusahaan untuk meningkatkan keterampilan dan dampak ekonomi masyarakat.',
+        icon: HeartHandshake,
     },
 ];
 

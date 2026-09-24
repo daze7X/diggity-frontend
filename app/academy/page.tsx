@@ -134,17 +134,19 @@ export default async function AcademyPage() {
                             const Icon = program.icon;
                             return (
                                 <ScrollReveal key={program.id} animation="fade-up" delay={idx * 50}>
-                                    <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/30 transition-all group rounded-3xl flex flex-col shadow-sm hover:shadow-xl hover:-translate-y-1">
-                                        <div className="w-14 h-14 rounded-2xl bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-110 transition-transform mb-6">
-                                            <Icon className="w-7 h-7" strokeWidth={1.5} />
-                                        </div>
-                                        <h3 className="text-xl font-black text-text-main mb-3 leading-tight group-hover:text-brand-blue transition-colors">
-                                            {program.title}
-                                        </h3>
-                                        <p className="text-sm text-text-gray font-medium leading-relaxed">
-                                            {locale === 'en' ? program.descriptionEn : program.descriptionId}
-                                        </p>
-                                    </SpotlightCard>
+                                    <Link href={`/academy/${program.id}`} className="block h-full">
+                                        <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/30 transition-all group rounded-3xl flex flex-col shadow-sm hover:shadow-xl hover:-translate-y-1">
+                                            <div className="w-14 h-14 rounded-2xl bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:scale-110 transition-transform mb-6">
+                                                <Icon className="w-7 h-7" strokeWidth={1.5} />
+                                            </div>
+                                            <h3 className="text-xl font-black text-text-main mb-3 leading-tight group-hover:text-brand-blue transition-colors">
+                                                {program.title}
+                                            </h3>
+                                            <p className="text-sm text-text-gray font-medium leading-relaxed">
+                                                {locale === 'en' ? program.descriptionEn : program.descriptionId}
+                                            </p>
+                                        </SpotlightCard>
+                                    </Link>
                                 </ScrollReveal>
                             );
                         })}

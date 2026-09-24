@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { LEARNING_PATHS } from '../../lib/data/academy';
 
@@ -39,21 +40,27 @@ export default function LearningPathTabs({ locale }: Props) {
 
             {/* Tab Content */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500" key={activeTab}>
-                {activeCategory?.paths.map((path, idx) => (
-                    <div key={idx} className="p-8 bg-white dark:bg-glass-bg border border-glass-border rounded-3xl hover:border-brand-blue/30 transition-all group hover:shadow-xl hover:shadow-brand-blue/5 hover:-translate-y-1">
-                        <div className="flex items-start justify-between gap-4 mb-4">
-                            <h3 className="text-2xl font-black text-text-main group-hover:text-brand-blue transition-colors">
-                                {path.name}
-                            </h3>
-                            <div className="w-10 h-10 rounded-xl bg-brand-blue/5 flex shrink-0 items-center justify-center text-brand-blue opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-                                <ArrowRight className="w-5 h-5" />
+                {activeCategory?.paths.map((path, idx) => {
+                    // Fallback slug generation if path.id doesn't exist
+                    const slug = (path as any).id || path.name.toLowerCase().replace(/\s+/g, '-');
+                    return (
+                        <Link href={`/academy/path/${slug}`} key={idx} className="block h-full">
+                            <div className="p-8 bg-white dark:bg-glass-bg border border-glass-border rounded-3xl hover:border-brand-blue/30 transition-all group hover:shadow-xl hover:shadow-brand-blue/5 hover:-translate-y-1 h-full">
+                                <div className="flex items-start justify-between gap-4 mb-4">
+                                    <h3 className="text-2xl font-black text-text-main group-hover:text-brand-blue transition-colors">
+                                        {path.name}
+                                    </h3>
+                                    <div className="w-10 h-10 rounded-xl bg-brand-blue/5 flex shrink-0 items-center justify-center text-brand-blue opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                                        <ArrowRight className="w-5 h-5" />
+                                    </div>
+                                </div>
+                                <p className="text-base text-text-gray font-medium leading-relaxed">
+                                    {locale === 'en' ? path.descEn : path.descId}
+                                </p>
                             </div>
-                        </div>
-                        <p className="text-base text-text-gray font-medium leading-relaxed">
-                            {locale === 'en' ? path.descEn : path.descId}
-                        </p>
-                    </div>
-                ))}
+                        </Link>
+                    );
+                })}
             </div>
 
             {/* CTA */}

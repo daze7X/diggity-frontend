@@ -194,49 +194,54 @@ export default function OnlineCourseLandingPage() {
                             { title: 'Digital Marketing Strategy 2024', category: 'Digital Marketing', instructor: 'Jessica Lin', rating: 4.9, students: '3.4k', price: 'Rp 449.000', badge: 'Popular' },
                             { title: 'Product Management Essentials', category: 'Business', instructor: 'Dimas Aditya', rating: 4.8, students: '900+', price: 'Rp 549.000' },
                             { title: 'Advanced Tailwind CSS & Motion', category: 'Programming', instructor: 'Rina S.', rating: 4.9, students: '1.5k', price: 'Rp 349.000', discount: 'Rp 599.000' },
-                        ].map((course, i) => (
-                            <ScrollReveal key={i} animation="fade-up" delay={i * 50}>
-                                <div className="group bg-white dark:bg-glass-bg border border-glass-border rounded-3xl overflow-hidden hover:border-brand-blue/50 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 flex flex-col h-full cursor-pointer">
-                                    {/* Thumbnail Placeholder */}
-                                    <div className="w-full aspect-video bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                        <div className="absolute inset-0 flex items-center justify-center text-slate-400 group-hover:scale-105 transition-transform duration-500">
-                                            <BookOpen className="w-12 h-12 opacity-20" />
-                                        </div>
-                                        {course.badge && (
-                                            <div className="absolute top-4 left-4 px-3 py-1 bg-yellow-400 text-black text-xs font-black rounded-lg shadow-sm">
-                                                {course.badge}
-                                            </div>
-                                        )}
-                                        <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-bold rounded-lg flex items-center gap-1">
-                                            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                                            {course.rating}
-                                        </div>
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="p-6 flex flex-col flex-grow">
-                                        <span className="text-xs font-bold text-brand-blue tracking-wider uppercase mb-2 block">{course.category}</span>
-                                        <h3 className="text-lg font-bold text-text-main mb-2 line-clamp-2 group-hover:text-brand-blue transition-colors">
-                                            {course.title}
-                                        </h3>
-                                        <p className="text-sm text-text-gray font-medium mb-6">by {course.instructor}</p>
-                                        
-                                        <div className="mt-auto border-t border-glass-border pt-4 flex items-center justify-between">
-                                            <div className="flex flex-col">
-                                                {course.discount && (
-                                                    <span className="text-xs text-text-gray line-through decoration-red-500/50">{course.discount}</span>
+                        ].map((course, i) => {
+                            const slug = course.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                            return (
+                                <ScrollReveal key={i} animation="fade-up" delay={i * 50}>
+                                    <Link href={`/academy/course/${slug}`} className="block h-full">
+                                        <div className="group bg-white dark:bg-glass-bg border border-glass-border rounded-3xl overflow-hidden hover:border-brand-blue/50 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 flex flex-col h-full cursor-pointer">
+                                            {/* Thumbnail Placeholder */}
+                                            <div className="w-full aspect-video bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                                <div className="absolute inset-0 flex items-center justify-center text-slate-400 group-hover:scale-105 transition-transform duration-500">
+                                                    <BookOpen className="w-12 h-12 opacity-20" />
+                                                </div>
+                                                {course.badge && (
+                                                    <div className="absolute top-4 left-4 px-3 py-1 bg-yellow-400 text-black text-xs font-black rounded-lg shadow-sm">
+                                                        {course.badge}
+                                                    </div>
                                                 )}
-                                                <span className="text-lg font-black text-text-main">{course.price}</span>
+                                                <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-bold rounded-lg flex items-center gap-1">
+                                                    <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                                                    {course.rating}
+                                                </div>
                                             </div>
-                                            <div className="flex items-center gap-1 text-xs text-text-gray font-medium bg-gray-50 dark:bg-white/5 px-2 py-1 rounded-md">
-                                                <Users className="w-3 h-3" />
-                                                {course.students}
+
+                                            {/* Content */}
+                                            <div className="p-6 flex flex-col flex-grow">
+                                                <span className="text-xs font-bold text-brand-blue tracking-wider uppercase mb-2 block">{course.category}</span>
+                                                <h3 className="text-lg font-bold text-text-main mb-2 line-clamp-2 group-hover:text-brand-blue transition-colors">
+                                                    {course.title}
+                                                </h3>
+                                                <p className="text-sm text-text-gray font-medium mb-6">by {course.instructor}</p>
+                                                
+                                                <div className="mt-auto border-t border-glass-border pt-4 flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        {course.discount && (
+                                                            <span className="text-xs text-text-gray line-through decoration-red-500/50">{course.discount}</span>
+                                                        )}
+                                                        <span className="text-lg font-black text-text-main">{course.price}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-1 text-xs text-text-gray font-medium bg-gray-50 dark:bg-white/5 px-2 py-1 rounded-md">
+                                                        <Users className="w-3 h-3" />
+                                                        {course.students}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </ScrollReveal>
-                        ))}
+                                    </Link>
+                                </ScrollReveal>
+                            )
+                        })}
                     </div>
 
                     <div className="mt-16 text-center">

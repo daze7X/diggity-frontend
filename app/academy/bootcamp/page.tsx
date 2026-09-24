@@ -8,7 +8,7 @@ import SpotlightCard from '../../../components/SpotlightCard';
 import { 
     ArrowRight, BookOpen, Briefcase, Users, LayoutTemplate, 
     MonitorPlay, FileCode2, MessagesSquare, Trophy, 
-    Target, Code2
+    Target, Code2, Star, Clock, Network, HeadphonesIcon, GraduationCap
 } from 'lucide-react';
 
 export default function BootcampLandingPage() {
@@ -194,6 +194,159 @@ export default function BootcampLandingPage() {
                                 );
                             })}
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 2: PROGRAM BOOTCAMP (CATALOG)
+            ========================================= */}
+            <section id="programs" className="py-24 px-6 relative z-10 bg-white/50 dark:bg-black/20 border-y border-glass-border">
+                <div className="max-w-7xl mx-auto">
+                    <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
+                            {locale === 'en' ? 'Find the Right Bootcamp for Your Goals' : 'Temukan Bootcamp yang Sesuai dengan Tujuanmu'}
+                        </h2>
+                        <p className="text-lg text-text-gray font-medium">
+                            {locale === 'en' ? 'Choose a program based on your field, skill level, and career objectives.' : 'Pilih program berdasarkan bidang, level kemampuan, dan tujuan kariermu.'}
+                        </p>
+                    </ScrollReveal>
+
+                    {/* Filter (Visual Mockup for Handover) */}
+                    <ScrollReveal animation="fade-up" delay={100} className="flex flex-wrap items-center justify-center gap-4 mb-16">
+                        {['Semua Bidang', 'Technology', 'AI & Data', 'Business & Marketing', 'Creative & Design', 'Cyber Security'].map((filter, i) => (
+                            <button key={i} className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all ${i === 0 ? 'bg-brand-blue text-white shadow-lg shadow-brand-blue/20' : 'bg-white dark:bg-glass-bg border border-glass-border text-text-gray hover:text-text-main hover:border-brand-blue/50'}`}>
+                                {filter}
+                            </button>
+                        ))}
+                    </ScrollReveal>
+
+                    {/* Bootcamp Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {/* Card 1 */}
+                        {[
+                            {
+                                title: 'Full-Stack Web Development',
+                                desc: 'Belajar membangun aplikasi web dari frontend hingga backend melalui project-based learning.',
+                                skills: ['HTML', 'CSS', 'JavaScript', 'React', 'API', 'Database'],
+                                level: 'Beginner → Intermediate',
+                                format: 'Online / Offline',
+                                duration: '12 Weeks'
+                            },
+                            {
+                                title: 'UI/UX Design Masterclass',
+                                desc: 'Kuasai fundamental riset pengguna, wireframing, prototyping, hingga design system menggunakan Figma.',
+                                skills: ['User Research', 'Wireframing', 'Prototyping', 'Figma', 'Design System'],
+                                level: 'Beginner',
+                                format: 'Online',
+                                duration: '8 Weeks'
+                            },
+                            {
+                                title: 'Data Analytics & Visualization',
+                                desc: 'Olah data mentah menjadi insight berharga untuk bisnis menggunakan Python, SQL, dan PowerBI.',
+                                skills: ['Python', 'SQL', 'Data Viz', 'PowerBI', 'Statistics'],
+                                level: 'Intermediate',
+                                format: 'Hybrid',
+                                duration: '10 Weeks'
+                            }
+                        ].map((bootcamp, i) => (
+                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                <SpotlightCard className="p-1 bg-white dark:bg-glass-bg border border-glass-border rounded-[2rem] h-full flex flex-col hover:border-brand-blue/50 transition-colors group">
+                                    <div className="p-8 flex-grow flex flex-col">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-bold mb-6 w-max">
+                                            <Star className="w-3 h-3 fill-current" /> Project-Based
+                                        </div>
+                                        <h3 className="text-2xl font-black text-text-main mb-3 group-hover:text-brand-blue transition-colors">{bootcamp.title}</h3>
+                                        <p className="text-sm text-text-gray font-medium mb-6 flex-grow">{bootcamp.desc}</p>
+                                        
+                                        <div className="space-y-4 mb-8">
+                                            <div>
+                                                <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-2">Skills You Will Learn</span>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {bootcamp.skills.map((skill, j) => (
+                                                        <span key={j} className="text-xs px-2 py-1 bg-slate-100 dark:bg-white/5 text-text-main rounded-md border border-glass-border">
+                                                            {skill}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-glass-border">
+                                                <div>
+                                                    <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Level</span>
+                                                    <span className="text-xs font-semibold text-text-main">{bootcamp.level}</span>
+                                                </div>
+                                                <div>
+                                                    <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Format</span>
+                                                    <span className="text-xs font-semibold text-text-main">{bootcamp.format}</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Duration</span>
+                                                <span className="text-xs font-semibold text-text-main flex items-center gap-1">
+                                                    <Clock className="w-3 h-3" /> {bootcamp.duration}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <Link href="#" className="w-full flex items-center justify-center gap-2 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold rounded-xl hover:opacity-90 transition-opacity">
+                                            {locale === 'en' ? 'View Program' : 'Lihat Program'}
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        </Link>
+                                    </div>
+                                </SpotlightCard>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 2: WHAT YOU WILL GET
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+                    <div className="w-full lg:w-1/3">
+                        <ScrollReveal animation="slide-right">
+                            <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Value & Benefits</span>
+                            <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
+                                {locale === 'en' ? 'What You Will Get?' : 'Apa yang Kamu Dapatkan?'}
+                            </h2>
+                            <p className="text-lg text-text-gray font-medium mb-8">
+                                {locale === 'en' 
+                                    ? 'A comprehensive learning ecosystem designed to ensure you graduate with real skills and a solid portfolio.' 
+                                    : 'Ekosistem belajar komprehensif yang dirancang untuk memastikan kamu lulus dengan skill nyata dan portfolio yang solid.'}
+                            </p>
+                        </ScrollReveal>
+                    </div>
+
+                    <div className="w-full lg:w-2/3">
+                        <ScrollReveal animation="slide-left" delay={100}>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {[
+                                    { title: 'Structured Curriculum', desc: 'Kurikulum terstruktur dari fundamental hingga advanced.', icon: LayoutTemplate },
+                                    { title: 'Expert Mentor', desc: 'Dibimbing oleh praktisi dan profesional industri.', icon: Users },
+                                    { title: 'Real Projects', desc: 'Mengerjakan project yang relevan dengan industri nyata.', icon: Code2 },
+                                    { title: 'Portfolio Building', desc: 'Hasil project dapat dikembangkan menjadi portfolio.', icon: Briefcase },
+                                    { title: 'Career Support', desc: 'CV, LinkedIn, interview & career preparation.', icon: Target },
+                                    { title: 'Networking', desc: 'Terhubung dengan mentor dan peserta lainnya.', icon: Network },
+                                    { title: 'Certificate', desc: 'Sertifikat kelulusan penyelesaian program.', icon: GraduationCap },
+                                    { title: 'Learning Support', desc: 'Dukungan penuh selama proses pembelajaran.', icon: HeadphonesIcon },
+                                ].map((item, i) => {
+                                    const Icon = item.icon;
+                                    return (
+                                        <div key={i} className="p-6 bg-white dark:bg-white/5 border border-glass-border rounded-2xl flex gap-4 hover:border-brand-blue/30 transition-colors">
+                                            <div className="w-10 h-10 shrink-0 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                                <Icon className="w-5 h-5" />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-text-main mb-1">{item.title}</h4>
+                                                <p className="text-sm text-text-gray leading-relaxed">{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </ScrollReveal>
                     </div>
                 </div>
             </section>

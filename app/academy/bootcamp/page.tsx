@@ -351,6 +351,150 @@ export default function BootcampLandingPage() {
                 </div>
             </section>
 
+            {/* =========================================
+                FASE 3: INSIDE THE BOOTCAMP
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 bg-white/50 dark:bg-black/20 border-y border-glass-border">
+                <div className="max-w-7xl mx-auto">
+                    <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+                        <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Inside The Bootcamp</span>
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight">
+                            {locale === 'en' ? 'Not Just Learning. You Will Build.' : 'Bukan Cuma Belajar. Kamu Akan Mengerjakan.'}
+                        </h2>
+                    </ScrollReveal>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[
+                            { title: 'Live Class', desc: locale === 'en' ? 'Interactive learning sessions with expert mentors.' : 'Pembelajaran interaktif bersama mentor.', icon: MonitorPlay },
+                            { title: 'Hands-on Practice', desc: locale === 'en' ? 'Direct practice using industry-standard tools.' : 'Latihan langsung menggunakan tools industri.', icon: Code2 },
+                            { title: 'Assignment', desc: locale === 'en' ? 'Tasks designed to test your understanding.' : 'Tugas untuk menguji pemahaman.', icon: LayoutTemplate },
+                            { title: 'Case Study', desc: locale === 'en' ? 'Solve problems based on real-world cases.' : 'Menyelesaikan masalah berdasarkan kasus nyata.', icon: Target },
+                            { title: 'Final Project', desc: locale === 'en' ? 'Build a comprehensive project as your portfolio.' : 'Membangun project sebagai portfolio.', icon: Briefcase },
+                            { title: 'Mentoring Session', desc: locale === 'en' ? '1-on-1 consultation and detailed feedback.' : 'Sesi konsultasi dan feedback mendetail.', icon: Users },
+                        ].map((item, i) => {
+                            const Icon = item.icon;
+                            return (
+                                <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                    <div className="p-6 bg-white dark:bg-glass-bg border border-glass-border rounded-2xl flex flex-col items-start hover:border-brand-blue/30 transition-colors">
+                                        <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue mb-4">
+                                            <Icon className="w-6 h-6" />
+                                        </div>
+                                        <h3 className="text-lg font-bold text-text-main mb-2">{item.title}</h3>
+                                        <p className="text-sm text-text-gray">{item.desc}</p>
+                                    </div>
+                                </ScrollReveal>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 3: FINAL PROJECT & PORTFOLIO
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex flex-col lg:flex-row gap-12 items-end mb-16">
+                        <ScrollReveal animation="slide-right" className="lg:w-2/3">
+                            <span className="text-sm font-bold text-purple-500 uppercase tracking-widest mb-2 block">Final Project</span>
+                            <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
+                                {locale === 'en' ? 'Bring Home Skills, Not Just Certificates.' : 'Pulang Bawa Skill, Bukan Cuma Sertifikat.'}
+                            </h2>
+                            <p className="text-lg text-text-gray font-medium">
+                                {locale === 'en' 
+                                    ? 'Throughout the program, you will work on projects designed to strengthen your abilities and build a professional portfolio.' 
+                                    : 'Selama mengikuti program, peserta mengerjakan project yang dirancang untuk memperkuat kemampuan sekaligus membangun portfolio profesional.'}
+                            </p>
+                        </ScrollReveal>
+                        <ScrollReveal animation="slide-left" className="lg:w-1/3 flex justify-start lg:justify-end">
+                            <Link href="#" className="inline-flex items-center gap-2 text-brand-blue font-bold hover:text-brand-blue/80 transition-colors">
+                                {locale === 'en' ? 'View All Portfolios' : 'Lihat Semua Portfolio'} <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        </ScrollReveal>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[1, 2, 3].map((i) => (
+                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                <div className="group rounded-3xl overflow-hidden border border-glass-border bg-white dark:bg-glass-bg hover:border-brand-blue/50 transition-colors shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <div className="w-full aspect-[4/3] bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                        <div className="absolute inset-0 flex items-center justify-center text-slate-400">
+                                            <Code2 className="w-12 h-12 opacity-20" />
+                                            <span className="absolute bottom-4 right-4 text-xs font-bold uppercase tracking-widest opacity-50">Project 0{i}</span>
+                                        </div>
+                                    </div>
+                                    <div className="p-6">
+                                        <h3 className="text-xl font-bold text-text-main mb-2">E-Commerce Dashboard App</h3>
+                                        <div className="space-y-3 mb-6">
+                                            <div className="flex justify-between items-center text-sm">
+                                                <span className="text-text-gray">Role:</span>
+                                                <span className="font-semibold text-text-main">Full-Stack Developer</span>
+                                            </div>
+                                            <div className="flex justify-between items-center text-sm">
+                                                <span className="text-text-gray">Tools:</span>
+                                                <span className="font-semibold text-text-main">React, Node.js, PostgreSQL</span>
+                                            </div>
+                                            <div className="flex justify-between items-center text-sm">
+                                                <span className="text-text-gray">Hasil:</span>
+                                                <span className="font-semibold text-brand-blue">Live Web App</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 3: MENTOR
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 bg-white/50 dark:bg-black/20 border-y border-glass-border">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex flex-col lg:flex-row gap-8 items-end mb-16">
+                        <ScrollReveal animation="slide-right" className="lg:w-2/3">
+                            <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Expert Mentors</span>
+                            <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight">
+                                {locale === 'en' ? 'Learn Directly from Practitioners' : 'Belajar Langsung dari Praktisi'}
+                            </h2>
+                        </ScrollReveal>
+                        <ScrollReveal animation="slide-left" className="lg:w-1/3 flex justify-start lg:justify-end">
+                            <Link href="#" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-text-main font-bold hover:border-brand-blue/50 transition-all">
+                                {locale === 'en' ? 'View All Mentors' : 'Lihat Semua Mentor'}
+                            </Link>
+                        </ScrollReveal>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { name: 'Budi Santoso', role: 'Senior Software Engineer', company: 'Tech Unicorn ID', exp: '8+ Years' },
+                            { name: 'Sarah Wijaya', role: 'Lead Product Designer', company: 'Global Agency', exp: '6+ Years' },
+                            { name: 'Ahmad Rizki', role: 'Data Scientist', company: 'Fintech Startup', exp: '5+ Years' },
+                            { name: 'Jessica Lin', role: 'Digital Marketing Lead', company: 'E-Commerce Giant', exp: '7+ Years' },
+                        ].map((mentor, i) => (
+                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                <div className="p-6 bg-white dark:bg-glass-bg border border-glass-border rounded-2xl hover:border-brand-blue/50 transition-all group shadow-sm hover:shadow-xl hover:-translate-y-1">
+                                    <div className="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-800 mb-6 overflow-hidden relative">
+                                        <div className="absolute inset-0 flex items-center justify-center text-slate-400">
+                                            <Users className="w-8 h-8 opacity-50" />
+                                        </div>
+                                    </div>
+                                    <h3 className="text-lg font-bold text-text-main mb-1 group-hover:text-brand-blue transition-colors">{mentor.name}</h3>
+                                    <p className="text-sm font-semibold text-brand-blue mb-1">{mentor.role}</p>
+                                    <p className="text-xs text-text-gray font-medium mb-4">{mentor.company}</p>
+                                    
+                                    <div className="pt-4 border-t border-glass-border">
+                                        <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-2">Experience</span>
+                                        <span className="text-sm font-semibold text-text-main">{mentor.exp}</span>
+                                    </div>
+                                </div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
         </div>
     );
 }

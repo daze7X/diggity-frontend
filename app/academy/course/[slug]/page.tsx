@@ -162,9 +162,8 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
                                 <span>•</span>
                                 <span>{course.duration} Total Length</span>
                             </div>
-                            
                             <div className="space-y-4">
-                                {syllabus.map((mod, idx) => (
+                                {syllabus.map((mod: any, idx: number) => (
                                     <div key={idx} className="border border-glass-border bg-white dark:bg-glass-bg rounded-2xl overflow-hidden transition-colors">
                                         <button 
                                             onClick={() => toggleModule(idx)}

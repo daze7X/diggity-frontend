@@ -111,6 +111,29 @@ export interface Category {
     slug?: string;
 }
 
+export interface AcademyCourse {
+    id: number;
+    title: string;
+    slug: string;
+    type: string;
+    description?: string;
+    syllabus?: string;
+    instructor_name?: string;
+    instructor_title?: string;
+    instructor_bio?: string;
+    instructor_avatar?: string;
+    price: number | string;
+    original_price?: number | string;
+    duration?: string;
+    rating?: number;
+    reviews_count?: number;
+    total_students?: number;
+    badge?: string;
+    benefits?: Array<{feature: string}>;
+    category?: Category;
+    modules?: any[];
+}
+
 export interface Service {
     id: number;
     category_id: number;
@@ -504,5 +527,8 @@ export const api = {
     checkout: (data: { purchasable_type: 'product' | 'course'; purchasable_id: number; pricing_id?: number }): Promise<any> => fetchAPI('/checkout', {
         method: 'POST',
         body: JSON.stringify(data),
-    })
+    }),
+    
+    getAcademyCourses: (category?: string): Promise<AcademyCourse[]> => fetchAPI(`/academy${category ? `?category=${category}` : ''}`),
+    getAcademyCourseBySlug: (slug: string): Promise<AcademyCourse> => fetchAPI(`/academy/${slug}`)
 };

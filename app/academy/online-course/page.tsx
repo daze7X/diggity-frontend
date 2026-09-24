@@ -12,6 +12,28 @@ import {
 
 export default function OnlineCourseLandingPage() {
     const { language: locale } = useLanguage();
+    const [courses, setCourses] = React.useState<any[]>([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const { api } = await import('../../../lib/api');
+                const data = await api.getAcademyCourses();
+                setCourses(data.filter(c => c.type === 'online_course' || c.type === null));
+            } catch (error) {
+                console.error("Failed to fetch courses:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchCourses();
+    }, []);
+
+    const formatIDR = (val: any) => {
+        if (!val) return null;
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(Number(val));
+    };
 
     return (
         <div className="min-h-screen bg-bg-canvas pt-24 pb-12 overflow-hidden">
@@ -186,25 +208,30 @@ export default function OnlineCourseLandingPage() {
                     </ScrollReveal>
 
                     {/* Course Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[
-                            { title: 'Mastering React & Next.js 14', category: 'Programming', instructor: 'Budi Santoso', rating: 4.9, students: '2.1k', price: 'Rp 499.000', discount: 'Rp 899.000', badge: 'Best Seller' },
-                            { title: 'UI/UX Design for Beginners', category: 'UI/UX Design', instructor: 'Sarah Wijaya', rating: 4.8, students: '1.8k', price: 'Rp 399.000', badge: 'New' },
-                            { title: 'Data Science Fundamentals', category: 'Data Science', instructor: 'Ahmad Rizki', rating: 4.7, students: '1.2k', price: 'Rp 599.000', discount: 'Rp 999.000' },
-                            { title: 'Digital Marketing Strategy 2024', category: 'Digital Marketing', instructor: 'Jessica Lin', rating: 4.9, students: '3.4k', price: 'Rp 449.000', badge: 'Popular' },
-                            { title: 'Product Management Essentials', category: 'Business', instructor: 'Dimas Aditya', rating: 4.8, students: '900+', price: 'Rp 549.000' },
-                            { title: 'Advanced Tailwind CSS & Motion', category: 'Programming', instructor: 'Rina S.', rating: 4.9, students: '1.5k', price: 'Rp 349.000', discount: 'Rp 599.000' },
-                        ].map((course, i) => {
-                            const slug = course.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-                            return (
-                                <ScrollReveal key={i} animation="fade-up" delay={i * 50}>
-                                    <Link href={`/academy/course/${slug}`} className="block h-full">
+                    {loading ? (
+                        <div className="py-20 text-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-blue mx-auto mb-4"></div>
+                            <p className="text-text-gray">{locale === 'en' ? 'Loading courses...' : 'Memuat kelas...'}</p>
+                        </div>
+                    ) : courses.length === 0 ? (
+                        <div className="py-20 text-center">
+                            <p className="text-text-gray">{locale === 'en' ? 'No courses available right now.' : 'Belum ada kelas yang tersedia.'}</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {courses.map((course, i) => (
+                                <ScrollReveal key={course.id || i} animation="fade-up" delay={i * 50}>
+                                    <Link href={`/academy/course/${course.slug}`} className="block h-full">
                                         <div className="group bg-white dark:bg-glass-bg border border-glass-border rounded-3xl overflow-hidden hover:border-brand-blue/50 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1 flex flex-col h-full cursor-pointer">
-                                            {/* Thumbnail Placeholder */}
+                                            {/* Thumbnail */}
                                             <div className="w-full aspect-video bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                                <div className="absolute inset-0 flex items-center justify-center text-slate-400 group-hover:scale-105 transition-transform duration-500">
-                                                    <BookOpen className="w-12 h-12 opacity-20" />
-                                                </div>
+                                                {course.image ? (
+                                                    <img src={course.image} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                                ) : (
+                                                    <div className="absolute inset-0 flex items-center justify-center text-slate-400 group-hover:scale-105 transition-transform duration-500">
+                                                        <BookOpen className="w-12 h-12 opacity-20" />
+                                                    </div>
+                                                )}
                                                 {course.badge && (
                                                     <div className="absolute top-4 left-4 px-3 py-1 bg-yellow-400 text-black text-xs font-black rounded-lg shadow-sm">
                                                         {course.badge}
@@ -212,37 +239,37 @@ export default function OnlineCourseLandingPage() {
                                                 )}
                                                 <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-bold rounded-lg flex items-center gap-1">
                                                     <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                                                    {course.rating}
+                                                    {course.rating || '0.0'}
                                                 </div>
                                             </div>
 
                                             {/* Content */}
                                             <div className="p-6 flex flex-col flex-grow">
-                                                <span className="text-xs font-bold text-brand-blue tracking-wider uppercase mb-2 block">{course.category}</span>
+                                                <span className="text-xs font-bold text-brand-blue tracking-wider uppercase mb-2 block">{course.category?.name || 'Uncategorized'}</span>
                                                 <h3 className="text-lg font-bold text-text-main mb-2 line-clamp-2 group-hover:text-brand-blue transition-colors">
                                                     {course.title}
                                                 </h3>
-                                                <p className="text-sm text-text-gray font-medium mb-6">by {course.instructor}</p>
+                                                <p className="text-sm text-text-gray font-medium mb-6">by {course.instructor_name || 'Diggity Team'}</p>
                                                 
                                                 <div className="mt-auto border-t border-glass-border pt-4 flex items-center justify-between">
                                                     <div className="flex flex-col">
-                                                        {course.discount && (
-                                                            <span className="text-xs text-text-gray line-through decoration-red-500/50">{course.discount}</span>
+                                                        {course.original_price && (
+                                                            <span className="text-xs text-text-gray line-through decoration-red-500/50">{formatIDR(course.original_price)}</span>
                                                         )}
-                                                        <span className="text-lg font-black text-text-main">{course.price}</span>
+                                                        <span className="text-lg font-black text-text-main">{formatIDR(course.price)}</span>
                                                     </div>
                                                     <div className="flex items-center gap-1 text-xs text-text-gray font-medium bg-gray-50 dark:bg-white/5 px-2 py-1 rounded-md">
                                                         <Users className="w-3 h-3" />
-                                                        {course.students}
+                                                        {course.total_students || 0}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </Link>
                                 </ScrollReveal>
-                            )
-                        })}
-                    </div>
+                            ))}
+                        </div>
+                    )}
 
                     <div className="mt-16 text-center">
                         <ScrollReveal animation="fade-up">

@@ -13,6 +13,28 @@ import {
 
 export default function BootcampLandingPage() {
     const { language: locale } = useLanguage();
+    const [courses, setCourses] = React.useState<any[]>([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const { api } = await import('../../../lib/api');
+                const data = await api.getAcademyCourses();
+                setCourses(data.filter(c => c.type === 'bootcamp'));
+            } catch (error) {
+                console.error("Failed to fetch courses:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchCourses();
+    }, []);
+
+    const formatIDR = (val: any) => {
+        if (!val) return null;
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(Number(val));
+    };
 
     return (
         <div className="min-h-screen bg-bg-canvas pt-24 pb-12 relative overflow-hidden">
@@ -222,80 +244,62 @@ export default function BootcampLandingPage() {
                     </ScrollReveal>
 
                     {/* Bootcamp Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {/* Card 1 */}
-                        {[
-                            {
-                                title: 'Full-Stack Web Development',
-                                desc: 'Belajar membangun aplikasi web dari frontend hingga backend melalui project-based learning.',
-                                skills: ['HTML', 'CSS', 'JavaScript', 'React', 'API', 'Database'],
-                                level: 'Beginner → Intermediate',
-                                format: 'Online / Offline',
-                                duration: '12 Weeks'
-                            },
-                            {
-                                title: 'UI/UX Design Masterclass',
-                                desc: 'Kuasai fundamental riset pengguna, wireframing, prototyping, hingga design system menggunakan Figma.',
-                                skills: ['User Research', 'Wireframing', 'Prototyping', 'Figma', 'Design System'],
-                                level: 'Beginner',
-                                format: 'Online',
-                                duration: '8 Weeks'
-                            },
-                            {
-                                title: 'Data Analytics & Visualization',
-                                desc: 'Olah data mentah menjadi insight berharga untuk bisnis menggunakan Python, SQL, dan PowerBI.',
-                                skills: ['Python', 'SQL', 'Data Viz', 'PowerBI', 'Statistics'],
-                                level: 'Intermediate',
-                                format: 'Hybrid',
-                                duration: '10 Weeks'
-                            }
-                        ].map((bootcamp, i) => (
-                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
-                                <SpotlightCard className="p-1 bg-white dark:bg-glass-bg border border-glass-border rounded-[2rem] h-full flex flex-col hover:border-brand-blue/50 transition-colors group">
-                                    <div className="p-8 flex-grow flex flex-col">
-                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-bold mb-6 w-max">
-                                            <Star className="w-3 h-3 fill-current" /> Project-Based
-                                        </div>
-                                        <h3 className="text-2xl font-black text-text-main mb-3 group-hover:text-brand-blue transition-colors">{bootcamp.title}</h3>
-                                        <p className="text-sm text-text-gray font-medium mb-6 flex-grow">{bootcamp.desc}</p>
-                                        
-                                        <div className="space-y-4 mb-8">
-                                            <div>
-                                                <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-2">Skills You Will Learn</span>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {bootcamp.skills.map((skill, j) => (
-                                                        <span key={j} className="text-xs px-2 py-1 bg-slate-100 dark:bg-white/5 text-text-main rounded-md border border-glass-border">
-                                                            {skill}
-                                                        </span>
-                                                    ))}
-                                                </div>
+                    {loading ? (
+                        <div className="py-20 text-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-blue mx-auto mb-4"></div>
+                            <p className="text-text-gray">{locale === 'en' ? 'Loading bootcamps...' : 'Memuat bootcamp...'}</p>
+                        </div>
+                    ) : courses.length === 0 ? (
+                        <div className="py-20 text-center">
+                            <p className="text-text-gray">{locale === 'en' ? 'No bootcamps available right now.' : 'Belum ada bootcamp yang tersedia.'}</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {courses.map((bootcamp, i) => (
+                                <ScrollReveal key={bootcamp.id || i} animation="fade-up" delay={i * 100}>
+                                    <SpotlightCard className="p-1 bg-white dark:bg-glass-bg border border-glass-border rounded-[2rem] h-full flex flex-col hover:border-brand-blue/50 transition-colors group">
+                                        <div className="p-8 flex-grow flex flex-col">
+                                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-bold mb-6 w-max">
+                                                <Star className="w-3 h-3 fill-current" /> {bootcamp.badge || 'Project-Based'}
                                             </div>
-                                            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-glass-border">
+                                            <h3 className="text-2xl font-black text-text-main mb-3 group-hover:text-brand-blue transition-colors">{bootcamp.title}</h3>
+                                            <p className="text-sm text-text-gray font-medium mb-6 flex-grow">{bootcamp.description}</p>
+                                            
+                                            <div className="space-y-4 mb-8">
                                                 <div>
-                                                    <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Level</span>
-                                                    <span className="text-xs font-semibold text-text-main">{bootcamp.level}</span>
+                                                    <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-2">Syllabus Overview</span>
+                                                    <div className="text-xs text-text-main leading-relaxed">
+                                                        {bootcamp.syllabus?.substring(0, 100) || 'Module 1: Introduction\nModule 2: Practice'}...
+                                                    </div>
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-glass-border">
+                                                    <div>
+                                                        <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Mentor</span>
+                                                        <span className="text-xs font-semibold text-text-main">{bootcamp.instructor_name || 'Diggity Team'}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Price</span>
+                                                        <span className="text-xs font-semibold text-brand-blue">{formatIDR(bootcamp.price) || 'N/A'}</span>
+                                                    </div>
                                                 </div>
                                                 <div>
-                                                    <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Format</span>
-                                                    <span className="text-xs font-semibold text-text-main">{bootcamp.format}</span>
+                                                    <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Duration</span>
+                                                    <span className="text-xs font-semibold text-text-main flex items-center gap-1">
+                                                        <Clock className="w-3 h-3" /> {bootcamp.duration || '12 Weeks'}
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Duration</span>
-                                                <span className="text-xs font-semibold text-text-main flex items-center gap-1">
-                                                    <Clock className="w-3 h-3" /> {bootcamp.duration}
-                                                </span>
-                                            </div>
-                                        </div>
 
-                                        <Link href="#" className="w-full flex items-center justify-center gap-2 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold rounded-xl hover:opacity-90 transition-opacity">
-                                            {locale === 'en' ? 'View Program' : 'Lihat Program'}
-                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                        </Link>
-                                    </div>
-                                </SpotlightCard>
-                            </ScrollReveal>
-                        ))}
+                                            <Link href={`/academy/course/${bootcamp.slug}`} className="w-full flex items-center justify-center gap-2 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold rounded-xl hover:opacity-90 transition-opacity">
+                                                {locale === 'en' ? 'View Program' : 'Lihat Program'}
+                                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                            </Link>
+                                        </div>
+                                    </SpotlightCard>
+                                </ScrollReveal>
+                            ))}
+                        </div>
+                    )}
                     </div>
                 </div>
             </section>

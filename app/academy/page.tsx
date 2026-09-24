@@ -6,7 +6,7 @@ import { getLocaleServer } from '../../lib/locale-server';
 import ScrollReveal from '../../components/ScrollReveal';
 import SpotlightCard from '../../components/SpotlightCard';
 import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS, ACADEMY_FAQ } from '../../lib/data/academy';
-import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star, Layers, Award, Rocket, MessageSquare, Globe, Workflow } from 'lucide-react';
+import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star, Layers, Award, Rocket, MessageSquare, Globe, Workflow, Network } from 'lucide-react';
 import LearningPathTabs from '../../components/academy/LearningPathTabs';
 import { api } from '../../lib/api';
 

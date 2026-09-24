@@ -203,7 +203,7 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
                     {/* RIGHT SIDEBAR (Sticky Pricing Card) */}
                     <div className="lg:col-span-4">
                         <div className="sticky top-32">
-                            <ScrollReveal animation="slide-up">
+                            <ScrollReveal animation="fade-up">
                                 <div className="bg-white dark:bg-brand-bg border border-glass-border rounded-3xl overflow-hidden shadow-2xl">
                                     {/* Video Preview Mock */}
                                     <div className="w-full aspect-video bg-slate-800 relative group cursor-pointer flex items-center justify-center">

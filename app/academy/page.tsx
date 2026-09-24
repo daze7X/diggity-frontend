@@ -229,47 +229,53 @@ export default async function AcademyPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Free Courses */}
                         <ScrollReveal animation="fade-up" delay={0}>
-                            <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30">
-                                <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                    <BookOpen className="w-7 h-7" strokeWidth={1.5} />
-                                </div>
-                                <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
-                                    {locale === 'en' ? 'Free Courses' : 'Free Courses'}
-                                </h3>
-                                <p className="text-sm text-text-gray font-medium">
-                                    {locale === 'en' ? 'Learn basic programming, design, and business concepts.' : 'Pelajari konsep dasar programming, desain, dan bisnis.'}
-                                </p>
-                            </SpotlightCard>
+                            <Link href="/academy/online-course" className="block h-full">
+                                <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30 hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                        <BookOpen className="w-7 h-7" strokeWidth={1.5} />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
+                                        {locale === 'en' ? 'Free Courses' : 'Free Courses'}
+                                    </h3>
+                                    <p className="text-sm text-text-gray font-medium">
+                                        {locale === 'en' ? 'Learn basic programming, design, and business concepts.' : 'Pelajari konsep dasar programming, desain, dan bisnis.'}
+                                    </p>
+                                </SpotlightCard>
+                            </Link>
                         </ScrollReveal>
 
                         {/* Free Webinar */}
                         <ScrollReveal animation="fade-up" delay={100}>
-                            <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30">
-                                <div className="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                    <PlayCircle className="w-7 h-7" strokeWidth={1.5} />
-                                </div>
-                                <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
-                                    {locale === 'en' ? 'Free Webinar' : 'Free Webinar'}
-                                </h3>
-                                <p className="text-sm text-text-gray font-medium">
-                                    {locale === 'en' ? 'Live sessions with experts discussing industry trends.' : 'Sesi interaktif bersama praktisi membahas tren industri.'}
-                                </p>
-                            </SpotlightCard>
+                            <Link href="/academy/webinar" className="block h-full">
+                                <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30 hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <div className="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                        <PlayCircle className="w-7 h-7" strokeWidth={1.5} />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
+                                        {locale === 'en' ? 'Free Webinar' : 'Free Webinar'}
+                                    </h3>
+                                    <p className="text-sm text-text-gray font-medium">
+                                        {locale === 'en' ? 'Live sessions with experts discussing industry trends.' : 'Sesi interaktif bersama praktisi membahas tren industri.'}
+                                    </p>
+                                </SpotlightCard>
+                            </Link>
                         </ScrollReveal>
 
                         {/* Free E-Books */}
                         <ScrollReveal animation="fade-up" delay={200}>
-                            <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30">
-                                <div className="w-14 h-14 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                    <Book className="w-7 h-7" strokeWidth={1.5} />
-                                </div>
-                                <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
-                                    {locale === 'en' ? 'Free E-Books' : 'Free E-Books'}
-                                </h3>
-                                <p className="text-sm text-text-gray font-medium">
-                                    {locale === 'en' ? 'Download comprehensive guides and study materials.' : 'Unduh panduan lengkap dan materi pembelajaran digital.'}
-                                </p>
-                            </SpotlightCard>
+                            <Link href="/academy/e-book" className="block h-full">
+                                <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30 hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <div className="w-14 h-14 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                        <Book className="w-7 h-7" strokeWidth={1.5} />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
+                                        {locale === 'en' ? 'Free E-Books' : 'Free E-Books'}
+                                    </h3>
+                                    <p className="text-sm text-text-gray font-medium">
+                                        {locale === 'en' ? 'Download comprehensive guides and study materials.' : 'Unduh panduan lengkap dan materi pembelajaran digital.'}
+                                    </p>
+                                </SpotlightCard>
+                            </Link>
                         </ScrollReveal>
                     </div>
                 </div>

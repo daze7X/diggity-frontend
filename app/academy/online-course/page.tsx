@@ -250,6 +250,160 @@ export default function OnlineCourseLandingPage() {
                 </div>
             </section>
 
+            {/* =========================================
+                FASE 3: TESTIMONIALS
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 bg-gray-50/50 dark:bg-black/20 border-y border-glass-border">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center max-w-3xl mx-auto mb-16">
+                        <ScrollReveal animation="fade-up">
+                            <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Success Stories</span>
+                            <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
+                                {locale === 'en' ? 'Loved by Thousands' : 'Dipercaya Ribuan Siswa'}
+                            </h2>
+                            <p className="text-lg text-text-gray font-medium">
+                                {locale === 'en'
+                                    ? 'Hear what our students have to say about their learning experience with Diggity.'
+                                    : 'Dengarkan apa kata mereka yang sudah merasakan pengalaman belajar di Diggity.'}
+                            </p>
+                        </ScrollReveal>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {[
+                            {
+                                name: "Reza Pahlevi",
+                                role: "Frontend Developer",
+                                quote: locale === 'en' ? "The React course is incredibly detailed. The self-paced format allowed me to study after work." : "Materi kelas React-nya sangat daging. Format self-paced bikin saya bisa belajar santai sepulang kerja.",
+                            },
+                            {
+                                name: "Dina Mariana",
+                                role: "UI/UX Designer",
+                                quote: locale === 'en' ? "Amazing value for money! I got lifetime access to materials that keep getting updated." : "Harga terjangkau untuk akses seumur hidup! Materinya juga sering di-update ngikutin tren.",
+                            },
+                            {
+                                name: "Kelvin Wijaya",
+                                role: "Digital Marketer",
+                                quote: locale === 'en' ? "The community forum is highly active. Every time I get stuck, the mentors are there to help." : "Forum diskusinya sangat aktif. Tiap kali stuck ngerjain project, mentor selalu responsif membantu.",
+                            }
+                        ].map((alumni, i) => (
+                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
+                                <div className="p-8 bg-white dark:bg-glass-bg border border-glass-border rounded-3xl h-full flex flex-col justify-between hover:-translate-y-1 transition-transform shadow-sm hover:shadow-xl hover:shadow-brand-blue/5">
+                                    <div>
+                                        <div className="flex gap-1 mb-6 text-orange-400">
+                                            {[...Array(5)].map((_, j) => <Star key={j} className="w-5 h-5 fill-current" />)}
+                                        </div>
+                                        <p className="text-text-main font-medium leading-relaxed mb-8 italic">
+                                            "{alumni.quote}"
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue font-bold text-xl">
+                                            {alumni.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-text-main">{alumni.name}</h4>
+                                            <p className="text-sm text-text-gray font-medium">{alumni.role}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 3: FAQ
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 overflow-hidden">
+                <div className="max-w-4xl mx-auto">
+                    <ScrollReveal animation="fade-up" className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-4">
+                            {locale === 'en' ? 'Frequently Asked Questions' : 'Pertanyaan Umum'}
+                        </h2>
+                    </ScrollReveal>
+
+                    <div className="space-y-4">
+                        {[
+                            {
+                                qEn: 'How long do I have access to the course?',
+                                qId: 'Berapa lama batas waktu akses kelasnya?',
+                                aEn: 'You get lifetime access! Once you purchase a course, you can watch it anytime without expiration.',
+                                aId: 'Anda mendapatkan akses seumur hidup (lifetime). Sekali bayar, kelas bisa diakses kapanpun tanpa batas waktu.'
+                            },
+                            {
+                                qEn: 'Will I get a certificate?',
+                                qId: 'Apakah saya akan mendapatkan sertifikat?',
+                                aEn: 'Yes, you will receive an official Certificate of Completion once you finish all materials and quizzes.',
+                                aId: 'Ya, Anda akan mendapatkan Sertifikat Penyelesaian resmi setelah menyelesaikan semua materi dan kuis.'
+                            },
+                            {
+                                qEn: 'Can I ask questions if I do not understand?',
+                                qId: 'Apakah bisa bertanya jika ada materi yang kurang paham?',
+                                aEn: 'Absolutely. We provide a dedicated community forum where you can ask mentors and other students.',
+                                aId: 'Sangat bisa. Kami menyediakan forum diskusi khusus di mana Anda bisa bertanya kepada mentor maupun siswa lain.'
+                            },
+                            {
+                                qEn: 'Is there a refund policy?',
+                                qId: 'Apakah ada garansi uang kembali?',
+                                aEn: 'Yes, we offer a 7-day money-back guarantee if you are not satisfied with the course content.',
+                                aId: 'Ya, kami memberikan garansi 100% uang kembali dalam 7 hari jika Anda merasa materi kelas tidak sesuai harapan.'
+                            }
+                        ].map((faq, idx) => (
+                            <ScrollReveal key={idx} animation="fade-up" delay={idx * 50}>
+                                <details className="group bg-white dark:bg-glass-bg border border-glass-border rounded-2xl [&_summary::-webkit-details-marker]:hidden overflow-hidden transition-all duration-300">
+                                    <summary className="flex cursor-pointer items-center justify-between gap-4 p-6 font-bold text-text-main transition-colors hover:text-brand-blue">
+                                        <span className="text-lg">{locale === 'en' ? faq.qEn : faq.qId}</span>
+                                        <span className="shrink-0 rounded-full bg-gray-50 dark:bg-white/5 p-2 transition duration-300 group-open:-rotate-180">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <div className="px-6 pb-6 text-text-gray font-medium leading-relaxed">
+                                        {locale === 'en' ? faq.aEn : faq.aId}
+                                    </div>
+                                </details>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 3: FINAL CTA
+            ========================================= */}
+            <section className="pb-24 px-6 relative z-10">
+                <div className="max-w-7xl mx-auto">
+                    <ScrollReveal animation="fade-up">
+                        <div className="bg-gradient-to-br from-brand-blue to-cyan-500 rounded-[3rem] p-10 md:p-14 text-center relative overflow-hidden border border-white/20 shadow-2xl">
+                            {/* Decorative background patterns */}
+                            <div className="absolute inset-0 bg-[url('/img/pattern.svg')] opacity-20 mix-blend-overlay"></div>
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full pointer-events-none"></div>
+                            
+                            <div className="relative z-10 max-w-3xl mx-auto">
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">
+                                    {locale === 'en' ? 'Start Upskilling Today!' : 'Mulai Upgrade Skillmu Hari Ini!'}
+                                </h2>
+                                <p className="text-lg md:text-xl text-white/90 font-medium mb-10 max-w-2xl mx-auto">
+                                    {locale === 'en' 
+                                        ? 'Join thousands of professionals who have advanced their careers with our premium courses.' 
+                                        : 'Bergabunglah dengan ribuan profesional yang telah memajukan karier mereka dengan kelas premium kami.'}
+                                </p>
+                                
+                                <div className="flex justify-center">
+                                    <Link href="#courses" scroll={false} className="px-10 py-5 bg-white text-brand-blue font-black rounded-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-xl shadow-black/10">
+                                        {locale === 'en' ? 'Browse All Courses' : 'Lihat Semua Kelas'}
+                                        <ArrowRight className="w-5 h-5" />
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollReveal>
+                </div>
+            </section>
+
         </div>
     );
 }

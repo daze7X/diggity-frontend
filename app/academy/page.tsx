@@ -282,7 +282,59 @@ export default async function AcademyPage() {
             </section>
 
             {/* =========================================
-                FASE 4: LEARNING PATH
+                FASE 4: FREE LEARNING
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 bg-white dark:bg-glass-bg border border-glass-border rounded-[3rem] p-8 md:p-16 shadow-xl">
+                    <div className="w-full md:w-1/2 space-y-6">
+                        <ScrollReveal animation="fade-up">
+                            <span className="inline-block px-3 py-1 bg-green-500/10 text-green-500 font-bold rounded-full text-sm mb-4">
+                                {locale === 'en' ? 'FREE LEARNING' : 'BELAJAR GRATIS'}
+                            </span>
+                            <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight leading-tight">
+                                {locale === 'en' ? 'Strengthen Fundamental Skills, for Free.' : 'Perkuat Fundamental Skills, Gratis.'}
+                            </h2>
+                            <p className="text-lg text-text-gray font-medium mt-4">
+                                {locale === 'en' 
+                                    ? 'Start your learning journey at no cost through various educational classes and materials that can be accessed for free.' 
+                                    : 'Mulai perjalanan belajar tanpa biaya melalui berbagai kelas dan materi edukasi yang dapat diakses secara gratis.'}
+                            </p>
+                        </ScrollReveal>
+                    </div>
+                    
+                    <div className="w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <ScrollReveal animation="fade-up" delay={50} className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-glass-border hover:border-brand-blue/30 transition-colors group">
+                            <MonitorSmartphone className="w-8 h-8 text-brand-blue mb-4 group-hover:scale-110 transition-transform" />
+                            <h4 className="font-bold text-text-main mb-2">Free Courses</h4>
+                            <Link href="/academy/online-course" className="text-sm font-bold text-brand-blue group-hover:underline inline-flex items-center gap-1">
+                                {locale === 'en' ? 'Browse Courses' : 'Lihat Kelas'} <ArrowRight className="w-3 h-3" />
+                            </Link>
+                        </ScrollReveal>
+                        
+                        <ScrollReveal animation="fade-up" delay={100} className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-glass-border hover:border-brand-blue/30 transition-colors group">
+                            <Users className="w-8 h-8 text-brand-blue mb-4 group-hover:scale-110 transition-transform" />
+                            <h4 className="font-bold text-text-main mb-2">Free Seminar</h4>
+                            <Link href="/academy/seminar" className="text-sm font-bold text-brand-blue group-hover:underline inline-flex items-center gap-1">
+                                {locale === 'en' ? 'Browse Seminars' : 'Lihat Seminar'} <ArrowRight className="w-3 h-3" />
+                            </Link>
+                        </ScrollReveal>
+
+                        <ScrollReveal animation="fade-up" delay={150} className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-glass-border hover:border-brand-blue/30 transition-colors group sm:col-span-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <BookOpen className="w-8 h-8 text-brand-blue mb-4 group-hover:scale-110 transition-transform" />
+                                <h4 className="font-bold text-text-main mb-2">Free E-Books</h4>
+                                <p className="text-xs text-text-gray font-medium mb-3">Download premium guides.</p>
+                            </div>
+                            <Link href="/academy/e-book" className="px-5 py-2.5 bg-brand-blue text-white font-bold text-sm rounded-xl hover:bg-brand-blue-dark transition-colors whitespace-nowrap">
+                                {locale === 'en' ? 'Download E-Books' : 'Unduh E-Book'}
+                            </Link>
+                        </ScrollReveal>
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 5: LEARNING PATH
             ========================================= */}
             <section id="learning-paths" className="py-24 px-6 relative z-10 bg-gray-50/50 dark:bg-brand-bg/50 border-y border-glass-border">
                 <div className="max-w-7xl mx-auto">
@@ -305,7 +357,7 @@ export default async function AcademyPage() {
             </section>
 
             {/* =========================================
-                FASE 5: CORPORATE SOLUTIONS
+                FASE 6: CORPORATE SOLUTIONS
             ========================================= */}
             <section id="corporate-solutions" className="py-24 px-6 relative z-10 overflow-hidden">
                 <div className="max-w-7xl mx-auto">
@@ -318,26 +370,28 @@ export default async function AcademyPage() {
                             <div className="space-y-8">
                                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white backdrop-blur-sm border border-white/20">
                                     <Building className="w-4 h-4" />
-                                    <span className="text-xs font-bold uppercase tracking-widest">Diggity For Business</span>
+                                    <span className="text-xs font-bold uppercase tracking-widest">Corporate Solutions</span>
                                 </div>
                                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-                                    {locale === 'en' ? 'Empower Your Team with Corporate Training' : 'Tingkatkan Kapasitas Tim dengan Pelatihan Perusahaan'}
+                                    {locale === 'en' ? 'From Skill Development to Digital Transformation.' : 'Dari Skill Development hingga Digital Transformation.'}
                                 </h2>
                                 <p className="text-lg text-white/80 font-medium">
                                     {locale === 'en' 
-                                        ? 'Customized upskilling and reskilling programs designed to meet your company\'s specific technological needs and business goals.' 
-                                        : 'Program upskilling dan reskilling yang dirancang khusus untuk memenuhi kebutuhan teknologi dan tujuan bisnis perusahaan Anda.'}
+                                        ? 'Diggity helps companies and organizations improve team capabilities through training, talent solutions, consulting, and technology services.' 
+                                        : 'Diggity membantu perusahaan dan organisasi meningkatkan kapabilitas tim melalui training, talent solutions, consulting, dan technology services.'}
                                 </p>
                                 
-                                <ul className="space-y-4 pt-4">
+                                <ul className="space-y-6 pt-4">
                                     {[
-                                        { en: 'Customized Curriculum', id: 'Kurikulum yang Disesuaikan' },
-                                        { en: 'Expert Industry Practitioners', id: 'Praktisi Industri Ahli' },
-                                        { en: 'Progress & Performance Tracking', id: 'Pelacakan Progres & Performa' }
+                                        { titleEn: 'Corporate Training', titleId: 'Corporate Training', descEn: 'Customizable training programs matching business needs and employee competencies.', descId: 'Program training yang dapat disesuaikan dengan kebutuhan bisnis dan kompetensi karyawan.' },
+                                        { titleEn: 'Capacity Building', titleId: 'Capacity Building', descEn: 'Competency development to improve productivity and readiness for tech changes.', descId: 'Program pengembangan kompetensi untuk meningkatkan produktivitas dan kesiapan organisasi.' },
                                     ].map((item, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-white font-medium">
-                                            <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" />
-                                            <span>{locale === 'en' ? item.en : item.id}</span>
+                                        <li key={i} className="flex items-start gap-4">
+                                            <CheckCircle2 className="w-6 h-6 text-cyan-400 shrink-0 mt-1" />
+                                            <div>
+                                                <h4 className="text-white font-bold text-lg">{locale === 'en' ? item.titleEn : item.titleId}</h4>
+                                                <p className="text-white/70 text-sm mt-1">{locale === 'en' ? item.descEn : item.descId}</p>
+                                            </div>
                                         </li>
                                     ))}
                                 </ul>
@@ -360,13 +414,14 @@ export default async function AcademyPage() {
             </section>
 
             {/* =========================================
-                FASE 5: CAREER CONNECTION & HIRING PARTNERS
+                FASE 7: CAREER & INDUSTRY CONNECTION
             ========================================= */}
             <section className="py-24 px-6 relative z-10 bg-gray-50/50 dark:bg-glass-bg border-y border-glass-border overflow-hidden">
                 <div className="max-w-7xl mx-auto text-center mb-16">
                     <ScrollReveal animation="fade-up" className="max-w-3xl mx-auto">
+                        <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Career & Industry Connection</span>
                         <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
-                            {locale === 'en' ? 'Your Bridge to a Professional Career' : 'Jembatan Menuju Karier Profesional'}
+                            {locale === 'en' ? 'Learn Today, Prepare for Tomorrow\'s Career.' : 'Belajar Hari Ini, Bersiap untuk Karier Esok Hari.'}
                         </h2>
                         <p className="text-lg text-text-gray font-medium">
                             {locale === 'en' 
@@ -396,6 +451,25 @@ export default async function AcademyPage() {
                             </ScrollReveal>
                         )
                     })}
+                </div>
+
+                {/* =========================================
+                    FASE 8: HIRING PARTNERS
+                ========================================= */}
+                <div className="max-w-4xl mx-auto text-center mt-32 mb-12">
+                    <ScrollReveal animation="fade-up">
+                        <h2 className="text-3xl font-black text-text-main tracking-tight mb-4">
+                            {locale === 'en' ? 'Connected to the Industry' : 'Connected to the Industry'}
+                        </h2>
+                        <p className="text-lg text-text-gray font-medium mb-8">
+                            {locale === 'en'
+                                ? 'Diggity builds connections with companies and organizations across various industries to match talent with workforce needs.'
+                                : 'Diggity membangun koneksi dengan perusahaan dan organisasi dari berbagai industri untuk mempertemukan talenta dengan kebutuhan dunia kerja.'}
+                        </p>
+                        <span className="inline-block px-4 py-2 bg-brand-blue/10 text-brand-blue font-bold rounded-xl text-sm border border-brand-blue/20">
+                            1,100+ Hiring & Industry Partners
+                        </span>
+                    </ScrollReveal>
                 </div>
 
                 {/* Marquee Hiring Partners */}
@@ -448,7 +522,7 @@ export default async function AcademyPage() {
             </section>
 
             {/* =========================================
-                FASE 6: LEARNING ECOSYSTEM & COMMUNITY
+                FASE 9 & 10: LEARNING ECOSYSTEM & COMMUNITY
             ========================================= */}
             <section className="py-24 px-6 relative z-10 overflow-hidden">
                 <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
@@ -456,13 +530,14 @@ export default async function AcademyPage() {
                     {/* Left: Ecosystem Timeline */}
                     <div className="w-full lg:w-1/2 space-y-12">
                         <ScrollReveal animation="slide-right">
+                            <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Learning Ecosystem</span>
                             <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-4">
-                                {locale === 'en' ? 'The Complete Learning Ecosystem' : 'Ekosistem Belajar yang Menyeluruh'}
+                                {locale === 'en' ? 'One Ecosystem. Your Entire Learning Journey.' : 'Satu Ekosistem untuk Seluruh Perjalanan Belajarmu.'}
                             </h2>
                             <p className="text-lg text-text-gray font-medium">
                                 {locale === 'en' 
-                                    ? 'A proven step-by-step journey designed to transform beginners into industry-ready professionals.' 
-                                    : 'Perjalanan bertahap yang terbukti efektif untuk mengubah pemula menjadi profesional yang siap terjun ke industri.'}
+                                    ? 'A single ecosystem to help you grow from first skill to professional growth.' 
+                                    : 'Satu ekosistem untuk membantu kamu berkembang dari first skill hingga professional growth.'}
                             </p>
                         </ScrollReveal>
 
@@ -505,16 +580,17 @@ export default async function AcademyPage() {
                                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-[80px] group-hover:bg-purple-500/10 transition-colors"></div>
                                 
                                 <div className="relative z-10">
+                                    <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-4 block">Community</span>
                                     <div className="w-20 h-20 mx-auto rounded-3xl bg-brand-blue text-white flex items-center justify-center mb-8 shadow-lg shadow-brand-blue/20 rotate-3 group-hover:rotate-12 transition-transform">
                                         <MessageSquare className="w-10 h-10" />
                                     </div>
                                     <h3 className="text-3xl md:text-4xl font-black text-text-main mb-6">
-                                        {locale === 'en' ? 'Join 10,000+ Diggity Learners' : 'Bergabung dengan 10.000+ Pembelajar Lainnya'}
+                                        {locale === 'en' ? 'Learn Together. Grow Together.' : 'Learn Together. Grow Together.'}
                                     </h3>
                                     <p className="text-lg text-text-gray font-medium mb-10 leading-relaxed">
                                         {locale === 'en' 
-                                            ? 'Our community is the heart of the Diggity Academy. Get exclusive access to study groups, Q&A sessions with mentors, and networking with tech professionals.' 
-                                            : 'Komunitas adalah jantung dari Diggity Academy. Dapatkan akses eksklusif ke grup belajar, sesi tanya jawab dengan mentor, dan jejaring dengan profesional teknologi.'}
+                                            ? 'Learning doesn\'t have to be lonely. Join the Diggity community to discuss, share experiences, find opportunities, and build your network with other learners and professionals.' 
+                                            : 'Belajar tidak harus sendirian. Bergabung dengan komunitas Diggity untuk berdiskusi, berbagi pengalaman, menemukan peluang, dan membangun networking bersama learner dan profesional lainnya.'}
                                     </p>
 
                                     <div className="grid grid-cols-2 gap-4 mb-10">
@@ -552,18 +628,19 @@ export default async function AcademyPage() {
             </section>
 
             {/* =========================================
-                FASE 7: ALUMNI STORIES
+                FASE 11: ALUMNI & SOCIAL PROOF
             ========================================= */}
             <section className="py-24 px-6 relative z-10 bg-bg-canvas border-y border-glass-border">
                 <div className="max-w-7xl mx-auto">
                     <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+                        <span className="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2 block">Alumni Stories</span>
                         <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-4">
-                            {locale === 'en' ? 'Success Stories' : 'Kisah Sukses Alumni'}
+                            {locale === 'en' ? 'Our Learners, Their Next Chapter.' : 'Our Learners, Their Next Chapter.'}
                         </h2>
                         <p className="text-lg text-text-gray font-medium">
                             {locale === 'en' 
-                                ? 'See how Diggity Academy has helped them achieve their career goals.' 
-                                : 'Lihat bagaimana Diggity Academy membantu mereka mencapai tujuan kariernya.'}
+                                ? 'Listen to their experiences during their studies and how the skills they acquired helped their professional journey.' 
+                                : 'Dengarkan pengalaman mereka selama belajar dan bagaimana skill yang mereka dapatkan membantu perjalanan profesional mereka.'}
                         </p>
                     </ScrollReveal>
 
@@ -612,7 +689,39 @@ export default async function AcademyPage() {
             </section>
 
             {/* =========================================
-                FASE 7: FAQ
+                FASE 12: TRUSTED BY
+            ========================================= */}
+            <section className="py-24 px-6 relative z-10 bg-brand-blue dark:bg-brand-bg overflow-hidden border-y border-brand-blue/20">
+                <div className="absolute inset-0 bg-[url('/img/grid-pattern.svg')] opacity-[0.05]"></div>
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+                            {locale === 'en' ? 'Trusted by Learners, Professionals & Organizations' : 'Trusted by Learners, Professionals & Organizations'}
+                        </h2>
+                    </ScrollReveal>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 max-w-4xl mx-auto">
+                        <ScrollReveal animation="fade-up" delay={50} className="p-10 rounded-[2rem] bg-white/10 backdrop-blur-sm border border-white/20 text-center text-white">
+                            <h3 className="text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-4">
+                                10,000+
+                            </h3>
+                            <p className="text-xl font-bold mb-2">Learners</p>
+                            <p className="text-white/80 font-medium">{locale === 'en' ? 'Professionals and students upgraded their skills with us.' : 'Profesional dan pelajar telah meningkatkan skill bersama kami.'}</p>
+                        </ScrollReveal>
+
+                        <ScrollReveal animation="fade-up" delay={150} className="p-10 rounded-[2rem] bg-white/10 backdrop-blur-sm border border-white/20 text-center text-white">
+                            <h3 className="text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-4">
+                                1,100+
+                            </h3>
+                            <p className="text-xl font-bold mb-2">Companies</p>
+                            <p className="text-white/80 font-medium">{locale === 'en' ? 'Hiring and corporate training partners nationwide.' : 'Mitra hiring dan corporate training di seluruh Indonesia.'}</p>
+                        </ScrollReveal>
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================
+                FASE 13: FAQ
             ========================================= */}
             <section className="py-24 px-6 relative z-10 overflow-hidden">
                 <div className="max-w-4xl mx-auto">
@@ -645,7 +754,7 @@ export default async function AcademyPage() {
             </section>
 
             {/* =========================================
-                FASE 7: FINAL CTA
+                FASE 14: FINAL CTA
             ========================================= */}
             <section className="pb-24 px-6 relative z-10">
                 <div className="max-w-7xl mx-auto">
@@ -657,17 +766,17 @@ export default async function AcademyPage() {
                             
                             <div className="relative z-10 max-w-3xl mx-auto">
                                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">
-                                    {locale === 'en' ? 'Ready to Start Your Tech Journey?' : 'Siap Memulai Perjalanan Teknologimu?'}
+                                    {locale === 'en' ? 'Start Building Your Future Today.' : 'Mulai Bangun Masa Depanmu Hari Ini.'}
                                 </h2>
                                 <p className="text-lg md:text-xl text-white/90 font-medium mb-10 max-w-2xl mx-auto">
                                     {locale === 'en' 
-                                        ? 'Join Diggity Academy today and build the skills needed for the jobs of tomorrow.' 
-                                        : 'Bergabunglah dengan Diggity Academy hari ini dan bangun keterampilan yang dibutuhkan untuk masa depan.'}
+                                        ? 'Still unsure which program fits your goals? Consult your learning needs with the Diggity Academy team.' 
+                                        : 'Masih bingung memilih program yang sesuai dengan tujuanmu? Konsultasikan kebutuhan belajar bersama tim Diggity Academy.'}
                                 </p>
                                 
                                 <div className="flex justify-center">
                                     <Link href="/contact" className="px-10 py-5 bg-black/20 text-white font-bold rounded-2xl hover:bg-black/30 border border-white/20 backdrop-blur-sm transition-all flex items-center justify-center gap-2">
-                                        {locale === 'en' ? 'Contact for Business' : 'Hubungi Tim B2B'}
+                                        {locale === 'en' ? 'Consult for Free' : 'Konsultasi Gratis'}
                                         <ArrowRight className="w-5 h-5" />
                                     </Link>
                                 </div>

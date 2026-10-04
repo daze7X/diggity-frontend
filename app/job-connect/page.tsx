@@ -55,11 +55,11 @@ export default async function JobConnectPage({ searchParams }: Props) {
                     </div>
                     
                     <span className="text-xs font-bold text-white/80 uppercase tracking-widest mb-6 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-xl">
-                        <Briefcase className="w-4 h-4" /> {locale === 'en' ? 'Join Our Team' : 'Karir & Kesempatan'}
+                        <Briefcase className="w-4 h-4" /> {locale === 'en' ? 'Join Our Team' : 'Karier Karier & Kesempatan Kesempatan'}
                     </span>
                     
                     <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.15] mb-6 max-w-4xl mx-auto drop-shadow-sm">
-                        Job <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">Connect</span>
+                        Karier
                     </h1>
                     
                     <p className="text-lg md:text-xl text-white/80 font-medium max-w-2xl mx-auto leading-relaxed">
@@ -85,7 +85,7 @@ export default async function JobConnectPage({ searchParams }: Props) {
                                         : 'text-text-gray hover:text-text-main'
                                 }`}
                             >
-                                {locale === 'en' ? 'Careers & Talent Registry' : 'Karir & Daftar Talenta'}
+                                {locale === 'en' ? 'Careers & Talent Registry' : 'Karier Karier & Daftar Talenta Daftar Talenta'}
                             </Link>
                             <Link
                                 href="/job-connect?tab=b2b"
@@ -310,7 +310,7 @@ export default async function JobConnectPage({ searchParams }: Props) {
                                         <span className="px-3 py-1 bg-glass-bg border border-glass-border text-text-muted text-[10px] font-black uppercase tracking-wider rounded-lg inline-block">
                                             TALENT NETWORK
                                         </span>
-                                        <h3 className="text-xl font-black text-text-main pt-1">Job Connect / Sourcing</h3>
+                                        <h3 className="text-xl font-black text-text-main pt-1">Karier / Sourcing</h3>
                                         <p className="text-xs text-text-gray font-medium leading-relaxed">
                                             Akses cepat ke database jaringan talenta digital bersertifikat Diggity untuk diproyeksikan langsung ke kebutuhan kontrak jangka menengah/panjang.
                                         </p>

@@ -297,22 +297,7 @@ export default function Navbar() {
                             </Link>
                         </div>
 
-                        {/* 5. Portfolio Dropdown Menu (Hover) */}
-                        <div 
-                            className="relative"
-                            onMouseEnter={() => handleMouseEnter('portfolio')} 
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <Link
-                                href="/portfolio"
-                                className={`text-[13px] font-bold transition-colors hover:text-brand-blue px-2.5 py-2 rounded-lg flex items-center space-x-1 cursor-pointer ${
-                                    isActive('/portfolio') ? 'text-brand-blue' : 'text-text-gray'
-                                }`}
-                            >
-                                <span>{t('nav.portfolio')}</span>
-                                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'portfolio' ? 'rotate-180' : ''}`} />
-                            </Link>
-                        </div>
+
 
                         {/* 6. Insights Dropdown Menu (Hover) */}
                         <div 
@@ -722,36 +707,6 @@ export default function Navbar() {
                     </div>
                 )}
 
-                {/* 4. Portfolio Dropdown Panel */}
-                {activeDropdown === 'portfolio' && (
-                    <div 
-                        onMouseEnter={() => handleMouseEnter('portfolio')}
-                        onMouseLeave={handleMouseLeave}
-                        className="absolute left-1/3 right-auto top-full mt-4 mx-auto max-w-sm bg-brand-bg/95 border border-glass-border rounded-2xl p-6 shadow-2xl backdrop-blur-2xl text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50 space-y-4"
-                    >
-                        <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                            Explore Portfolios
-                        </span>
-                        <div className="space-y-2">
-                            <Link href="/portfolio/it" className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                    IT Portfolio
-                                </h4>
-                                <p className="text-[10px] text-text-gray mt-0.5 leading-relaxed">
-                                    Website, Mobile App, Software, ERP, AI, Digital Platform
-                                </p>
-                            </Link>
-                            <Link href="/portfolio/marketing" className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
-                                <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue">
-                                    Marketing &amp; Creative Portfolio
-                                </h4>
-                                <p className="text-[10px] text-text-gray mt-0.5 leading-relaxed">
-                                    Branding, Campaign, Social Media, Creative, Video, Digital Marketing
-                                </p>
-                            </Link>
-                        </div>
-                    </div>
-                )}
 
                 {/* 5. Insights Mega-Menu Panel */}
                 {activeDropdown === 'insights' && (
@@ -996,28 +951,6 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        {/* Mobile Portfolio Accordion */}
-                        <div className="border-b border-glass-border/40 py-1.5">
-                            <button
-                                onClick={() => setMobileExpanded(mobileExpanded === 'portfolio' ? null : 'portfolio')}
-                                className="w-full text-base font-semibold text-text-gray flex items-center justify-between text-left focus:outline-none"
-                            >
-                                <span className={isActive('/portfolio') ? 'text-brand-blue' : ''}>
-                                    Portfolio
-                                </span>
-                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded === 'portfolio' ? 'rotate-180' : ''}`} />
-                            </button>
-                            {mobileExpanded === 'portfolio' && (
-                                <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/portfolio/it" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        IT Portfolio
-                                    </Link>
-                                    <Link href="/portfolio/marketing" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Marketing &amp; Creative Portfolio
-                                    </Link>
-                                </div>
-                            )}
-                        </div>
 
                         {/* Mobile Insights Accordion */}
                         <div className="border-b border-glass-border/40 py-1.5">

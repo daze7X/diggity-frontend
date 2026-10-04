@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import SpotlightCard from '../../components/SpotlightCard';
 import ScrollReveal from '../../components/ScrollReveal';
 import FaqAccordion from '../../components/FaqAccordion';
+import PortfolioList from '../../components/PortfolioList';
 import { api, Service, Faq } from '../../lib/api';
 import { getLocaleServer } from '../../lib/locale-server';
 import {
@@ -165,13 +166,24 @@ export default async function SolutionsPage() {
 
     let allServices: Service[] = [];
     let faqs: Faq[] = [];
+    let portfolios: import('../../lib/api').Portfolio[] = [];
+    let portfolioCategories: import('../../lib/api').Category[] = [];
+    
     try {
-        const [servicesRes, faqsRes] = await Promise.all([
+        const [servicesRes, faqsRes, portfoliosRes] = await Promise.all([
             api.getSolutions(),
-            api.getFaqs()
+            api.getFaqs(),
+            api.getPortfolios()
         ]);
         allServices = servicesRes || [];
         faqs = faqsRes || [];
+        portfolios = portfoliosRes || [];
+
+        const catMap: Record<string, import('../../lib/api').Category> = {};
+        portfolios.forEach((p) => {
+            if (p.category) catMap[p.category.name] = p.category;
+        });
+        portfolioCategories = Object.values(catMap);
     } catch {
         // fallback: empty
     }
@@ -358,6 +370,30 @@ export default async function SolutionsPage() {
                         })}
                     </div>
                 </div>
+
+                {/* 2.5 PORTFOLIO (Merged into Solutions) */}
+                {portfolios && portfolios.length > 0 && (
+                    <div className="py-16 md:py-24 border-t border-glass-border">
+                        <ScrollReveal animation="fade-up">
+                            <div className="text-center max-w-3xl mx-auto space-y-4 mb-10 md:mb-16">
+                                <span className="text-sm font-black text-brand-blue uppercase tracking-widest px-3 py-1.5 bg-brand-blue/10 border border-brand-blue/20 rounded-full">
+                                    {locale === 'en' ? 'Success Stories' : 'Portofolio Karya'}
+                                </span>
+                                <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight pt-2">
+                                    {locale === 'en' ? 'Proven Results.' : 'Bukti Nyata.'}
+                                </h2>
+                                <p className="text-base md:text-lg text-text-gray font-medium leading-relaxed">
+                                    {locale === 'en' 
+                                        ? 'Explore our finest work and successful case studies of digital transformation across various industries.' 
+                                        : 'Kumpulan karya terbaik dan studi kasus sukses dari transformasi digital klien kami di berbagai industri.'}
+                                </p>
+                            </div>
+                        </ScrollReveal>
+                        <div className="bg-white dark:bg-glass-bg/40 backdrop-blur-3xl rounded-[2.5rem] border border-glass-border p-6 md:p-10 shadow-2xl">
+                            <PortfolioList portfolios={portfolios} categories={portfolioCategories} />
+                        </div>
+                    </div>
+                )}
 
                 {/* 2B. WHY CHOOSE US */}
                 <div className="py-8">

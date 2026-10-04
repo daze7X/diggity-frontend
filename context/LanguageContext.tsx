@@ -22,7 +22,7 @@ const dictionaries = {
         'nav.academy': 'Akademi',
         'nav.portfolio': 'Portofolio',
         'nav.insights': 'Wawasan',
-        'nav.jobConnect': 'Karir',
+        'nav.jobConnect': 'Karier',
         'nav.pricing': 'Harga',
         'nav.dashboard': 'Dasbor',
         'nav.signIn': 'Masuk',

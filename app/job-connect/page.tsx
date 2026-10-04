@@ -54,9 +54,6 @@ export default async function JobConnectPage({ searchParams }: Props) {
                         <div className="absolute inset-0 bg-gradient-to-bl from-transparent to-white/20 animate-spin-slow" style={{ animationDuration: '12s' }} />
                     </div>
                     
-                    <span className="text-xs font-bold text-white/80 uppercase tracking-widest mb-6 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-xl">
-                        <Briefcase className="w-4 h-4" /> {locale === 'en' ? 'Join Our Team' : 'Karier Karier & Kesempatan Kesempatan'}
-                    </span>
                     
                     <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.15] mb-6 max-w-4xl mx-auto drop-shadow-sm">
                         Karier
@@ -65,7 +62,7 @@ export default async function JobConnectPage({ searchParams }: Props) {
                     <p className="text-lg md:text-xl text-white/80 font-medium max-w-2xl mx-auto leading-relaxed">
                         {locale === 'en' 
                             ? 'Bridge digital IT talents with global projects and corporate recruitment.' 
-                            : 'Jembatan karir talenta IT digital dengan proyek global dan rekrutmen perusahaan.'}
+                            : 'Jembatan karier talenta IT digital dengan proyek global dan rekrutmen perusahaan.'}
                     </p>
                 </div>
             </div>

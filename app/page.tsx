@@ -524,7 +524,7 @@ export default async function Home() {
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-8">
                     <div className="text-center max-w-2xl mx-auto space-y-3">
                         <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                            {locale === 'en' ? 'Careers' : 'Karir'}
+                            {locale === 'en' ? 'Careers' : 'Karier'}
                         </span>
                         <h3 className="text-3xl font-extrabold text-text-main tracking-tight">
                             {locale === 'en' ? 'Opportunities & Talent Development' : 'Peluang & Pengembangan Bakat'}
@@ -532,7 +532,7 @@ export default async function Home() {
                         <p className="text-sm text-text-gray leading-relaxed max-w-md mx-auto">
                             {locale === 'en' 
                                 ? 'Join our team or build your career with leading corporations. Explore our vacancies.'
-                                : 'Bergabunglah dengan tim kami atau bangun karir Anda bersama korporasi terkemuka. Jelajahi lowongan kami.'}
+                                : 'Bergabunglah dengan tim kami atau bangun karier Anda bersama korporasi terkemuka. Jelajahi lowongan kami.'}
                         </p>
                     </div>
 

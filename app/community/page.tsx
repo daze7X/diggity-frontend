@@ -5,7 +5,7 @@ import { getLocaleServer } from '../../lib/locale-server';
 
 export const metadata: Metadata = {
   title: 'Komunitas Digital Eksklusif - Diggity',
-  description: 'Bergabunglah dengan ribuan talenta digital, developer, desainer, dan founder dalam komunitas eksklusif Diggity. Dapatkan akses ke mentor, event, dan peluang karir.',
+  description: 'Bergabunglah dengan ribuan talenta digital, developer, desainer, dan founder dalam komunitas eksklusif Diggity. Dapatkan akses ke mentor, event, dan peluang karier.',
 };
 import { 
     Users, 

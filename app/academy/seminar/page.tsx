@@ -46,10 +46,6 @@ export default function SeminarPage() {
             {/* 01. HERO */}
             <section className="relative pt-16 pb-24 px-6 lg:px-8 z-10 text-center max-w-5xl mx-auto">
                 <ScrollReveal animation="fade-up">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue font-bold text-sm mb-8">
-                        <Mic className="w-4 h-4" />
-                        SEMINAR & INDUSTRY TALKS
-                    </div>
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-text-main tracking-tight leading-[1.1] mb-6">
                         {locale === 'en' ? 'Expand Your Horizon, ' : 'Perluas Wawasan, '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-indigo-500">

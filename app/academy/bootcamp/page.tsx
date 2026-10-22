@@ -96,13 +96,6 @@ export default function BootcampLandingPage() {
                     {/* Left Copy */}
                     <div className="w-full lg:w-1/2 space-y-8 relative z-10 text-center lg:text-left">
                         <ScrollReveal animation="fade-up">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-sm font-bold mb-6">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
-                                </span>
-                                {locale === 'en' ? 'Intensive Bootcamp Program' : 'Program Bootcamp Intensif'}
-                            </div>
                             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-text-main tracking-tight leading-[1.1]">
                                 {locale === 'en' ? 'Build Skills.' : 'Bangun Skill.'}{' '}
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-cyan-500">

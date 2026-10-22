@@ -278,9 +278,6 @@ export default async function About() {
                     <ScrollReveal animation="fade-up">
                         <div className="text-center space-y-8 max-w-4xl mx-auto">
                             <div className="space-y-4">
-                                <span className="text-xs font-bold text-white/80 uppercase tracking-widest mb-2 inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-xl">
-                                    {locale === 'en' ? 'Company Profile' : 'Profil Perusahaan'}
-                                </span>
                                 <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.15] mb-6 max-w-4xl mx-auto drop-shadow-sm">
                                     {locale === 'en' ? (
                                         <>About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">Us</span></>

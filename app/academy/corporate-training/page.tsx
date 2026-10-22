@@ -63,10 +63,6 @@ export default function CorporateTrainingPage() {
             <section className="relative pt-16 pb-24 px-6 lg:px-8 z-10 max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <ScrollReveal animation="fade-up">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue font-bold text-sm mb-8">
-                            <span className="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
-                            {locale === 'en' ? 'DIGGITY CORPORATE TRAINING' : 'DIGGITY CORPORATE TRAINING'}
-                        </div>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-text-main tracking-tight leading-[1.1] mb-6">
                             {locale === 'en' ? 'Upskill Your Team. ' : 'Tingkatkan Kompetensi Tim. '}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-indigo-500">

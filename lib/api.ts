@@ -143,6 +143,11 @@ export interface Service {
     description?: string;
     category?: Category;
     seo_meta?: SeoMeta;
+    content_type?: string;
+    author?: string;
+    reading_time?: string;
+    tags?: string[];
+    is_featured?: boolean;
     sub_services?: string[];
     plans?: Array<{
         name: string;
@@ -191,6 +196,11 @@ export interface Blog {
     category?: Category;
     created_at: string;
     seo_meta?: SeoMeta;
+    content_type?: string;
+    author?: string;
+    reading_time?: string;
+    tags?: string[];
+    is_featured?: boolean;
 }
 
 export interface Team {

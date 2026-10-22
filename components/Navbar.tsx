@@ -729,7 +729,7 @@ export default function Navbar() {
                                         Blog &amp; Education
                                     </h4>
                                 </Link>
-                                <Link href="/news" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/insights/news" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
                                         <TrendingUp className="w-3.5 h-3.5" />
                                     </div>
@@ -745,7 +745,7 @@ export default function Navbar() {
                                         Digital Community
                                     </h4>
                                 </Link>
-                                <Link href="/portfolio" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/insights/success-stories" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
                                         <Briefcase className="w-3.5 h-3.5" />
                                     </div>
@@ -966,13 +966,13 @@ export default function Navbar() {
                                     <Link href="/insights" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Blog &amp; Education
                                     </Link>
-                                    <Link href="/news" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/insights/news" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         News &amp; Announcements
                                     </Link>
                                     <Link href="/community" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Digital Community
                                     </Link>
-                                    <Link href="/portfolio" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/insights/success-stories" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Success Stories
                                     </Link>
                                     <Link href="/partnership" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">

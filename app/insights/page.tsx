@@ -123,9 +123,7 @@ export default function InsightsHubPage() {
             {/* 1. HERO SECTION & FUNCTIONAL SEARCH */}
             <section className="relative pt-16 pb-20 px-6 lg:px-8 z-10 text-center max-w-5xl mx-auto">
                 <ScrollReveal animation="fade-up">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue font-bold text-sm mb-8 tracking-widest">
-                        DIGGITY INSIGHTS
-                    </div>
+
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-text-main tracking-tight leading-[1.1] mb-6">
                         {isEn ? 'Insights, Perspectives, and ' : 'Wawasan, Cerita, dan '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-indigo-500">

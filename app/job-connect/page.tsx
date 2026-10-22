@@ -347,11 +347,7 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-black/20 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none" />
                 
                 <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-                    <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 text-white text-xs font-black uppercase tracking-widest mb-6 backdrop-blur-md border border-white/20">
-                        <Briefcase className="w-3.5 h-3.5" />
-                        {locale === 'en' ? 'DIGGITY CAREER & TALENT ECOSYSTEM' : 'EKOSISTEM KARIER & TALENTA DIGITAL'}
-                    </span>
-                    
+
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1] mb-6 max-w-4xl mx-auto drop-shadow-sm">
                         {locale === 'en' ? (
                             <>Build Your Career. <span className="text-white/80">Shape the Future.</span></>

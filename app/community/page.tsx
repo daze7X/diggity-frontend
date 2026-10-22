@@ -214,10 +214,7 @@ export default async function DigitalCommunityPage() {
                 {/* 01. HERO SECTION */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     <div className="lg:col-span-7 space-y-6">
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-black uppercase tracking-widest">
-                            <Users className="w-3.5 h-3.5" />
-                            {locale === 'en' ? 'DIGGITY DIGITAL COMMUNITY' : 'KOMUNITAS DIGITAL RESMI DIGGITY'}
-                        </div>
+
 
                         <h1 className="text-4xl md:text-6xl font-black tracking-tight text-text-main leading-[1.1]">
                             {locale === 'en' ? (

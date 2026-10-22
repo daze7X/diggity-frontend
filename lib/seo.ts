@@ -17,7 +17,7 @@ export function generatePageMetadata(
     const title = seoData?.meta_title || defaults?.title || 'Diggity - Corporate IT Solutions & Learning';
     const description = seoData?.meta_description || defaults?.description || 'Diggity menyediakan solusi teknologi informasi korporasi kelas dunia, lisensi produk digital premium, dan pelatihan pemrograman intensif.';
     const canonical = seoData?.canonical_url || (defaults?.path ? `${siteUrl}${defaults.path}` : siteUrl);
-    const keywords = seoData?.meta_keywords || 'IT solutions, software development, LMS, coding academy, midtrans, nextjs';
+    const keywords = seoData?.meta_keywords || 'IT solutions, software development, coding academy, digital training, nextjs';
 
     return {
         title,

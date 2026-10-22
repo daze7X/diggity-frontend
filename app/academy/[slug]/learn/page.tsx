@@ -204,7 +204,7 @@ export default function LMSPlayer({ params }: Props) {
                             href="/dashboard/academy" 
                             className="inline-flex items-center gap-1.5 text-xs text-brand-blue font-bold hover:underline mb-1"
                         >
-                            <ArrowLeft className="w-3.5 h-3.5" /> {locale === 'en' ? 'Back to My LMS' : 'Kembali ke LMS Saya'}
+                            <ArrowLeft className="w-3.5 h-3.5" /> {locale === 'en' ? 'Back to My Academy' : 'Kembali ke Kelas Saya'}
                         </Link>
                         <h1 className="text-xl md:text-2xl font-black text-text-main tracking-tight leading-tight">
                             {course.title}

@@ -65,7 +65,7 @@ export default function CertificationPage() {
                         <Link href="#programs" className="px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white font-bold transition-all">
                             {locale === 'en' ? 'View Certification Programs' : 'Lihat Program Sertifikasi'}
                         </Link>
-                        <Link href="#contact" className="px-8 py-4 rounded-xl bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/50 text-text-main font-bold transition-all">
+                        <Link href="/contact" className="px-8 py-4 rounded-xl bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/50 text-text-main font-bold transition-all">
                             {locale === 'en' ? 'Consult Certification' : 'Konsultasi Sertifikasi'}
                         </Link>
                     </div>
@@ -261,7 +261,7 @@ export default function CertificationPage() {
                         <Link href="#programs" className="px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white font-bold transition-all text-lg">
                             {locale === 'en' ? 'View Programs' : 'Lihat Program Sertifikasi'}
                         </Link>
-                        <Link href="mailto:hello@diggity.com" className="px-8 py-4 rounded-xl bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/50 text-text-main font-bold transition-all text-lg">
+                        <Link href="/contact" className="px-8 py-4 rounded-xl bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/50 text-text-main font-bold transition-all text-lg">
                             {locale === 'en' ? 'Consult with Diggity' : 'Konsultasi dengan Diggity'}
                         </Link>
                     </div>

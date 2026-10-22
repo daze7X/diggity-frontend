@@ -79,7 +79,7 @@ export default function CorporateTrainingPage() {
                                 : 'Program Corporate Training Diggity dirancang untuk membantu perusahaan meningkatkan kompetensi karyawan melalui pelatihan berbasis praktik, kurikulum relevan industri, dan disesuaikan dengan tujuan bisnis.'}
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <Link href="#contact" className="px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white font-bold transition-all text-center">
+                            <Link href="/contact" className="px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white font-bold transition-all text-center">
                                 {locale === 'en' ? 'Consult Training Needs' : 'Konsultasikan Kebutuhan Training'}
                             </Link>
                             <Link href="#programs" className="px-8 py-4 rounded-xl bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/50 text-text-main font-bold transition-all text-center">
@@ -352,12 +352,9 @@ export default function CorporateTrainingPage() {
                         {locale === 'en' ? 'Build competencies, increase productivity, and drive organizational transformation through Corporate Training designed for your business needs.' : 'Bangun kompetensi, tingkatkan produktivitas, dan dorong transformasi organisasi melalui Corporate Training yang dirancang sesuai kebutuhan bisnis Anda.'}
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link href="mailto:hello@diggity.com" className="px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white font-bold transition-all text-lg flex items-center justify-center gap-2">
+                        <Link href="/contact" className="px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white font-bold transition-all text-lg flex items-center justify-center gap-2 shadow-lg shadow-brand-blue/20 hover:scale-[1.02]">
                             <MessageSquare className="w-5 h-5" />
                             {locale === 'en' ? 'Consult Training Needs' : 'Konsultasikan Kebutuhan Training'}
-                        </Link>
-                        <Link href="/academy" className="px-8 py-4 rounded-xl bg-white dark:bg-glass-bg border border-glass-border hover:border-brand-blue/50 text-text-main font-bold transition-all text-lg">
-                            {locale === 'en' ? 'Download Program Outline' : 'Download Program Outline'}
                         </Link>
                     </div>
                 </ScrollReveal>

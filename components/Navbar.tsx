@@ -24,6 +24,11 @@ import {
     Briefcase,
     Info,
     ChevronRight,
+    Award,
+    Book,
+    PlayCircle,
+    Compass,
+    Sparkles,
 } from 'lucide-react';
 import SubServiceIcon from './SubServiceIcon';
 import SearchOverlay from './SearchOverlay';
@@ -637,71 +642,179 @@ export default function Navbar() {
                     <div 
                         onMouseEnter={() => handleMouseEnter('academy')}
                         onMouseLeave={handleMouseLeave}
-                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-6xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+                        className="absolute left-0 right-0 top-full mt-4 mx-auto max-w-7xl bg-brand-bg/95 border border-glass-border rounded-3xl p-8 shadow-2xl backdrop-blur-2xl grid grid-cols-1 md:grid-cols-12 gap-8 text-left animate-in fade-in slide-in-from-top-2 duration-200 z-50"
                     >
-                        {/* Col 1: Program Belajar (EMPOWER) */}
-                        <div className="space-y-4">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                Main Programs (EMPOWER)
-                            </span>
-                            <div className="space-y-3">
-                                <Link href="/academy?category=coding-bootcamps" onClick={() => setActiveDropdown(null)} className="group block space-y-1">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <GraduationCap className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Coding Bootcamps
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Intensive coding bootcamps with industry-standard certification.</p>
-                                </Link>
-                                <Link href="/academy?category=corporate-it-training" onClick={() => setActiveDropdown(null)} className="group block space-y-1">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Corporate IT Training
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">In-house customized tech training and upskilling for companies.</p>
-                                </Link>
-                            </div>
-                        </div>
-
-                        {/* Col 2: Sumber Belajar Digital */}
-                        <div className="space-y-4">
-                            <span className="text-[10px] font-bold text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
-                                E-Learning &amp; Resources
-                            </span>
-                            <div className="space-y-3">
-                                <Link href="/academy?category=self-paced-e-courses" onClick={() => setActiveDropdown(null)} className="group block space-y-1">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <BookOpen className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Self-Paced E-Courses
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Self-paced coding courses with quizzes and assessments.</p>
-                                </Link>
-                                <Link href="/academy?category=digital-e-books" onClick={() => setActiveDropdown(null)} className="group block space-y-1">
-                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5">
-                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
-                                        Digital E-Books
-                                    </h4>
-                                    <p className="text-[10px] text-text-gray font-medium">Download free programming guides and software engineering ebooks.</p>
-                                </Link>
-                            </div>
-                        </div>
-
-                        {/* Col 3: Promosi B2B Panel */}
-                        <div className="p-6 bg-glass-bg border border-glass-border/60 rounded-2xl flex flex-col justify-between space-y-4">
-                            <div className="space-y-1.5">
-                                <span className="px-2.5 py-0.5 bg-brand-blue/5 border border-brand-blue/15 text-brand-blue text-[9px] font-bold uppercase tracking-wider rounded-md inline-block">
-                                    LMS Portal
+                        {/* Col 1: Learning Programs (8 Programs) */}
+                        <div className="md:col-span-5 space-y-4 border-r border-glass-border/40 pr-6">
+                            <div className="flex items-center justify-between border-b border-glass-border pb-2">
+                                <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest">
+                                    {language === 'en' ? 'Learning Programs' : 'Program Pembelajaran'}
                                 </span>
-                                <h4 className="text-sm font-extrabold text-text-main">Get Certified?</h4>
-                                <p className="text-[11px] text-text-gray leading-relaxed font-medium">
-                                    Complete the learning modules, pass the competency quizzes, and download your verified certificate instantly.
-                                </p>
+                                <Link 
+                                    href="/academy" 
+                                    onClick={() => setActiveDropdown(null)}
+                                    className="text-[10px] font-bold text-text-gray hover:text-brand-blue transition-colors flex items-center gap-0.5"
+                                >
+                                    {language === 'en' ? 'View All' : 'Lihat Semua'}
+                                    <ChevronRight className="w-3 h-3" />
+                                </Link>
                             </div>
+                            <div className="grid grid-cols-2 gap-2.5">
+                                <Link href="/academy/bootcamp" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <GraduationCap className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Bootcamp
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Intensive career training' : 'Pelatihan intensif siap kerja'}</p>
+                                </Link>
+
+                                <Link href="/academy/online-course" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <BookOpen className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Online Course
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Self-paced flexible courses' : 'Belajar mandiri fleksibel'}</p>
+                                </Link>
+
+                                <Link href="/academy/certification" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Award className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Sertifikasi Profesi
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Industry standard credential' : 'Validasi kompetensi resmi'}</p>
+                                </Link>
+
+                                <Link href="/academy/corporate-training" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Layers className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Corporate Training
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Customized team upskilling' : 'Pelatihan kustom perusahaan'}</p>
+                                </Link>
+
+                                <Link href="/academy/workshop" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Code className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Workshop
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Hands-on practice & tools' : 'Praktik langsung & tools'}</p>
+                                </Link>
+
+                                <Link href="/academy/seminar" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <PlayCircle className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Seminar
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Industry expert sessions' : 'Sesi pakar & wawasan industri'}</p>
+                                </Link>
+
+                                <Link href="/academy/e-book" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Book className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Digital E-Book
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Guides & digital manuals' : 'Panduan & modul digital'}</p>
+                                </Link>
+
+                                <Link href="/academy/scholarship" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Sparkles className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        CSR &amp; Beasiswa
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Social impact & talent fund' : 'Dampak sosial & beasiswa'}</p>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Col 2: Learning Paths & Mentors */}
+                        <div className="md:col-span-4 space-y-4 border-r border-glass-border/40 pr-6">
+                            <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                                {language === 'en' ? 'Learning Paths & Mentors' : 'Jalur Belajar & Mentor'}
+                            </span>
+                            <div className="space-y-2.5">
+                                <Link href="/academy/learning-paths" onClick={() => setActiveDropdown(null)} className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Compass className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        {language === 'en' ? 'Competency Learning Paths' : 'Peta Jalur Belajar Terstruktur'}
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray">{language === 'en' ? 'Structured roadmaps from beginner to production-ready engineer.' : 'Roadmap terarah dari dasar hingga standar industri.'}</p>
+                                </Link>
+
+                                <Link href="/academy/learning-paths#ai-data" onClick={() => setActiveDropdown(null)} className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Cpu className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        AI &amp; Data Engineering
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray">{language === 'en' ? 'GenAI, LLM prompting, data science, & analytics.' : 'Machine learning, AI agent, prompt & data analytics.'}</p>
+                                </Link>
+
+                                <Link href="/academy/learning-paths#technology" onClick={() => setActiveDropdown(null)} className="group block p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                    <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Code className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
+                                        Front-End &amp; Back-End Engineering
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray">{language === 'en' ? 'React, Next.js, Laravel, Node.js, and Cloud APIs.' : 'Next.js, modern React, Laravel, dan arsitektur API.'}</p>
+                                </Link>
+
+                                <Link href="/academy/mentors" onClick={() => setActiveDropdown(null)} className="group block p-2 rounded-xl bg-brand-blue/5 border border-brand-blue/15 hover:bg-brand-blue/10 transition-colors">
+                                    <h4 className="text-xs font-bold text-brand-blue flex items-center gap-1.5 mb-0.5">
+                                        <Users className="w-3.5 h-3.5 shrink-0" />
+                                        {language === 'en' ? 'Explore All Mentors' : 'Jelajahi Semua Mentor'}
+                                    </h4>
+                                    <p className="text-[10px] text-text-gray">{language === 'en' ? 'Meet industry practitioners and track their classes.' : 'Kenali profil, keahlian, dan kelas yang diampu para mentor.'}</p>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Col 3: Community & Become a Mentor */}
+                        <div className="md:col-span-3 flex flex-col justify-between space-y-4">
+                            <div className="space-y-4">
+                                <span className="text-[10px] font-black text-brand-blue uppercase tracking-widest block border-b border-glass-border pb-2">
+                                    {language === 'en' ? 'Community & Contribution' : 'Komunitas & Kontribusi'}
+                                </span>
+                                
+                                <Link 
+                                    href="/job-connect?tab=mentor"
+                                    onClick={() => setActiveDropdown(null)}
+                                    className="p-3.5 bg-gradient-to-br from-brand-blue/10 via-indigo-500/5 to-transparent border border-brand-blue/20 rounded-2xl block hover:border-brand-blue transition-all group"
+                                >
+                                    <div className="flex items-center gap-2 mb-1.5">
+                                        <UserCheck className="w-4 h-4 text-brand-blue" />
+                                        <h4 className="text-xs font-black text-text-main group-hover:text-brand-blue transition-colors">
+                                            {language === 'en' ? 'Become a Mentor' : 'Gabung Jadi Mentor'}
+                                        </h4>
+                                    </div>
+                                    <p className="text-[10px] text-text-gray leading-relaxed">
+                                        {language === 'en' 
+                                            ? 'Share expertise, guide new tech talents, and earn honorarium benefits.' 
+                                            : 'Bimbing talenta baru, bagikan pengalaman industri, dan dapatkan honorarium.'}
+                                    </p>
+                                </Link>
+
+                                <Link 
+                                    href="/community"
+                                    onClick={() => setActiveDropdown(null)}
+                                    className="p-3 bg-glass-bg border border-glass-border rounded-2xl block hover:border-brand-blue transition-all group"
+                                >
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <Users className="w-3.5 h-3.5 text-brand-blue" />
+                                        <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue transition-colors">
+                                            {language === 'en' ? 'Digital Community' : 'Komunitas Digital Diggity'}
+                                        </h4>
+                                    </div>
+                                    <p className="text-[10px] text-text-gray line-clamp-2">
+                                        {language === 'en' ? 'Join 2,500+ developers, designers, and digital founders.' : 'Diskusi, kolaborasi, dan networking bersama 2.500+ anggota.'}
+                                    </p>
+                                </Link>
+                            </div>
+
                             <Link 
-                                href="/academy"
-                                className="inline-flex items-center justify-center py-2 px-4 bg-brand-blue text-white rounded-xl text-xs font-bold hover:bg-brand-blue-dark transition-colors self-start group"
+                                href="/contact"
+                                onClick={() => setActiveDropdown(null)}
+                                className="inline-flex items-center justify-center py-2.5 px-4 bg-brand-blue text-white rounded-xl text-xs font-bold hover:bg-brand-blue-dark transition-all shadow-md shadow-brand-blue/15 hover:scale-[1.02] group"
                             >
-                                Open Academy
-                                <ArrowUpRight className="ml-1 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                {language === 'en' ? 'Consult Learning Program' : 'Konsultasi Program Belajar'}
+                                <ArrowUpRight className="ml-1.5 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                             </Link>
                         </div>
                     </div>
@@ -935,18 +1048,21 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'academy' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/academy?category=coding-bootcamps" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Coding Bootcamps
-                                    </Link>
-                                    <Link href="/academy?category=corporate-it-training" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Corporate IT Training
-                                    </Link>
-                                    <Link href="/academy?category=self-paced-e-courses" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Self-Paced E-Courses
-                                    </Link>
-                                    <Link href="/academy?category=digital-e-books" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
-                                        Digital E-Books
-                                    </Link>
+                                    <span className="text-[10px] font-black uppercase text-brand-blue tracking-widest block pt-1">Programs</span>
+                                    <div className="grid grid-cols-2 gap-2 text-xs">
+                                        <Link href="/academy/bootcamp" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">Bootcamp</Link>
+                                        <Link href="/academy/online-course" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">Online Course</Link>
+                                        <Link href="/academy/certification" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">Sertifikasi</Link>
+                                        <Link href="/academy/corporate-training" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">Corporate Training</Link>
+                                        <Link href="/academy/workshop" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">Workshop</Link>
+                                        <Link href="/academy/seminar" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">Seminar</Link>
+                                        <Link href="/academy/e-book" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">E-Book</Link>
+                                        <Link href="/academy/scholarship" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">CSR / Beasiswa</Link>
+                                    </div>
+                                    <span className="text-[10px] font-black uppercase text-brand-blue tracking-widest block pt-2 border-t border-glass-border/40">Ecosystem</span>
+                                    <Link href="/academy/learning-paths" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-0.5">Peta Jalur Belajar (Roadmaps)</Link>
+                                    <Link href="/academy/mentors" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-0.5">Semua Mentor &amp; Praktisi</Link>
+                                    <Link href="/job-connect?tab=mentor" onClick={() => setIsOpen(false)} className="block text-brand-blue font-bold py-0.5">Gabung Jadi Mentor</Link>
                                 </div>
                             )}
                         </div>

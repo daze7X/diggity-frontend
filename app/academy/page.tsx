@@ -244,18 +244,18 @@ export default async function AcademyPage() {
                             </Link>
                         </ScrollReveal>
 
-                        {/* Free Webinar */}
+                        {/* Free Seminar */}
                         <ScrollReveal animation="fade-up" delay={100}>
-                            <Link href="/academy/webinar" className="block h-full">
+                            <Link href="/academy/seminar" className="block h-full">
                                 <SpotlightCard className="p-8 h-full bg-white dark:bg-glass-bg border border-glass-border rounded-3xl group cursor-pointer hover:border-brand-blue/30 hover:shadow-xl hover:-translate-y-1 transition-all">
                                     <div className="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <PlayCircle className="w-7 h-7" strokeWidth={1.5} />
                                     </div>
                                     <h3 className="text-xl font-bold text-text-main mb-2 group-hover:text-brand-blue transition-colors">
-                                        {locale === 'en' ? 'Free Webinar' : 'Free Webinar'}
+                                        {locale === 'en' ? 'Free Seminar' : 'Seminar Gratis'}
                                     </h3>
                                     <p className="text-sm text-text-gray font-medium">
-                                        {locale === 'en' ? 'Live sessions with experts discussing industry trends.' : 'Sesi interaktif bersama praktisi membahas tren industri.'}
+                                        {locale === 'en' ? 'Live interactive sessions with tech practitioners discussing latest trends.' : 'Sesi interaktif bersama praktisi membahas tren industri.'}
                                     </p>
                                 </SpotlightCard>
                             </Link>
@@ -611,13 +611,13 @@ export default async function AcademyPage() {
                                     </div>
 
                                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                        <Link href="#" className="px-8 py-4 bg-indigo-600 text-white font-bold rounded-2xl hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20">
+                                        <Link href="/community" className="px-8 py-4 bg-indigo-600 text-white font-bold rounded-2xl hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20">
                                             <MessageSquare className="w-5 h-5" />
-                                            Discord
+                                            Gabung Discord Komunitas
                                         </Link>
-                                        <Link href="#" className="px-8 py-4 bg-sky-500 text-white font-bold rounded-2xl hover:bg-sky-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-sky-500/20">
+                                        <Link href="/community" className="px-8 py-4 bg-sky-500 text-white font-bold rounded-2xl hover:bg-sky-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-sky-500/20">
                                             <Globe className="w-5 h-5" />
-                                            Telegram
+                                            Gabung Telegram Komunitas
                                         </Link>
                                     </div>
                                 </div>

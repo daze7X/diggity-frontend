@@ -202,8 +202,13 @@ export default function WorkshopPage() {
                                                 alt={p.title}
                                                 className="w-full h-full object-cover"
                                             />
-                                            <div className="absolute top-4 left-4 px-3 py-1 bg-brand-blue text-white text-xs font-bold rounded-full shadow-lg">
-                                                WORKSHOP
+                                            <div className="absolute top-4 left-4 flex items-center gap-2">
+                                                <span className="px-3 py-1 bg-brand-blue text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-lg">
+                                                    WORKSHOP
+                                                </span>
+                                                <span className="px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded-full shadow-md">
+                                                    Pendaftaran Dibuka
+                                                </span>
                                             </div>
                                         </div>
                                         <div className="p-6 flex flex-col grow">
@@ -229,8 +234,9 @@ export default function WorkshopPage() {
                                                 <span className="text-xl font-black text-brand-blue">
                                                     {p.price == 0 ? 'Gratis' : formatIDR(p.price)}
                                                 </span>
-                                                <Link href={`/academy/course/${p.slug}`} className="p-2 rounded-lg bg-brand-blue/10 text-brand-blue hover:bg-brand-blue hover:text-white transition-colors">
-                                                    <ArrowRight className="w-5 h-5" />
+                                                <Link href={`/academy/course/${p.slug}`} className="px-4 py-2 rounded-xl bg-brand-blue text-white text-xs font-bold hover:bg-brand-blue-dark transition-all flex items-center gap-1.5 shadow-md shadow-brand-blue/15">
+                                                    Daftar Workshop
+                                                    <ArrowRight className="w-3.5 h-3.5" />
                                                 </Link>
                                             </div>
                                         </div>

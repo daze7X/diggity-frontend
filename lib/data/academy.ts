@@ -37,10 +37,10 @@ export const ACADEMY_PROGRAMS = [
         icon: Users,
     },
     {
-        id: 'webinar',
-        title: 'Webinar',
-        descriptionEn: 'Seminars, industry talks, and educational content to broaden insights.',
-        descriptionId: 'Seminar, industry talk, dan berbagai konten edukasi untuk memperluas wawasan.',
+        id: 'seminar',
+        title: 'Seminar',
+        descriptionEn: 'Seminars, industry talks, and interactive masterclasses to broaden insights.',
+        descriptionId: 'Seminar, industry talk, dan berbagai sesi interaktif untuk memperluas wawasan industri.',
         icon: PlayCircle,
     },
     {
@@ -297,8 +297,8 @@ export const ACADEMY_FAQ = [
     {
         questionEn: 'Are there free classes available?',
         questionId: 'Apakah ada kelas gratis?',
-        answerEn: 'Yes, we provide Free Courses, Webinars, and E-Books for you to build your fundamental skills at no cost.',
-        answerId: 'Ya, kami menyediakan Free Courses, Webinar, dan E-Book agar Anda dapat membangun skill fundamental tanpa biaya.'
+        answerEn: 'Yes, we provide Free Courses, Seminars, and E-Books for you to build your fundamental skills at no cost.',
+        answerId: 'Ya, kami menyediakan Free Courses, Seminar, dan E-Book agar Anda dapat membangun skill fundamental tanpa biaya.'
     },
     {
         questionEn: 'Can I consult before choosing a program?',

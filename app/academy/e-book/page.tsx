@@ -172,9 +172,18 @@ export default function EBookPage() {
                                             <div className="p-6 flex flex-col grow">
                                                 <h3 className="text-lg font-bold text-text-main mb-2 line-clamp-2">{p.title}</h3>
                                                 <p className="text-xs text-text-gray font-medium line-clamp-2 mb-4">{p.description}</p>
+                                                <div className="flex items-center gap-2 text-[11px] font-bold text-text-gray mb-3">
+                                                    <span className="px-2 py-0.5 rounded bg-brand-blue/10 text-brand-blue">PDF &amp; EPUB</span>
+                                                    <span>&bull;</span>
+                                                    <span>{p.instructor || 'Tim Kurikulum Diggity'}</span>
+                                                </div>
                                                 <div className="mt-auto pt-4 border-t border-glass-border flex justify-between items-center">
                                                     <span className="text-lg font-black text-brand-blue">
-                                                        {p.price == 0 ? (locale === 'en' ? 'Free' : 'Gratis') : formatIDR(p.price)}
+                                                        {p.price == 0 ? (locale === 'en' ? 'Free Download' : 'Unduh Gratis') : formatIDR(p.price)}
+                                                    </span>
+                                                    <span className="px-3 py-1.5 rounded-xl bg-brand-blue text-white text-xs font-bold group-hover:bg-brand-blue-dark transition-all flex items-center gap-1 shadow-sm">
+                                                        {p.price == 0 ? 'Unduh' : 'Beli E-Book'}
+                                                        <ArrowRight className="w-3.5 h-3.5" />
                                                     </span>
                                                 </div>
                                             </div>

@@ -15,6 +15,7 @@ export default function BootcampLandingPage() {
     const { language: locale } = useLanguage();
     const [courses, setCourses] = React.useState<any[]>([]);
     const [loading, setLoading] = React.useState(true);
+    const [selectedProject, setSelectedProject] = React.useState<any>(null);
 
     React.useEffect(() => {
         const fetchCourses = async () => {
@@ -30,6 +31,49 @@ export default function BootcampLandingPage() {
         };
         fetchCourses();
     }, []);
+
+
+    const FINAL_PROJECTS = [
+        {
+            id: 'pos-ecommerce',
+            title: 'Omnichannel POS & E-Commerce Core',
+            cohort: 'Cohort 4 - Fullstack Web Engineering',
+            students: 'Rian Pratama & Siska Amelia',
+            role: 'Full-Stack Developers',
+            tools: 'Next.js 16, Laravel 11, PostgreSQL, Redis, Tailwind CSS',
+            result: 'Live Production App',
+            image: 'https://images.unsplash.com/photo-1556742049-0a67c5574f73?q=80&w=800&auto=format&fit=crop',
+            descEn: 'A high-performance cloud point-of-sale system featuring real-time stock sync across multiple retail branches, payment gateway integration, and printable invoice generator.',
+            descId: 'Sistem point-of-sale modern dengan sinkronisasi inventaris multi-cabang realtime, integrasi gateway pembayaran digital, serta generator faktur otomatis.',
+            features: ['Multi-tenant Outlet Management', 'Realtime Stock Ledger Sync', 'QRIS & Virtual Account Integration', 'Comprehensive Sales Analytics']
+        },
+        {
+            id: 'healthtech-records',
+            title: 'HealthTech Teleconsultation & Clinic Suite',
+            cohort: 'Cohort 3 - Cloud & Web Architecture',
+            students: 'Fajar Nugraha & Putri Rahma',
+            role: 'Full-Stack Developers',
+            tools: 'React 19, Node.js, WebRTC, Tailwind, Docker',
+            result: 'Live Clinic System',
+            image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop',
+            descEn: 'End-to-end electronic health records platform supporting HIPAA-compliant encrypted video appointments, prescription tracking, and doctor schedule dispatch.',
+            descId: 'Platform rekam medis digital terenkripsi dilengkapi video konsultasi dokter realtime via WebRTC, pelacakan resep farmasi, dan manajemen antrean pasien.',
+            features: ['Encrypted WebRTC Video Consultation', 'Electronic Prescription Flow', 'Doctor Queue Dispatching', 'Audit-compliant Medical Records']
+        },
+        {
+            id: 'ai-ticketing-triage',
+            title: 'AI Smart Support & Ticket Triage Engine',
+            cohort: 'Cohort 4 - AI & Enterprise Applications',
+            students: 'Bagus Setiawan & Nadia Safitri',
+            role: 'AI / Backend Engineers',
+            tools: 'Python FastAPI, LangChain, OpenAI, Next.js, Pinecone',
+            result: 'Enterprise Ready MVP',
+            image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop',
+            descEn: 'Generative AI triage agent that classifies user helpdesk requests, retrieves relevant knowledge base docs, and drafts instant context-aware solutions.',
+            descId: 'Asisten AI cerdas berbasis RAG untuk mengklasifikasikan tiket bantuan pelanggan, mencocokkan dokumen SOP internal, dan menyusun draft jawaban akurat.',
+            features: ['RAG Vector Knowledge Search', 'Automated Severity Scoring', 'Multi-turn Conversational Memory', 'Human-in-the-Loop Escalation']
+        }
+    ];
 
     const formatIDR = (val: any) => {
         if (!val) return null;
@@ -399,49 +443,67 @@ export default function BootcampLandingPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col lg:flex-row gap-12 items-end mb-16">
                         <ScrollReveal animation="slide-right" className="lg:w-2/3">
-                            <span className="text-sm font-bold text-purple-500 uppercase tracking-widest mb-2 block">Final Project</span>
+                            <span className="text-sm font-bold text-purple-500 uppercase tracking-widest mb-2 block">Final Project &amp; Portfolio</span>
                             <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight mb-6">
                                 {locale === 'en' ? 'Bring Home Skills, Not Just Certificates.' : 'Pulang Bawa Skill, Bukan Cuma Sertifikat.'}
                             </h2>
                             <p className="text-lg text-text-gray font-medium">
                                 {locale === 'en' 
-                                    ? 'Throughout the program, you will work on projects designed to strengthen your abilities and build a professional portfolio.' 
-                                    : 'Selama mengikuti program, peserta mengerjakan project yang dirancang untuk memperkuat kemampuan sekaligus membangun portfolio profesional.'}
+                                    ? 'Throughout the program, students build production-grade projects designed to prove competence and impress hiring partners.' 
+                                    : 'Selama mengikuti bootcamp, peserta mengerjakan project riil standar industri yang siap dipresentasikan kepada hiring partner dan klien.'}
                             </p>
                         </ScrollReveal>
                         <ScrollReveal animation="slide-left" className="lg:w-1/3 flex justify-start lg:justify-end">
-                            <Link href="#" className="inline-flex items-center gap-2 text-brand-blue font-bold hover:text-brand-blue/80 transition-colors">
-                                {locale === 'en' ? 'View All Portfolios' : 'Lihat Semua Portfolio'} <ArrowRight className="w-4 h-4" />
+                            <Link href="/portfolio/it" className="inline-flex items-center gap-2 text-brand-blue font-bold hover:text-brand-blue/80 transition-colors">
+                                {locale === 'en' ? 'View All Portfolios' : 'Lihat Semua Portfolio Proyek'} <ArrowRight className="w-4 h-4" />
                             </Link>
                         </ScrollReveal>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[1, 2, 3].map((i) => (
-                            <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
-                                <div className="group rounded-3xl overflow-hidden border border-glass-border bg-white dark:bg-glass-bg hover:border-brand-blue/50 transition-colors shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+                        {FINAL_PROJECTS.map((proj, i) => (
+                            <ScrollReveal key={proj.id} animation="fade-up" delay={i * 100}>
+                                <div 
+                                    onClick={() => setSelectedProject(proj)}
+                                    className="group rounded-3xl overflow-hidden border border-glass-border bg-white dark:bg-glass-bg hover:border-brand-blue/50 transition-all shadow-sm hover:shadow-xl hover:-translate-y-1.5 cursor-pointer flex flex-col h-full"
+                                >
                                     <div className="w-full aspect-[4/3] bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                        <div className="absolute inset-0 flex items-center justify-center text-slate-400">
-                                            <Code2 className="w-12 h-12 opacity-20" />
-                                            <span className="absolute bottom-4 right-4 text-xs font-bold uppercase tracking-widest opacity-50">Project 0{i}</span>
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img 
+                                            src={proj.image} 
+                                            alt={proj.title}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                        />
+                                        <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-blue/90 text-white text-[10px] font-black uppercase tracking-wider backdrop-blur-md">
+                                            {proj.result}
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                            <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                                                {locale === 'en' ? 'Click to Preview Project' : 'Klik untuk Preview Detail Proyek'}
+                                                <ArrowRight className="w-3.5 h-3.5" />
+                                            </span>
                                         </div>
                                     </div>
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-bold text-text-main mb-2">E-Commerce Dashboard App</h3>
-                                        <div className="space-y-3 mb-6">
-                                            <div className="flex justify-between items-center text-sm">
-                                                <span className="text-text-gray">Role:</span>
-                                                <span className="font-semibold text-text-main">Full-Stack Developer</span>
+                                    <div className="p-6 flex flex-col grow">
+                                        <div className="text-[10px] font-bold text-brand-blue uppercase tracking-wider mb-1.5">
+                                            {proj.cohort}
+                                        </div>
+                                        <h3 className="text-lg font-black text-text-main mb-3 group-hover:text-brand-blue transition-colors line-clamp-2">
+                                            {proj.title}
+                                        </h3>
+                                        <div className="space-y-2 mb-4 text-xs">
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-text-gray font-medium">Tim Peserta:</span>
+                                                <span className="font-semibold text-text-main">{proj.students}</span>
                                             </div>
-                                            <div className="flex justify-between items-center text-sm">
-                                                <span className="text-text-gray">Tools:</span>
-                                                <span className="font-semibold text-text-main">React, Node.js, PostgreSQL</span>
-                                            </div>
-                                            <div className="flex justify-between items-center text-sm">
-                                                <span className="text-text-gray">Hasil:</span>
-                                                <span className="font-semibold text-brand-blue">Live Web App</span>
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-text-gray font-medium">Tech Stack:</span>
+                                                <span className="font-semibold text-text-main truncate max-w-[180px]">{proj.tools}</span>
                                             </div>
                                         </div>
+                                        <p className="text-xs text-text-gray font-medium line-clamp-2 mt-auto pt-3 border-t border-glass-border">
+                                            {locale === 'en' ? proj.descEn : proj.descId}
+                                        </p>
                                     </div>
                                 </div>
                             </ScrollReveal>
@@ -463,7 +525,7 @@ export default function BootcampLandingPage() {
                             </h2>
                         </ScrollReveal>
                         <ScrollReveal animation="slide-left" className="lg:w-1/3 flex justify-start lg:justify-end">
-                            <Link href="#" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-text-main font-bold hover:border-brand-blue/50 transition-all">
+                            <Link href="/academy/mentors" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-text-main font-bold hover:border-brand-blue/50 transition-all">
                                 {locale === 'en' ? 'View All Mentors' : 'Lihat Semua Mentor'}
                             </Link>
                         </ScrollReveal>
@@ -471,27 +533,38 @@ export default function BootcampLandingPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
-                            { name: 'Budi Santoso', role: 'Senior Software Engineer', company: 'Tech Unicorn ID', exp: '8+ Years' },
-                            { name: 'Sarah Wijaya', role: 'Lead Product Designer', company: 'Global Agency', exp: '6+ Years' },
-                            { name: 'Ahmad Rizki', role: 'Data Scientist', company: 'Fintech Startup', exp: '5+ Years' },
-                            { name: 'Jessica Lin', role: 'Digital Marketing Lead', company: 'E-Commerce Giant', exp: '7+ Years' },
+                            { name: 'Budi Santoso', role: 'Senior Software Engineer', company: 'Tech Unicorn ID', exp: '8+ Years', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop' },
+                            { name: 'Sarah Wijaya', role: 'Lead Product Designer', company: 'Global Agency', exp: '6+ Years', avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop' },
+                            { name: 'Ahmad Rizki', role: 'Data Scientist', company: 'Fintech Startup', exp: '5+ Years', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop' },
+                            { name: 'Jessica Lin', role: 'Digital Marketing Lead', company: 'E-Commerce Giant', exp: '7+ Years', avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop' },
                         ].map((mentor, i) => (
                             <ScrollReveal key={i} animation="fade-up" delay={i * 100}>
-                                <div className="p-6 bg-white dark:bg-glass-bg border border-glass-border rounded-2xl hover:border-brand-blue/50 transition-all group shadow-sm hover:shadow-xl hover:-translate-y-1">
-                                    <div className="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-800 mb-6 overflow-hidden relative">
-                                        <div className="absolute inset-0 flex items-center justify-center text-slate-400">
-                                            <Users className="w-8 h-8 opacity-50" />
-                                        </div>
+                                <Link 
+                                    href="/academy/mentors"
+                                    className="p-6 bg-white dark:bg-glass-bg border border-glass-border rounded-2xl hover:border-brand-blue/50 transition-all group shadow-sm hover:shadow-xl hover:-translate-y-1 block"
+                                >
+                                    <div className="w-20 h-20 rounded-2xl bg-slate-200 dark:bg-slate-800 mb-6 overflow-hidden relative border-2 border-brand-blue/20">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img 
+                                            src={mentor.avatar} 
+                                            alt={mentor.name} 
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                                        />
                                     </div>
                                     <h3 className="text-lg font-bold text-text-main mb-1 group-hover:text-brand-blue transition-colors">{mentor.name}</h3>
                                     <p className="text-sm font-semibold text-brand-blue mb-1">{mentor.role}</p>
                                     <p className="text-xs text-text-gray font-medium mb-4">{mentor.company}</p>
                                     
-                                    <div className="pt-4 border-t border-glass-border">
-                                        <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-2">Experience</span>
-                                        <span className="text-sm font-semibold text-text-main">{mentor.exp}</span>
+                                    <div className="pt-4 border-t border-glass-border flex justify-between items-center">
+                                        <div>
+                                            <span className="text-[10px] font-bold text-text-gray uppercase tracking-wider block">Experience</span>
+                                            <span className="text-sm font-semibold text-text-main">{mentor.exp}</span>
+                                        </div>
+                                        <span className="text-xs font-bold text-brand-blue group-hover:translate-x-1 transition-transform inline-flex items-center gap-0.5">
+                                            Profil &rarr;
+                                        </span>
                                     </div>
-                                </div>
+                                </Link>
                             </ScrollReveal>
                         ))}
                     </div>
@@ -678,6 +751,100 @@ export default function BootcampLandingPage() {
                 </div>
             </section>
 
+        
+            {/* FINAL PROJECT PREVIEW MODAL */}
+            {selectedProject && (
+                <div 
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+                    onClick={() => setSelectedProject(null)}
+                >
+                    <div 
+                        className="bg-white dark:bg-[#121623] border border-glass-border rounded-3xl p-6 md:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative animate-in zoom-in-95 duration-200"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            onClick={() => setSelectedProject(null)}
+                            className="absolute top-6 right-6 p-2 rounded-xl bg-glass-bg border border-glass-border text-text-gray hover:text-text-main transition-colors"
+                        >
+                            <span className="text-lg font-bold">&times;</span>
+                        </button>
+
+                        <div className="w-full aspect-video rounded-2xl overflow-hidden mb-6 relative border border-glass-border shadow-md">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img 
+                                src={selectedProject.image} 
+                                alt={selectedProject.title} 
+                                className="w-full h-full object-cover"
+                            />
+                            <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-blue text-white text-xs font-bold">
+                                {selectedProject.result}
+                            </div>
+                        </div>
+
+                        <div className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">
+                            {selectedProject.cohort}
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-black text-text-main mb-3">
+                            {selectedProject.title}
+                        </h3>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-glass-bg border border-glass-border mb-6 text-xs">
+                            <div>
+                                <span className="text-text-gray block font-medium mb-0.5">Pengembang:</span>
+                                <span className="font-bold text-text-main">{selectedProject.students} ({selectedProject.role})</span>
+                            </div>
+                            <div>
+                                <span className="text-text-gray block font-medium mb-0.5">Teknologi yang Digunakan:</span>
+                                <span className="font-bold text-text-main">{selectedProject.tools}</span>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4 mb-6">
+                            <h4 className="text-sm font-black text-text-main uppercase tracking-wider">
+                                {locale === 'en' ? 'Project Overview' : 'Ringkasan & Tantangan Proyek'}
+                            </h4>
+                            <p className="text-sm text-text-gray leading-relaxed font-medium">
+                                {locale === 'en' ? selectedProject.descEn : selectedProject.descId}
+                            </p>
+
+                            <h4 className="text-sm font-black text-text-main uppercase tracking-wider pt-2">
+                                {locale === 'en' ? 'Core Features Delivered' : 'Fitur Utama yang Diselesaikan'}
+                            </h4>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                {selectedProject.features.map((feat: string, i: number) => (
+                                    <div key={i} className="flex items-center gap-2 text-xs font-medium text-text-main">
+                                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                                        <span>{feat}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="pt-6 border-t border-glass-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <Link 
+                                href="/portfolio/it" 
+                                className="text-xs font-bold text-brand-blue hover:underline"
+                            >
+                                {locale === 'en' ? 'View more tech projects in Portfolio →' : 'Lihat proyek teknologi lainnya di Portfolio →'}
+                            </Link>
+                            <div className="flex items-center gap-3">
+                                <button
+                                    onClick={() => setSelectedProject(null)}
+                                    className="px-5 py-2.5 rounded-xl bg-glass-bg border border-glass-border text-xs font-bold text-text-gray hover:text-text-main transition-colors"
+                                >
+                                    {locale === 'en' ? 'Close Preview' : 'Tutup'}
+                                </button>
+                                <Link
+                                    href="/contact"
+                                    className="px-5 py-2.5 rounded-xl bg-brand-blue text-white text-xs font-bold hover:bg-brand-blue-dark transition-all"
+                                >
+                                    {locale === 'en' ? 'Hire This Squad' : 'Rekrut Squad Peserta'}
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

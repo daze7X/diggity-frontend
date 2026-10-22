@@ -157,8 +157,8 @@ export default async function Home() {
                                 : 'Kami membangun arsitektur digital terintegrasi, mengoptimalkan peringkat pencarian, dan merekayasa konversi penjualan secara sistematis.'}
                         </p>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                            <Link href="/solutions" className="w-full sm:w-auto px-8 py-4 bg-white text-brand-blue font-bold rounded-full hover:bg-gray-50 transition-all hover:-translate-y-1 shadow-lg shadow-white/20">
-                                {locale === 'en' ? 'Explore Solutions' : 'Jelajahi Solusi'}
+                            <Link href="/about" className="w-full sm:w-auto px-8 py-4 bg-white text-brand-blue font-bold rounded-full hover:bg-gray-50 transition-all hover:-translate-y-1 shadow-lg shadow-white/20">
+                                {locale === 'en' ? 'About Us' : 'Tentang Kami'}
                             </Link>
                             <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-all hover:-translate-y-1">
                                 {locale === 'en' ? 'Consult with Us' : 'Konsultasi Sekarang'}
@@ -411,7 +411,54 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* 05. Products Section */}
+            {/* 05. Portfolio Section (Directly Below Solutions) */}
+            <section className="py-20 border-t border-glass-border">
+                <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                        <div className="space-y-4 text-left">
+                            <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
+                                Portfolio
+                            </span>
+                            <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
+                                {locale === 'en' ? 'Our Featured Work' : 'Karya Pilihan Kami'}
+                            </h2>
+                        </div>
+                        <Link href="/solutions#portfolio" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
+                            {locale === 'en' ? 'View All Portfolio' : 'Lihat Semua Portofolio'} <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
+
+                    {/* Dual Divisions */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <SpotlightCard className="p-6 space-y-3 text-left border border-glass-border">
+                            <h4 className="text-lg font-bold text-text-main">IT Portfolio</h4>
+                            <p className="text-xs text-text-gray leading-relaxed">Website • Mobile App • Software • ERP • AI • Digital Platforms</p>
+                            <div className="pt-2">
+                                <Link href="/solutions#portfolio" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline cursor-pointer">
+                                    {locale === 'en' ? 'Explore IT Projects' : 'Lihat Proyek IT'} &rarr;
+                                </Link>
+                            </div>
+                        </SpotlightCard>
+
+                        <SpotlightCard className="p-6 space-y-3 text-left border border-glass-border">
+                            <h4 className="text-lg font-bold text-text-main">Marketing &amp; Creative Portfolio</h4>
+                            <p className="text-xs text-text-gray leading-relaxed">Branding • Campaigns • Social Media • Design • Video • Digital Ads</p>
+                            <div className="pt-2">
+                                <Link href="/solutions#portfolio" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline cursor-pointer">
+                                    {locale === 'en' ? 'Explore Creative Projects' : 'Lihat Proyek Marketing & Kreatif'} &rarr;
+                                </Link>
+                            </div>
+                        </SpotlightCard>
+                    </div>
+
+                    {/* Portfolios dynamic viewer - Limited to 3 cards max */}
+                    <div className="mt-8">
+                        <HomePortfolios portfolios={portfolios.slice(0, 3)} />
+                    </div>
+                </div>
+            </section>
+
+            {/* 06. Products Section */}
             <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -461,21 +508,25 @@ export default async function Home() {
                                     </p>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {[
-                                        { name: 'Coding Bootcamp', icon: Code },
-                                        { name: 'Corporate Training', icon: Users },
-                                        { name: 'Professional Certification', icon: Award },
-                                        { name: 'Digital Ecosystem (LMS)', icon: Globe },
+                                        { name: 'Coding Bootcamp', icon: Code, href: '/academy/bootcamp' },
+                                        { name: 'Online Course', icon: Globe, href: '/academy/online-course' },
+                                        { name: 'Professional Certification', icon: Award, href: '/academy/certification' },
+                                        { name: 'Corporate Training', icon: Users, href: '/academy/corporate-training' },
+                                        { name: 'Workshop', icon: Layers, href: '/academy/workshop' },
+                                        { name: 'Seminar', icon: Sparkles, href: '/academy/seminar' },
+                                        { name: 'E-Book', icon: BookOpen, href: '/academy/e-book' },
+                                        { name: 'Program CSR', icon: Handshake, href: '/academy/scholarship' },
                                     ].map((item, idx) => {
                                         const Icon = item.icon;
                                         return (
-                                            <div key={idx} className="flex items-center space-x-3 text-slate-300 bg-white/5 p-4 rounded-xl border border-white/10 hover:border-brand-blue/50 hover:bg-white/10 transition-colors">
-                                                <div className="w-8 h-8 rounded-lg bg-brand-blue/20 flex items-center justify-center text-blue-400">
-                                                    <Icon className="w-4 h-4" />
+                                            <Link key={idx} href={item.href} className="flex items-center space-x-3 text-slate-300 bg-white/5 p-3 rounded-xl border border-white/10 hover:border-brand-blue/50 hover:bg-white/10 transition-colors group">
+                                                <div className="w-7 h-7 rounded-lg bg-brand-blue/20 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
+                                                    <Icon className="w-3.5 h-3.5" />
                                                 </div>
-                                                <span className="font-bold text-sm">{item.name}</span>
-                                            </div>
+                                                <span className="font-bold text-xs text-slate-200 group-hover:text-white transition-colors">{item.name}</span>
+                                            </Link>
                                         )
                                     })}
                                 </div>
@@ -521,41 +572,87 @@ export default async function Home() {
 
             {/* 07. Career Section */}
             <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
-                <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-8">
+                <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-3">
                         <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                            {locale === 'en' ? 'Careers' : 'Karier'}
+                            {locale === 'en' ? 'Careers & Ecosystem' : 'Karier & Ekosistem'}
                         </span>
                         <h3 className="text-3xl font-extrabold text-text-main tracking-tight">
-                            {locale === 'en' ? 'Opportunities & Talent Development' : 'Peluang & Pengembangan Bakat'}
+                            {locale === 'en' ? 'Three Pathways to Grow with Diggity' : 'Tiga Jalur Berkembang Bersama Diggity'}
                         </h3>
-                        <p className="text-sm text-text-gray leading-relaxed max-w-md mx-auto">
+                        <p className="text-sm text-text-gray leading-relaxed max-w-xl mx-auto">
                             {locale === 'en' 
-                                ? 'Join our team or build your career with leading corporations. Explore our vacancies.'
-                                : 'Bergabunglah dengan tim kami atau bangun karier Anda bersama korporasi terkemuka. Jelajahi lowongan kami.'}
+                                ? 'Whether you are seeking full-time positions, wanting to share knowledge as a mentor, or looking to partner with us.'
+                                : 'Temukan peluang yang tepat: melamar lowongan kerja, berkontribusi sebagai mentor pengajar, atau menjalin kemitraan strategis.'}
                         </p>
                     </div>
 
-                    <div className="max-w-md mx-auto bg-glass-bg/50 border border-glass-border p-8 rounded-2xl text-center space-y-6 shadow-md">
-                        <div className="w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue mx-auto">
-                            <Briefcase className="w-6 h-6" />
-                        </div>
-                        <div className="space-y-2">
-                            <h4 className="text-base font-bold text-text-main">{locale === 'en' ? 'Job Board & Talent Pool' : 'Papan Lowongan Kerja'}</h4>
-                            <p className="text-xs text-text-gray leading-relaxed">
-                                {locale === 'en'
-                                    ? 'Submit your CV or apply for open tech positions in our network.'
-                                    : 'Kirimkan CV Anda atau lamar posisi teknologi yang terbuka di jaringan kami.'}
-                            </p>
-                        </div>
-                        <Link href="/job-connect" className="inline-flex items-center justify-center w-full px-5 py-3 bg-brand-blue text-white rounded-lg text-xs font-bold hover:bg-brand-blue-dark transition-colors cursor-pointer">
-                            {locale === 'en' ? 'Explore Career Opportunities' : 'Jelajahi Lowongan Pekerjaan'} &rarr;
-                        </Link>
-                        <div className="text-[10px] text-text-muted italic pt-2">
-                            {locale === 'en'
-                                ? '* Note: IT Headhunting & IT Outsourcing are mapped under Solutions.'
-                                : '* Catatan: Layanan IT Headhunting & IT Outsourcing berada di bawah Solutions.'}
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                        {/* 1. Jelajahi Lowongan */}
+                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between border border-glass-border">
+                            <div className="space-y-4">
+                                <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                    <Briefcase className="w-6 h-6" />
+                                </div>
+                                <div className="space-y-2">
+                                    <h4 className="text-lg font-bold text-text-main">
+                                        {locale === 'en' ? '1. Explore Vacancies' : '1. Jelajahi Lowongan'}
+                                    </h4>
+                                    <p className="text-xs text-text-gray leading-relaxed">
+                                        {locale === 'en'
+                                            ? 'View active tech and creative openings and submit your application directly to leading companies.'
+                                            : 'Melihat dan melamar posisi kerja teknologi, desain, dan manajemen yang tersedia di jaringan Diggity.'}
+                                    </p>
+                                </div>
+                            </div>
+                            <Link href="/job-connect" className="inline-flex items-center justify-center w-full px-5 py-3 bg-brand-blue text-white rounded-xl text-xs font-bold hover:bg-brand-blue-dark transition-colors cursor-pointer">
+                                {locale === 'en' ? 'Explore Vacancies' : 'Lihat Lowongan'} &rarr;
+                            </Link>
+                        </SpotlightCard>
+
+                        {/* 2. Jadi Mentor / Contributor */}
+                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between border border-glass-border">
+                            <div className="space-y-4">
+                                <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                                    <GraduationCap className="w-6 h-6" />
+                                </div>
+                                <div className="space-y-2">
+                                    <h4 className="text-lg font-bold text-text-main">
+                                        {locale === 'en' ? '2. Become a Mentor' : '2. Jadi Mentor / Contributor'}
+                                    </h4>
+                                    <p className="text-xs text-text-gray leading-relaxed">
+                                        {locale === 'en'
+                                            ? 'Share your industrial knowledge as an instructor, workshop speaker, or technical writer.'
+                                            : 'Mengajukan diri untuk berkontribusi dalam ekosistem Diggity sebagai pengajar, pembicara, atau kontributor konten.'}
+                                    </p>
+                                </div>
+                            </div>
+                            <Link href="/community" className="inline-flex items-center justify-center w-full px-5 py-3 bg-purple-600 text-white rounded-xl text-xs font-bold hover:bg-purple-700 transition-colors cursor-pointer">
+                                {locale === 'en' ? 'Apply as Mentor' : 'Daftar Jadi Mentor'} &rarr;
+                            </Link>
+                        </SpotlightCard>
+
+                        {/* 3. Jadi Mitra Diggity */}
+                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between border border-glass-border">
+                            <div className="space-y-4">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                                    <Handshake className="w-6 h-6" />
+                                </div>
+                                <div className="space-y-2">
+                                    <h4 className="text-lg font-bold text-text-main">
+                                        {locale === 'en' ? '3. Become a Partner' : '3. Jadi Mitra Diggity'}
+                                    </h4>
+                                    <p className="text-xs text-text-gray leading-relaxed">
+                                        {locale === 'en'
+                                            ? 'Register yourself or your company for agency outsourcing, strategic co-building, or referral incentives.'
+                                            : 'Mendaftarkan diri atau tim bisnis Anda untuk menjalin kemitraan agensi, teknologi, maupun referral.'}
+                                    </p>
+                                </div>
+                            </div>
+                            <Link href="/partnership" className="inline-flex items-center justify-center w-full px-5 py-3 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors cursor-pointer">
+                                {locale === 'en' ? 'Register Partnership' : 'Daftar Jadi Mitra'} &rarr;
+                            </Link>
+                        </SpotlightCard>
                     </div>
                 </div>
             </section>
@@ -645,61 +742,21 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* 10. Portfolio Section */}
-            <section className="py-20">
+            {/* 11. Success Stories Section */}
+            <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <div className="space-y-4 text-left">
                             <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
-                                Portfolio
+                                {locale === 'en' ? 'Success Stories' : 'Kisah Sukses'}
                             </span>
                             <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                                {locale === 'en' ? 'Our Featured Work' : 'Karya Pilihan Kami'}
+                                {locale === 'en' ? 'Turning Challenges into Business Impact' : 'Mengubah Tantangan Menjadi Dampak Bisnis'}
                             </h2>
                         </div>
-                        <Link href="/portfolio" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
-                            {locale === 'en' ? 'View All Portfolio' : 'Lihat Semua Portofolio'} <ArrowRight className="w-4 h-4" />
+                        <Link href="/insights/success-stories" className="text-sm font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-1 shrink-0 cursor-pointer">
+                            {locale === 'en' ? 'View All Success Stories' : 'Lihat Semua Kisah Sukses'} <ArrowRight className="w-4 h-4" />
                         </Link>
-                    </div>
-
-                    {/* Dual Divisions */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <SpotlightCard className="p-6 space-y-3 text-left border border-glass-border">
-                            <h4 className="text-lg font-bold text-text-main">IT Portfolio</h4>
-                            <p className="text-xs text-text-gray leading-relaxed">Website • Mobile App • Software • ERP • AI • Digital Platforms</p>
-                            <div className="pt-2">
-                                <Link href="/portfolio?tab=it" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline cursor-pointer">
-                                    Explore IT Projects &rarr;
-                                </Link>
-                            </div>
-                        </SpotlightCard>
-
-                        <SpotlightCard className="p-6 space-y-3 text-left border border-glass-border">
-                            <h4 className="text-lg font-bold text-text-main">Marketing &amp; Creative Portfolio</h4>
-                            <p className="text-xs text-text-gray leading-relaxed">Branding • Campaigns • Social Media • Design • Video • Digital Ads</p>
-                            <div className="pt-2">
-                                <Link href="/portfolio?tab=marketing" className="inline-flex items-center text-xs font-bold text-brand-blue hover:underline cursor-pointer">
-                                    Explore Marketing Projects &rarr;
-                                </Link>
-                            </div>
-                        </SpotlightCard>
-                    </div>
-
-                    {/* Portfolios dynamic viewer - Limited to 3 cards max */}
-                    <div className="mt-8">
-                        <HomePortfolios portfolios={portfolios.slice(0, 3)} />
-                    </div>
-                </div>
-            </section>
-
-            {/* 11. Success Stories Section */}
-            <section className="py-20 bg-glass-bg border-t border-b border-glass-border">
-                <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
-                    <div className="text-center max-w-2xl mx-auto space-y-4">
-                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Success Stories</span>
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
-                            {locale === 'en' ? 'Turning Challenges into Business Impact' : 'Mengubah Tantangan Menjadi Dampak Bisnis'}
-                        </h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
@@ -736,35 +793,97 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* 12. Partnership Section */}
+            {/* 12. Partnership & Referral Section (Clearly Separated) */}
             <section className="py-20">
                 <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-4">
-                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Partnership</span>
+                        <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">
+                            {locale === 'en' ? 'Partnership & Referral' : 'Kemitraan & Referral'}
+                        </span>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight">
                             {locale === 'en' ? 'Grow Together With Diggity' : 'Tumbuh Bersama Diggity'}
                         </h2>
+                        <p className="text-sm text-text-gray max-w-lg mx-auto">
+                            {locale === 'en'
+                                ? 'Choose the collaboration track that matches your role: institutional business partnership or client referral.'
+                                : 'Pilih jalur kolaborasi yang sesuai: kemitraan bisnis institusional atau program referral perorangan.'}
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        {[
-                            { title: 'Strategic Partnership', descId: 'Perluas batasan layanan Anda', descEn: 'Expand service boundaries' },
-                            { title: 'Technology Partnership', descId: 'Membangun bersama alat teknologi', descEn: 'Co-build core digital tools' },
-                            { title: 'Agency Partnership', descId: 'Subkontrak & tingkatkan skala output', descEn: 'Subcontract & scale output' },
-                            { title: 'Referral Program', descId: 'Kenalkan klien & dapatkan imbalan', descEn: 'Introduce clients & earn rewards' }
-                        ].map((part, idx) => (
-                            <SpotlightCard key={idx} className="p-6 text-left space-y-2 flex flex-col justify-between border border-glass-border">
-                                <div className="space-y-1">
-                                    <h4 className="text-sm font-extrabold text-text-main">{part.title}</h4>
-                                    <p className="text-[11px] text-text-gray leading-tight">
-                                        {locale === 'en' ? part.descEn : part.descId}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                        {/* Track 1: Institutional Partnership */}
+                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between border border-glass-border">
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                        <Handshake className="w-6 h-6" />
+                                    </div>
+                                    <span className="px-3 py-1 bg-brand-blue/10 text-brand-blue text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                        {locale === 'en' ? 'B2B Track' : 'Jalur Kemitraan'}
+                                    </span>
+                                </div>
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-bold text-text-main">
+                                        {locale === 'en' ? 'Business & Technology Partnership' : 'Program Kemitraan Bisnis'}
+                                    </h3>
+                                    <p className="text-xs text-text-gray leading-relaxed">
+                                        {locale === 'en'
+                                            ? 'Expand service boundaries, co-build technology, or scale agency output through our verified partner network.'
+                                            : 'Perluas portofolio bisnis Anda, bangun produk teknologi bersama, atau tingkatkan kapasitas tim melalui subkontrak agensi.'}
                                     </p>
                                 </div>
-                                <Link href="/partnership" className="text-[10px] font-bold text-brand-blue hover:underline mt-4 cursor-pointer">
-                                    {locale === 'en' ? 'Join Network' : 'Bergabung Jaringan'} &rarr;
-                                </Link>
-                            </SpotlightCard>
-                        ))}
+                                <div className="space-y-2 pt-2 border-t border-glass-border">
+                                    {['Strategic Partnership', 'Technology Partnership', 'Agency Partnership'].map((item, idx) => (
+                                        <div key={idx} className="flex items-center gap-2 text-xs text-text-main font-medium">
+                                            <CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" />
+                                            <span>{item}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <Link href="/partnership" className="inline-flex items-center justify-center w-full px-5 py-3.5 bg-brand-blue text-white rounded-xl text-xs font-bold hover:bg-brand-blue-dark transition-colors cursor-pointer mt-4">
+                                {locale === 'en' ? 'Apply for Business Partnership' : 'Ajukan Kemitraan Bisnis'} &rarr;
+                            </Link>
+                        </SpotlightCard>
+
+                        {/* Track 2: Referral Program */}
+                        <SpotlightCard className="p-8 space-y-6 flex flex-col justify-between border border-glass-border bg-gradient-to-br from-emerald-500/5 to-transparent">
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                                        <Sparkles className="w-6 h-6" />
+                                    </div>
+                                    <span className="px-3 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                        {locale === 'en' ? 'Incentive Track' : 'Jalur Referral'}
+                                    </span>
+                                </div>
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-bold text-text-main">
+                                        {locale === 'en' ? 'Client Referral Program' : 'Program Referral Diggity'}
+                                    </h3>
+                                    <p className="text-xs text-text-gray leading-relaxed">
+                                        {locale === 'en'
+                                            ? 'Introduce prospective clients who need digital solutions and earn transparent commission rewards for every closed deal.'
+                                            : 'Kenalkan calon klien yang membutuhkan website, aplikasi, atau pemasaran digital ke Diggity dan dapatkan komisi transparan setiap proyek deal.'}
+                                    </p>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-glass-border">
+                                    {[
+                                        locale === 'en' ? 'Zero upfront cost or capital' : 'Tanpa modal awal',
+                                        locale === 'en' ? 'Transparent deal tracking' : 'Pelacakan proyek transparan',
+                                        locale === 'en' ? 'Direct reward payouts' : 'Insentif komisi langsung cair'
+                                    ].map((item, idx) => (
+                                        <div key={idx} className="flex items-center gap-2 text-xs text-text-main font-medium">
+                                            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                                            <span>{item}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <Link href="/partnership#referral" className="inline-flex items-center justify-center w-full px-5 py-3.5 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors cursor-pointer mt-4">
+                                {locale === 'en' ? 'Join Referral Program' : 'Daftar Program Referral'} &rarr;
+                            </Link>
+                        </SpotlightCard>
                     </div>
                 </div>
             </section>

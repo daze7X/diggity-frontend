@@ -47,12 +47,10 @@ interface HomeProductsProps {
 }
 
 export default function HomeProducts({ locale }: HomeProductsProps) {
-    const [activeTab, setActiveTab] = useState<'business' | 'ai' | 'cloud' | 'marketplace'>('business');
+    const [activeTab, setActiveTab] = useState<'business' | 'marketplace'>('business');
 
     const categories = [
         { id: 'business', nameId: 'Business Software', nameEn: 'Business Software' },
-        { id: 'ai', nameId: 'AI Products', nameEn: 'AI Products' },
-        { id: 'cloud', nameId: 'Cloud Products', nameEn: 'Cloud Products' },
         { id: 'marketplace', nameId: 'Digital Marketplace', nameEn: 'Digital Marketplace' },
     ];
 
@@ -101,10 +99,8 @@ export default function HomeProducts({ locale }: HomeProductsProps) {
     const getActiveProducts = () => {
         switch (activeTab) {
             case 'business': return businessProducts;
-            case 'ai': return aiProducts;
-            case 'cloud': return cloudProducts;
             case 'marketplace': return marketplaceProducts;
-            default: return [];
+            default: return businessProducts;
         }
     };
 
@@ -151,10 +147,12 @@ export default function HomeProducts({ locale }: HomeProductsProps) {
                             </div>
                             <div className="pt-5 mt-4 border-t border-glass-border/30 flex items-center justify-between">
                                 <span className="text-[10px] font-black uppercase text-brand-blue tracking-wider">
-                                    {locale === 'en' ? 'Premium Software' : 'Software Unggulan'}
+                                    {activeTab === 'business' 
+                                        ? (locale === 'en' ? 'Business Software' : 'Software Bisnis') 
+                                        : 'Digital Marketplace'}
                                 </span>
                                 <Link 
-                                    href={`/products?name=${encodeURIComponent(prod.name)}`} 
+                                    href={activeTab === 'business' ? '/products/business-software' : '/products/digital-marketplace'} 
                                     className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark flex items-center gap-0.5 group/link"
                                 >
                                     <span>{locale === 'en' ? 'Learn More' : 'Pelajari Selengkapnya'}</span>

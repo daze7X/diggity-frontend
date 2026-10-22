@@ -373,7 +373,7 @@ export default async function SolutionsPage() {
 
                 {/* 2.5 PORTFOLIO (Merged into Solutions) */}
                 {portfolios && portfolios.length > 0 && (
-                    <div className="py-16 md:py-24 border-t border-glass-border">
+                    <div id="portfolio" className="py-16 md:py-24 border-t border-glass-border scroll-mt-24">
                         <ScrollReveal animation="fade-up">
                             <div className="text-center max-w-3xl mx-auto space-y-4 mb-10 md:mb-16">
                                 <span className="text-sm font-black text-brand-blue uppercase tracking-widest px-3 py-1.5 bg-brand-blue/10 border border-brand-blue/20 rounded-full">

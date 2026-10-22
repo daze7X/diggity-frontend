@@ -16,25 +16,11 @@ function ContactFormContent() {
         email: '',
         phone: '',
         company: '',
-        service: isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing',
+        service: isEn ? 'General Consultation' : 'Konsultasi Umum',
         message: '',
     });
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
-
-    const servicesList = [
-        'Layanan Teknologi/Marketing',
-        'Produk Digital',
-        'Pelatihan IT',
-        'Berlangganan Produk / Bundle',
-    ];
-    const servicesListEn = [
-        'Technology/Marketing Services',
-        'Digital Products',
-        'IT Training',
-        'Product / Bundle Subscription',
-    ];
-    const activeServicesList = isEn ? servicesListEn : servicesList;
 
     const searchParams = useSearchParams();
     const packageParam = searchParams.get('package');
@@ -45,31 +31,27 @@ function ContactFormContent() {
             const bundleTitle = bundleParam.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
             setFormData(prev => ({
                 ...prev,
-                service: isEn ? 'Product / Bundle Subscription' : 'Berlangganan Produk / Bundle',
-                message: isEn ? `Hello Diggity, I am interested in subscribing to the "${bundleTitle}" bundle. Please contact me.` : `Halo Diggity, saya tertarik untuk berlangganan "${bundleTitle}". Mohon hubungi saya.`
+                service: isEn ? 'Bundle Inquiry' : 'Pertanyaan Bundle',
+                message: isEn ? `Hello Diggity, I am interested in "${bundleTitle}". Please contact me.` : `Halo Diggity, saya tertarik mengenai "${bundleTitle}". Mohon hubungi saya.`
             }));
         } else if (packageParam) {
-            let selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
             let prefilledMessage = '';
 
             if (packageParam === 'starter-pack') {
-                selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
                 prefilledMessage = isEn ? 'Hello Diggity, I am interested in consulting about the "Starter Pack" package. Please contact me.' : 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Starter Pack" (1 Landing Page). Mohon hubungi saya.';
             } else if (packageParam === 'business-pro') {
-                selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
                 prefilledMessage = isEn ? 'Hello Diggity, I am interested in consulting about the "Business Pro" package. Please contact me.' : 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Business Pro" (Hingga 5 Halaman + CMS). Mohon hubungi saya.';
             } else if (packageParam === 'enterprise-custom') {
-                selectedService = isEn ? 'Technology/Marketing Services' : 'Layanan Teknologi/Marketing';
                 prefilledMessage = isEn ? 'Hello Diggity, I am interested in consulting about the "Enterprise Custom" package. Please contact me.' : 'Halo Diggity, saya tertarik untuk berkonsultasi mengenai pemesanan paket "Enterprise Custom" (Aplikasi Web/ERP/Mobile Kustom). Mohon hubungi saya.';
             }
 
             setFormData((prev) => ({
                 ...prev,
-                service: selectedService,
+                service: isEn ? 'Package Inquiry' : 'Pertanyaan Paket',
                 message: prefilledMessage,
             }));
         }
-    }, [packageParam]);
+    }, [packageParam, bundleParam, isEn]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -184,24 +166,6 @@ function ContactFormContent() {
                             </div>
                         </div>
 
-                        {/* Service Selection */}
-                        <div className="space-y-1">
-                            <label className="text-[10px] font-bold uppercase tracking-wider text-text-gray">
-                                {isEn ? 'Select Service' : 'Pilih Kebutuhan'} <span className="text-brand-blue">*</span>
-                            </label>
-                            <select
-                                value={formData.service}
-                                onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                                className="w-full px-4 py-2.5 bg-neutral-950/5 dark:bg-neutral-950/20 border border-glass-border rounded-lg focus:border-brand-blue focus:outline-none text-sm text-text-main"
-                                style={{ background: 'var(--input-bg)' }}
-                            >
-                                {activeServicesList.map((service) => (
-                                    <option key={service} value={service} className="bg-brand-bg text-text-main">
-                                        {service}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
 
                         {/* Message */}
                         <div className="space-y-1">

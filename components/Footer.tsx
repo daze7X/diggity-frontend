@@ -75,7 +75,7 @@ export default function Footer() {
                                 />
                             </div>
                             <span className="text-2xl font-black tracking-tight text-slate-100">
-                                DIGGITY<span className="text-brand-blue">.</span>
+                                DIGGITY
                             </span>
                         </Link>
                         <p className="max-w-md text-sm leading-relaxed text-slate-400">

@@ -233,7 +233,7 @@ export default function Navbar() {
                             />
                         </div>
                         <span className="text-xl font-black tracking-tight text-text-main">
-                            DIGGITY<span className="text-brand-blue">.</span>
+                            DIGGITY
                         </span>
                     </Link>
 

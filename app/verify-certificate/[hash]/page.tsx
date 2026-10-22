@@ -63,7 +63,7 @@ export default function VerifyCertificatePage({ params: paramsPromise }: { param
             <div className="w-full max-w-xl z-10">
                 <div className="text-center mb-8">
                     <Link href="/" className="inline-block text-2xl font-black tracking-wider text-white">
-                        DIGGITY<span className="text-brand-blue">.</span>
+                        DIGGITY
                     </Link>
                     <p className="text-slate-400 text-xs mt-1">Verification Authority System</p>
                 </div>

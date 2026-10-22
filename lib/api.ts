@@ -327,11 +327,35 @@ export interface Career {
     department?: string;
     type: string;
     location: string;
+    level?: string;
+    salary_min?: number;
+    salary_max?: number;
+    education?: string;
+    closing_date?: string;
+    status?: 'open' | 'closing_soon' | 'closed';
     description: string;
-    requirements?: string;
+    responsibilities?: string[] | string;
+    requirements?: string[] | string;
+    nice_to_have?: string[] | string;
+    benefits?: string[] | string;
+    required_skills?: string[];
     is_active: boolean;
     created_at: string;
     seo_meta?: SeoMeta;
+}
+
+export interface JobApplication {
+    id: number;
+    career_id: number;
+    career?: Career;
+    name: string;
+    email: string;
+    phone: string;
+    cv_path: string;
+    cover_letter?: string;
+    status: 'applied' | 'reviewed' | 'interviewed' | 'hired' | 'rejected';
+    created_at: string;
+    updated_at: string;
 }
 
 export interface SearchResults {

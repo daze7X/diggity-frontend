@@ -14,7 +14,8 @@ import {
     LogOut, 
     Loader2,
     Lock,
-    LifeBuoy
+    LifeBuoy,
+    Briefcase
 } from 'lucide-react';
 import SpotlightCard from '../../components/SpotlightCard';
 
@@ -48,6 +49,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { name: locale === 'en' ? 'My Classes' : 'Kelas Saya', path: '/dashboard/academy', icon: BookOpen },
         { name: locale === 'en' ? 'Order History' : 'Riwayat Pesanan', path: '/dashboard/orders', icon: ShoppingCart },
         { name: locale === 'en' ? 'Support Tickets' : 'Tiket Bantuan', path: '/dashboard/support', icon: LifeBuoy },
+        { name: locale === 'en' ? 'Job Applications' : 'Lamaran Karier', path: '/dashboard/applications', icon: Briefcase },
     ];
 
     const handleLogout = async () => {

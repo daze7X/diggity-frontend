@@ -517,7 +517,7 @@ export default async function Home() {
                                         { name: 'Workshop', icon: Layers, href: '/academy/workshop' },
                                         { name: 'Seminar', icon: Sparkles, href: '/academy/seminar' },
                                         { name: 'E-Book', icon: BookOpen, href: '/academy/e-book' },
-                                        { name: 'Program CSR', icon: Handshake, href: '/academy/scholarship' },
+                                        { name: 'Program CSR', icon: Handshake, href: '/academy/csr' },
                                     ].map((item, idx) => {
                                         const Icon = item.icon;
                                         return (

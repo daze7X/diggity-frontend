@@ -6,7 +6,7 @@ import { getLocaleServer } from '../../lib/locale-server';
 import ScrollReveal from '../../components/ScrollReveal';
 import SpotlightCard from '../../components/SpotlightCard';
 import { ACADEMY_PROGRAMS, ACADEMY_BENEFITS, ACADEMY_FAQ } from '../../lib/data/academy';
-import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star, Layers, Award, Rocket, MessageSquare, Globe, Workflow, Network, MonitorSmartphone } from 'lucide-react';
+import { ArrowRight, PlayCircle, BookOpen, Book, CheckCircle2, Building, Briefcase, Users, Star, Layers, Award, Rocket, MessageSquare, Globe, Workflow, Network } from 'lucide-react';
 import LearningPathTabs from '../../components/academy/LearningPathTabs';
 import { api } from '../../lib/api';
 
@@ -270,58 +270,6 @@ export default async function AcademyPage() {
                                         {locale === 'en' ? 'Download comprehensive guides and study materials.' : 'Unduh panduan lengkap dan materi pembelajaran digital.'}
                                     </p>
                                 </SpotlightCard>
-                            </Link>
-                        </ScrollReveal>
-                    </div>
-                </div>
-            </section>
-
-            {/* =========================================
-                FASE 4: FREE LEARNING
-            ========================================= */}
-            <section className="py-24 px-6 relative z-10">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 bg-white dark:bg-glass-bg border border-glass-border rounded-[3rem] p-8 md:p-16 shadow-xl">
-                    <div className="w-full md:w-1/2 space-y-6">
-                        <ScrollReveal animation="fade-up">
-                            <span className="inline-block px-3 py-1 bg-green-500/10 text-green-500 font-bold rounded-full text-sm mb-4">
-                                {locale === 'en' ? 'FREE LEARNING' : 'BELAJAR GRATIS'}
-                            </span>
-                            <h2 className="text-3xl md:text-5xl font-black text-text-main tracking-tight leading-tight">
-                                {locale === 'en' ? 'Strengthen Fundamental Skills, for Free.' : 'Perkuat Fundamental Skills, Gratis.'}
-                            </h2>
-                            <p className="text-lg text-text-gray font-medium mt-4">
-                                {locale === 'en' 
-                                    ? 'Start your learning journey at no cost through various educational classes and materials that can be accessed for free.' 
-                                    : 'Mulai perjalanan belajar tanpa biaya melalui berbagai kelas dan materi edukasi yang dapat diakses secara gratis.'}
-                            </p>
-                        </ScrollReveal>
-                    </div>
-                    
-                    <div className="w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <ScrollReveal animation="fade-up" delay={50} className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-glass-border hover:border-brand-blue/30 transition-colors group">
-                            <MonitorSmartphone className="w-8 h-8 text-brand-blue mb-4 group-hover:scale-110 transition-transform" />
-                            <h4 className="font-bold text-text-main mb-2">Free Courses</h4>
-                            <Link href="/academy/online-course" className="text-sm font-bold text-brand-blue group-hover:underline inline-flex items-center gap-1">
-                                {locale === 'en' ? 'Browse Courses' : 'Lihat Kelas'} <ArrowRight className="w-3 h-3" />
-                            </Link>
-                        </ScrollReveal>
-                        
-                        <ScrollReveal animation="fade-up" delay={100} className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-glass-border hover:border-brand-blue/30 transition-colors group">
-                            <Users className="w-8 h-8 text-brand-blue mb-4 group-hover:scale-110 transition-transform" />
-                            <h4 className="font-bold text-text-main mb-2">Free Seminar</h4>
-                            <Link href="/academy/seminar" className="text-sm font-bold text-brand-blue group-hover:underline inline-flex items-center gap-1">
-                                {locale === 'en' ? 'Browse Seminars' : 'Lihat Seminar'} <ArrowRight className="w-3 h-3" />
-                            </Link>
-                        </ScrollReveal>
-
-                        <ScrollReveal animation="fade-up" delay={150} className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-glass-border hover:border-brand-blue/30 transition-colors group sm:col-span-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                            <div>
-                                <BookOpen className="w-8 h-8 text-brand-blue mb-4 group-hover:scale-110 transition-transform" />
-                                <h4 className="font-bold text-text-main mb-2">Free E-Books</h4>
-                                <p className="text-xs text-text-gray font-medium mb-3">Download premium guides.</p>
-                            </div>
-                            <Link href="/academy/e-book" className="px-5 py-2.5 bg-brand-blue text-white font-bold text-sm rounded-xl hover:bg-brand-blue-dark transition-colors whitespace-nowrap">
-                                {locale === 'en' ? 'Download E-Books' : 'Unduh E-Book'}
                             </Link>
                         </ScrollReveal>
                     </div>

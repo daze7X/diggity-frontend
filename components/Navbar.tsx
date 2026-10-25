@@ -716,7 +716,7 @@ export default function Navbar() {
                                     <p className="text-[10px] text-text-gray line-clamp-1">{language === 'en' ? 'Guides & digital manuals' : 'Panduan & modul digital'}</p>
                                 </Link>
 
-                                <Link href="/academy/scholarship" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/academy/csr" onClick={() => setActiveDropdown(null)} className="group p-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <h4 className="text-xs font-bold text-text-main group-hover:text-brand-blue flex items-center gap-1.5 mb-0.5">
                                         <Sparkles className="w-3.5 h-3.5 shrink-0 text-brand-blue" />
                                         CSR &amp; Beasiswa
@@ -1057,7 +1057,7 @@ export default function Navbar() {
                                         <Link href="/academy/workshop" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">Workshop</Link>
                                         <Link href="/academy/seminar" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">Seminar</Link>
                                         <Link href="/academy/e-book" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">E-Book</Link>
-                                        <Link href="/academy/scholarship" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">CSR / Beasiswa</Link>
+                                        <Link href="/academy/csr" onClick={() => setIsOpen(false)} className="block text-text-gray hover:text-brand-blue py-0.5">CSR / Beasiswa</Link>
                                     </div>
                                     <span className="text-[10px] font-black uppercase text-brand-blue tracking-widest block pt-2 border-t border-glass-border/40">Ecosystem</span>
                                     <Link href="/academy/learning-paths" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-0.5">Peta Jalur Belajar (Roadmaps)</Link>

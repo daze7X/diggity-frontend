@@ -9,230 +9,35 @@ import SpotlightCard from '../../components/SpotlightCard';
 import { api, Career } from '../../lib/api';
 import { executeRecaptcha } from '../../lib/recaptcha';
 import { 
+    CAREERS_DATABASE, 
+    HIRING_PROCESS, 
+    CULTURE_VALUES, 
+    WHY_DIGGITY_POINTS, 
+    EVP_MATRIX, 
+    CAREER_DEVELOPMENT_AREAS, 
+    CAREER_GROWTH_TRACK 
+} from '../../lib/careers-data';
+import { 
     Briefcase, MapPin, Clock, ArrowRight, UserPlus, Users, 
     UserCheck, Search, Filter, Calendar, GraduationCap, DollarSign,
     Sparkles, CheckCircle2, Award, BookOpen, Send, AlertCircle,
-    Flame, ShieldCheck, ChevronRight
+    Flame, ShieldCheck, ChevronRight, Rocket, TrendingUp, Target, 
+    Globe, Heart, Compass, Lightbulb, Zap, X, Check, Laptop, Layers
 } from 'lucide-react';
 
-export const DEFAULT_CAREERS: Career[] = [
-    {
-        id: 1,
-        title: 'Full-Stack Web Developer (Next.js & Laravel)',
-        slug: 'full-stack-web-developer',
-        department: 'Technology',
-        type: 'Full-time',
-        location: 'Yogyakarta (Hybrid)',
-        level: 'Junior–Middle',
-        salary_min: 5000000,
-        salary_max: 8500000,
-        education: 'D3/S1 Teknik Informatika / Terkait',
-        closing_date: '15 November 2026',
-        status: 'open',
-        description: 'Sebagai Full-Stack Developer di Diggity, kamu akan terlibat aktif dalam rekayasa aplikasi web modern skala menengah hingga enterprise. Kamu berkolaborasi langsung dengan Lead Architect untuk merancang arsitektur API yang reliabel, clean code, dan antarmuka interaktif yang cepat.',
-        responsibilities: [
-            'Mengembangkan fitur baru menggunakan Next.js App Router (TypeScript) dan Laravel 11 REST API.',
-            'Mengoptimalkan database query pada PostgreSQL / MySQL dan Redis caching.',
-            'Mengimplementasikan integrasi payment gateway, webhook, dan third-party services.',
-            'Melakukan unit testing, code review berkala, dan dokumentasi API endpoint.'
-        ],
-        requirements: [
-            'Pengalaman minimal 1-2 tahun dengan ekosistem React/Next.js dan PHP/Laravel.',
-            'Pemahaman mendalam tentang state management, RESTful API, dan database relational.',
-            'Familiar dengan Git workflow, pull request review, dan best practice clean code.',
-            'Mampu berkomunikasi efektif dan bekerja kolaboratif dalam tim agile.'
-        ],
-        nice_to_have: [
-            'Pengalaman dengan Docker container dan automated CI/CD pipeline.',
-            'Pemahaman dasar arsitektur Headless CMS atau Microservices.'
-        ],
-        benefits: [
-            'Gaji kompetitif dan evaluasi performa berkala.',
-            'Skema kerja fleksibel (Hybrid Yogyakarta).',
-            'Tunjangan perangkat kerja dan akses seluruh kelas Diggity Academy.',
-            'BPJS Kesehatan & Ketenagakerjaan.'
-        ],
-        required_skills: ['Next.js', 'React', 'Laravel', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
-        is_active: true,
-        created_at: '2026-10-10'
-    },
-    {
-        id: 2,
-        title: 'UI/UX & Digital Product Designer',
-        slug: 'ui-ux-product-designer',
-        department: 'Creative & Brand',
-        type: 'Full-time',
-        location: 'Yogyakarta (Hybrid)',
-        level: 'Junior–Middle',
-        salary_min: 4500000,
-        salary_max: 7500000,
-        education: 'D3/S1 Desain Komunikasi Visual / Sistem Informasi',
-        closing_date: '30 Oktober 2026',
-        status: 'closing_soon',
-        description: 'Kami mencari UI/UX & Product Designer yang berorientasi pada pengalaman pengguna dan detail visual tinggi untuk mengembangkan antarmuka SaaS Diggity dan produk klien.',
-        responsibilities: [
-            'Merancang user journey, wireframe, high-fidelity mockups, dan interactive prototype di Figma.',
-            'Membangun serta memelihara Design System terstandarisasi untuk multi-platform.',
-            'Melakukan usability testing dan wawancara pengguna untuk memvalidasi fitur baru.',
-            'Bekerja erat dengan frontend engineer guna memastikan konsistensi implementasi desain.'
-        ],
-        requirements: [
-            'Portofolio desain UI/UX yang mendemonstrasikan proses problem-solving yang kuat.',
-            'Keahlian tinggi dalam menggunakan Figma, auto-layout, component variants, dan tokens.',
-            'Pemahaman mengenai prinsip aksesibilitas (WCAG), visual hierarchy, dan micro-interactions.'
-        ],
-        nice_to_have: [
-            'Pemahaman dasar HTML, CSS, dan Tailwind utility classes.',
-            'Pengalaman merancang antarmuka dashboard admin enterprise atau SaaS B2B.'
-        ],
-        benefits: [
-            'Fasilitas monitor eksternal dan lisensi Figma Professional.',
-            'Mentoring intensif bersama Product Lead.',
-            'Work-life balance sehat dan suasana kerja suportif.'
-        ],
-        required_skills: ['Figma', 'Design System', 'User Research', 'Prototyping', 'Usability Testing'],
-        is_active: true,
-        created_at: '2026-10-05'
-    },
-    {
-        id: 3,
-        title: 'AI Automation & LLM Engineer',
-        slug: 'ai-automation-engineer',
-        department: 'AI & Data',
-        type: 'Contract',
-        location: 'Remote (Online)',
-        level: 'Middle',
-        salary_min: 7000000,
-        salary_max: 12000000,
-        education: 'S1 Ilmu Komputer / Teknik / Matematika Terapan',
-        closing_date: '20 November 2026',
-        status: 'open',
-        description: 'Mengembangkan agen otomasi cerdas, pipeline RAG (Retrieval-Augmented Generation), dan integrasi API AI untuk produk enterprise Diggity.',
-        responsibilities: [
-            'Merancang dan mendeploy pipeline RAG menggunakan vector database (Pinecone/pgvector).',
-            'Mengembangkan prompt engineering, evaluasi output LLM, dan function calling automation.',
-            'Membangun API mikro berbasis Python (FastAPI) yang terintegrasi dengan backend utama.',
-            'Memantau token usage, latency, dan reliability performa agen AI di produksi.'
-        ],
-        requirements: [
-            'Pengalaman praktis menggunakan OpenAI / Anthropic / Gemini API dan framework LangChain / LlamaIndex.',
-            'Keahlian solid dalam Python, asynchronous programming, dan REST API architecture.',
-            'Pemahaman mengenai embedding vectors, chunking strategy, dan semantic search.'
-        ],
-        benefits: [
-            '100% Remote kerja dari mana saja di Indonesia.',
-            'Kompensasi berbasis milestone kontrak yang kompetitif.',
-            'Akses ke komputasi cloud GPU dan kuota API model mutakhir.'
-        ],
-        required_skills: ['Python', 'FastAPI', 'LangChain', 'OpenAI API', 'Vector DB', 'RAG'],
-        is_active: true,
-        created_at: '2026-10-12'
-    },
-    {
-        id: 4,
-        title: 'Performance Marketing & Growth Specialist',
-        slug: 'performance-marketing-specialist',
-        department: 'Growth Marketing',
-        type: 'Full-time',
-        location: 'Jakarta (On-site)',
-        level: 'Middle',
-        salary_min: 6000000,
-        salary_max: 9500000,
-        education: 'D3/S1 Pemasaran / Komunikasi / Manajemen',
-        closing_date: '10 November 2026',
-        status: 'open',
-        description: 'Memimpin perencanaan, eksekusi, dan optimasi kampanye periklanan digital (Meta Ads, Google Ads, TikTok Ads) untuk mendorong akuisisi klien dan penjualan produk Diggity.',
-        responsibilities: [
-            'Merencanakan alokasi budget iklan bulanan dengan target ROAS dan CAC yang terukur.',
-            'Menyiapkan copywriting iklan yang persuasif dan berkoordinasi dengan tim kreatif.',
-            'Menganalisis funnel konversi menggunakan Google Analytics 4 dan Server-side Tracking.',
-            'Menyusun laporan performa mingguan yang komprehensif bagi jajaran direksi.'
-        ],
-        requirements: [
-            'Pengalaman minimal 2 tahun mengelola ad spend digital dengan rekam jejak terbukti.',
-            'Keahlian mendalam dalam Meta Ads Manager, Google Search/Performance Max, dan GA4.',
-            'Kemampuan berpikir analitis berbasis angka dan pemahaman sales funnel B2B/B2C.'
-        ],
-        benefits: [
-            'Bonus insentif performa kampanye (achievement bonus).',
-            'Tunjangan transportasi dan operasional kantor Jakarta.',
-            'Jenjang karier jelas menuju Growth Lead.'
-        ],
-        required_skills: ['Meta Ads', 'Google Ads', 'GA4', 'Conversion Tracking', 'Copywriting'],
-        is_active: true,
-        created_at: '2026-10-08'
-    },
-    {
-        id: 5,
-        title: 'Frontend React & Tailwind Intern',
-        slug: 'frontend-react-intern',
-        department: 'Technology',
-        type: 'Internship',
-        location: 'Remote (Online)',
-        level: 'Junior',
-        salary_min: 1500000,
-        salary_max: 2500000,
-        education: 'Mahasiswa Aktif Semester 5-8 / Fresh Graduate',
-        closing_date: '25 Oktober 2026',
-        status: 'closing_soon',
-        description: 'Program magang intensif 3-6 bulan untuk mengasah kemampuan frontend engineering dalam proyek riil bersama para mentor senior Diggity.',
-        responsibilities: [
-            'Mengonversi desain Figma menjadi komponen React yang rapi dan responsif.',
-            'Membantu integrasi REST API dan handling data fetching.',
-            'Mempelajari standar git workflow, code linting, dan performa web modern.'
-        ],
-        requirements: [
-            'Memahami dasar HTML, CSS, JavaScript, dan konsep React component.',
-            'Familiar dengan styling menggunakan Tailwind CSS.',
-            'Memiliki kemauan belajar tinggi, proaktif bertanya, dan bertanggung jawab terhadap deadline tugas.'
-        ],
-        benefits: [
-            'Uang saku bulanan dan sertifikat magang resmi industri.',
-            'Mentoring 1-on-1 langsung bersama Tech Lead.',
-            'Peluang besar direkrut sebagai Full-time Junior Developer setelah lulus.'
-        ],
-        required_skills: ['React', 'JavaScript', 'Tailwind CSS', 'Git', 'Responsive Design'],
-        is_active: true,
-        created_at: '2026-10-15'
-    },
-    {
-        id: 6,
-        title: 'DevOps & Cloud Infrastructure Engineer',
-        slug: 'devops-cloud-engineer',
-        department: 'Cloud & Cyber Security',
-        type: 'Full-time',
-        location: 'Remote (Online)',
-        level: 'Senior',
-        salary_min: 10000000,
-        salary_max: 16000000,
-        education: 'S1 Teknik Informatika / Sistem Komputer',
-        closing_date: '05 Oktober 2026',
-        status: 'closed',
-        description: 'Bertanggung jawab atas orkestrasi infrastruktur server cloud, otomatisasi CI/CD pipeline, keamanan jaringan, dan ketersediaan sistem 99.9% uptime.',
-        responsibilities: [
-            'Mengelola klaster Kubernetes, Docker container, dan load balancer di AWS/GCP.',
-            'Membangun pipeline CI/CD menggunakan GitHub Actions untuk auto-deploy multi-environment.',
-            'Menjaga kepatuhan standar keamanan data ISO 27001 dan audit penetrasi berkala.'
-        ],
-        requirements: [
-            'Pengalaman 3+ tahun dalam bidang DevOps, Cloud Engineering, atau Linux System Administration.',
-            'Sertifikasi cloud (AWS Certified Solutions Architect atau CKA Kubernetes) menjadi nilai plus kuat.'
-        ],
-        benefits: [
-            'Kompensasi level senior dengan tunjangan komprehensif.',
-            '100% Remote dengan jam kerja fleksibel.',
-            'Budget tahunan untuk sertifikasi dan kursus internasional.'
-        ],
-        required_skills: ['Kubernetes', 'Docker', 'AWS', 'CI/CD', 'Linux', 'Terraform'],
-        is_active: false,
-        created_at: '2026-09-15'
-    }
-];
+export const DEFAULT_CAREERS: Career[] = CAREERS_DATABASE;
 
-const DEPARTMENTS = ['All', 'Technology', 'AI & Data', 'Creative & Brand', 'Growth Marketing', 'Cloud & Cyber Security'];
-const TYPES = ['All', 'Full-time', 'Internship', 'Contract'];
+const DEPARTMENTS = [
+    'All', 
+    'Technology', 
+    'AI & Emerging Technology', 
+    'Creative & Brand', 
+    'Growth Marketing', 
+    'Cloud & Cyber Security'
+];
+const TYPES = ['All', 'Full-time', 'Internship', 'Project-based / Full-time'];
 const MECHANISMS = ['All', 'Remote', 'Hybrid', 'On-site'];
-const LEVELS = ['All', 'Junior', 'Middle', 'Senior'];
+const LEVELS = ['All', 'Junior', 'Middle', 'Senior', 'Junior–Middle'];
 const STATUSES = ['All', 'open', 'closing_soon', 'closed'];
 
 export default function JobConnectPage() {
@@ -256,7 +61,21 @@ export default function JobConnectPage() {
     const [selectedLevel, setSelectedLevel] = useState('All');
     const [selectedStatus, setSelectedStatus] = useState('All');
 
-    // Mentor / Contributor Form State (4.3)
+    // Talent Pool / Community Modal State
+    const [talentModalOpen, setTalentModalOpen] = useState(false);
+    const [talentModalType, setTalentModalType] = useState<'pool' | 'community'>('pool');
+    const [talentForm, setTalentForm] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        domain: 'Technology & Engineering',
+        portfolioUrl: '',
+        note: ''
+    });
+    const [talentStatus, setTalentStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [talentMessage, setTalentMessage] = useState('');
+
+    // Mentor / Contributor Form State
     const [mentorForm, setMentorForm] = useState({
         name: '',
         email: '',
@@ -270,10 +89,10 @@ export default function JobConnectPage() {
     const [mentorMessage, setMentorMessage] = useState('');
 
     const filteredCareers = useMemo(() => {
-        return DEFAULT_CAREERS.filter((job) => {
+        return CAREERS_DATABASE.filter((job) => {
             const matchesSearch = searchQuery.trim() === '' || 
                 job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                job.department?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                (job.department && job.department.toLowerCase().includes(searchQuery.toLowerCase())) ||
                 job.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (job.required_skills && job.required_skills.some(s => s.toLowerCase().includes(searchQuery.toLowerCase())));
 
@@ -293,6 +112,49 @@ export default function JobConnectPage() {
             return matchesSearch && matchesDept && matchesType && matchesMechanism && matchesLevel && matchesStatus;
         });
     }, [searchQuery, selectedDept, selectedType, selectedMechanism, selectedLevel, selectedStatus]);
+
+    const handleTalentSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setTalentStatus('loading');
+        try {
+            const token = await executeRecaptcha('talent_pool_registration');
+            const messagePayload = `[PENDAFTARAN ${talentModalType === 'pool' ? 'TALENT POOL' : 'TALENT COMMUNITY'} DIGGITY]
+Nama: ${talentForm.name}
+Email: ${talentForm.email}
+WhatsApp: ${talentForm.phone}
+Bidang Minat: ${talentForm.domain}
+Portofolio / LinkedIn / GitHub: ${talentForm.portfolioUrl}
+Catatan Tambahan: ${talentForm.note}`;
+
+            await api.submitLead({
+                name: talentForm.name,
+                email: talentForm.email,
+                phone: talentForm.phone,
+                company: 'Talent Pool Candidate',
+                service: `${talentModalType === 'pool' ? 'Talent Pool' : 'Talent Community'} - ${talentForm.domain}`,
+                message: messagePayload,
+                recaptcha_token: token
+            });
+
+            setTalentStatus('success');
+            setTalentMessage(
+                locale === 'en'
+                    ? 'Thank you! Your profile has been added to the Diggity Talent Database. We will reach out when a relevant opportunity arises.'
+                    : 'Terima kasih! Profil Anda telah tersimpan di Talent Database Diggity. Tim People & Culture akan menghubungi Anda saat ada peluang atau program yang relevan.'
+            );
+            setTalentForm({
+                name: '',
+                email: '',
+                phone: '',
+                domain: 'Technology & Engineering',
+                portfolioUrl: '',
+                note: ''
+            });
+        } catch (err: any) {
+            setTalentStatus('error');
+            setTalentMessage(err.message || 'Gagal mengirimkan profil. Silakan coba kembali beberapa saat lagi.');
+        }
+    };
 
     const handleMentorSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -339,34 +201,65 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
         }
     };
 
+    const scrollToSection = (id: string) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
-        <div className="min-h-screen relative pb-20 selection:bg-brand-blue/20 bg-bg-canvas">
-            {/* 1. HERO HEADER */}
+        <div className="min-h-screen relative pb-24 selection:bg-brand-blue/20 bg-bg-canvas text-left">
+            {/* 1. HERO SECTION (01 Sesuai Brief) */}
             <div className="bg-brand-blue dark:bg-brand-bg relative pt-32 pb-44 px-6 overflow-hidden">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-white/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-black/20 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none" />
                 
-                <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
+                <div className="max-w-5xl mx-auto relative z-10 flex flex-col items-center text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white font-bold text-xs uppercase tracking-widest mb-6 backdrop-blur-md">
+                        <Briefcase className="w-3.5 h-3.5 text-white/90" />
+                        <span>Karier &amp; Ekosistem Talenta Diggity</span>
+                    </div>
 
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1] mb-6 max-w-4xl mx-auto drop-shadow-sm">
-                        {locale === 'en' ? (
-                            <>Build Your Career. <span className="text-white/80">Shape the Future.</span></>
-                        ) : (
-                            <>Bangun Karier. <span className="text-white/80">Ciptakan Dampak Nyata.</span></>
-                        )}
+                        Build Your Career. <br className="hidden sm:inline" />
+                        <span className="text-white/80">Build the Future.</span>
                     </h1>
                     
-                    <p className="text-base md:text-xl text-white/80 font-medium max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-base md:text-lg text-white/90 font-medium max-w-3xl mx-auto leading-relaxed mb-8">
                         {locale === 'en' 
-                            ? 'Explore active job vacancies, apply to become an official mentor/contributor, or source dedicated tech teams.' 
-                            : 'Jelajahi lowongan kerja aktif, daftarkan diri menjadi mentor & kontributor resmi, atau temukan talenta teknologi terbaik untuk perusahaan Anda.'}
+                            ? 'Join Diggity and be part of the team building digital solutions for businesses, organizations, and society. At Diggity, you will work with people who love building, experimenting, learning, and creating meaningful impact.' 
+                            : 'Bergabung bersama Diggity dan jadilah bagian dari tim yang membangun solusi digital untuk bisnis, organisasi, dan masyarakat. Di Diggity, kamu bukan sekadar mengisi posisi. Kamu akan bekerja bersama orang-orang yang senang membangun, bereksperimen, belajar, dan menciptakan sesuatu yang berdampak.'}
                     </p>
+
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+                        <button
+                            onClick={() => {
+                                setActiveTab('careers');
+                                scrollToSection('open-positions');
+                            }}
+                            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white text-brand-blue font-black text-sm hover:bg-slate-50 transition-all shadow-xl hover:shadow-2xl cursor-pointer flex items-center justify-center gap-2"
+                        >
+                            <Search className="w-4 h-4" />
+                            {locale === 'en' ? 'Explore Open Positions' : 'Lihat Lowongan'}
+                        </button>
+                        <button
+                            onClick={() => {
+                                setActiveTab('careers');
+                                scrollToSection('culture');
+                            }}
+                            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all backdrop-blur-sm cursor-pointer flex items-center justify-center gap-2"
+                        >
+                            <Heart className="w-4 h-4 text-white/80" />
+                            {locale === 'en' ? 'Our Culture' : 'Kenali Budaya Diggity'}
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            {/* 2. MAIN CONTENT (Overlapping) */}
+            {/* 2. MAIN SEGMENTED CONTENT WRAPPER (Overlapping Container) */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-20 -mt-20">
-                <div className="bg-white/95 dark:bg-brand-bg/95 backdrop-blur-3xl rounded-3xl border border-glass-border p-6 md:p-10 shadow-2xl space-y-10">
+                <div className="bg-white/95 dark:bg-brand-bg/95 backdrop-blur-3xl rounded-3xl border border-glass-border p-6 md:p-10 shadow-2xl space-y-12">
                     
                     {/* 3-Way Segmented Tab Control */}
                     <div className="flex justify-center">
@@ -408,227 +301,582 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
                     </div>
 
                     {/* ========================================================
-                        TAB 1: LOWONGAN KARIER & MINI-ATS (BAGIAN 4.1 & 4.2)
+                        TAB 1: LOWONGAN KARIER & EMPLOYER BRANDING ECOSYSTEM
                         ======================================================== */}
                     {activeTab === 'careers' && (
-                        <div className="space-y-8 animate-in fade-in duration-300">
+                        <div className="space-y-16 animate-in fade-in duration-300">
                             
-                            {/* Search & Multi-Filter Control Bar */}
-                            <div className="p-6 rounded-3xl bg-slate-50 dark:bg-black/20 border border-glass-border space-y-4">
-                                <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                                    <div className="relative w-full md:w-96">
-                                        <Search className="w-4 h-4 text-text-gray absolute left-4 top-1/2 -translate-y-1/2" />
-                                        <input
-                                            type="text"
-                                            placeholder={locale === 'en' ? "Search position or skill (e.g. Next.js, Figma)..." : "Cari posisi atau keahlian (contoh: Next.js, Figma)..."}
-                                            value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
-                                            className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-medium text-text-main outline-none focus:border-brand-blue"
-                                        />
-                                    </div>
-                                    <span className="text-xs font-bold text-text-gray self-start md:self-center">
-                                        {filteredCareers.length} {locale === 'en' ? 'positions available' : 'posisi ditemukan'}
+                            {/* 05. OPEN POSITIONS & ATS MULTI-FILTER */}
+                            <section id="open-positions" className="space-y-8 scroll-mt-32">
+                                <div className="text-center max-w-3xl mx-auto space-y-2">
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-brand-blue block">
+                                        OPPORTUNITIES
                                     </span>
-                                </div>
-
-                                {/* Filter Controls Grid */}
-                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-2 border-t border-glass-border">
-                                    {/* Departemen */}
-                                    <div>
-                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Departemen</label>
-                                        <select
-                                            value={selectedDept}
-                                            onChange={(e) => setSelectedDept(e.target.value)}
-                                            className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
-                                        >
-                                            {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
-                                        </select>
-                                    </div>
-
-                                    {/* Jenis Pekerjaan */}
-                                    <div>
-                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Jenis Pekerjaan</label>
-                                        <select
-                                            value={selectedType}
-                                            onChange={(e) => setSelectedType(e.target.value)}
-                                            className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
-                                        >
-                                            {TYPES.map(t => <option key={t} value={t}>{t}</option>)}
-                                        </select>
-                                    </div>
-
-                                    {/* Mekanisme Kerja */}
-                                    <div>
-                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Mekanisme Kerja</label>
-                                        <select
-                                            value={selectedMechanism}
-                                            onChange={(e) => setSelectedMechanism(e.target.value)}
-                                            className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
-                                        >
-                                            {MECHANISMS.map(m => <option key={m} value={m}>{m}</option>)}
-                                        </select>
-                                    </div>
-
-                                    {/* Level Posisi */}
-                                    <div>
-                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Level Posisi</label>
-                                        <select
-                                            value={selectedLevel}
-                                            onChange={(e) => setSelectedLevel(e.target.value)}
-                                            className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
-                                        >
-                                            {LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
-                                        </select>
-                                    </div>
-
-                                    {/* Status Lowongan */}
-                                    <div>
-                                        <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Status Lowongan</label>
-                                        <select
-                                            value={selectedStatus}
-                                            onChange={(e) => setSelectedStatus(e.target.value)}
-                                            className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
-                                        >
-                                            <option value="All">Semua Status</option>
-                                            <option value="open">Dibuka (Open)</option>
-                                            <option value="closing_soon">Segera Ditutup</option>
-                                            <option value="closed">Ditutup (Closed)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Job Cards Listing (Bagian 4.1 Requirement) */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {filteredCareers.map((job) => {
-                                    // Status styling derived from data
-                                    const statusConfig = {
-                                        open: {
-                                            label: locale === 'en' ? 'Open' : 'Dibuka',
-                                            badge: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
-                                            dot: 'bg-emerald-500'
-                                        },
-                                        closing_soon: {
-                                            label: locale === 'en' ? 'Closing Soon' : 'Segera Ditutup',
-                                            badge: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
-                                            dot: 'bg-amber-500'
-                                        },
-                                        closed: {
-                                            label: locale === 'en' ? 'Closed' : 'Ditutup',
-                                            badge: 'bg-slate-500/10 text-slate-500 border-slate-500/20',
-                                            dot: 'bg-slate-400'
-                                        }
-                                    }[job.status || 'open'];
-
-                                    return (
-                                        <SpotlightCard
-                                            key={job.id}
-                                            className="p-6 md:p-8 flex flex-col justify-between border border-glass-border hover:border-brand-blue/40 rounded-3xl transition-all shadow-sm hover:shadow-xl group"
-                                        >
-                                            <div className="space-y-4">
-                                                {/* Header & Status Badge */}
-                                                <div className="flex items-start justify-between gap-3">
-                                                    <div className="space-y-1">
-                                                        <span className="inline-block px-2.5 py-0.5 rounded-md bg-brand-blue/10 text-brand-blue text-[10px] font-black uppercase tracking-wider">
-                                                            {job.department}
-                                                        </span>
-                                                        <h3 className="text-xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-snug">
-                                                            {job.title}
-                                                        </h3>
-                                                        <p className="text-xs font-semibold text-text-gray">CV Sinergi Cita Digital — Diggity</p>
-                                                    </div>
-
-                                                    {/* Real Status Badge */}
-                                                    <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[11px] font-black shrink-0 ${statusConfig.badge}`}>
-                                                        <span className={`w-2 h-2 rounded-full ${statusConfig.dot} animate-pulse`} />
-                                                        <span>{statusConfig.label}</span>
-                                                    </div>
-                                                </div>
-
-                                                {/* Metadata Tags Grid (4.1 Information) */}
-                                                <div className="flex flex-wrap gap-2 pt-2">
-                                                    <div className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-black/30 text-xs font-bold text-text-main flex items-center gap-1.5">
-                                                        <Clock className="w-3.5 h-3.5 text-brand-blue" />
-                                                        <span>{job.type}</span>
-                                                    </div>
-                                                    <div className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-black/30 text-xs font-bold text-text-main flex items-center gap-1.5">
-                                                        <MapPin className="w-3.5 h-3.5 text-brand-blue" />
-                                                        <span>{job.location}</span>
-                                                    </div>
-                                                    <div className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-black/30 text-xs font-bold text-text-main flex items-center gap-1.5">
-                                                        <Briefcase className="w-3.5 h-3.5 text-brand-blue" />
-                                                        <span>Level: {job.level}</span>
-                                                    </div>
-                                                </div>
-
-                                                <p className="text-xs text-text-gray font-medium line-clamp-2 leading-relaxed">
-                                                    {job.description}
-                                                </p>
-                                            </div>
-
-                                            {/* Footer: Deadline & Action Link */}
-                                            <div className="pt-6 mt-6 border-t border-glass-border flex items-center justify-between">
-                                                <div className="text-[11px] font-semibold text-text-gray flex items-center gap-1.5">
-                                                    <Calendar className="w-3.5 h-3.5 text-brand-blue" />
-                                                    <span>Batas: {job.closing_date}</span>
-                                                </div>
-
-                                                <Link 
-                                                    href={`/job-connect/${job.slug}`}
-                                                    className="inline-flex items-center gap-1.5 text-xs font-black text-brand-blue group-hover:text-brand-blue-hover group-hover:translate-x-1 transition-all"
-                                                >
-                                                    {locale === 'en' ? 'View & Apply' : 'Detail & Lamar'} <ChevronRight className="w-4 h-4" />
-                                                </Link>
-                                            </div>
-                                        </SpotlightCard>
-                                    );
-                                })}
-
-                                {filteredCareers.length === 0 && (
-                                    <div className="col-span-1 md:col-span-2 text-center py-16 bg-slate-50 dark:bg-black/20 rounded-3xl border border-glass-border">
-                                        <p className="text-sm font-bold text-text-gray mb-3">Tidak ada lowongan yang sesuai kriteria pencarian Anda.</p>
-                                        <button
-                                            onClick={() => {
-                                                setSearchQuery('');
-                                                setSelectedDept('All');
-                                                setSelectedType('All');
-                                                setSelectedMechanism('All');
-                                                setSelectedLevel('All');
-                                                setSelectedStatus('All');
-                                            }}
-                                            className="px-5 py-2 rounded-xl bg-brand-blue text-white text-xs font-bold cursor-pointer"
-                                        >
-                                            Reset Semua Filter
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Dashboard Application Notice (Bagian 4.4) */}
-                            <div className="p-6 md:p-8 rounded-3xl bg-brand-blue/5 border border-brand-blue/20 flex flex-col sm:flex-row items-center justify-between gap-6">
-                                <div className="space-y-1 text-center sm:text-left">
-                                    <h4 className="text-base font-black text-text-main">Sudah Mengirim Lamaran?</h4>
-                                    <p className="text-xs text-text-gray font-medium">
-                                        Masuk ke Dashboard Akun Diggity Anda untuk memantau status lamaran kerja, jadwal interview, dan riwayat seleksi.
+                                    <h2 className="text-2xl md:text-4xl font-black text-text-main">
+                                        Find Your Place at Diggity
+                                    </h2>
+                                    <p className="text-xs md:text-sm text-text-gray font-medium">
+                                        Temukan posisi yang sesuai dengan keahlian, pengalaman, dan perjalanan kariermu.
                                     </p>
                                 </div>
-                                <Link
-                                    href="/dashboard/applications"
-                                    className="px-6 py-3 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white text-xs font-bold transition-all shrink-0 shadow-md"
-                                >
-                                    Cek Status di Dashboard
-                                </Link>
-                            </div>
+
+                                {/* Filter Controls Bar */}
+                                <div className="p-6 rounded-3xl bg-slate-50 dark:bg-black/20 border border-glass-border space-y-4">
+                                    <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+                                        <div className="relative w-full md:w-96">
+                                            <Search className="w-4 h-4 text-text-gray absolute left-4 top-1/2 -translate-y-1/2" />
+                                            <input
+                                                type="text"
+                                                placeholder={locale === 'en' ? "Search position or skill (e.g. Laravel, React, Figma)..." : "Cari posisi atau keahlian (contoh: Laravel, React, Figma)..."}
+                                                value={searchQuery}
+                                                onChange={(e) => setSearchQuery(e.target.value)}
+                                                className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-medium text-text-main outline-none focus:border-brand-blue"
+                                            />
+                                        </div>
+                                        <span className="text-xs font-bold text-text-gray self-start md:self-center">
+                                            {filteredCareers.length} {locale === 'en' ? 'positions available' : 'posisi ditemukan'}
+                                        </span>
+                                    </div>
+
+                                    {/* Multi-Filter Dropdowns */}
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-2 border-t border-glass-border">
+                                        <div>
+                                            <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Departemen</label>
+                                            <select
+                                                value={selectedDept}
+                                                onChange={(e) => setSelectedDept(e.target.value)}
+                                                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
+                                            >
+                                                {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Jenis Pekerjaan</label>
+                                            <select
+                                                value={selectedType}
+                                                onChange={(e) => setSelectedType(e.target.value)}
+                                                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
+                                            >
+                                                {TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Mekanisme Kerja</label>
+                                            <select
+                                                value={selectedMechanism}
+                                                onChange={(e) => setSelectedMechanism(e.target.value)}
+                                                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
+                                            >
+                                                {MECHANISMS.map(m => <option key={m} value={m}>{m}</option>)}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Level Posisi</label>
+                                            <select
+                                                value={selectedLevel}
+                                                onChange={(e) => setSelectedLevel(e.target.value)}
+                                                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
+                                            >
+                                                {LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label className="text-[10px] font-bold text-text-gray uppercase tracking-wider block mb-1">Status Lowongan</label>
+                                            <select
+                                                value={selectedStatus}
+                                                onChange={(e) => setSelectedStatus(e.target.value)}
+                                                className="w-full px-3 py-2 rounded-xl bg-white dark:bg-glass-bg border border-glass-border text-xs font-bold text-text-main outline-none cursor-pointer"
+                                            >
+                                                <option value="All">Semua Status</option>
+                                                <option value="open">Dibuka (Open)</option>
+                                                <option value="closing_soon">Segera Ditutup</option>
+                                                <option value="closed">Ditutup (Closed)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Job Cards Grid */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {filteredCareers.map((job) => {
+                                        const statusConfig = {
+                                            open: {
+                                                label: locale === 'en' ? 'Open' : 'Dibuka',
+                                                badge: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
+                                                dot: 'bg-emerald-500'
+                                            },
+                                            closing_soon: {
+                                                label: locale === 'en' ? 'Closing Soon' : 'Segera Ditutup',
+                                                badge: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
+                                                dot: 'bg-amber-500'
+                                            },
+                                            closed: {
+                                                label: locale === 'en' ? 'Closed' : 'Ditutup',
+                                                badge: 'bg-slate-500/10 text-slate-500 border-slate-500/20',
+                                                dot: 'bg-slate-400'
+                                            }
+                                        }[job.status || 'open'];
+
+                                        return (
+                                            <SpotlightCard
+                                                key={job.id}
+                                                className="p-6 md:p-8 flex flex-col justify-between border border-glass-border hover:border-brand-blue/40 rounded-3xl transition-all shadow-sm hover:shadow-xl group"
+                                            >
+                                                <div className="space-y-4">
+                                                    <div className="flex items-start justify-between gap-3">
+                                                        <div className="space-y-1">
+                                                            <span className="inline-block px-2.5 py-0.5 rounded-md bg-brand-blue/10 text-brand-blue text-[10px] font-black uppercase tracking-wider">
+                                                                {job.department}
+                                                            </span>
+                                                            <h3 className="text-xl font-black text-text-main group-hover:text-brand-blue transition-colors leading-snug">
+                                                                {job.title}
+                                                            </h3>
+                                                            <p className="text-xs font-semibold text-text-gray">CV Sinergi Cita Digital — Diggity</p>
+                                                        </div>
+
+                                                        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[11px] font-black shrink-0 ${statusConfig.badge}`}>
+                                                            <span className={`w-2 h-2 rounded-full ${statusConfig.dot} animate-pulse`} />
+                                                            <span>{statusConfig.label}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Metadata Tags */}
+                                                    <div className="flex flex-wrap gap-2 pt-1">
+                                                        <div className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-black/30 text-xs font-bold text-text-main flex items-center gap-1.5">
+                                                            <Clock className="w-3.5 h-3.5 text-brand-blue" />
+                                                            <span>{job.type}</span>
+                                                        </div>
+                                                        <div className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-black/30 text-xs font-bold text-text-main flex items-center gap-1.5">
+                                                            <MapPin className="w-3.5 h-3.5 text-brand-blue" />
+                                                            <span>{job.location}</span>
+                                                        </div>
+                                                        <div className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-black/30 text-xs font-bold text-text-main flex items-center gap-1.5">
+                                                            <Briefcase className="w-3.5 h-3.5 text-brand-blue" />
+                                                            <span>{job.level}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <p className="text-xs text-text-gray font-medium line-clamp-2 leading-relaxed">
+                                                        {job.description}
+                                                    </p>
+
+                                                    {/* Skills Tags */}
+                                                    {job.required_skills && job.required_skills.length > 0 && (
+                                                        <div className="flex flex-wrap gap-1.5 pt-2">
+                                                            {job.required_skills.map((skill, sIdx) => (
+                                                                <span key={sIdx} className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-glass-bg border border-glass-border text-[10px] font-bold text-text-gray">
+                                                                    {skill}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                {/* Footer: Deadline & Link */}
+                                                <div className="pt-6 mt-6 border-t border-glass-border flex items-center justify-between">
+                                                    <div className="text-[11px] font-semibold text-text-gray flex items-center gap-1.5">
+                                                        <Calendar className="w-3.5 h-3.5 text-brand-blue" />
+                                                        <span>Ditutup: {job.closing_date}</span>
+                                                    </div>
+
+                                                    <Link 
+                                                        href={`/careers/${job.slug}`}
+                                                        className="inline-flex items-center gap-1.5 text-xs font-black text-brand-blue group-hover:text-brand-blue-hover group-hover:translate-x-1 transition-all"
+                                                    >
+                                                        {locale === 'en' ? 'View & Apply' : 'Lihat Detail'} <ChevronRight className="w-4 h-4" />
+                                                    </Link>
+                                                </div>
+                                            </SpotlightCard>
+                                        );
+                                    })}
+
+                                    {filteredCareers.length === 0 && (
+                                        <div className="col-span-1 md:col-span-2 text-center py-16 bg-slate-50 dark:bg-black/20 rounded-3xl border border-glass-border space-y-3">
+                                            <p className="text-sm font-bold text-text-gray">Tidak ada lowongan yang sesuai kriteria pencarian Anda saat ini.</p>
+                                            <button
+                                                onClick={() => {
+                                                    setSearchQuery('');
+                                                    setSelectedDept('All');
+                                                    setSelectedType('All');
+                                                    setSelectedMechanism('All');
+                                                    setSelectedLevel('All');
+                                                    setSelectedStatus('All');
+                                                }}
+                                                className="px-5 py-2 rounded-xl bg-brand-blue text-white text-xs font-bold cursor-pointer"
+                                            >
+                                                Reset Semua Filter
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* 06. DON'T SEE YOUR ROLE? (TALENT POOL) */}
+                                <div className="p-8 md:p-10 rounded-3xl bg-gradient-to-r from-brand-blue to-indigo-600 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+                                    <div className="space-y-3 text-center md:text-left max-w-2xl">
+                                        <span className="px-3 py-1 rounded-full bg-white/20 text-white text-[10px] font-black uppercase tracking-wider inline-block">
+                                            TALENT PIPELINE
+                                        </span>
+                                        <h3 className="text-2xl md:text-3xl font-black">
+                                            Don&apos;t See Your Role?
+                                        </h3>
+                                        <p className="text-xs md:text-sm text-white/90 leading-relaxed font-medium">
+                                            Kami selalu terbuka untuk bertemu dengan orang-orang yang memiliki passion untuk technology, creativity, business, dan innovation. Jika belum menemukan posisi yang sesuai, kamu tetap dapat mengirimkan profil dan portfolio kamu kepada kami.
+                                        </p>
+                                        <p className="text-[11px] text-white/70 italic">
+                                            Simpan talent terbaik hari ini, bukan hanya ketika posisi sudah terbuka.
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            setTalentModalType('pool');
+                                            setTalentModalOpen(true);
+                                        }}
+                                        className="px-6 py-3.5 rounded-xl bg-white text-brand-blue hover:bg-slate-50 font-black text-xs transition-all shadow-lg shrink-0 cursor-pointer flex items-center gap-2"
+                                    >
+                                        <UserPlus className="w-4 h-4" />
+                                        <span>Join Our Talent Pool →</span>
+                                    </button>
+                                </div>
+
+                                {/* Dashboard Application Notice */}
+                                <div className="p-6 md:p-8 rounded-3xl bg-brand-blue/5 border border-brand-blue/20 flex flex-col sm:flex-row items-center justify-between gap-6">
+                                    <div className="space-y-1 text-center sm:text-left">
+                                        <h4 className="text-base font-black text-text-main">Sudah Mengirim Lamaran?</h4>
+                                        <p className="text-xs text-text-gray font-medium">
+                                            Masuk ke Dashboard Akun Diggity Anda untuk memantau status lamaran kerja, jadwal wawancara, dan riwayat seleksi.
+                                        </p>
+                                    </div>
+                                    <Link
+                                        href="/dashboard/applications"
+                                        className="px-6 py-3 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white text-xs font-bold transition-all shrink-0 shadow-md"
+                                    >
+                                        Cek Status di Dashboard
+                                    </Link>
+                                </div>
+                            </section>
+
+                            {/* 02. INTRODUCTION (GROW WITH DIGGITY) */}
+                            <section className="pt-10 border-t border-glass-border space-y-8">
+                                <div className="text-center max-w-3xl mx-auto space-y-3">
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-brand-blue block">
+                                        GROW WITH DIGGITY
+                                    </span>
+                                    <h2 className="text-2xl md:text-4xl font-black text-text-main">
+                                        Kami Percaya Perusahaan yang Hebat Dibangun oleh Orang-orang yang Terus Berkembang
+                                    </h2>
+                                    <p className="text-xs md:text-sm text-text-gray font-medium leading-relaxed">
+                                        Diggity mempertemukan technology, creativity, business, AI, cloud, marketing, dan education dalam satu ekosistem terpadu. Karena itu, setiap orang di dalam tim memiliki kesempatan untuk belajar lintas bidang, mengambil tanggung jawab baru, dan mengembangkan kompetensinya.
+                                    </p>
+                                </div>
+
+                                {/* 4-Step Framework Flow: Build -> Grow -> Scale -> Empower */}
+                                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+                                    {[
+                                        { step: '01', title: 'Build', desc: 'Membangun keahlian teknis dan fondasi kerja yang kuat melalui proyek digital nyata.' },
+                                        { step: '02', title: 'Grow', desc: 'Mengembangkan kapabilitas lintas disiplin dan memperluas horizon keahlian profesional.' },
+                                        { step: '03', title: 'Scale', desc: 'Meningkatkan dampak karya, memimpin inisiatif, dan menyempurnakan solusi bernilai tinggi.' },
+                                        { step: '04', title: 'Empower', desc: 'Memberdayakan tim lain, membagikan wawasan, dan mentransformasi ekosistem sekitar.' }
+                                    ].map((f, i) => (
+                                        <div key={i} className="p-6 rounded-2xl bg-slate-50 dark:bg-black/20 border border-glass-border space-y-2 relative group hover:border-brand-blue/40 transition-colors">
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-2xl font-black text-brand-blue/30 group-hover:text-brand-blue transition-colors">
+                                                    {f.step}
+                                                </span>
+                                                {i < 3 && <ChevronRight className="w-4 h-4 text-text-gray/40 hidden lg:block" />}
+                                            </div>
+                                            <h4 className="text-base font-black text-text-main">{f.title}</h4>
+                                            <p className="text-xs text-text-gray font-medium leading-relaxed">{f.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className="text-center text-xs font-bold text-text-gray italic">
+                                    Itulah perjalanan yang ingin kami bangun bersama setiap anggota tim Diggity.
+                                </p>
+                            </section>
+
+                            {/* 03. WHY DIGGITY? (6 VALUE CARDS) */}
+                            <section className="pt-10 border-t border-glass-border space-y-8">
+                                <div className="text-center max-w-3xl mx-auto space-y-2">
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-brand-blue block">
+                                        KENAPA BERGABUNG DENGAN DIGGITY?
+                                    </span>
+                                    <h2 className="text-2xl md:text-4xl font-black text-text-main">
+                                        More Than Just a Workplace
+                                    </h2>
+                                    <p className="text-xs md:text-sm text-text-gray font-medium">
+                                        Bukan sekadar tempat bekerja, melainkan ruang bereksperimen, belajar, dan menciptakan dampak berkelanjutan.
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {WHY_DIGGITY_POINTS.map((item, idx) => {
+                                        const iconMap = {
+                                            Rocket,
+                                            BookOpen,
+                                            Users,
+                                            TrendingUp,
+                                            Target,
+                                            Globe
+                                        }[item.icon] || Sparkles;
+                                        const IconComponent = iconMap;
+
+                                        return (
+                                            <SpotlightCard key={idx} className="p-6 md:p-8 rounded-3xl border border-glass-border bg-white dark:bg-glass-bg flex flex-col justify-between">
+                                                <div className="space-y-4">
+                                                    <div className="w-12 h-12 rounded-2xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+                                                        <IconComponent className="w-6 h-6" />
+                                                    </div>
+                                                    <h3 className="text-lg font-black text-text-main">{item.title}</h3>
+                                                    <p className="text-xs text-text-gray font-medium leading-relaxed">{item.desc}</p>
+                                                </div>
+                                            </SpotlightCard>
+                                        );
+                                    })}
+                                </div>
+                            </section>
+
+                            {/* 04. LIFE AT DIGGITY & CULTURE */}
+                            <section id="culture" className="pt-10 border-t border-glass-border space-y-8 scroll-mt-32">
+                                <div className="text-center max-w-3xl mx-auto space-y-2">
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-brand-blue block">
+                                        OUR CULTURE
+                                    </span>
+                                    <h2 className="text-2xl md:text-4xl font-black text-text-main">
+                                        Work. Learn. Create. Grow.
+                                    </h2>
+                                    <p className="text-xs md:text-sm text-text-gray font-medium leading-relaxed">
+                                        Di Diggity, kehidupan kerja bukan hanya tentang deadline dan meeting. Kami ingin menciptakan lingkungan di mana setiap orang dapat berkolaborasi dalam proyek nyata, bertukar knowledge, mengikuti program L&amp;D, mengeksplorasi teknologi baru, dan mengambil ownership terhadap hasil karyanya.
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {CULTURE_VALUES.map((cv, i) => (
+                                        <div key={i} className="p-6 rounded-2xl bg-slate-50 dark:bg-black/20 border border-glass-border space-y-3">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-xl bg-brand-blue text-white flex items-center justify-center font-black text-xs">
+                                                    {cv.number}
+                                                </div>
+                                                <h4 className="text-base font-black text-text-main">{cv.title}</h4>
+                                            </div>
+                                            <p className="text-xs text-text-gray font-medium leading-relaxed">{cv.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* 07 & 08. CAREER DEVELOPMENT & NON-LINEAR PATH */}
+                            <section className="pt-10 border-t border-glass-border space-y-10">
+                                <div className="text-center max-w-3xl mx-auto space-y-2">
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-brand-blue block">
+                                        CAREER DEVELOPMENT &amp; PATH
+                                    </span>
+                                    <h2 className="text-2xl md:text-4xl font-black text-text-main">
+                                        Your Growth Is Part of Our Growth
+                                    </h2>
+                                    <p className="text-xs md:text-sm text-text-gray font-medium">
+                                        Kami ingin setiap anggota Diggity memiliki ruang untuk berkembang—baik sebagai specialist maupun future leader.
+                                    </p>
+                                </div>
+
+                                {/* 5 Growth Areas */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                                    {CAREER_DEVELOPMENT_AREAS.map((area, aIdx) => (
+                                        <div key={aIdx} className="p-5 rounded-2xl bg-white dark:bg-glass-bg border border-glass-border space-y-2 flex flex-col justify-between">
+                                            <div className="space-y-1.5">
+                                                <div className="w-8 h-8 rounded-lg bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs">
+                                                    0{aIdx + 1}
+                                                </div>
+                                                <h4 className="text-sm font-extrabold text-text-main">{area.title}</h4>
+                                                <p className="text-xs text-text-gray font-medium leading-relaxed">{area.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Career Growth Track Visual & Non-Linear Note */}
+                                <div className="p-6 md:p-8 rounded-3xl bg-slate-50 dark:bg-black/20 border border-glass-border space-y-6">
+                                    <h3 className="text-base font-black text-text-main">Jenjang Pertumbuhan Karier di Diggity</h3>
+                                    
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                                        {CAREER_GROWTH_TRACK.map((track, tIdx) => (
+                                            <div key={tIdx} className="p-4 rounded-xl bg-white dark:bg-glass-bg border border-glass-border space-y-1 text-center">
+                                                <span className="text-[10px] font-black text-brand-blue uppercase">Tahap {tIdx + 1}</span>
+                                                <h5 className="text-xs font-bold text-text-main">{track.level}</h5>
+                                                <p className="text-[10px] text-text-gray font-medium">{track.desc}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Non-linear note */}
+                                    <div className="p-4 rounded-2xl bg-brand-blue/10 border border-brand-blue/20 flex items-start gap-3 text-xs text-text-main font-medium">
+                                        <Compass className="w-5 h-5 text-brand-blue shrink-0 mt-0.5" />
+                                        <div>
+                                            <strong className="font-extrabold text-brand-blue block mb-0.5">Your career doesn&apos;t have to be linear.</strong>
+                                            Kamu dapat berkembang sebagai specialist, people leader, business leader, maupun mengeksplorasi bidang baru sesuai kompetensi dan aspirasimu. Fleksibilitas ini selaras dengan ekosistem multidisiplin Diggity.
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* 09. HIRING PROCESS (6 STEPS) */}
+                            <section className="pt-10 border-t border-glass-border space-y-8">
+                                <div className="text-center max-w-3xl mx-auto space-y-2">
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-brand-blue block">
+                                        HIRING PROCESS
+                                    </span>
+                                    <h2 className="text-2xl md:text-4xl font-black text-text-main">
+                                        How We Hire
+                                    </h2>
+                                    <p className="text-xs md:text-sm text-text-gray font-medium">
+                                        Tahapan seleksi transparan, terstruktur, dan saling menghargai waktu kedua belah pihak.
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {HIRING_PROCESS.map((step, sIdx) => (
+                                        <div key={sIdx} className="p-6 rounded-2xl bg-white dark:bg-glass-bg border border-glass-border space-y-3 hover:border-brand-blue/40 transition-colors">
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-2xl font-black text-brand-blue">{step.step}</span>
+                                                <span className="text-[10px] font-bold text-text-gray px-2 py-0.5 rounded-md bg-slate-100 dark:bg-black/30">
+                                                    {step.duration}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <h4 className="text-base font-extrabold text-text-main">{step.title}</h4>
+                                                <p className="text-[11px] font-bold text-brand-blue mb-1">{step.subtitle}</p>
+                                                <p className="text-xs text-text-gray font-medium leading-relaxed">{step.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* 10. EMPLOYEE VALUE PROPOSITION (WHAT YOU GET) */}
+                            <section className="pt-10 border-t border-glass-border space-y-8">
+                                <div className="text-center max-w-3xl mx-auto space-y-2">
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-brand-blue block">
+                                        EMPLOYEE VALUE PROPOSITION
+                                    </span>
+                                    <h2 className="text-2xl md:text-4xl font-black text-text-main">
+                                        What You Get at Diggity
+                                    </h2>
+                                    <p className="text-xs md:text-sm text-text-gray font-medium">
+                                        Standar komitmen kami dalam mendukung perjalanan profesional dan kesejahteraan setiap talenta.
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    {EVP_MATRIX.map((evp, eIdx) => (
+                                        <div key={eIdx} className="p-5 rounded-2xl bg-slate-50 dark:bg-black/20 border border-glass-border space-y-2">
+                                            <span className="px-2.5 py-0.5 rounded-md bg-brand-blue/10 text-brand-blue text-[10px] font-black uppercase tracking-wider inline-block">
+                                                {evp.area}
+                                            </span>
+                                            <p className="text-xs text-text-main font-medium leading-relaxed">{evp.offer}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* 11. DIGGITY ACADEMY × CAREER (CROSSOVER) */}
+                            <section className="pt-10 border-t border-glass-border">
+                                <div className="p-8 md:p-12 rounded-3xl bg-slate-900 text-white relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+                                    <div className="absolute top-0 right-0 w-80 h-80 bg-brand-blue/20 blur-[90px] rounded-full pointer-events-none" />
+                                    
+                                    <div className="space-y-4 max-w-2xl relative z-10">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-black uppercase tracking-wider">
+                                            <GraduationCap className="w-3.5 h-3.5 text-brand-blue" />
+                                            <span>DIGGITY ACADEMY × CAREER</span>
+                                        </div>
+                                        <h3 className="text-2xl md:text-4xl font-black">
+                                            Learn With Us. Grow With Us.
+                                        </h3>
+                                        <p className="text-xs md:text-sm text-white/80 leading-relaxed font-medium">
+                                            Bagi kami, recruitment bukan hanya tentang mencari orang yang sudah siap. Kami juga berkomitmen membantu membentuk talent masa depan. Melalui Diggity Academy, kamu dapat mengembangkan kapabilitas melalui:
+                                        </p>
+                                        <div className="flex flex-wrap gap-2 pt-1">
+                                            {['Bootcamp Intensif', 'Online Course', 'Professional Certification', 'Corporate Training', 'Workshop & Webinar', 'Learning Community'].map((item, idx) => (
+                                                <span key={idx} className="px-3 py-1 rounded-lg bg-white/10 border border-white/10 text-xs font-semibold text-white/90">
+                                                    • {item}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="relative z-10 shrink-0">
+                                        <Link
+                                            href="/academy"
+                                            className="px-6 py-3.5 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white font-black text-xs transition-all shadow-lg inline-flex items-center gap-2"
+                                        >
+                                            <BookOpen className="w-4 h-4" />
+                                            <span>Explore Diggity Academy →</span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* 12. TALENT COMMUNITY */}
+                            <section className="pt-6">
+                                <div className="p-8 md:p-10 rounded-3xl bg-white dark:bg-glass-bg border border-glass-border flex flex-col md:flex-row items-center justify-between gap-8">
+                                    <div className="space-y-3 max-w-2xl">
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-brand-blue block">
+                                            NETWORKING &amp; KNOWLEDGE
+                                        </span>
+                                        <h3 className="text-xl md:text-3xl font-black text-text-main">
+                                            Stay Connected With Diggity
+                                        </h3>
+                                        <p className="text-xs md:text-sm text-text-gray font-medium leading-relaxed">
+                                            Belum siap melamar sekarang? Tidak masalah. Bergabunglah dengan Diggity Talent Community untuk mendapatkan info lowongan terbaru, kesempatan internship, project opportunities, bootcamp, workshop, webinar, tips karier, dan insight industri teknologi.
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            setTalentModalType('community');
+                                            setTalentModalOpen(true);
+                                        }}
+                                        className="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-black dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-black text-xs transition-all shrink-0 cursor-pointer flex items-center gap-2"
+                                    >
+                                        <Users className="w-4 h-4" />
+                                        <span>Join Talent Community →</span>
+                                    </button>
+                                </div>
+                            </section>
+
+                            {/* 13. EMPLOYER BRANDING FINAL CTA */}
+                            <section className="pt-6 pb-2">
+                                <div className="p-8 md:p-12 rounded-3xl bg-brand-blue text-white text-center space-y-6 shadow-xl relative overflow-hidden">
+                                    <div className="max-w-2xl mx-auto space-y-3 relative z-10">
+                                        <h3 className="text-2xl md:text-4xl font-black">
+                                            Ready to Build What&apos;s Next?
+                                        </h3>
+                                        <p className="text-xs md:text-sm text-white/90 font-medium leading-relaxed">
+                                            Your next opportunity could start here. Bergabunglah bersama Diggity dan ikut membangun masa depan digital melalui technology, AI, creativity, growth, cloud, dan education.
+                                        </p>
+                                    </div>
+                                    <div className="relative z-10">
+                                        <button
+                                            onClick={() => scrollToSection('open-positions')}
+                                            className="px-8 py-3.5 rounded-xl bg-white text-brand-blue hover:bg-slate-50 font-black text-xs transition-all shadow-lg cursor-pointer inline-flex items-center gap-2"
+                                        >
+                                            <Search className="w-4 h-4" />
+                                            <span>Explore Open Positions</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </section>
+
                         </div>
                     )}
 
                     {/* ========================================================
-                        TAB 2: BERGABUNG SEBAGAI MENTOR & CONTRIBUTOR (BAGIAN 4.3)
+                        TAB 2: BERGABUNG SEBAGAI MENTOR & CONTRIBUTOR
                         ======================================================== */}
                     {activeTab === 'mentor' && (
                         <div className="space-y-12 animate-in fade-in duration-300">
                             
-                            {/* Intro Section */}
                             <div className="text-left space-y-3 max-w-3xl">
                                 <span className="text-xs font-black uppercase tracking-widest text-brand-blue block">JALUR KONTRIBUTOR RESMI</span>
                                 <h2 className="text-2xl md:text-4xl font-black text-text-main">
@@ -639,7 +887,6 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
                                 </p>
                             </div>
 
-                            {/* 4 Roles of Contribution */}
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {[
                                     {
@@ -678,7 +925,6 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
                                 })}
                             </div>
 
-                            {/* Perks & Form Layout */}
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-6 border-t border-glass-border">
                                 <div className="lg:col-span-5 space-y-6">
                                     <h3 className="text-xl font-black text-text-main">Keuntungan Menjadi Contributor</h3>
@@ -777,7 +1023,7 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
                                                         required
                                                         value={mentorForm.expertise}
                                                         onChange={(e) => setMentorForm({ ...mentorForm, expertise: e.target.value })}
-                                                        placeholder="Contoh: React & Next.js, AI Engineering, UI/UX Design System, DevOps AWS"
+                                                        placeholder="Contoh: Laravel & Next.js, AI Engineering, UI/UX Design System, DevOps AWS"
                                                         className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/20 border border-glass-border text-xs text-text-main outline-none focus:border-brand-blue"
                                                     />
                                                 </div>
@@ -867,10 +1113,10 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
                                     </div>
                                     <div className="pt-6">
                                         <Link
-                                            href="/job-connect/headhunting"
+                                            href="/contact"
                                             className="inline-flex items-center gap-2 text-xs font-bold text-brand-blue hover:text-brand-blue-hover"
                                         >
-                                            Pelajari Layanan Headhunting <ArrowRight className="w-4 h-4" />
+                                            Konsultasi Layanan Headhunting <ArrowRight className="w-4 h-4" />
                                         </Link>
                                     </div>
                                 </SpotlightCard>
@@ -897,10 +1143,10 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
                                     </div>
                                     <div className="pt-6">
                                         <Link
-                                            href="/job-connect/outsourcing"
+                                            href="/contact"
                                             className="inline-flex items-center gap-2 text-xs font-bold text-brand-blue hover:text-brand-blue-hover"
                                         >
-                                            Pelajari Layanan Outsourcing <ArrowRight className="w-4 h-4" />
+                                            Konsultasi Layanan Outsourcing <ArrowRight className="w-4 h-4" />
                                         </Link>
                                     </div>
                                 </SpotlightCard>
@@ -910,6 +1156,149 @@ Ringkasan Pengalaman: ${mentorForm.bio}`;
 
                 </div>
             </div>
+
+            {/* ========================================================
+                TALENT POOL / TALENT COMMUNITY INTERACTIVE MODAL
+                ======================================================== */}
+            {talentModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white dark:bg-brand-bg border border-glass-border rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl relative space-y-6 max-h-[90vh] overflow-y-auto">
+                        <button
+                            onClick={() => {
+                                setTalentModalOpen(false);
+                                setTalentStatus('idle');
+                            }}
+                            className="absolute top-5 right-5 text-text-gray hover:text-text-main p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-glass-bg transition-colors cursor-pointer"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+
+                        <div className="space-y-1">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-brand-blue block">
+                                {talentModalType === 'pool' ? 'TALENT POOL REGISTRATION' : 'TALENT COMMUNITY JOIN'}
+                            </span>
+                            <h3 className="text-xl font-black text-text-main">
+                                {talentModalType === 'pool' ? 'Gabung ke Diggity Talent Pool' : 'Gabung ke Diggity Talent Community'}
+                            </h3>
+                            <p className="text-xs text-text-gray font-medium leading-relaxed">
+                                {talentModalType === 'pool'
+                                    ? 'Kirimkan data profil dan portofolio Anda. Kami akan menghubungi saat posisi atau proyek yang sesuai dibuka.'
+                                    : 'Dapatkan kabar terkini seputar lowongan baru, webinar, workshop teknologi, dan kesempatan networking.'}
+                            </p>
+                        </div>
+
+                        {talentStatus === 'success' ? (
+                            <div className="text-center py-6 space-y-3">
+                                <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">
+                                    <CheckCircle2 className="w-7 h-7" />
+                                </div>
+                                <h4 className="text-sm font-bold text-text-main">Profil Berhasil Disimpan</h4>
+                                <p className="text-xs text-text-gray">{talentMessage}</p>
+                                <button
+                                    onClick={() => setTalentModalOpen(false)}
+                                    className="px-5 py-2 rounded-xl bg-brand-blue text-white text-xs font-bold cursor-pointer"
+                                >
+                                    Tutup
+                                </button>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleTalentSubmit} className="space-y-3.5">
+                                <div className="space-y-1">
+                                    <label className="text-[11px] font-bold text-text-gray block">Nama Lengkap *</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={talentForm.name}
+                                        onChange={(e) => setTalentForm({ ...talentForm, name: e.target.value })}
+                                        placeholder="Nama Lengkap Anda"
+                                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/20 border border-glass-border text-xs text-text-main outline-none focus:border-brand-blue"
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div className="space-y-1">
+                                        <label className="text-[11px] font-bold text-text-gray block">Email Aktif *</label>
+                                        <input
+                                            type="email"
+                                            required
+                                            value={talentForm.email}
+                                            onChange={(e) => setTalentForm({ ...talentForm, email: e.target.value })}
+                                            placeholder="nama@domain.com"
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/20 border border-glass-border text-xs text-text-main outline-none focus:border-brand-blue"
+                                        />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-[11px] font-bold text-text-gray block">No. WhatsApp *</label>
+                                        <input
+                                            type="tel"
+                                            required
+                                            value={talentForm.phone}
+                                            onChange={(e) => setTalentForm({ ...talentForm, phone: e.target.value })}
+                                            placeholder="08123456789"
+                                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/20 border border-glass-border text-xs text-text-main outline-none focus:border-brand-blue"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="text-[11px] font-bold text-text-gray block">Bidang Minat / Keahlian *</label>
+                                    <select
+                                        value={talentForm.domain}
+                                        onChange={(e) => setTalentForm({ ...talentForm, domain: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/20 border border-glass-border text-xs text-text-main outline-none focus:border-brand-blue cursor-pointer"
+                                    >
+                                        <option value="Technology & Engineering">Technology &amp; Software Engineering</option>
+                                        <option value="AI & Data Science">AI &amp; Data Science</option>
+                                        <option value="UI/UX & Product Design">UI/UX &amp; Product Design</option>
+                                        <option value="Growth & Digital Marketing">Growth &amp; Digital Marketing</option>
+                                        <option value="Cloud, DevOps & Cyber Security">Cloud, DevOps &amp; Cyber Security</option>
+                                        <option value="Business, PM & Consulting">Business, PM &amp; Consulting</option>
+                                    </select>
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="text-[11px] font-bold text-text-gray block">Link LinkedIn / GitHub / Portofolio *</label>
+                                    <input
+                                        type="url"
+                                        required
+                                        value={talentForm.portfolioUrl}
+                                        onChange={(e) => setTalentForm({ ...talentForm, portfolioUrl: e.target.value })}
+                                        placeholder="https://linkedin.com/in/... atau https://github.com/..."
+                                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-black/20 border border-glass-border text-xs text-text-main outline-none focus:border-brand-blue"
+                                    />
+                                </div>
+
+                                <div className="space-y-1">
+                                    <label className="text-[11px] font-bold text-text-gray block">Ceritakan Singkat Minat atau Pengalaman Anda</label>
+                                    <textarea
+                                        rows={2}
+                                        value={talentForm.note}
+                                        onChange={(e) => setTalentForm({ ...talentForm, note: e.target.value })}
+                                        placeholder="Keahlian utama, tools yang biasa digunakan, atau tipe peran yang Anda cari..."
+                                        className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-black/20 border border-glass-border text-xs text-text-main outline-none focus:border-brand-blue resize-none"
+                                    />
+                                </div>
+
+                                {talentStatus === 'error' && (
+                                    <div className="flex items-center gap-2 p-3 rounded-xl bg-red-500/10 text-red-500 text-xs font-semibold">
+                                        <AlertCircle className="w-4 h-4 shrink-0" />
+                                        <span>{talentMessage}</span>
+                                    </div>
+                                )}
+
+                                <button
+                                    type="submit"
+                                    disabled={talentStatus === 'loading'}
+                                    className="w-full py-3 rounded-xl bg-brand-blue hover:bg-brand-blue-hover text-white font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:opacity-50"
+                                >
+                                    {talentStatus === 'loading' ? 'Mengirim Data...' : 'Kirim Profil ke Talent Pool'}
+                                    <Send className="w-3.5 h-3.5" />
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

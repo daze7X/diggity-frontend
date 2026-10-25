@@ -834,7 +834,7 @@ export default function Navbar() {
                                 Categories
                             </span>
                             <div className="space-y-1">
-                                <Link href="/insights" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/insights/blog" onClick={() => setActiveDropdown(null)} className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
                                         <BookOpen className="w-3.5 h-3.5" />
                                     </div>
@@ -842,7 +842,7 @@ export default function Navbar() {
                                         Blog &amp; Education
                                     </h4>
                                 </Link>
-                                <Link href="/insights/news" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/insights/news" onClick={() => setActiveDropdown(null)} className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
                                         <TrendingUp className="w-3.5 h-3.5" />
                                     </div>
@@ -850,7 +850,7 @@ export default function Navbar() {
                                         News &amp; Announcements
                                     </h4>
                                 </Link>
-                                <Link href="/community" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/community" onClick={() => setActiveDropdown(null)} className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
                                         <Users className="w-3.5 h-3.5" />
                                     </div>
@@ -858,7 +858,7 @@ export default function Navbar() {
                                         Digital Community
                                     </h4>
                                 </Link>
-                                <Link href="/insights/success-stories" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/insights/success-stories" onClick={() => setActiveDropdown(null)} className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
                                         <Briefcase className="w-3.5 h-3.5" />
                                     </div>
@@ -866,7 +866,7 @@ export default function Navbar() {
                                         Success Stories
                                     </h4>
                                 </Link>
-                                <Link href="/partnership" className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
+                                <Link href="/partnership" onClick={() => setActiveDropdown(null)} className="group flex items-center space-x-2.5 py-1.5 px-2 rounded-xl hover:bg-glass-bg transition-colors">
                                     <div className="w-7 h-7 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
                                         <Users className="w-3.5 h-3.5" />
                                     </div>
@@ -925,6 +925,7 @@ export default function Navbar() {
                             <div className="pt-2 border-t border-glass-border/40 flex justify-start">
                                 <Link 
                                     href="/insights"
+                                    onClick={() => setActiveDropdown(null)}
                                     className="text-xs font-bold text-brand-blue hover:text-brand-blue-dark transition-colors flex items-center gap-1 group"
                                 >
                                     View all insights
@@ -1079,7 +1080,7 @@ export default function Navbar() {
                             </button>
                             {mobileExpanded === 'insights' && (
                                 <div className="mt-3 pl-4 space-y-3 text-sm animate-in fade-in duration-200">
-                                    <Link href="/insights" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
+                                    <Link href="/insights/blog" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
                                         Blog &amp; Education
                                     </Link>
                                     <Link href="/insights/news" onClick={() => setIsOpen(false)} className="block text-text-gray font-medium hover:text-brand-blue py-1">
